@@ -7,13 +7,13 @@
   <meta name="description" content="Accesorios de moto para moverte mejor por la ciudad. Envío a todo México, pagos seguros y devoluciones en 14 días." />
   <meta name="theme-color" content="#0b0b0b" />
 
-  <!-- Social (Open Graph) -->
+  <!-- Social -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content="MotoUrbano MX" />
   <meta property="og:description" content="Accesorios de moto urbanos, prácticos y fiables." />
   <meta property="og:image" content="https://leadradar.github.io/motorhub.mx/img/hero.jpg" />
 
-  <!-- Favicon & PWA (todo en raíz del repo) -->
+  <!-- Favicon & PWA -->
   <link rel="icon" type="image/x-icon" href="favicon.ico" />
   <link rel="icon" type="image/png" href="favicon.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
@@ -21,13 +21,19 @@
 
   <style>
     :root{
-      --bg:#0b0b0b;        /* negro base */
+      --bg:#0b0b0b;        /* negro base del body */
       --elev:#121212;      /* paneles */
-      --ink:#f5f7fa;       /* texto principal */
-      --muted:#c3c7cf;     /* texto secundario */
-      --line:#222;         /* bordes */
+      --ink:#f5f7fa;       /* texto sobre oscuro */
+      --muted:#c3c7cf;     /* texto secundario sobre oscuro */
+      --line:#222;         /* bordes sobre oscuro */
       --accent:#e10600;    /* rojo marca */
       --accent-2:#ff2a23;  /* rojo hover */
+
+      /* modo claro para header/footer */
+      --light-bg:#ffffff;
+      --light-ink:#111111;
+      --light-muted:#555;
+      --light-line:#eee;
     }
     *{box-sizing:border-box}
     html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
@@ -40,18 +46,24 @@
     .card{background:var(--elev);border:1px solid var(--line);border-radius:18px;overflow:hidden}
     .shadow{box-shadow:0 10px 30px rgba(0,0,0,.35)}
 
-    /* Header */
-    header.site{position:sticky;top:0;z-index:40;background:rgba(11,11,11,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-    .nav{display:flex;align-items:center;justify-content:space-between;height:68px}
+    /* HEADER (blanco) */
+    header.site{
+      position:sticky;top:0;z-index:40;
+      background:var(--light-bg);
+      color:var(--light-ink);
+      border-bottom:1px solid var(--light-line);
+    }
+    .nav{display:flex;align-items:center;justify-content:space-between;height:84px}
     .brand{display:flex;align-items:center;gap:12px;font-weight:900;letter-spacing:.2px}
-    .brand img{height:34px;width:auto}
+    .brand img{height:56px;width:auto}       /* logo grande */
+    .brand span{color:var(--light-ink)}
     .menu{display:none;gap:14px;align-items:center}
-    .menu a{padding:8px 10px;border-radius:10px;color:var(--muted)}
-    .menu a:hover{background:#171717;color:#fff}
-    .burger{display:inline-flex;flex-direction:column;gap:4px;padding:10px;border-radius:10px;border:1px solid var(--line);background:#0f0f0f}
-    .burger span{width:20px;height:2px;background:#fff}
+    .menu a{padding:10px 12px;border-radius:10px;color:var(--light-muted)}
+    .menu a:hover{background:#f3f3f3;color:var(--light-ink)}
+    .burger{display:inline-flex;flex-direction:column;gap:4px;padding:10px;border-radius:10px;border:1px solid var(--light-line);background:#fff}
+    .burger span{width:20px;height:2px;background:#111}
     @media(min-width:900px){.menu{display:flex}.burger{display:none}}
-    .mobile-panel{position:fixed;inset:0 0 auto 0;top:68px;background:#0f0f0f;border-top:1px solid var(--line);display:none}
+    .mobile-panel{position:fixed;inset:0 0 auto 0;top:84px;background:#fff;border-top:1px solid var(--light-line);display:none;color:var(--light-ink)}
     .mobile-panel.open{display:block}
 
     /* Buttons / chips */
@@ -61,7 +73,7 @@
     .badge{display:inline-flex;align-items:center;gap:8px;background:#121212;border:1px solid var(--line);color:var(--muted);padding:6px 10px;border-radius:999px;white-space:nowrap}
     .chip{display:inline-flex;align-items:center;gap:8px;background:#121212;border:1px solid var(--line);color:var(--muted);padding:8px 12px;border-radius:12px;white-space:nowrap}
 
-    /* Hero */
+    /* HERO */
     .hero{position:relative;border-bottom:1px solid var(--line)}
     .hero .wrap{display:grid;gap:24px;grid-template-columns:1fr;align-items:center;padding:38px 0}
     @media(min-width:980px){.hero .wrap{grid-template-columns:1.05fr .95fr;padding:64px 0}}
@@ -88,16 +100,19 @@
     .price{font-weight:900;color:#fff}
     .stars{color:#EDC531}
 
-    /* Footer */
-    footer.site{margin-top:48px;border-top:1px solid var(--line);background:#0f0f0f}
+    /* FOOTER (blanco) */
+    footer.site{
+      margin-top:48px;border-top:1px solid var(--light-line);
+      background:var(--light-bg);color:var(--light-ink)
+    }
     .footer-grid{display:grid;gap:18px;padding:28px 0}
-    @media(min-width:900px){.footer-grid{grid-template-columns:2fr 1fr 1fr}}
+    .footer-grid .sub{color:var(--light-muted)}
 
     /* WhatsApp flotante */
     .floating-wa{position:fixed;right:16px;bottom:16px;background:#25D366;color:#001;border-radius:999px;padding:12px 14px;display:flex;align-items:center;gap:10px;font-weight:800;box-shadow:0 10px 40px rgba(0,0,0,.35);z-index:45}
   </style>
 
-  <!-- Schema.org básico -->
+  <!-- Schema -->
   <script type="application/ld+json">
   {
     "@context":"https://schema.org",
@@ -110,7 +125,7 @@
   </script>
 </head>
 <body>
-  <!-- Header -->
+  <!-- Header (blanco) -->
   <header class="site">
     <div class="container nav">
       <a href="#inicio" class="brand">
@@ -123,7 +138,7 @@
         <a href="#productos">Productos</a>
         <a href="#faq">FAQ</a>
         <a href="#contacto">Contacto</a>
-        <a class="badge" href="#envios">Envíos</a>
+        <a class="badge" href="#envios" style="background:#fff;border-color:#ddd;color:#333">Envíos</a>
       </nav>
       <button class="burger" id="burger" aria-label="Abrir menú">
         <span></span><span></span><span></span>
@@ -132,17 +147,17 @@
     <div class="mobile-panel" id="mobilePanel">
       <div class="container" style="padding:12px 20px 20px">
         <div class="grid cols-1">
-          <a href="#inicio" class="badge" onclick="closeMenu()">Inicio</a>
-          <a href="#categorias" class="badge" onclick="closeMenu()">Categorías</a>
-          <a href="#productos" class="badge" onclick="closeMenu()">Productos</a>
-          <a href="#faq" class="badge" onclick="closeMenu()">FAQ</a>
-          <a href="#contacto" class="badge" onclick="closeMenu()">Contacto</a>
+          <a href="#inicio" class="badge" onclick="closeMenu()" style="background:#fff;border-color:#ddd;color:#333">Inicio</a>
+          <a href="#categorias" class="badge" onclick="closeMenu()" style="background:#fff;border-color:#ddd;color:#333">Categorías</a>
+          <a href="#productos" class="badge" onclick="closeMenu()" style="background:#fff;border-color:#ddd;color:#333">Productos</a>
+          <a href="#faq" class="badge" onclick="closeMenu()" style="background:#fff;border-color:#ddd;color:#333">FAQ</a>
+          <a href="#contacto" class="badge" onclick="closeMenu()" style="background:#fff;border-color:#ddd;color:#333">Contacto</a>
         </div>
       </div>
     </div>
   </header>
 
-  <!-- HERO -->
+  <!-- HERO (sigue dark para contraste) -->
   <section id="inicio" class="hero">
     <div class="container wrap">
       <div>
@@ -212,7 +227,7 @@
         <h2>Destacados de la semana</h2>
         <p class="sub">Top ventas y novedades</p>
       </div>
-      <a class="badge" href="https://motourbano.shop/collections/all">Ver todo →</a>
+      <a class="badge" href="https://motourbano.shop/collections/all" style="background:#fff;border-color:#ddd;color:#333">Ver todo →</a>
     </div>
 
     <div class="grid cols-2 cols-4" style="margin-top:10px">
@@ -303,20 +318,6 @@
     </div>
   </section>
 
-  <!-- BANNER PROMO -->
-  <section class="container" style="padding:8px 0 26px">
-    <div class="card shadow" style="display:grid;grid-template-columns:1fr;gap:12px;overflow:hidden">
-      <div style="padding:18px 18px">
-        <h2 style="margin:0 0 6px">Kit urbano esencial</h2>
-        <p class="sub" style="margin:0 0 12px">Soporte de móvil + guantes + riñonera. Seleccionados por nosotros.</p>
-        <a class="btn" href="https://motourbano.shop/collections/all">Ver kit</a>
-      </div>
-      <div style="border-top:1px solid var(--line)">
-        <img src="img/banner.jpg" alt="Kit urbano"/>
-      </div>
-    </div>
-  </section>
-
   <!-- FAQ -->
   <section id="faq" class="container" style="padding:12px 0 36px">
     <h2>Preguntas frecuentes</h2>
@@ -336,31 +337,33 @@
     </div>
   </section>
 
-  <!-- FOOTER -->
+  <!-- FOOTER (blanco) -->
   <footer id="contacto" class="site">
     <div class="container footer-grid">
       <div>
         <div class="brand" style="margin-bottom:8px">
           <img src="img/logo.png" alt="MotoUrbano"/>
-          <strong>MotoUrbano MX</strong>
+          <strong style="color:#111">MotoUrbano MX</strong>
         </div>
-        <p class="sub">Accesorios urbanos, prácticos y fiables. Envío a todo México.</p>
-        <p class="sub">Email: <a href="mailto:hola@motourbano.shop">hola@motourbano.shop</a></p>
-        <p class="sub">WhatsApp: <a href="https://wa.me/520000000000" target="_blank" rel="noopener">+52 000 000 0000</a></p>
+        <p class="sub" style="color:#555">Accesorios urbanos, prácticos y fiables. Envío a todo México.</p>
+        <p class="sub" style="color:#555">Email: <a href="mailto:hola@motourbano.shop" style="color:#333">hola@motourbano.shop</a></p>
+        <p class="sub" style="color:#555">WhatsApp: <a href="https://wa.me/520000000000" target="_blank" rel="noopener" style="color:#333">+52 000 000 0000</a></p>
       </div>
       <div>
-        <p><strong>Legal</strong></p>
-        <p><a href="#envios">Envíos</a></p>
-        <p><a href="#devoluciones">Devoluciones</a></p>
-        <p><a href="#privacidad">Privacidad</a></p>
-        <p><a href="#terminos">Términos</a></p>
+        <p><strong style="color:#111">Legal</strong></p>
+        <p><a href="#envios" style="color:#333">Envíos</a></p>
+        <p><a href="#devoluciones" style="color:#333">Devoluciones</a></p>
+        <p><a href="#privacidad" style="color:#333">Privacidad</a></p>
+        <p><a href="#terminos" style="color:#333">Términos</a></p>
       </div>
       <div>
-        <p><strong>Atención</strong></p>
-        <p class="sub">Lun–Vie · 10:00–18:00</p>
+        <p><strong style="color:#111">Atención</strong></p>
+        <p class="sub" style="color:#555">Lun–Vie · 10:00–18:00</p>
       </div>
     </div>
-    <div class="container sub" style="padding-bottom:20px"><small>© <span id="year"></span> MotoUrbano MX. Todos los derechos reservados.</small></div>
+    <div class="container" style="padding-bottom:20px;color:#555">
+      <small>© <span id="year"></span> MotoUrbano MX. Todos los derechos reservados.</small>
+    </div>
   </footer>
 
   <!-- WhatsApp flotante -->
