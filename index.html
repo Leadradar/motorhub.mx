@@ -54,7 +54,7 @@
     nav.menu a{padding:8px 10px;border-radius:10px;color:#444}
     nav.menu a:hover{background:#f3f3f3;color:#111}
 
-    /* HERO (logo protagonista + claims) */
+    /* HERO (logo protagonista + chips) */
     .hero{border-bottom:1px solid var(--line);background:#fff}
     .hero .wrap{display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;padding:44px 0}
     .hero .logo-big img{width:360px;height:auto}
@@ -70,18 +70,24 @@
     p.lead{font-size:clamp(15px,2vw,18px);color:#444;margin:0;text-align:center}
     .sub{color:var(--muted);text-align:center}
 
-    /* Línea de beneficios con PayPal */
-    .benefits{
-      display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:4px
+    /* Chips bajo el título */
+    .chips-row{
+      display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:center;margin-top:8px
     }
-    .pp{display:inline-flex;align-items:center;justify-content:center;padding:6px 10px;border:1px solid var(--line);border-radius:999px;background:#fff}
-    .pp svg{height:18px;width:auto;display:block}
-    .dot{opacity:.35}
-
-    /* Chips */
     .chip{display:inline-flex;align-items:center;gap:8px;background:#fafafa;border:1px solid var(--line);color:#444;padding:8px 12px;border-radius:12px;white-space:nowrap}
 
+    /* PayPal — fila propia debajo de los chips */
+    .paypal-row{
+      display:flex;justify-content:center;align-items:center;margin-top:10px
+    }
+    .pp-badge{
+      display:inline-flex;align-items:center;justify-content:center;
+      padding:8px 14px;border:1px solid var(--line);border-radius:999px;background:#fff
+    }
+    .pp-badge svg{height:22px;width:auto;display:block}
+
     /* Categorías */
+    #categorias h2, #categorias .sub{ text-align:center }
     .tile{position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:#fff}
     .tile img{width:100%;height:200px;object-fit:cover;filter:saturate(1) contrast(1.04)}
     .tile .label{
@@ -103,6 +109,9 @@
     /* TRUST BAR centrada */
     .trustbar{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:10px}
 
+    /* FAQ — más espacio sobre el card */
+    #faq .card{margin-top:16px}
+
     /* FOOTER */
     footer.site{margin-top:48px;border-top:1px solid var(--line);background:#fff;color:#111}
     .footer-head{display:flex;flex-direction:column;align-items:center;gap:8px;padding:18px 0 6px}
@@ -118,16 +127,16 @@
     .footer-legal .dot{opacity:.35}
     .copy{padding-bottom:20px;color:#666;text-align:center}
 
-    /* WhatsApp flotante — SOLO ICONO */
+    /* WhatsApp flotante — SOLO ICONO, SVG compatible */
     .floating-wa{
       position:fixed;right:16px;bottom:16px;background:#25D366;color:#fff;
       width:60px;height:60px;border-radius:50%;
       display:flex;align-items:center;justify-content:center;
-      box-shadow:0 10px 30px rgba(0,0,0,.15);z-index:45
+      box-shadow:0 10px 30px rgba(0,0,0,.15);z-index:45;cursor:pointer
     }
-    .floating-wa svg{width:30px;height:30px;display:block}
-
-    /* Ocultar destacados en móvil (como antes) */
+    .floating-wa svg{width:32px;height:32px;display:block}
+    
+    /* Ocultar destacados en móvil */
     @media(max-width:640px){#productos{display:none}}
   </style>
 
@@ -169,26 +178,22 @@
       </div>
       <h1>Accesorios de moto para la ciudad</h1>
 
-      <!-- Línea de beneficios coherente con PayPal -->
-      <div class="benefits">
-        <span class="pp" title="Pago seguro con PayPal" aria-label="Pago seguro con PayPal">
+      <!-- Chips -->
+      <div class="chips-row">
+        <span class="chip">💳 Pagos seguros</span>
+        <span class="chip">🚚 Envío a todo México</span>
+        <span class="chip">↩️ 14 días devolución</span>
+      </div>
+
+      <!-- PayPal bajo los chips -->
+      <div class="paypal-row">
+        <span class="pp-badge" title="Pago seguro con PayPal" aria-label="Pago seguro con PayPal">
           <!-- PayPal (PP) -->
-          <svg viewBox="0 0 96 24" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
+          <svg viewBox="0 0 96 24" xmlns="http://www.w3.org/2000/svg" role="img">
             <path fill="#003087" d="M21.9 3.5h-6.7c-.8 0-1.5.6-1.6 1.4L10 25.7c-.1.6.4 1.1 1 1.1h4.3c.6 0 1.1-.4 1.2-1l1-6.5c.1-.7.7-1.2 1.4-1.2h2.1c6.5 0 10.3-3.1 11.3-9.2.5-2.7 0-4.8-1.5-6.2-1.5-1.6-4-2.2-7.9-2.2Zm.8 9.3c-.6 3.7-3.7 3.7-6.7 3.7h-1.7l1.2-7.8c.1-.5.5-.8 1-.8h.9c2.1 0 4.1 0 5.2 1 .7.5 1 1.4.8 2.9Z"/>
             <path fill="#009CDE" d="M38.5 3.5h-6.7c-.8 0-1.5.6-1.6 1.4l-3.5 20.8c-.1.6.4 1.1 1 1.1H32c.6 0 1.1-.4 1.2-1l1-6.5c.1-.7.7-1.2 1.4-1.2h2.1c6.5 0 10.3-3.1 11.3-9.2.5-2.7 0-4.8-1.5-6.2-1.5-1.6-4-2.2-7.9-2.2Zm.8 9.3c-.6 3.7-3.7 3.7-6.7 3.7h-1.7l1.2-7.8c.1-.5.5-.8 1-.8h.9c2.1 0 4.1 0 5.2 1 .7.5 1 1.4.8 2.9Z"/>
           </svg>
         </span>
-        <span>Pago seguro con PayPal</span>
-        <span class="dot">·</span>
-        <span>Envío a todo México</span>
-        <span class="dot">·</span>
-        <span>Devoluciones 14 días</span>
-      </div>
-
-      <div class="grid cols-3" style="margin:14px 0 0;justify-items:center">
-        <span class="chip">💳 Pagos seguros</span>
-        <span class="chip">🚚 Envío nacional</span>
-        <span class="chip">↩️ 14 días devolución</span>
       </div>
     </div>
   </section>
@@ -233,7 +238,7 @@
     </div>
   </section>
 
-  <!-- PRODUCTOS DESTACADOS (3 items) — oculto en móvil por CSS -->
+  <!-- PRODUCTOS DESTACADOS (3 items) — oculto en móvil -->
   <section id="productos" class="container" style="padding:18px 0">
     <h2>Destacados de la semana</h2>
     <p class="sub">Top ventas y novedades</p>
@@ -292,8 +297,8 @@
     </div>
   </section>
 
-  <!-- FAQ -->
-  <section id="faq" class="container" style="padding:12px 0 36px">
+  <!-- FAQ (más espacio encima del card) -->
+  <section id="faq" class="container" style="padding:26px 0 36px">
     <h2>Preguntas frecuentes</h2>
     <div class="card shadow" style="padding:12px">
       <details style="background:#fff;border:1px solid var(--line);border-radius:12px;margin:8px 0;padding:10px">
@@ -346,16 +351,21 @@
     </div>
   </footer>
 
-  <!-- WhatsApp flotante (solo icono, perfecto) -->
-  <a class="floating-wa" href="https://wa.me/520000000000" target="_blank" rel="noopener" aria-label="WhatsApp Soporte">
-    <svg viewBox="0 0 512 512" aria-hidden="true" focusable="false">
-      <circle cx="256" cy="256" r="256" fill="#25D366"/>
-      <path fill="#FFFFFF" d="M380.9 306.5c-5.8-2.9-34.5-17-39.8-18.9-5.3-1.9-9.1-2.9-12.9 2.9-3.8 5.8-14.8 18.9-18.1 22.7-3.3 3.8-6.7 4.4-12.4 1.5-5.8-2.9-24.3-8.9-46.3-28.3-17.1-15.2-28.7-34-32-39.8-3.3-5.8-.4-9 2.5-11.9 2.6-2.6 5.8-6.7 8.7-10 2.9-3.3 3.8-5.8 5.8-9.6 1.9-3.8.9-7.3-.5-10.2-1.5-2.9-12.9-31.2-17.7-42.6-4.7-11.4-9.4-9.8-12.9-9.8-3.3 0-7.1-.4-10.9-.4s-10 1.5-15.3 7.3c-5.3 5.8-20.2 19.8-20.2 48.2s20.7 55.9 23.6 59.7c2.9 3.8 40.7 62.1 98.5 87.1 13.8 5.9 24.6 9.4 33 12.1 13.8 4.4 26.4 3.8 36.3 2.3 11.1-1.6 34-13.9 38.8-27.2 4.8-13.3 4.8-24.7 3.3-27.2-1.5-2.5-5.6-3.9-11.4-6.8z"/>
+  <!-- WhatsApp flotante (solo icono, SVG robusto) -->
+  <a class="floating-wa" href="https://wa.me/520000000000" target="_blank" rel="noopener" aria-label="WhatsApp Soporte" title="WhatsApp">
+    <!-- Versión compat: círculo + logotipo interno -->
+    <svg viewBox="0 0 256 256" role="img" aria-hidden="true">
+      <defs>
+        <clipPath id="clipCircle"><circle cx="128" cy="128" r="128"/></clipPath>
+      </defs>
+      <g clip-path="url(#clipCircle)">
+        <rect width="256" height="256" fill="#25D366"/>
+        <path fill="#FFFFFF" d="M187.6 144.6c-4-2-23.8-11.7-27.4-13-3.6-1.3-6.3-2-8.9 2-2.6 4-10.2 13-12.4 15.6-2.3 2.6-4.6 3-8.5 1-4-2-16.8-6.1-32-19.6-11.8-10.5-19.8-23.6-22.1-27.4-2.3-4-.3-6.2 1.7-8.2 1.8-1.8 4-4.6 6-6.9 2-2.3 2.6-4 4-6.7 1.3-2.6.6-5.1-.3-7.1-.9-2-8.9-21.5-12.2-29.4-3.2-7.9-6.5-6.8-8.9-6.8-2.3 0-4.9-.3-7.5-.3s-6.9 1-10.6 5.1c-3.6 4-14 13.7-14 33.4s14.4 38.8 16.4 41.5c2 2.6 28.1 43.2 68.1 60.6 9.5 4.1 17 6.5 22.8 8.4 9.6 3.1 18.2 2.6 25 1.6 7.6-1.1 23.4-9.7 26.7-19 3.3-9.3 3.3-17.2 2.3-18.9-1-1.7-3.9-2.7-8-4.7z"/>
+      </g>
     </svg>
   </a>
 
   <script>
-    // Año dinámico
     document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 </body>
