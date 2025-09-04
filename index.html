@@ -6,26 +6,17 @@
   <title>MotoUrbano MX — Accesorios urbanos para tu moto</title>
   <meta name="description" content="Accesorios urbanos para tu moto: prácticos, fiables y a buen precio. Envío a todo México y devoluciones en 14 días." />
   <meta name="theme-color" content="#ffffff" />
-
-  <!-- Social -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content="MotoUrbano MX" />
   <meta property="og:description" content="Accesorios urbanos para tu moto." />
   <meta property="og:image" content="https://leadradar.github.io/motorhub.mx/img/hero.jpg" />
-
-  <!-- PWA / iconos -->
   <link rel="icon" type="image/x-icon" href="favicon.ico" />
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="manifest" href="site.webmanifest" />
-
-  <!-- Tipografías -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700;800&display=swap" rel="stylesheet">
 
   <style>
-    :root{
-      --bg:#ffffff; --elev:#ffffff; --ink:#111; --muted:#666; --line:#eee;
-      --accent:#e10600;
-    }
+    :root{ --bg:#ffffff; --elev:#ffffff; --ink:#111; --muted:#666; --line:#eee; --accent:#e10600; }
     *{box-sizing:border-box}
     html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
     img{display:block;max-width:100%;height:auto;user-drag:none;-webkit-user-drag:none}
@@ -37,7 +28,7 @@
     .card{background:var(--elev);border:1px solid var(--line);border-radius:18px;overflow:hidden}
     .shadow{box-shadow:0 10px 30px rgba(0,0,0,.08)}
 
-    /* Header centrado */
+    /* Header */
     header.site{position:sticky;top:0;z-index:40;background:#fff;border-bottom:1px solid var(--line)}
     .header-wrap{display:flex;flex-direction:column;align-items:center;gap:8px;padding:14px 0}
     .brand-stack{display:flex;flex-direction:column;align-items:center;gap:6px}
@@ -48,7 +39,7 @@
     nav.menu a:hover{background:#f3f3f3;color:#111}
     #cartBtn{font-weight:700}
 
-    /* Compensar header fijo al navegar por anclas */
+    /* Compensar header fijo */
     section{scroll-margin-top:220px}
 
     /* Hero */
@@ -57,18 +48,15 @@
     .hero .logo-big img{width:360px}
     @media(min-width:1100px){.hero .logo-big img{width:400px}}
     @media(max-width:520px){.hero .logo-big img{width:220px}}
-    h1{
-      font-family:Poppins,system-ui; font-weight:800; letter-spacing:.2px;
-      font-size:clamp(30px,5vw,52px); line-height:1.04; margin:.1em 0 .2em; text-align:center
-    }
-    h2{font-size:clamp(22px,3.6vw,34px); margin:0 0 10px; text-align:center}
-    p.lead{font-size:clamp(15px,2vw,18px); color:#444; margin:0; text-align:center}
-    .sub{color:var(--muted); text-align:center}
+    h1{font-family:Poppins,system-ui;font-weight:800;letter-spacing:.2px;font-size:clamp(30px,5vw,52px);line-height:1.04;margin:.1em 0 .2em;text-align:center}
+    h2{font-size:clamp(22px,3.6vw,34px);margin:0 0 10px;text-align:center}
+    p.lead{font-size:clamp(15px,2vw,18px);color:#444;margin:0;text-align:center}
+    .sub{color:var(--muted);text-align:center}
 
     .chips-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:center;margin-top:8px}
     .chip{display:inline-flex;align-items:center;gap:8px;background:#fafafa;border:1px solid var(--line);color:#444;padding:8px 12px;border-radius:12px;white-space:nowrap}
 
-    /* PayPal fila propia */
+    /* PayPal */
     .paypal-row{display:flex;justify-content:center;margin-top:12px}
     .pp-badge{display:inline-flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:10px 16px}
     .pp-badge img{height:22px;display:block}
@@ -77,8 +65,7 @@
     #categorias h2,#categorias .sub{text-align:center}
     .tile{position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:#fff;cursor:pointer}
     .tile img{width:100%;height:200px;object-fit:cover}
-    .tile .label{position:absolute;left:50%;bottom:10px;transform:translateX(-50%);
-      background:rgba(0,0,0,.55);padding:8px 10px;border-radius:10px;color:#fff;font-weight:800}
+    .tile .label{position:absolute;left:50%;bottom:10px;transform:translateX(-50%);background:rgba(0,0,0,.55);padding:8px 10px;border-radius:10px;color:#fff;font-weight:800}
 
     /* Productos + filtros */
     #productos .filters{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:12px 0 6px}
@@ -86,49 +73,46 @@
     .pill.is-active{background:#111;color:#fff;border-color:#111}
     .prod{display:flex;flex-direction:column;cursor:pointer}
     .prod img{aspect-ratio:1/1;object-fit:cover;background:#f4f4f4}
-    .prod .swap{position:relative}
-    .prod .swap img:nth-child(2){position:absolute;inset:0;opacity:0;transition:opacity .25s ease}
-    .prod:hover .swap img:nth-child(2){opacity:1}
     .prod .pad{padding:10px}
     .price{font-weight:900;color:#111}
     .stars{color:#C99A10}
     .hidden{display:none !important}
 
-    /* Modal producto (elegante) */
-    .modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;padding:20px;z-index:60}
+    /* Modal producto — compacto y no se corta */
+    .modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;padding:16px;z-index:60}
     .modal.open{display:flex}
-    .modal-card{background:#fff;border-radius:18px;max-width:980px;width:100%;overflow:hidden;border:1px solid var(--line)}
-    .modal-head{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid var(--line)}
+    .modal-card{background:#fff;border-radius:18px;max-width:920px;width:96%;max-height:92vh;display:flex;flex-direction:column;overflow:hidden;border:1px solid var(--line)}
+    .modal-head{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-bottom:1px solid var(--line)}
     .modal-title{font:700 18px/1.2 Poppins,system-ui}
-    .modal-body{display:grid;gap:16px;padding:16px}
-    @media(min-width:900px){.modal-body{grid-template-columns:1.1fr .9fr}}
+    .modal-body{display:grid;gap:14px;padding:14px;overflow:auto}
+    @media(min-width:900px){.modal-body{grid-template-columns:1.05fr .95fr}}
+    .modal-body img{width:100%;height:auto;max-height:48vh;object-fit:contain;border-radius:12px;background:#f7f7f7}
     .close{border:none;background:#f3f3f3;border-radius:10px;padding:8px 10px;cursor:pointer}
     .qty{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:10px;overflow:hidden}
     .qty button{background:#f6f6f6;border:none;padding:8px 10px;cursor:pointer}
     .qty input{width:48px;text-align:center;border:none;padding:8px}
-
     .btn{display:inline-flex;align-items:center;gap:8px;border:1px solid #111;background:#111;color:#fff;border-radius:12px;padding:10px 14px;cursor:pointer}
     .btn.secondary{background:#fff;color:#111}
 
-    /* Cart modal */
-    .cart{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;padding:20px;z-index:65}
+    /* Cart */
+    .cart{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;padding:16px;z-index:65}
     .cart.open{display:flex}
-    .cart-card{background:#fff;border-radius:18px;max-width:760px;width:100%;overflow:hidden;border:1px solid var(--line)}
+    .cart-card{background:#fff;border-radius:18px;max-width:760px;width:96%;max-height:92vh;display:flex;flex-direction:column;overflow:hidden;border:1px solid var(--line)}
     .cart-head{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid var(--line)}
-    .cart-body{padding:12px 16px}
+    .cart-body{padding:12px 16px;overflow:auto}
     .cart-item{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;border-bottom:1px solid var(--line);padding:10px 0}
     .cart-item img{width:60px;height:60px;object-fit:cover;border-radius:10px}
-    .cart-foot{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-top:1px solid var(--line)}
+    .cart-foot{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-top:1px solid var(--line);gap:10px;flex-wrap:wrap}
 
     /* Trust bar */
     .trustbar{display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
 
-    /* FAQ: más aire bajo el título y debajo de la sección */
+    /* FAQ con más aire */
     #faq h2{margin-bottom:22px}
     #faq .card{margin-top:26px}
     #faq{padding-bottom:40px}
 
-    /* Footer */
+    /* Footer centrado */
     footer.site{margin-top:48px;border-top:1px solid var(--line);background:#fff}
     .footer-head{display:flex;flex-direction:column;align-items:center;gap:6px;padding:18px 0 6px}
     .footer-head img{height:52px}
@@ -142,14 +126,15 @@
     .footer-legal .dot{opacity:.35}
     .copy{padding-bottom:20px;color:#666;text-align:center}
 
-    /* WhatsApp flotante (icono oficial centrado) */
+    /* WhatsApp flotante más pro */
     .floating-wa{
       position:fixed;right:16px;bottom:16px;background:#25D366;
-      width:60px;height:60px;border-radius:50%;
+      width:64px;height:64px;border-radius:50%;
       display:flex;align-items:center;justify-content:center;
-      box-shadow:0 10px 30px rgba(0,0,0,.15);z-index:45;cursor:pointer
+      border:2px solid #fff;
+      box-shadow:0 10px 30px rgba(0,0,0,.18);z-index:45;cursor:pointer
     }
-    .floating-wa svg{width:30px;height:30px;display:block}
+    .floating-wa svg{width:34px;height:34px;display:block}
   </style>
 </head>
 <body>
@@ -183,7 +168,6 @@
         <span class="chip">↩️ 14 días devolución</span>
       </div>
 
-      <!-- PayPal: placa debajo de chips -->
       <div class="paypal-row">
         <span class="pp-badge" title="Pago seguro con PayPal" aria-label="Pago seguro con PayPal">
           <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal"/>
@@ -227,7 +211,7 @@
     </div>
   </section>
 
-  <!-- PRODUCTOS + filtros -->
+  <!-- PRODUCTOS -->
   <section id="productos" class="container" style="padding:26px 0">
     <h2>Productos</h2>
     <p class="sub">Top ventas y esenciales urbanos.</p>
@@ -248,12 +232,9 @@
         data-name="Soporte manillar antivibración"
         data-price="$699 MXN"
         data-desc="Sujeción firme · Absorción de vibraciones · Compatible con la mayoría de manillares"
-        data-img1="img/soporte-antivibracion-01.jpg"
-        data-img2="img/soporte-antivibracion-02.jpg">
-        <div class="swap">
-          <img src="img/soporte-antivibracion-01.jpg" alt="Soporte manillar antivibración"/>
-          <img src="img/soporte-antivibracion-02.jpg" alt="" aria-hidden="true"/>
-        </div>
+        data-img1="img/cat-soportes.jpg"
+        data-img2="img/cat-soportes.jpg">
+        <img src="img/cat-soportes.jpg" alt="Soporte manillar antivibración"/>
         <div class="pad">
           <div style="display:flex;justify-content:space-between;gap:10px">
             <strong>Soporte manillar antivibración</strong>
@@ -269,12 +250,9 @@
         data-name="Guantes impermeables táctiles"
         data-price="$649 MXN"
         data-desc="Impermeables · Dedos táctiles · Refuerzos en palma"
-        data-img1="img/guantes-urbanos-verano-01.jpg"
-        data-img2="img/guantes-urbanos-verano-02.jpg">
-        <div class="swap">
-          <img src="img/guantes-urbanos-verano-01.jpg" alt="Guantes impermeables táctiles"/>
-          <img src="img/guantes-urbanos-verano-02.jpg" alt="" aria-hidden="true"/>
-        </div>
+        data-img1="img/cat-guantes.jpg"
+        data-img2="img/cat-guantes.jpg">
+        <img src="img/cat-guantes.jpg" alt="Guantes impermeables táctiles"/>
         <div class="pad">
           <div style="display:flex;justify-content:space-between;gap:10px">
             <strong>Guantes impermeables táctiles</strong>
@@ -290,12 +268,9 @@
         data-name="Chaleco reflectante"
         data-price="$299 MXN"
         data-desc="Alta visibilidad · Ajuste sencillo · Ligero"
-        data-img1="img/chaleco-fosforito-01.jpg"
-        data-img2="img/chaleco-fosforito-02.jpg">
-        <div class="swap">
-          <img src="img/chaleco-fosforito-01.jpg" alt="Chaleco reflectante"/>
-          <img src="img/chaleco-fosforito-02.jpg" alt="" aria-hidden="true"/>
-        </div>
+        data-img1="img/cat-chalecos.jpg"
+        data-img2="img/cat-chalecos.jpg">
+        <img src="img/cat-chalecos.jpg" alt="Chaleco reflectante"/>
         <div class="pad">
           <div style="display:flex;justify-content:space-between;gap:10px">
             <strong>Chaleco reflectante</strong>
@@ -311,12 +286,9 @@
         data-name="Riñonera impermeable"
         data-price="$549 MXN"
         data-desc="Impermeable · Cierre seguro · Bolsillos internos"
-        data-img1="img/rinonera-impermeable-01.jpg"
-        data-img2="img/rinonera-impermeable-02.jpg">
-        <div class="swap">
-          <img src="img/rinonera-impermeable-01.jpg" alt="Riñonera impermeable urbana"/>
-          <img src="img/rinonera-impermeable-02.jpg" alt="" aria-hidden="true"/>
-        </div>
+        data-img1="img/cat-rinoneras.jpg"
+        data-img2="img/cat-rinoneras.jpg">
+        <img src="img/cat-rinoneras.jpg" alt="Riñonera impermeable urbana"/>
         <div class="pad">
           <div style="display:flex;justify-content:space-between;gap:10px">
             <strong>Riñonera impermeable</strong>
@@ -332,12 +304,9 @@
         data-name="Bolsa trasera impermeable"
         data-price="$799 MXN"
         data-desc="Montaje rápido · Resistente al agua · Capacidad ampliable"
-        data-img1="img/bolsa-trasera-impermeable-01.jpg"
-        data-img2="img/bolsa-trasera-impermeable-02.jpg">
-        <div class="swap">
-          <img src="img/bolsa-trasera-impermeable-01.jpg" alt="Bolsa trasera impermeable para asiento"/>
-          <img src="img/bolsa-trasera-impermeable-02.jpg" alt="" aria-hidden="true"/>
-        </div>
+        data-img1="img/cat-bolsas.jpg"
+        data-img2="img/cat-bolsas.jpg">
+        <img src="img/cat-bolsas.jpg" alt="Bolsa trasera impermeable para asiento"/>
         <div class="pad">
           <div style="display:flex;justify-content:space-between;gap:10px">
             <strong>Bolsa trasera impermeable</strong>
@@ -374,7 +343,7 @@
         <div class="sub" style="margin-top:8px">Garantía de 6 meses por defectos de fábrica. Si pasa algo, lo resolvemos.</div>
       </details>
       <details style="background:#fff;border:1px solid var(--line);border-radius:12px;margin:10px 0;padding:10px">
-        <summary style="cursor:pointer;font-weight:700">¿Cómo consultar el estatus del pedido?</summary>
+        <summary style="cursor:pointer;font-weight:700">¿Cómo consulto el estatus del pedido?</summary>
         <div class="sub" style="margin-top:8px">Te enviaremos el tracking por email. Si lo necesitas, pídenoslo por WhatsApp.</div>
       </details>
     </div>
@@ -411,9 +380,9 @@
     </div>
   </footer>
 
-  <!-- WhatsApp flotante (icono oficial, centrado) -->
+  <!-- WhatsApp flotante -->
   <a class="floating-wa" href="https://wa.me/520000000000" target="_blank" rel="noopener" aria-label="WhatsApp Soporte" title="WhatsApp">
-    <!-- Ajuste de centrado con un pequeño translate dentro del viewBox -->
+    <!-- Icono oficial centrado -->
     <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
       <g transform="translate(0.5,0.5)">
         <path fill="#FFFFFF" d="M.057 24l1.687-6.163A11.867 11.867 0 0 1 0 11.78C0 5.27 5.373 0 12 0c3.193 0 6.2 1.24 8.477 3.514A11.86 11.86 0 0 1 24 11.78c0 6.51-5.373 11.78-12 11.78-1.99 0-3.89-.467-5.605-1.356L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.347 1.591 5.448 0 9.886-4.355 9.886-9.727 0-5.372-4.438-9.727-9.886-9.727-5.44 0-9.886 4.355-9.886 9.727 0 2.31.81 4.44 2.17 6.167l-.99 3.62 3.36-.65zm11.387-5.464c-.066-.11-.242-.176-.506-.308-.264-.131-1.56-.767-1.8-.853-.24-.088-.415-.131-.59.13-.176.262-.677.853-.83 1.027-.153.176-.307.197-.57.066-.264-.132-1.115-.409-2.124-1.304-.785-.693-1.315-1.551-1.469-1.813-.153-.262-.017-.404.115-.535.118-.117.264-.307.395-.46.131-.154.175-.263.264-.439.088-.175.044-.33-.022-.461-.066-.131-.59-1.42-.807-1.944-.212-.514-.43-.445-.59-.454l-.503-.01c-.175 0-.46.065-.702.33-.242.263-.929.907-.929 2.209 0 1.302.952 2.561 1.084 2.739.131.176 1.873 2.998 4.54 4.206.634.283 1.129.452 1.518.579.638.203 1.221.175 1.678.106.512-.076 1.575-.658 1.798-1.294.22-.636.22-1.18.153-1.293z"/>
@@ -431,7 +400,7 @@
       <div class="modal-body">
         <div>
           <img id="mImg1" src="" alt="" />
-          <img id="mImg2" src="" alt="" style="margin-top:10px;border-radius:12px"/>
+          <img id="mImg2" src="" alt="" style="margin-top:10px"/>
         </div>
         <div>
           <div class="sub" id="mPrice" style="font-size:22px;margin:0 0 12px"></div>
@@ -460,9 +429,17 @@
       <div class="cart-body" id="cBody"></div>
       <div class="cart-foot">
         <strong>Total: <span id="cTotal">$0 MXN</span></strong>
-        <div style="display:flex;gap:8px">
-          <button class="btn secondary" id="cClear">Vaciar</button>
-          <a class="btn" id="cCheckout" href="https://wa.me/520000000000" target="_blank" rel="noopener">Finalizar por WhatsApp</a>
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+          <button class="btn secondary" id="cClear" type="button">Vaciar</button>
+          <!-- PayPal Standard (reemplaza el correo) -->
+          <form id="ppForm" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+            <input type="hidden" name="cmd" value="_xclick">
+            <input type="hidden" name="business" id="ppBusiness" value="">
+            <input type="hidden" name="item_name" value="Pedido MotoUrbano MX">
+            <input type="hidden" name="amount" id="ppAmount" value="0.00">
+            <input type="hidden" name="currency_code" value="MXN">
+            <button type="submit" class="btn">Pagar con PayPal / Tarjeta</button>
+          </form>
         </div>
       </div>
     </div>
@@ -501,9 +478,7 @@
       var mDesc  = document.getElementById('mDesc');
       var currentProduct = null;
 
-      function bullets(text){
-        return (text||'').split('·').map(function(s){return s.trim();}).filter(Boolean);
-      }
+      function bullets(text){ return (text||'').split('·').map(function(s){return s.trim();}).filter(Boolean); }
       function openModal(card){
         currentProduct = {
           name: card.dataset.name,
@@ -535,10 +510,17 @@
       var cBody     = document.getElementById('cBody');
       var cTotal    = document.getElementById('cTotal');
       var cClear    = document.getElementById('cClear');
-      var cCheckout = document.getElementById('cCheckout');
+      var cCheckout = document.getElementById('cCheckout'); // (ya no se usa, mantenido por si quieres WA)
       var cartCount = document.getElementById('cartCount');
-      var STORAGE_KEY = 'mu_cart';
+      var ppForm    = document.getElementById('ppForm');
+      var ppAmount  = document.getElementById('ppAmount');
+      var ppBusiness= document.getElementById('ppBusiness');
 
+      // ⚠️ Sustituye por tu correo de PayPal (o Merchant ID)
+      var PAYPAL_BUSINESS = 'tu-correo-paypal@ejemplo.com';
+      ppBusiness.value = PAYPAL_BUSINESS;
+
+      var STORAGE_KEY = 'mu_cart';
       function readCart(){ try{ return JSON.parse(localStorage.getItem(STORAGE_KEY)||'[]'); }catch(e){ return []; } }
       function writeCart(items){ localStorage.setItem(STORAGE_KEY, JSON.stringify(items)); }
       function cartSum(items){ return items.reduce(function(s,i){return s + i.price*i.qty;}, 0); }
@@ -560,13 +542,9 @@
               + '</div>';
           }).join('');
         }
-        cTotal.textContent = '$'+cartSum(items)+' MXN';
-        var msg = encodeURIComponent(
-          'Hola, quiero finalizar la compra:\n\n' +
-          items.map(function(i){return '• '+i.qty+' × '+i.name+' ($'+i.price+' MXN)';}).join('\n') +
-          '\n\nTotal: $'+cartSum(items)+' MXN'
-        );
-        cCheckout.href = 'https://wa.me/520000000000?text='+msg;
+        var total = cartSum(items);
+        cTotal.textContent = '$'+total+' MXN';
+        ppAmount.value = Number(total).toFixed(2); // PayPal necesita decimales con punto
       }
       function openCart(){ renderCart(); cartModal.classList.add('open'); }
       function closeCart(){ cartModal.classList.remove('open'); }
@@ -575,15 +553,16 @@
       if(cClose)  cClose.addEventListener('click', closeCart);
       cartModal.addEventListener('click', function(e){ if(e.target===cartModal) closeCart(); });
       cBody.addEventListener('click', function(e){
-        var btn = e.target.closest('[data-del]');
-        if(!btn) return;
+        var btn = e.target.closest('[data-del]'); if(!btn) return;
         var idx = parseInt(btn.dataset.del,10);
-        var items = readCart();
-        items.splice(idx,1);
+        var items = readCart(); items.splice(idx,1);
         writeCart(items); updateCount(); renderCart();
       });
       if(cClear) cClear.addEventListener('click', function(){ writeCart([]); updateCount(); renderCart(); });
 
+      // Añadir al carrito desde modal
+      var mAdd = document.getElementById('mAdd');
+      var qInput = document.getElementById('qInput');
       if(mAdd) mAdd.addEventListener('click', function(){
         var qty = Math.max(1, parseInt(qInput.value,10)||1);
         var items = readCart();
@@ -591,7 +570,7 @@
         writeCart(items); updateCount(); openCart(); closeModal();
       });
 
-      // --------- Menú: scroll suave al inicio de la sección ----------
+      // Scroll suave del menú
       Array.prototype.slice.call(document.querySelectorAll('nav.menu a[href^="#"]')).forEach(function(a){
         a.addEventListener('click', function(e){
           e.preventDefault();
@@ -601,7 +580,6 @@
         });
       });
 
-      // Contador inicial
       updateCount();
     });
   </script>
