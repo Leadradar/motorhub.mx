@@ -3,96 +3,113 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>MotoUrbano — Accesorios de moto urbanos, prácticos y fiables</title>
+  <title>MotoUrbano MX — Accesorios de moto urbanos, prácticos y fiables</title>
   <meta name="description" content="Accesorios de moto para moverte mejor por la ciudad. Envío a todo México, pagos seguros y devoluciones en 14 días." />
-  <meta name="theme-color" content="#E74C3C" />
-  <link rel="icon" href="/favicon.ico" />
-  <meta property="og:title" content="MotoUrbano" />
+  <meta name="theme-color" content="#0b0b0b" />
+  <meta property="og:title" content="MotoUrbano MX" />
   <meta property="og:description" content="Accesorios de moto urbanos, prácticos y fiables." />
-  <meta property="og:image" content="https://leadradar.github.io/motorhub.mx/img/hero.jpg" />
-  <meta property="og:type" content="website" />
+  <meta property="og:image" content="img/hero.jpg" />
+  <link rel="icon" type="image/x-icon" href="favicon.ico"/>
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png"/>
+  <link rel="manifest" href="site.webmanifest"/>
+
   <style>
     :root{
-      --bg:#ffffff;
-      --ink:#1a1a1a;
-      --muted:#4f4f4f;
-      --line:#e5e7eb;
-      --card:#ffffff;
-      --elev:#f8fafc;
-      --accent:#E74C3C; /* Rojo principal */
-      --brand:#2C3E50; /* Negro para contraste */
-      --danger:#ef4444;
-      --ok:#10b981;
+      --bg:#0b0b0b;         /* negro base */
+      --elev:#121212;       /* paneles */
+      --ink:#f5f7fa;        /* texto principal */
+      --muted:#c3c7cf;      /* texto secundario */
+      --line:#222;          /* bordes */
+      --accent:#e10600;     /* rojo marca */
+      --accent-2:#ff2a23;   /* rojo claro hover */
+      --ok:#18d26e;
     }
     *{box-sizing:border-box}
-    html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,"Noto Sans",Helvetica,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"}
-    img{max-width:100%;height:auto;display:block}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
+    img{display:block;max-width:100%;height:auto}
     a{color:inherit;text-decoration:none}
     .container{max-width:1200px;margin:0 auto;padding:0 20px}
-    .btn{display:inline-flex;align-items:center;gap:10px;background:var(--accent);color:#ffffff;font-weight:800;border:none;border-radius:14px;padding:12px 16px;cursor:pointer}
-    .btn:hover{opacity:.95}
-    .btn.alt{background:var(--brand);color:#ffffff}
-    .badge{display:inline-flex;align-items:center;gap:8px;background:#f8f9fa;border:1px solid var(--line);color:var(--muted);padding:6px 10px;border-radius:999px;white-space:nowrap}
-    .chip{display:inline-flex;align-items:center;gap:8px;background:#f3f4f6;border:1px solid var(--line);color:var(--muted);padding:8px 12px;border-radius:12px;white-space:nowrap}
-    .card{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden}
-    .shadow{box-shadow:0 10px 30px rgba(0,0,0,.06)}
     .grid{display:grid;gap:16px}
     @media(min-width:700px){.grid.cols-2{grid-template-columns:repeat(2,1fr)}}
     @media(min-width:900px){.grid.cols-3{grid-template-columns:repeat(3,1fr)}.grid.cols-4{grid-template-columns:repeat(4,1fr)}.grid.cols-5{grid-template-columns:repeat(5,1fr)}}
-    header.site{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+    .card{background:var(--elev);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+    .shadow{box-shadow:0 10px 30px rgba(0,0,0,.35)}
+
+    /* Header */
+    header.site{position:sticky;top:0;z-index:40;background:rgba(11,11,11,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
     .nav{display:flex;align-items:center;justify-content:space-between;height:68px}
     .brand{display:flex;align-items:center;gap:12px;font-weight:900;letter-spacing:.2px}
-    .brand img{height:34px;width:auto;border-radius:10px}
+    .brand img{height:34px;width:auto}
     .menu{display:none;gap:14px;align-items:center}
-    .menu a{padding:8px 10px;border-radius:10px}
-    .menu a:hover{background:#f3f4f6}
-    .burger{display:inline-flex;flex-direction:column;gap:4px;padding:10px;border-radius:10px;border:1px solid var(--line);background:#fff}
-    .burger span{width:20px;height:2px;background:#1a1a1a}
+    .menu a{padding:8px 10px;border-radius:10px;color:var(--muted)}
+    .menu a:hover{background:#171717;color:#fff}
+    .burger{display:inline-flex;flex-direction:column;gap:4px;padding:10px;border-radius:10px;border:1px solid var(--line);background:#0f0f0f}
+    .burger span{width:20px;height:2px;background:#fff}
     @media(min-width:900px){.menu{display:flex}.burger{display:none}}
-    .mobile-panel{position:fixed;inset:0 0 auto 0;top:68px;background:#fff;border-top:1px solid var(--line);display:none}
+    .mobile-panel{position:fixed;inset:0 0 auto 0;top:68px;background:#0f0f0f;border-top:1px solid var(--line);display:none}
     .mobile-panel.open{display:block}
+
+    /* Buttons / chips */
+    .btn{display:inline-flex;align-items:center;gap:10px;background:var(--accent);color:#fff;font-weight:800;border:none;border-radius:14px;padding:12px 16px;cursor:pointer}
+    .btn:hover{background:var(--accent-2)}
+    .btn.alt{background:#fff;color:#0b0b0b}
+    .badge{display:inline-flex;align-items:center;gap:8px;background:#121212;border:1px solid var(--line);color:var(--muted);padding:6px 10px;border-radius:999px;white-space:nowrap}
+    .chip{display:inline-flex;align-items:center;gap:8px;background:#121212;border:1px solid var(--line);color:var(--muted);padding:8px 12px;border-radius:12px;white-space:nowrap}
+
+    /* Hero */
     .hero{position:relative;border-bottom:1px solid var(--line)}
     .hero .wrap{display:grid;gap:24px;grid-template-columns:1fr;align-items:center;padding:38px 0}
     @media(min-width:980px){.hero .wrap{grid-template-columns:1.05fr .95fr;padding:64px 0}}
     .hero .media{position:relative;border-radius:22px;overflow:hidden;border:1px solid var(--line)}
-    .hero .media::after{content:"";position:absolute;inset:0;background:linear-gradient(135deg, rgba(231,76,60,.12), rgba(44,62,80,.1) 40%, rgba(255,255,255,.1) 70%)}
-    h1{font-size:clamp(30px,5vw,52px);line-height:1.03;margin:.2em 0}
+    .hero .media::after{content:"";position:absolute;inset:0;background:radial-gradient(80% 60% at 60% 40%, rgba(225,6,0,.28), transparent 60%)}
+
+    h1{font-size:clamp(30px,5vw,52px);line-height:1.04;margin:.2em 0}
     h2{font-size:clamp(22px,3.6vw,34px);margin:0 0 8px}
     p.lead{font-size:clamp(15px,2vw,18px);opacity:.9;margin:0 0 10px}
-    .tile{position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:#f8fafc}
-    .tile img{width:100%;height:200px;object-fit:cover}
+    .sub{color:var(--muted)}
+
+    /* Categorías */
+    .tile{position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:#0f0f0f}
+    .tile img{width:100%;height:200px;object-fit:cover;filter:saturate(1) contrast(1.05)}
     .tile .label{position:absolute;left:10px;bottom:10px;background:rgba(0,0,0,.55);backdrop-filter:blur(4px);padding:8px 10px;border-radius:10px;font-weight:800;color:#fff}
+
+    /* Productos */
     .prod{display:flex;flex-direction:column}
-    .prod img{aspect-ratio: 1/1;object-fit:cover;background:#f3f4f6}
+    .prod img{aspect-ratio: 1/1;object-fit:cover;background:#0f0f0f}
     .prod .swap{position:relative}
     .prod .swap img:nth-child(2){position:absolute;inset:0;opacity:0;transition:opacity .25s ease}
     .prod:hover .swap img:nth-child(2){opacity:1}
     .prod .pad{padding:10px}
-    .price{font-weight:900}
-    .stars{color:var(--accent)}
-    footer.site{margin-top:48px;border-top:1px solid var(--line);background:#fff}
+    .price{font-weight:900;color:#fff}
+    .stars{color:#EDC531}
+
+    /* Footer */
+    footer.site{margin-top:48px;border-top:1px solid var(--line);background:#0f0f0f}
     .footer-grid{display:grid;gap:18px;padding:28px 0}
     @media(min-width:900px){.footer-grid{grid-template-columns:2fr 1fr 1fr}}
-    .sub{opacity:.75}
-    .floating-wa{position:fixed;right:16px;bottom:16px;background:#25D366;color:#ffffff;border-radius:999px;padding:12px 14px;display:flex;align-items:center;gap:10px;font-weight:800;box-shadow:0 10px 40px rgba(0,0,0,.2);z-index:45}
+
+    /* WhatsApp */
+    .floating-wa{position:fixed;right:16px;bottom:16px;background:#25D366;color:#001;border-radius:999px;padding:12px 14px;display:flex;align-items:center;gap:10px;font-weight:800;box-shadow:0 10px 40px rgba(0,0,0,.35);z-index:45}
   </style>
+
   <script type="application/ld+json">
   {
     "@context":"https://schema.org",
     "@type":"Organization",
-    "name":"MotoUrbano",
+    "name":"MotoUrbano MX",
     "url":"https://motourbano.shop/",
-    "logo":"https://leadradar.github.io/motorhub.mx/img/logo.png",
+    "logo":"favicon.ico",
     "contactPoint":{"@type":"ContactPoint","contactType":"customer support","areaServed":"MX","availableLanguage":["es"]}
   }
   </script>
 </head>
 <body>
+  <!-- Header -->
   <header class="site">
     <div class="container nav">
       <a href="#inicio" class="brand">
-        <img src="https://leadradar.github.io/motorhub.mx/img/logo.png" alt="MotoUrbano logo"/>
-        <span>MotoUrbano</span>
+        <img src="img/logo.png" alt="MotoUrbano logo"/>
+        <span>MotoUrbano MX</span>
       </a>
       <nav class="menu" aria-label="Principal">
         <a href="#inicio">Inicio</a>
@@ -118,14 +135,16 @@
       </div>
     </div>
   </header>
+
+  <!-- HERO -->
   <section id="inicio" class="hero">
     <div class="container wrap">
       <div>
-        <div class="badge">🇲🇽 MotoUrbano</div>
-        <h1>Accesorios de moto para moverte mejor por la ciudad</h1>
-        <p class="lead">Calidad sin sorpresas: pagos seguros, devoluciones 14 días y envío a todo México.</p>
+        <div class="badge">🇲🇽 MotoUrbano MX</div>
+        <h1>Accesorios de moto para la ciudad</h1>
+        <p class="lead">Calidad sin sorpresas: PayPal, devoluciones 14 días y envío a todo México.</p>
         <div class="grid cols-3" style="margin:14px 0 18px">
-          <span class="chip">✅ Pagos seguros</span>
+          <span class="chip">💳 Pagos seguros (PayPal)</span>
           <span class="chip">🚚 Envío a todo México</span>
           <span class="chip">↩️ Devoluciones 14 días</span>
         </div>
@@ -135,46 +154,52 @@
         </div>
       </div>
       <div class="media shadow">
-        <img src="https://leadradar.github.io/motorhub.mx/img/hero.jpg" alt="Accesorios MotoUrbano"/>
+        <img src="img/hero.jpg" alt="Accesorios MotoUrbano"/>
       </div>
     </div>
   </section>
+
+  <!-- CATEGORÍAS -->
   <section id="categorias" class="container" style="padding:26px 0">
     <h2>Categorías</h2>
     <p class="sub">Encuentra rápido lo que necesitas para el día a día.</p>
     <div class="grid cols-2 cols-5">
       <a class="tile shadow" href="https://motourbano.shop/collections/soportes" title="Soportes de móvil">
-        <img src="https://leadradar.github.io/motorhub.mx/img/cat-soportes.jpg" alt="Soportes de móvil"/>
-        <span class="label">Soportes de móvil</span>
+        <img src="img/cat-soportes.jpg" alt="Soportes de móvil"/>
+        <span class="label">Soportes</span>
       </a>
-      <a class="tile shadow" href="https://motourbano.github.io/motorhub.mx/collections/guantes" title="Guantes">
-        <img src="https://leadradar.github.io/motorhub.mx/img/cat-guantes.jpg" alt="Guantes"/>
+      <a class="tile shadow" href="https://motourbano.shop/collections/guantes" title="Guantes">
+        <img src="img/cat-guantes.jpg" alt="Guantes"/>
         <span class="label">Guantes</span>
       </a>
-      <a class="tile shadow" href="https://motourbano.github.io/motorhub.mx/collections/chalecos" title="Chalecos reflectantes">
-        <img src="https://leadradar.github.io/motorhub.mx/img/cat-chalecos.jpg" alt="Chalecos reflectantes"/>
-        <span class="label">Chalecos reflectantes</span>
+      <a class="tile shadow" href="https://motourbano.shop/collections/chalecos" title="Chalecos reflectantes">
+        <img src="img/cat-chalecos.jpg" alt="Chalecos"/>
+        <span class="label">Chalecos</span>
       </a>
-      <a class="tile shadow" href="https://motourbano.github.io/motorhub.mx/collections/bolsas" title="Bolsas">
-        <img src="https://leadradar.github.io/motorhub.mx/img/cat-bolsas.jpg" alt="Bolsas"/>
+      <a class="tile shadow" href="https://motourbano.shop/collections/bolsas" title="Bolsas">
+        <img src="img/cat-bolsas.jpg" alt="Bolsas"/>
         <span class="label">Bolsas</span>
       </a>
-      <a class="tile shadow" href="https://motourbano.github.io/motorhub.mx/collections/rinoneras" title="Riñoneras">
-        <img src="https://leadradar.github.io/motorhub.mx/img/cat-rinoneras.jpg" alt="Riñoneras"/>
+      <a class="tile shadow" href="https://motourbano.shop/collections/rinoneras" title="Riñoneras">
+        <img src="img/cat-rinoneras.jpg" alt="Riñoneras"/>
         <span class="label">Riñoneras</span>
       </a>
     </div>
   </section>
+
+  <!-- TRUST BAR -->
   <section class="container" style="padding:6px 0 16px">
     <div class="card shadow" style="padding:12px 12px">
       <div style="display:flex;gap:10px;overflow:auto;scrollbar-width:none">
-        <span class="badge">💳 PayPal y tarjetas</span>
-        <span class="badge">📦 Tracking del pedido</span>
         <span class="badge">🛡️ Compra protegida</span>
+        <span class="badge">📦 Tracking del pedido</span>
         <span class="badge">🇲🇽 Precios en MXN</span>
+        <span class="badge">☎️ Soporte por WhatsApp</span>
       </div>
     </div>
   </section>
+
+  <!-- PRODUCTOS DESTACADOS -->
   <section id="productos" class="container" style="padding:18px 0">
     <div style="display:flex;justify-content:space-between;align-items:end;gap:10px">
       <div>
@@ -183,12 +208,14 @@
       </div>
       <a class="badge" href="https://motourbano.shop/collections/all">Ver todo →</a>
     </div>
+
     <div class="grid cols-2 cols-4" style="margin-top:10px">
+      <!-- Soporte -->
       <article class="card prod shadow">
         <a href="https://motourbano.shop/products/soporte-antivibracion">
           <div class="swap">
-            <img src="https://leadradar.github.io/motorhub.mx/img/soporte-antivibracion-01.jpg" alt="Soporte manillar antivibración"/>
-            <img src="https://leadradar.github.io/motorhub.mx/img/soporte-antivibracion-02.jpg" alt="" aria-hidden="true"/>
+            <img src="img/soporte-antivibracion-01.jpg" alt="Soporte manillar antivibración"/>
+            <img src="img/soporte-antivibracion-02.jpg" alt="" aria-hidden="true"/>
           </div>
           <div class="pad">
             <div style="display:flex;justify-content:space-between;gap:10px">
@@ -199,11 +226,13 @@
           </div>
         </a>
       </article>
+
+      <!-- Guantes -->
       <article class="card prod shadow">
         <a href="https://motourbano.shop/products/guantes-impermeables-tactiles">
           <div class="swap">
-            <img src="https://leadradar.github.io/motorhub.mx/img/guantes-urbanos-verano-01.jpg" alt="Guantes impermeables táctiles"/>
-            <img src="https://leadradar.github.io/motorhub.mx/img/guantes-urbanos-verano-02.jpg" alt="" aria-hidden="true"/>
+            <img src="img/guantes-urbanos-verano-01.jpg" alt="Guantes impermeables táctiles"/>
+            <img src="img/guantes-urbanos-verano-02.jpg" alt="" aria-hidden="true"/>
           </div>
           <div class="pad">
             <div style="display:flex;justify-content:space-between;gap:10px">
@@ -214,11 +243,13 @@
           </div>
         </a>
       </article>
+
+      <!-- Bolsa trasera -->
       <article class="card prod shadow">
         <a href="https://motourbano.shop/products/bolsa-trasera-asiento">
           <div class="swap">
-            <img src="https://leadradar.github.io/motorhub.mx/img/bolsa-trasera-impermeable-01.jpg" alt="Bolsa trasera de asiento"/>
-            <img src="https://leadradar.github.io/motorhub.mx/img/bolsa-trasera-impermeable-02.jpg" alt="" aria-hidden="true"/>
+            <img src="img/bolsa-trasera-impermeable-01.jpg" alt="Bolsa trasera de asiento"/>
+            <img src="img/bolsa-trasera-impermeable-02.jpg" alt="" aria-hidden="true"/>
           </div>
           <div class="pad">
             <div style="display:flex;justify-content:space-between;gap:10px">
@@ -229,11 +260,13 @@
           </div>
         </a>
       </article>
+
+      <!-- Riñonera -->
       <article class="card prod shadow">
         <a href="https://motourbano.shop/products/rinonera-moto">
           <div class="swap">
-            <img src="https://leadradar.github.io/motorhub.mx/img/rinonera-impermeable-01.jpg" alt="Riñonera impermeable urbana"/>
-            <img src="https://leadradar.github.io/motorhub.mx/img/rinonera-impermeable-02.jpg" alt="" aria-hidden="true"/>
+            <img src="img/rinonera-impermeable-01.jpg" alt="Riñonera impermeable urbana"/>
+            <img src="img/rinonera-impermeable-02.jpg" alt="" aria-hidden="true"/>
           </div>
           <div class="pad">
             <div style="display:flex;justify-content:space-between;gap:10px">
@@ -244,11 +277,13 @@
           </div>
         </a>
       </article>
+
+      <!-- Chaleco -->
       <article class="card prod shadow">
         <a href="https://motourbano.shop/products/chaleco-reflectante">
           <div class="swap">
-            <img src="https://leadradar.github.io/motorhub.mx/img/chaleco-fosforito-01.jpg" alt="Chaleco fosforito reflectante"/>
-            <img src="https://leadradar.github.io/motorhub.mx/img/chaleco-fosforito-02.jpg" alt="" aria-hidden="true"/>
+            <img src="img/chaleco-fosforito-01.jpg" alt="Chaleco fosforito reflectante"/>
+            <img src="img/chaleco-fosforito-02.jpg" alt="" aria-hidden="true"/>
           </div>
           <div class="pad">
             <div style="display:flex;justify-content:space-between;gap:10px">
@@ -261,61 +296,47 @@
       </article>
     </div>
   </section>
+
+  <!-- BANNER PROMO -->
   <section class="container" style="padding:8px 0 26px">
     <div class="card shadow" style="display:grid;grid-template-columns:1fr;gap:12px;overflow:hidden">
       <div style="padding:18px 18px">
         <h2 style="margin:0 0 6px">Kit urbano esencial</h2>
-        <p class="lead" style="margin:0 0 10px">Soporte de móvil + guantes + riñonera. Seleccionados por nosotros.</p>
+        <p class="sub" style="margin:0 0 12px">Soporte de móvil + guantes + riñonera. Seleccionados por nosotros.</p>
         <a class="btn" href="https://motourbano.shop/collections/all">Ver kit</a>
       </div>
       <div style="border-top:1px solid var(--line)">
-        <img src="https://leadradar.github.io/motorhub.mx/img/banner.jpg" alt="Kit urbano"/>
+        <img src="img/banner.jpg" alt="Kit urbano"/>
       </div>
     </div>
   </section>
-  <section class="container" style="padding:12px 0 36px">
-    <h2>Lo que dicen los moteros</h2>
-    <div class="grid cols-1 cols-3" style="margin-top:10px">
-      <div class="card shadow" style="padding:16px">
-        <div class="stars">★★★★★</div>
-        <p style="margin:8px 0 10px">“El soporte no vibra nada, perfecto para CDMX.”</p>
-        <div class="sub">— Ana G.</div>
-      </div>
-      <div class="card shadow" style="padding:16px">
-        <div class="stars">★★★★★</div>
-        <p style="margin:8px 0 10px">“Guantes cómodos y a buen precio.”</p>
-        <div class="sub">— Diego T.</div>
-      </div>
-      <div class="card shadow" style="padding:16px">
-        <div class="stars">★★★★★</div>
-        <p style="margin:8px 0 10px">“La bolsa trasera me salvó en lluvia.”</p>
-        <div class="sub">— Marcos V.</div>
-      </div>
-    </div>
-  </section>
+
+  <!-- FAQ -->
   <section id="faq" class="container" style="padding:12px 0 36px">
     <h2>Preguntas frecuentes</h2>
     <div class="card shadow" style="padding:12px">
-      <details style="background:#fff;border:1px solid var(--line);border-radius:12px;margin:8px 0;padding:10px">
+      <details style="background:#0f0f0f;border:1px solid var(--line);border-radius:12px;margin:8px 0;padding:10px">
         <summary style="cursor:pointer;font-weight:700">¿Cuánto tarda el envío?</summary>
-        <div class="sub" style="margin-top:8px">Entre 10 y 20 días laborables según la zona. Te avisamos por email en cada etapa.</div>
+        <div class="sub" style="margin-top:8px">Entre 10 y 20 días laborables según la zona. Recibirás emails con el estado del pedido.</div>
       </details>
-      <details style="background:#fff;border:1px solid var(--line);border-radius:12px;margin:8px 0;padding:10px">
+      <details style="background:#0f0f0f;border:1px solid var(--line);border-radius:12px;margin:8px 0;padding:10px">
         <summary style="cursor:pointer;font-weight:700">¿Cómo funcionan las devoluciones?</summary>
         <div class="sub" style="margin-top:8px">Tienes 14 días desde la recepción. Escríbenos por WhatsApp con tu número de pedido.</div>
       </details>
-      <details style="background:#fff;border:1px solid var(--line);border-radius:12px;margin:8px 0;padding:10px">
+      <details style="background:#0f0f0f;border:1px solid var(--line);border-radius:12px;margin:8px 0;padding:10px">
         <summary style="cursor:pointer;font-weight:700">¿Qué métodos de pago aceptan?</summary>
         <div class="sub" style="margin-top:8px">PayPal y tarjetas. Pronto añadiremos más opciones.</div>
       </details>
     </div>
   </section>
+
+  <!-- FOOTER -->
   <footer id="contacto" class="site">
     <div class="container footer-grid">
       <div>
         <div class="brand" style="margin-bottom:8px">
-          <img src="https://leadradar.github.io/motorhub.mx/img/logo.png" alt="MotoUrbano"/>
-          <strong>MotoUrbano</strong>
+          <img src="img/logo.png" alt="MotoUrbano"/>
+          <strong>MotoUrbano MX</strong>
         </div>
         <p class="sub">Accesorios urbanos, prácticos y fiables. Envío a todo México.</p>
         <p class="sub">Email: <a href="mailto:hola@motourbano.shop">hola@motourbano.shop</a></p>
@@ -333,15 +354,21 @@
         <p class="sub">Lun–Vie · 10:00–18:00</p>
       </div>
     </div>
-    <div class="container sub" style="padding-bottom:20px"><small>© <span id="year"></span> MotoUrbano. Todos los derechos reservados.</small></div>
+    <div class="container sub" style="padding-bottom:20px"><small>© <span id="year"></span> MotoUrbano MX. Todos los derechos reservados.</small></div>
   </footer>
+
+  <!-- WhatsApp flotante -->
   <a class="floating-wa" href="https://wa.me/520000000000" target="_blank" rel="noopener" aria-label="WhatsApp Soporte">WhatsApp</a>
+
   <script>
+    // Año dinámico
     document.getElementById('year').textContent = new Date().getFullYear();
+    // Menú móvil
     const burger = document.getElementById('burger');
     const panel = document.getElementById('mobilePanel');
     function closeMenu(){ panel.classList.remove('open'); }
     burger.addEventListener('click', ()=> panel.classList.toggle('open'));
+    // Smooth scroll anchors
     document.querySelectorAll('a[href^="#"]').forEach(a=>{
       a.addEventListener('click', e=>{
         const id = a.getAttribute('href');
