@@ -42,59 +42,46 @@
     .card{background:var(--elev);border:1px solid var(--line);border-radius:18px;overflow:hidden}
     .shadow{box-shadow:0 10px 30px rgba(0,0,0,.08)}
 
-    /* HEADER (claro) */
+    /* HEADER (stack centrado) */
     header.site{
-      position:sticky;top:0;z-index:40;
-      background:#fff;color:#111;border-bottom:1px solid var(--line)
+      position:sticky;top:0;z-index:40;background:#fff;color:#111;border-bottom:1px solid var(--line)
     }
-    .nav{display:flex;align-items:center;justify-content:space-between;height:100px}
-    .brand{display:flex;align-items:center;gap:12px;font-weight:900;letter-spacing:.2px}
-    .brand img{height:92px;width:auto}    /* MÁS GRANDE */
-    @media(max-width:480px){.brand img{height:60px}}
-    .menu{display:none;gap:14px;align-items:center}
-    .menu a{padding:10px 12px;border-radius:10px;color:#444}
-    .menu a:hover{background:#f3f3f3;color:#111}
-    .burger{display:inline-flex;flex-direction:column;gap:4px;padding:10px;border-radius:10px;border:1px solid var(--line);background:#fff}
-    .burger span{width:20px;height:2px;background:#111}
-    @media(min-width:900px){.menu{display:flex}.burger{display:none}}
-    .mobile-panel{position:fixed;inset:0 0 auto 0;top:100px;background:#fff;border-top:1px solid var(--line);display:none;color:#111}
-    .mobile-panel.open{display:block}
+    .header-wrap{display:flex;flex-direction:column;align-items:center;gap:8px;padding:14px 0}
+    .brand-stack{display:flex;flex-direction:column;align-items:center;gap:6px}
+    .brand-stack img{height:84px;width:auto}
+    .brand-title{font:800 22px/1 Poppins,system-ui;letter-spacing:.2px;text-align:center}
+    nav.menu{display:flex;flex-wrap:wrap;gap:16px;justify-content:center;margin-top:6px}
+    nav.menu a{padding:8px 10px;border-radius:10px;color:#444}
+    nav.menu a:hover{background:#f3f3f3;color:#111}
 
-    /* Badges / chips */
-    .badge{display:inline-flex;align-items:center;gap:8px;background:#fafafa;border:1px solid var(--line);color:#444;padding:6px 10px;border-radius:999px;white-space:nowrap}
-    .chip{display:inline-flex;align-items:center;gap:8px;background:#fafafa;border:1px solid var(--line);color:#444;padding:8px 12px;border-radius:12px;white-space:nowrap}
-
-    /* HERO (logo protagonista) */
-    .hero{position:relative;border-bottom:1px solid var(--line);background:#fff}
-    .hero .wrap{
-      display:flex;align-items:center;justify-content:center;flex-direction:column;
-      gap:12px; padding:56px 0
-    }
+    /* HERO (logo protagonista + claims) */
+    .hero{border-bottom:1px solid var(--line);background:#fff}
+    .hero .wrap{display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;padding:44px 0}
     .hero .logo-big img{width:360px;height:auto}
-    @media(min-width:1100px){.hero .logo-big img{width:380px}}
+    @media(min-width:1100px){.hero .logo-big img{width:400px}}
     @media(max-width:520px){.hero .logo-big img{width:220px}}
 
     h1{
       font-family:Poppins,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
       font-weight:800;letter-spacing:.2px;
-      font-size:clamp(30px,5vw,52px);line-height:1.04;margin:.15em 0 .2em;
-      text-align:center;
+      font-size:clamp(30px,5vw,52px);line-height:1.04;margin:.1em 0 .2em;text-align:center
     }
-    h2{font-size:clamp(22px,3.6vw,34px);margin:0 0 8px}
+    h2{font-size:clamp(22px,3.6vw,34px);margin:0 0 10px;text-align:center}
     p.lead{font-size:clamp(15px,2vw,18px);color:#444;margin:0;text-align:center}
+    .sub{color:var(--muted);text-align:center}
 
-    /* Subtítulo con PayPal: centrado y estable */
-    .payline{
+    /* Línea de beneficios con PayPal */
+    .benefits{
       display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:4px
     }
-    .pp{
-      display:inline-flex;align-items:center;justify-content:center;
-      padding:6px 10px;border:1px solid var(--line);border-radius:999px;background:#fff
-    }
+    .pp{display:inline-flex;align-items:center;justify-content:center;padding:6px 10px;border:1px solid var(--line);border-radius:999px;background:#fff}
     .pp svg{height:18px;width:auto;display:block}
+    .dot{opacity:.35}
+
+    /* Chips */
+    .chip{display:inline-flex;align-items:center;gap:8px;background:#fafafa;border:1px solid var(--line);color:#444;padding:8px 12px;border-radius:12px;white-space:nowrap}
 
     /* Categorías */
-    #categorias h2, #categorias .sub{ text-align:center }
     .tile{position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:#fff}
     .tile img{width:100%;height:200px;object-fit:cover;filter:saturate(1) contrast(1.04)}
     .tile .label{
@@ -116,33 +103,32 @@
     /* TRUST BAR centrada */
     .trustbar{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:10px}
 
-    /* FOOTER (logo + nombre centrados SIEMPRE) */
+    /* FOOTER */
     footer.site{margin-top:48px;border-top:1px solid var(--line);background:#fff;color:#111}
-    .footer-grid{display:grid;gap:18px;padding:28px 0}
+    .footer-head{display:flex;flex-direction:column;align-items:center;gap:8px;padding:18px 0 6px}
+    .footer-head img{height:52px}
+    .footer-name{font:800 18px/1.1 Poppins,system-ui;text-align:center}
+    .footer-grid{display:grid;gap:18px;padding:20px 0}
     @media(min-width:900px){.footer-grid{grid-template-columns:2fr 1fr 1fr}}
     .footer-grid .sub{color:#666}
-    .footer-col.brand-col{text-align:center}
-    .footer-top{
-      display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px
-    }
-    .footer-top img{height:48px}  /* un poco más grande, pero proporcionado */
+    .footer-col{text-align:center}
+    @media(min-width:900px){.footer-col{text-align:left}}
+    .footer-legal{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:center}
+    @media(min-width:900px){.footer-legal{justify-content:flex-start}}
+    .footer-legal .dot{opacity:.35}
+    .copy{padding-bottom:20px;color:#666;text-align:center}
 
-    /* Footer móvil: armonioso y centrado */
-    @media(max-width:640px){
-      .footer-grid{gap:14px;padding:20px 0}
-      .footer-col{text-align:center}
-      .footer-legal{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:center}
-      .footer-legal .dot{opacity:.35}
-    }
-
-    /* WhatsApp flotante — SOLO ICONO, círculo perfecto */
+    /* WhatsApp flotante — SOLO ICONO */
     .floating-wa{
       position:fixed;right:16px;bottom:16px;background:#25D366;color:#fff;
-      width:56px;height:56px;border-radius:50%;
+      width:60px;height:60px;border-radius:50%;
       display:flex;align-items:center;justify-content:center;
-      box-shadow:0 10px 30px rgba(0,0,0,.15);z-index:45;line-height:1
+      box-shadow:0 10px 30px rgba(0,0,0,.15);z-index:45
     }
-    .floating-wa svg{width:28px;height:28px;display:block}
+    .floating-wa svg{width:30px;height:30px;display:block}
+
+    /* Ocultar destacados en móvil (como antes) */
+    @media(max-width:640px){#productos{display:none}}
   </style>
 
   <!-- Schema -->
@@ -158,13 +144,13 @@
   </script>
 </head>
 <body>
-  <!-- Header -->
+  <!-- HEADER centrado con logo arriba -->
   <header class="site">
-    <div class="container nav">
-      <a href="#inicio" class="brand">
-        <img src="img/logo.png" alt="MotoUrbano logo"/>
-        <span>MotoUrbano MX</span>
-      </a>
+    <div class="container header-wrap">
+      <div class="brand-stack">
+        <img src="img/logo.png" alt="Logo MotoUrbano"/>
+        <div class="brand-title">MotoUrbano MX</div>
+      </div>
       <nav class="menu" aria-label="Principal">
         <a href="#inicio">Inicio</a>
         <a href="#categorias">Categorías</a>
@@ -172,24 +158,10 @@
         <a href="#faq">FAQ</a>
         <a href="#contacto">Contacto</a>
       </nav>
-      <button class="burger" id="burger" aria-label="Abrir menú">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-    <div class="mobile-panel" id="mobilePanel">
-      <div class="container" style="padding:12px 20px 20px">
-        <div class="grid cols-1">
-          <a href="#inicio" class="badge" onclick="closeMenu()">Inicio</a>
-          <a href="#categorias" class="badge" onclick="closeMenu()">Categorías</a>
-          <a href="#productos" class="badge" onclick="closeMenu()">Productos</a>
-          <a href="#faq" class="badge" onclick="closeMenu()">FAQ</a>
-          <a href="#contacto" class="badge" onclick="closeMenu()">Contacto</a>
-        </div>
-      </div>
     </div>
   </header>
 
-  <!-- HERO (logo protagonista) -->
+  <!-- HERO -->
   <section id="inicio" class="hero">
     <div class="container wrap" style="text-align:center">
       <div class="logo-big">
@@ -197,23 +169,26 @@
       </div>
       <h1>Accesorios de moto para la ciudad</h1>
 
-      <!-- Subtítulo con PayPal centrado y sin desalinear -->
-      <div class="payline">
-        <span>Calidad sin sorpresas:</span>
-        <span class="pp" title="Pagos con PayPal" aria-label="Pagos con PayPal">
-          <!-- PayPal (marca doble P) -->
+      <!-- Línea de beneficios coherente con PayPal -->
+      <div class="benefits">
+        <span class="pp" title="Pago seguro con PayPal" aria-label="Pago seguro con PayPal">
+          <!-- PayPal (PP) -->
           <svg viewBox="0 0 96 24" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
             <path fill="#003087" d="M21.9 3.5h-6.7c-.8 0-1.5.6-1.6 1.4L10 25.7c-.1.6.4 1.1 1 1.1h4.3c.6 0 1.1-.4 1.2-1l1-6.5c.1-.7.7-1.2 1.4-1.2h2.1c6.5 0 10.3-3.1 11.3-9.2.5-2.7 0-4.8-1.5-6.2-1.5-1.6-4-2.2-7.9-2.2Zm.8 9.3c-.6 3.7-3.7 3.7-6.7 3.7h-1.7l1.2-7.8c.1-.5.5-.8 1-.8h.9c2.1 0 4.1 0 5.2 1 .7.5 1 1.4.8 2.9Z"/>
             <path fill="#009CDE" d="M38.5 3.5h-6.7c-.8 0-1.5.6-1.6 1.4l-3.5 20.8c-.1.6.4 1.1 1 1.1H32c.6 0 1.1-.4 1.2-1l1-6.5c.1-.7.7-1.2 1.4-1.2h2.1c6.5 0 10.3-3.1 11.3-9.2.5-2.7 0-4.8-1.5-6.2-1.5-1.6-4-2.2-7.9-2.2Zm.8 9.3c-.6 3.7-3.7 3.7-6.7 3.7h-1.7l1.2-7.8c.1-.5.5-.8 1-.8h.9c2.1 0 4.1 0 5.2 1 .7.5 1 1.4.8 2.9Z"/>
           </svg>
         </span>
-        <span>devoluciones 14 días y envío a todo México.</span>
+        <span>Pago seguro con PayPal</span>
+        <span class="dot">·</span>
+        <span>Envío a todo México</span>
+        <span class="dot">·</span>
+        <span>Devoluciones 14 días</span>
       </div>
 
       <div class="grid cols-3" style="margin:14px 0 0;justify-items:center">
-        <span class="chip">💳 Pagos seguros (PayPal)</span>
-        <span class="chip">🚚 Envío a todo México</span>
-        <span class="chip">↩️ Devoluciones 14 días</span>
+        <span class="chip">💳 Pagos seguros</span>
+        <span class="chip">🚚 Envío nacional</span>
+        <span class="chip">↩️ 14 días devolución</span>
       </div>
     </div>
   </section>
@@ -250,25 +225,20 @@
   <section class="container" style="padding:6px 0 16px">
     <div class="card shadow" style="padding:12px 12px">
       <div class="trustbar">
-        <span class="badge">🛡️ Compra protegida</span>
-        <span class="badge">📦 Tracking del pedido</span>
-        <span class="badge">🇲🇽 Precios en MXN</span>
-        <span class="badge">☎️ Soporte por WhatsApp</span>
+        <span class="chip">🛡️ Compra protegida</span>
+        <span class="chip">📦 Tracking del pedido</span>
+        <span class="chip">🇲🇽 Precios en MXN</span>
+        <span class="chip">☎️ Soporte por WhatsApp</span>
       </div>
     </div>
   </section>
 
-  <!-- PRODUCTOS DESTACADOS (3 items) — oculto en móvil via CSS del media query -->
+  <!-- PRODUCTOS DESTACADOS (3 items) — oculto en móvil por CSS -->
   <section id="productos" class="container" style="padding:18px 0">
-    <div style="display:flex;justify-content:space-between;align-items:end;gap:10px">
-      <div>
-        <h2>Destacados de la semana</h2>
-        <p class="sub">Top ventas y novedades</p>
-      </div>
-      <a class="badge" href="https://motourbano.shop/collections/all">Ver todo →</a>
-    </div>
+    <h2>Destacados de la semana</h2>
+    <p class="sub">Top ventas y novedades</p>
 
-    <div class="grid cols-2 cols-3" style="margin-top:10px">
+    <div class="grid cols-2 cols-3" style="margin-top:12px">
       <!-- Soporte -->
       <article class="card prod shadow">
         <a href="https://motourbano.shop/products/soporte-antivibracion">
@@ -308,7 +278,7 @@
         <a href="https://motourbano.shop/products/rinonera-moto">
           <div class="swap">
             <img src="img/rinonera-impermeable-01.jpg" alt="Riñonera impermeable urbana"/>
-            <img src="img/rinonera-impermeble-02.jpg" alt="" aria-hidden="true"/>
+            <img src="img/rinonera-impermeable-02.jpg" alt="" aria-hidden="true"/>
           </div>
           <div class="pad">
             <div style="display:flex;justify-content:space-between;gap:10px">
@@ -341,14 +311,15 @@
     </div>
   </section>
 
-  <!-- FOOTER -->
+  <!-- FOOTER con encabezado centrado (logo + nombre) -->
   <footer id="contacto" class="site">
+    <div class="container footer-head">
+      <img src="img/logo.png" alt="MotoUrbano"/>
+      <div class="footer-name">MotoUrbano MX</div>
+    </div>
+
     <div class="container footer-grid">
-      <div class="footer-col brand-col">
-        <div class="footer-top">
-          <img src="img/logo.png" alt="MotoUrbano"/>
-          <strong style="color:#111">MotoUrbano MX</strong>
-        </div>
+      <div class="footer-col">
         <p class="sub">Accesorios urbanos, prácticos y fiables. Envío a todo México.</p>
         <p class="sub">Email: <a href="mailto:hola@motourbano.shop">hola@motourbano.shop</a></p>
         <p class="sub">WhatsApp: <a href="https://wa.me/520000000000" target="_blank" rel="noopener">+52 000 000 0000</a></p>
@@ -369,12 +340,13 @@
         <p class="sub">Lun–Vie · 10:00–18:00</p>
       </div>
     </div>
-    <div class="container" style="padding-bottom:20px;color:#666">
+
+    <div class="container copy">
       <small>© <span id="year"></span> MotoUrbano MX. Todos los derechos reservados.</small>
     </div>
   </footer>
 
-  <!-- WhatsApp flotante (SOLO ICONO) -->
+  <!-- WhatsApp flotante (solo icono, perfecto) -->
   <a class="floating-wa" href="https://wa.me/520000000000" target="_blank" rel="noopener" aria-label="WhatsApp Soporte">
     <svg viewBox="0 0 512 512" aria-hidden="true" focusable="false">
       <circle cx="256" cy="256" r="256" fill="#25D366"/>
@@ -385,23 +357,6 @@
   <script>
     // Año dinámico
     document.getElementById('year').textContent = new Date().getFullYear();
-
-    // Menú móvil
-    const burger = document.getElementById('burger');
-    const panel = document.getElementById('mobilePanel');
-    function closeMenu(){ panel.classList.remove('open'); }
-    burger.addEventListener('click', ()=> panel.classList.toggle('open'));
-
-    // Smooth scroll
-    document.querySelectorAll('a[href^="#"]').forEach(a=>{
-      a.addEventListener('click', e=>{
-        const id = a.getAttribute('href');
-        if(id.length>1){
-          e.preventDefault();
-          document.querySelector(id).scrollIntoView({behavior:'smooth'});
-        }
-      });
-    });
   </script>
 </body>
 </html>
