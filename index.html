@@ -13,16 +13,15 @@
   <meta property="og:description" content="Accesorios de moto urbanos, prácticos y fiables." />
   <meta property="og:image" content="https://leadradar.github.io/motorhub.mx/img/hero.jpg" />
 
-  <!-- Favicon & PWA -->
+  <!-- Favicon & PWA (usa los que ya tienes en raíz) -->
   <link rel="icon" type="image/x-icon" href="favicon.ico" />
-  <link rel="icon" type="image/png" href="favicon.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="manifest" href="site.webmanifest" />
 
   <style>
     :root{
       --bg:#0b0b0b;        /* negro base del body */
-      --elev:#121212;      /* paneles */
+      --elev:#121212;      /* paneles oscuros */
       --ink:#f5f7fa;       /* texto sobre oscuro */
       --muted:#c3c7cf;     /* texto secundario sobre oscuro */
       --line:#222;         /* bordes sobre oscuro */
@@ -53,9 +52,10 @@
       color:var(--light-ink);
       border-bottom:1px solid var(--light-line);
     }
-    .nav{display:flex;align-items:center;justify-content:space-between;height:84px}
+    .nav{display:flex;align-items:center;justify-content:space-between;height:86px}
     .brand{display:flex;align-items:center;gap:12px;font-weight:900;letter-spacing:.2px}
-    .brand img{height:56px;width:auto}       /* logo grande */
+    .brand img{height:68px;width:auto}       /* logo header más grande */
+    @media(max-width:480px){.brand img{height:54px}}
     .brand span{color:var(--light-ink)}
     .menu{display:none;gap:14px;align-items:center}
     .menu a{padding:10px 12px;border-radius:10px;color:var(--light-muted)}
@@ -63,7 +63,7 @@
     .burger{display:inline-flex;flex-direction:column;gap:4px;padding:10px;border-radius:10px;border:1px solid var(--light-line);background:#fff}
     .burger span{width:20px;height:2px;background:#111}
     @media(min-width:900px){.menu{display:flex}.burger{display:none}}
-    .mobile-panel{position:fixed;inset:0 0 auto 0;top:84px;background:#fff;border-top:1px solid var(--light-line);display:none;color:var(--light-ink)}
+    .mobile-panel{position:fixed;inset:0 0 auto 0;top:86px;background:#fff;border-top:1px solid var(--light-line);display:none;color:var(--light-ink)}
     .mobile-panel.open{display:block}
 
     /* Buttons / chips */
@@ -79,6 +79,15 @@
     @media(min-width:980px){.hero .wrap{grid-template-columns:1.05fr .95fr;padding:64px 0}}
     .hero .media{position:relative;border-radius:22px;overflow:hidden;border:1px solid var(--line)}
     .hero .media::after{content:"";position:absolute;inset:0;background:radial-gradient(80% 60% at 60% 40%, rgba(225,6,0,.28), transparent 60%)}
+
+    /* Logo destacado dentro del hero (panel blanco) */
+    .hero-logo{
+      background:#fff;border:1px solid #eee;border-radius:18px;
+      padding:14px;display:inline-flex;align-items:center;justify-content:center;
+      margin-bottom:10px
+    }
+    .hero-logo img{width:260px;height:auto}
+    @media(max-width:520px){.hero-logo img{width:200px}}
 
     h1{font-size:clamp(30px,5vw,52px);line-height:1.04;margin:.2em 0}
     h2{font-size:clamp(22px,3.6vw,34px);margin:0 0 8px}
@@ -108,8 +117,16 @@
     .footer-grid{display:grid;gap:18px;padding:28px 0}
     .footer-grid .sub{color:var(--light-muted)}
 
-    /* WhatsApp flotante */
-    .floating-wa{position:fixed;right:16px;bottom:16px;background:#25D366;color:#001;border-radius:999px;padding:12px 14px;display:flex;align-items:center;gap:10px;font-weight:800;box-shadow:0 10px 40px rgba(0,0,0,.35);z-index:45}
+    /* Trust bar centrada */
+    .trustbar{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:10px}
+
+    /* WhatsApp flotante con icono */
+    .floating-wa{
+      position:fixed;right:16px;bottom:16px;background:#25D366;color:#001;
+      border-radius:999px;padding:12px 16px;display:flex;align-items:center;gap:10px;
+      font-weight:800;box-shadow:0 10px 40px rgba(0,0,0,.35);z-index:45
+    }
+    .floating-wa svg{width:20px;height:20px;display:block}
   </style>
 
   <!-- Schema -->
@@ -119,7 +136,7 @@
     "@type":"Organization",
     "name":"MotoUrbano MX",
     "url":"https://motourbano.shop/",
-    "logo":"favicon.png",
+    "logo":"apple-touch-icon.png",
     "contactPoint":{"@type":"ContactPoint","contactType":"customer support","areaServed":"MX","availableLanguage":["es"]}
   }
   </script>
@@ -138,7 +155,6 @@
         <a href="#productos">Productos</a>
         <a href="#faq">FAQ</a>
         <a href="#contacto">Contacto</a>
-        <a class="badge" href="#envios" style="background:#fff;border-color:#ddd;color:#333">Envíos</a>
       </nav>
       <button class="burger" id="burger" aria-label="Abrir menú">
         <span></span><span></span><span></span>
@@ -157,10 +173,15 @@
     </div>
   </header>
 
-  <!-- HERO (sigue dark para contraste) -->
+  <!-- HERO -->
   <section id="inicio" class="hero">
     <div class="container wrap">
       <div>
+        <!-- LOGO grande, fondo claro -->
+        <div class="hero-logo shadow">
+          <img src="img/logo.png" alt="Logo MotoUrbano"/>
+        </div>
+
         <div class="badge">🇲🇽 MotoUrbano MX</div>
         <h1>Accesorios de moto para la ciudad</h1>
         <p class="lead">Calidad sin sorpresas: PayPal, devoluciones 14 días y envío a todo México.</p>
@@ -208,10 +229,10 @@
     </div>
   </section>
 
-  <!-- TRUST BAR -->
+  <!-- TRUST BAR (centrada) -->
   <section class="container" style="padding:6px 0 16px">
     <div class="card shadow" style="padding:12px 12px">
-      <div style="display:flex;gap:10px;overflow:auto;scrollbar-width:none">
+      <div class="trustbar">
         <span class="badge">🛡️ Compra protegida</span>
         <span class="badge">📦 Tracking del pedido</span>
         <span class="badge">🇲🇽 Precios en MXN</span>
@@ -220,7 +241,7 @@
     </div>
   </section>
 
-  <!-- PRODUCTOS DESTACADOS -->
+  <!-- PRODUCTOS DESTACADOS (3 items) -->
   <section id="productos" class="container" style="padding:18px 0">
     <div style="display:flex;justify-content:space-between;align-items:end;gap:10px">
       <div>
@@ -230,7 +251,7 @@
       <a class="badge" href="https://motourbano.shop/collections/all" style="background:#fff;border-color:#ddd;color:#333">Ver todo →</a>
     </div>
 
-    <div class="grid cols-2 cols-4" style="margin-top:10px">
+    <div class="grid cols-2 cols-3" style="margin-top:10px">
       <!-- Soporte -->
       <article class="card prod shadow">
         <a href="https://motourbano.shop/products/soporte-antivibracion">
@@ -265,23 +286,6 @@
         </a>
       </article>
 
-      <!-- Bolsa trasera -->
-      <article class="card prod shadow">
-        <a href="https://motourbano.shop/products/bolsa-trasera-asiento">
-          <div class="swap">
-            <img src="img/bolsa-trasera-impermeable-01.jpg" alt="Bolsa trasera de asiento"/>
-            <img src="img/bolsa-trasera-impermeable-02.jpg" alt="" aria-hidden="true"/>
-          </div>
-          <div class="pad">
-            <div style="display:flex;justify-content:space-between;gap:10px">
-              <strong>Bolsa trasera de asiento</strong>
-              <span class="price">Desde $799 MXN</span>
-            </div>
-            <div class="sub stars">★★★★★ <span style="opacity:.7">(demo)</span></div>
-          </div>
-        </a>
-      </article>
-
       <!-- Riñonera -->
       <article class="card prod shadow">
         <a href="https://motourbano.shop/products/rinonera-moto">
@@ -293,23 +297,6 @@
             <div style="display:flex;justify-content:space-between;gap:10px">
               <strong>Riñonera impermeable</strong>
               <span class="price">$549 MXN</span>
-            </div>
-            <div class="sub stars">★★★★★ <span style="opacity:.7">(demo)</span></div>
-          </div>
-        </a>
-      </article>
-
-      <!-- Chaleco -->
-      <article class="card prod shadow">
-        <a href="https://motourbano.shop/products/chaleco-reflectante">
-          <div class="swap">
-            <img src="img/chaleco-fosforito-01.jpg" alt="Chaleco fosforito reflectante"/>
-            <img src="img/chaleco-fosforito-02.jpg" alt="" aria-hidden="true"/>
-          </div>
-          <div class="pad">
-            <div style="display:flex;justify-content:space-between;gap:10px">
-              <strong>Chaleco fosforito reflectante</strong>
-              <span class="price">$299 MXN</span>
             </div>
             <div class="sub stars">★★★★★ <span style="opacity:.7">(demo)</span></div>
           </div>
@@ -366,17 +353,26 @@
     </div>
   </footer>
 
-  <!-- WhatsApp flotante -->
-  <a class="floating-wa" href="https://wa.me/520000000000" target="_blank" rel="noopener" aria-label="WhatsApp Soporte">WhatsApp</a>
+  <!-- WhatsApp flotante con icono -->
+  <a class="floating-wa" href="https://wa.me/520000000000" target="_blank" rel="noopener" aria-label="WhatsApp Soporte">
+    <!-- SVG WhatsApp -->
+    <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+      <path fill="#fff" d="M19.11 17.29a5.48 5.48 0 0 1-2.38-2.38c-.1-.2-.08-.37.05-.55.18-.24.36-.49.53-.74.18-.28.16-.52-.06-.77-.15-.18-.31-.36-.48-.52-.38-.37-.79-.39-1.2-.07-.54.41-.86.97-.9 1.66-.06 1.08.35 1.99 1.03 2.81 1.17 1.4 2.65 2.31 4.39 2.71.45.1.88.05 1.28-.2.26-.17.51-.36.75-.56.34-.28.36-.69.07-1.02-.17-.2-.35-.39-.54-.57-.25-.24-.49-.26-.77-.08-.25.16-.5.32-.74.49-.2.14-.39.15-.59.03Z"/>
+      <path fill="#fff" d="M26.9 5.09A12.84 12.84 0 0 0 5.1 26.9l-1.3 4.01 4.15-1.22A12.85 12.85 0 0 0 26.9 5.09Zm-2.2 19.02a10.34 10.34 0 0 1-14.2 1.1l-.32-.26-2.46.72.77-2.38-.27-.34a10.34 10.34 0 1 1 16.48 1.16Z"/>
+    </svg>
+    WhatsApp
+  </a>
 
   <script>
     // Año dinámico
     document.getElementById('year').textContent = new Date().getFullYear();
+
     // Menú móvil
     const burger = document.getElementById('burger');
     const panel = document.getElementById('mobilePanel');
     function closeMenu(){ panel.classList.remove('open'); }
     burger.addEventListener('click', ()=> panel.classList.toggle('open'));
+
     // Smooth scroll
     document.querySelectorAll('a[href^="#"]').forEach(a=>{
       a.addEventListener('click', e=>{
