@@ -32,7 +32,7 @@
     header.site{position:sticky;top:0;z-index:40;background:#fff;border-bottom:1px solid var(--line)}
     .header-wrap{display:flex;flex-direction:column;align-items:center;gap:8px;padding:14px 0}
     .brand-stack{display:flex;flex-direction:column;align-items:center;gap:6px}
-    .brand-stack img{height:84px}
+    .brand-stack img{height:84px;width:auto}
     .brand-title{font:800 22px/1 Poppins,system-ui;text-align:center}
     nav.menu{display:flex;flex-wrap:wrap;gap:16px;justify-content:center;margin-top:6px}
     nav.menu a{padding:8px 10px;border-radius:10px;color:#444}
@@ -45,7 +45,7 @@
     /* Hero */
     .hero{border-bottom:1px solid var(--line);background:#fff}
     .hero .wrap{display:flex;flex-direction:column;align-items:center;gap:12px;padding:44px 0}
-    .hero .logo-big img{width:360px}
+    .hero .logo-big img{width:360px;height:auto}
     @media(min-width:1100px){.hero .logo-big img{width:400px}}
     @media(max-width:520px){.hero .logo-big img{width:220px}}
     h1{font-family:Poppins,system-ui;font-weight:800;letter-spacing:.2px;font-size:clamp(30px,5vw,52px);line-height:1.04;margin:.1em 0 .2em;text-align:center}
@@ -73,12 +73,14 @@
     .pill.is-active{background:#111;color:#fff;border-color:#111}
     .prod{display:flex;flex-direction:column;cursor:pointer}
     .prod img{aspect-ratio:1/1;object-fit:cover;background:#f4f4f4}
-    .prod .pad{padding:10px}
+    .prod .pad{padding:12px}
+    .prod .title{font-weight:700;line-height:1.25;margin:0 0 6px;font-size:16px}
+    .prod .meta{display:flex;justify-content:space-between;align-items:center}
     .price{font-weight:900;color:#111}
-    .stars{color:#C99A10}
+    .stars{color:#C99A10;font-size:13px}
     .hidden{display:none !important}
 
-    /* Modal producto — compacto y no se corta */
+    /* Modal producto — compacto, no se corta y con galería */
     .modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;padding:16px;z-index:60}
     .modal.open{display:flex}
     .modal-card{background:#fff;border-radius:18px;max-width:920px;width:96%;max-height:92vh;display:flex;flex-direction:column;overflow:hidden;border:1px solid var(--line)}
@@ -86,7 +88,9 @@
     .modal-title{font:700 18px/1.2 Poppins,system-ui}
     .modal-body{display:grid;gap:14px;padding:14px;overflow:auto}
     @media(min-width:900px){.modal-body{grid-template-columns:1.05fr .95fr}}
-    .modal-body img{width:100%;height:auto;max-height:48vh;object-fit:contain;border-radius:12px;background:#f7f7f7}
+    .m-main{width:100%;max-height:48vh;object-fit:contain;border-radius:12px;background:#f7f7f7}
+    .thumbs{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:8px}
+    .thumbs img{width:100%;height:70px;object-fit:cover;border-radius:10px;border:1px solid var(--line);cursor:pointer;background:#fafafa}
     .close{border:none;background:#f3f3f3;border-radius:10px;padding:8px 10px;cursor:pointer}
     .qty{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:10px;overflow:hidden}
     .qty button{background:#f6f6f6;border:none;padding:8px 10px;cursor:pointer}
@@ -142,7 +146,7 @@
   <header class="site">
     <div class="container header-wrap">
       <div class="brand-stack">
-        <img src="img/logo.png" alt="Logo MotoUrbano"/>
+        <img src="img/logo.png" alt="Logo MotoUrbano" width="180" height="84" decoding="async" fetchpriority="high"/>
         <div class="brand-title">MotoUrbano MX</div>
       </div>
       <nav class="menu" aria-label="Principal">
@@ -159,7 +163,9 @@
   <!-- HERO -->
   <section id="inicio" class="hero">
     <div class="container wrap">
-      <div class="logo-big"><img src="img/logo.png" alt="Logo MotoUrbano"/></div>
+      <div class="logo-big">
+        <img src="img/logo.png" alt="Logo MotoUrbano" width="400" height="160" decoding="async" fetchpriority="high"/>
+      </div>
       <h1>Accesorios para moto urbana</h1>
 
       <div class="chips-row">
@@ -170,7 +176,7 @@
 
       <div class="paypal-row">
         <span class="pp-badge" title="Pago seguro con PayPal" aria-label="Pago seguro con PayPal">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal"/>
+          <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal" width="88" height="22" decoding="async"/>
         </span>
       </div>
     </div>
@@ -183,19 +189,19 @@
 
     <div class="grid cols-2 cols-5">
       <div class="tile shadow js-cat" data-cat="soportes" title="Soportes de móvil">
-        <img src="img/cat-soportes.jpg" alt="Soportes de móvil"/><span class="label">Soportes</span>
+        <img src="img/cat-soportes.jpg" alt="Soportes de móvil" loading="lazy" width="480" height="200"/><span class="label">Soportes</span>
       </div>
       <div class="tile shadow js-cat" data-cat="guantes" title="Guantes">
-        <img src="img/cat-guantes.jpg" alt="Guantes"/><span class="label">Guantes</span>
+        <img src="img/cat-guantes.jpg" alt="Guantes" loading="lazy" width="480" height="200"/><span class="label">Guantes</span>
       </div>
       <div class="tile shadow js-cat" data-cat="chalecos" title="Chalecos reflectantes">
-        <img src="img/cat-chalecos.jpg" alt="Chalecos"/><span class="label">Chalecos</span>
+        <img src="img/cat-chalecos.jpg" alt="Chalecos" loading="lazy" width="480" height="200"/><span class="label">Chalecos</span>
       </div>
       <div class="tile shadow js-cat" data-cat="bolsas" title="Bolsas">
-        <img src="img/cat-bolsas.jpg" alt="Bolsas"/><span class="label">Bolsas</span>
+        <img src="img/cat-bolsas.jpg" alt="Bolsas" loading="lazy" width="480" height="200"/><span class="label">Bolsas</span>
       </div>
       <div class="tile shadow js-cat" data-cat="rinoneras" title="Riñoneras">
-        <img src="img/cat-rinoneras.jpg" alt="Riñoneras"/><span class="label">Riñoneras</span>
+        <img src="img/cat-rinoneras.jpg" alt="Riñoneras" loading="lazy" width="480" height="200"/><span class="label">Riñoneras</span>
       </div>
     </div>
   </section>
@@ -232,15 +238,15 @@
         data-name="Soporte manillar antivibración"
         data-price="$699 MXN"
         data-desc="Sujeción firme · Absorción de vibraciones · Compatible con la mayoría de manillares"
-        data-img1="img/cat-soportes.jpg"
-        data-img2="img/cat-soportes.jpg">
-        <img src="img/cat-soportes.jpg" alt="Soporte manillar antivibración"/>
+        data-main="img/cat-soportes.jpg"
+        data-gallery='["img/soporte-antivibracion-01.jpg","img/soporte-antivibracion-02.jpg","img/soporte-antivibracion-03.jpg","img/soporte-antivibracion-04.jpg"]'>
+        <img src="img/cat-soportes.jpg" alt="Soporte manillar antivibración" width="600" height="600" decoding="async"/>
         <div class="pad">
-          <div style="display:flex;justify-content:space-between;gap:10px">
-            <strong>Soporte manillar antivibración</strong>
+          <div class="title">Soporte manillar antivibración</div>
+          <div class="meta">
             <span class="price">$699 MXN</span>
+            <span class="stars">★★★★★ <span style="opacity:.7">(demo)</span></span>
           </div>
-          <div class="sub stars">★★★★★ <span style="opacity:.7">(demo)</span></div>
         </div>
       </article>
 
@@ -250,15 +256,15 @@
         data-name="Guantes impermeables táctiles"
         data-price="$649 MXN"
         data-desc="Impermeables · Dedos táctiles · Refuerzos en palma"
-        data-img1="img/cat-guantes.jpg"
-        data-img2="img/cat-guantes.jpg">
-        <img src="img/cat-guantes.jpg" alt="Guantes impermeables táctiles"/>
+        data-main="img/cat-guantes.jpg"
+        data-gallery='["img/guantes-urbanos-verano-01.jpg","img/guantes-urbanos-verano-02.jpg"]'>
+        <img src="img/cat-guantes.jpg" alt="Guantes impermeables táctiles" width="600" height="600" decoding="async"/>
         <div class="pad">
-          <div style="display:flex;justify-content:space-between;gap:10px">
-            <strong>Guantes impermeables táctiles</strong>
+          <div class="title">Guantes impermeables táctiles</div>
+          <div class="meta">
             <span class="price">$649 MXN</span>
+            <span class="stars">★★★★★ <span style="opacity:.7">(demo)</span></span>
           </div>
-          <div class="sub stars">★★★★★ <span style="opacity:.7">(demo)</span></div>
         </div>
       </article>
 
@@ -268,15 +274,15 @@
         data-name="Chaleco reflectante"
         data-price="$299 MXN"
         data-desc="Alta visibilidad · Ajuste sencillo · Ligero"
-        data-img1="img/cat-chalecos.jpg"
-        data-img2="img/cat-chalecos.jpg">
-        <img src="img/cat-chalecos.jpg" alt="Chaleco reflectante"/>
+        data-main="img/cat-chalecos.jpg"
+        data-gallery='["img/chaleco-fosforito-01.jpg","img/chaleco-fosforito-02.jpg"]'>
+        <img src="img/cat-chalecos.jpg" alt="Chaleco reflectante" width="600" height="600" decoding="async"/>
         <div class="pad">
-          <div style="display:flex;justify-content:space-between;gap:10px">
-            <strong>Chaleco reflectante</strong>
+          <div class="title">Chaleco reflectante</div>
+          <div class="meta">
             <span class="price">$299 MXN</span>
+            <span class="stars">★★★★★ <span style="opacity:.7">(demo)</span></span>
           </div>
-          <div class="sub stars">★★★★★ <span style="opacity:.7">(demo)</span></div>
         </div>
       </article>
 
@@ -286,15 +292,15 @@
         data-name="Riñonera impermeable"
         data-price="$549 MXN"
         data-desc="Impermeable · Cierre seguro · Bolsillos internos"
-        data-img1="img/cat-rinoneras.jpg"
-        data-img2="img/cat-rinoneras.jpg">
-        <img src="img/cat-rinoneras.jpg" alt="Riñonera impermeable urbana"/>
+        data-main="img/cat-rinoneras.jpg"
+        data-gallery='["img/rinonera-impermeable-01.jpg","img/rinonera-impermeable-02.jpg","img/rinonera-impermeable-03.jpg","img/rinonera-impermeable-04.jpg","img/rinonera-impermeable-05.jpg"]'>
+        <img src="img/cat-rinoneras.jpg" alt="Riñonera impermeable" width="600" height="600" decoding="async"/>
         <div class="pad">
-          <div style="display:flex;justify-content:space-between;gap:10px">
-            <strong>Riñonera impermeable</strong>
+          <div class="title">Riñonera impermeable</div>
+          <div class="meta">
             <span class="price">$549 MXN</span>
+            <span class="stars">★★★★★ <span style="opacity:.7">(demo)</span></span>
           </div>
-          <div class="sub stars">★★★★★ <span style="opacity:.7">(demo)</span></div>
         </div>
       </article>
 
@@ -304,15 +310,15 @@
         data-name="Bolsa trasera impermeable"
         data-price="$799 MXN"
         data-desc="Montaje rápido · Resistente al agua · Capacidad ampliable"
-        data-img1="img/cat-bolsas.jpg"
-        data-img2="img/cat-bolsas.jpg">
-        <img src="img/cat-bolsas.jpg" alt="Bolsa trasera impermeable para asiento"/>
+        data-main="img/cat-bolsas.jpg"
+        data-gallery='["img/bolsa-trasera-impermeable-01.jpg","img/bolsa-trasera-impermeable-02.jpg"]'>
+        <img src="img/cat-bolsas.jpg" alt="Bolsa trasera impermeable" width="600" height="600" decoding="async"/>
         <div class="pad">
-          <div style="display:flex;justify-content:space-between;gap:10px">
-            <strong>Bolsa trasera impermeable</strong>
+          <div class="title">Bolsa trasera impermeable</div>
+          <div class="meta">
             <span class="price">$799 MXN</span>
+            <span class="stars">★★★★★ <span style="opacity:.7">(demo)</span></span>
           </div>
-          <div class="sub stars">★★★★★ <span style="opacity:.7">(demo)</span></div>
         </div>
       </article>
     </div>
@@ -352,7 +358,7 @@
   <!-- FOOTER -->
   <footer id="contacto" class="site">
     <div class="container footer-head">
-      <img src="img/logo.png" alt="MotoUrbano"/>
+      <img src="img/logo.png" alt="MotoUrbano" width="120" height="52" decoding="async"/>
       <div class="footer-name">MotoUrbano MX</div>
       <div class="footer-tag">Accesorios urbanos, prácticos y fiables. Envío a todo México.</div>
     </div>
@@ -382,7 +388,6 @@
 
   <!-- WhatsApp flotante -->
   <a class="floating-wa" href="https://wa.me/520000000000" target="_blank" rel="noopener" aria-label="WhatsApp Soporte" title="WhatsApp">
-    <!-- Icono oficial centrado -->
     <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
       <g transform="translate(0.5,0.5)">
         <path fill="#FFFFFF" d="M.057 24l1.687-6.163A11.867 11.867 0 0 1 0 11.78C0 5.27 5.373 0 12 0c3.193 0 6.2 1.24 8.477 3.514A11.86 11.86 0 0 1 24 11.78c0 6.51-5.373 11.78-12 11.78-1.99 0-3.89-.467-5.605-1.356L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.347 1.591 5.448 0 9.886-4.355 9.886-9.727 0-5.372-4.438-9.727-9.886-9.727-5.44 0-9.886 4.355-9.886 9.727 0 2.31.81 4.44 2.17 6.167l-.99 3.62 3.36-.65zm11.387-5.464c-.066-.11-.242-.176-.506-.308-.264-.131-1.56-.767-1.8-.853-.24-.088-.415-.131-.59.13-.176.262-.677.853-.83 1.027-.153.176-.307.197-.57.066-.264-.132-1.115-.409-2.124-1.304-.785-.693-1.315-1.551-1.469-1.813-.153-.262-.017-.404.115-.535.118-.117.264-.307.395-.46.131-.154.175-.263.264-.439.088-.175.044-.33-.022-.461-.066-.131-.59-1.42-.807-1.944-.212-.514-.43-.445-.59-.454l-.503-.01c-.175 0-.46.065-.702.33-.242.263-.929.907-.929 2.209 0 1.302.952 2.561 1.084 2.739.131.176 1.873 2.998 4.54 4.206.634.283 1.129.452 1.518.579.638.203 1.221.175 1.678.106.512-.076 1.575-.658 1.798-1.294.22-.636.22-1.18.153-1.293z"/>
@@ -399,8 +404,8 @@
       </div>
       <div class="modal-body">
         <div>
-          <img id="mImg1" src="" alt="" />
-          <img id="mImg2" src="" alt="" style="margin-top:10px"/>
+          <img id="mMain" class="m-main" src="" alt="" />
+          <div id="mThumbs" class="thumbs"></div>
         </div>
         <div>
           <div class="sub" id="mPrice" style="font-size:22px;margin:0 0 12px"></div>
@@ -454,7 +459,7 @@
       var filterPills = Array.prototype.slice.call(document.querySelectorAll('#filters .pill'));
       var prodCards   = Array.prototype.slice.call(document.querySelectorAll('#gridProds [data-cat]'));
       function applyFilter(cat){
-        filterPills.forEach(function(p){ p.classList.toggle('is-active', p.dataset.cat===cat); });
+        filterPills.forEach(function(p){ p.classList.toggle('is-active', p.dataset.cat===cat || (cat==='all' && p.dataset.cat==='all')); });
         prodCards.forEach(function(card){ card.classList.toggle('hidden', !(cat==='all' || card.dataset.cat===cat)); });
         var prodSection = document.querySelector('#productos');
         if(prodSection){ prodSection.scrollIntoView({behavior:'smooth', block:'start'}); }
@@ -464,12 +469,12 @@
         tile.addEventListener('click', function(){ applyFilter(tile.dataset.cat); });
       });
 
-      // --------- Modal de producto ----------
+      // --------- Modal de producto con galería ----------
       var modal = document.getElementById('modal');
       var mTitle = document.getElementById('mTitle');
       var mPrice = document.getElementById('mPrice');
-      var mImg1  = document.getElementById('mImg1');
-      var mImg2  = document.getElementById('mImg2');
+      var mMain  = document.getElementById('mMain');
+      var mThumbs= document.getElementById('mThumbs');
       var mClose = document.getElementById('mClose');
       var qMinus = document.getElementById('qMinus');
       var qPlus  = document.getElementById('qPlus');
@@ -479,19 +484,42 @@
       var currentProduct = null;
 
       function bullets(text){ return (text||'').split('·').map(function(s){return s.trim();}).filter(Boolean); }
+
       function openModal(card){
+        var gallery = [];
+        try{ gallery = JSON.parse(card.getAttribute('data-gallery')||'[]'); }catch(e){ gallery = []; }
+
         currentProduct = {
           name: card.dataset.name,
           priceText: card.dataset.price,
           price: parseInt((card.dataset.price||'').replace(/[^0-9]/g,''),10) || 0,
-          img1: card.dataset.img1, img2: card.dataset.img2,
+          main: card.getAttribute('data-main') || '',
+          gallery: gallery,
           desc: card.dataset.desc || ''
         };
+
         mTitle.textContent = currentProduct.name || 'Producto';
         mPrice.textContent = currentProduct.priceText || '';
-        mImg1.src = currentProduct.img1 || ''; mImg1.alt = currentProduct.name || '';
-        mImg2.src = currentProduct.img2 || ''; mImg2.alt = currentProduct.name || '';
+
+        // Main = cat-*.jpg; thumbs = fotos reales (sin duplicar)
+        mMain.src = currentProduct.main || '';
+        mMain.alt = currentProduct.name || '';
+
+        var thumbs = currentProduct.gallery.filter(function(src){ return src && src!==currentProduct.main; });
+        mThumbs.innerHTML = thumbs.map(function(src){
+          return '<img src="'+src+'" alt="Vista '+currentProduct.name+'" loading="lazy">';
+        }).join('');
+
+        // Click thumb => mostrar en grande (contain)
+        mThumbs.addEventListener('click', function onClick(e){
+          var img = e.target.closest('img');
+          if(!img) return;
+          mMain.src = img.src;
+        }, { once:false });
+
+        // Descripción a bullets
         mDesc.innerHTML = bullets(currentProduct.desc).map(function(li){return '<li>'+li+'</li>';}).join('');
+
         qInput.value = 1;
         modal.classList.add('open');
       }
@@ -510,16 +538,14 @@
       var cBody     = document.getElementById('cBody');
       var cTotal    = document.getElementById('cTotal');
       var cClear    = document.getElementById('cClear');
-      var cCheckout = document.getElementById('cCheckout'); // (ya no se usa, mantenido por si quieres WA)
-      var cartCount = document.getElementById('cartCount');
       var ppForm    = document.getElementById('ppForm');
       var ppAmount  = document.getElementById('ppAmount');
       var ppBusiness= document.getElementById('ppBusiness');
 
-      // ⚠️ Sustituye por tu correo de PayPal (o Merchant ID)
-      var PAYPAL_BUSINESS = 'tu-correo-paypal@ejemplo.com';
+      var PAYPAL_BUSINESS = 'tu-correo-paypal@ejemplo.com'; // <-- cámbialo
       ppBusiness.value = PAYPAL_BUSINESS;
 
+      var cartCount = document.getElementById('cartCount');
       var STORAGE_KEY = 'mu_cart';
       function readCart(){ try{ return JSON.parse(localStorage.getItem(STORAGE_KEY)||'[]'); }catch(e){ return []; } }
       function writeCart(items){ localStorage.setItem(STORAGE_KEY, JSON.stringify(items)); }
@@ -536,7 +562,7 @@
         }else{
           cBody.innerHTML = items.map(function(i,idx){
             return '<div class="cart-item">'
-              + '<img src="'+i.img+'" alt="'+i.name+'">'
+              + '<img src="'+i.img+'" alt="'+i.name+'" loading="lazy">'
               + '<div><div style="font-weight:700">'+i.name+'</div><div class="sub">'+i.qty+' × $'+i.price+' MXN</div></div>'
               + '<button class="close" data-del="'+idx+'">Eliminar</button>'
               + '</div>';
@@ -544,7 +570,7 @@
         }
         var total = cartSum(items);
         cTotal.textContent = '$'+total+' MXN';
-        ppAmount.value = Number(total).toFixed(2); // PayPal necesita decimales con punto
+        ppAmount.value = Number(total).toFixed(2);
       }
       function openCart(){ renderCart(); cartModal.classList.add('open'); }
       function closeCart(){ cartModal.classList.remove('open'); }
@@ -560,13 +586,11 @@
       });
       if(cClear) cClear.addEventListener('click', function(){ writeCart([]); updateCount(); renderCart(); });
 
-      // Añadir al carrito desde modal
-      var mAdd = document.getElementById('mAdd');
-      var qInput = document.getElementById('qInput');
+      // Añadir al carrito desde modal (usa imagen actualmente mostrada en grande)
       if(mAdd) mAdd.addEventListener('click', function(){
         var qty = Math.max(1, parseInt(qInput.value,10)||1);
         var items = readCart();
-        items.push({ name: currentProduct.name, price: currentProduct.price, img: currentProduct.img1, qty: qty });
+        items.push({ name: mTitle.textContent, price: parseInt((mPrice.textContent||'').replace(/[^0-9]/g,''),10)||0, img: mMain.src, qty: qty });
         writeCart(items); updateCount(); openCart(); closeModal();
       });
 
@@ -580,6 +604,7 @@
         });
       });
 
+      // Contador inicial
       updateCount();
     });
   </script>
