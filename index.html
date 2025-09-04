@@ -13,23 +13,18 @@
   <meta property="og:description" content="Accesorios de moto urbanos, prácticos y fiables." />
   <meta property="og:image" content="https://leadradar.github.io/motorhub.mx/img/hero.jpg" />
 
-  <!-- Iconos -->
+  <!-- PWA / iconos -->
   <link rel="icon" type="image/x-icon" href="favicon.ico" />
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="manifest" href="site.webmanifest" />
 
-  <!-- Fonts -->
+  <!-- Tipografías -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700;800&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      --bg:#ffffff;
-      --elev:#ffffff;
-      --ink:#111111;
-      --muted:#666666;
-      --line:#eeeeee;
-      --accent:#e10600;
-      --accent-2:#ff2a23;
+      --bg:#ffffff; --elev:#ffffff; --ink:#111; --muted:#666; --line:#eee;
+      --accent:#e10600; --accent-2:#ff2a23;
     }
     *{box-sizing:border-box}
     html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
@@ -42,61 +37,52 @@
     .card{background:var(--elev);border:1px solid var(--line);border-radius:18px;overflow:hidden}
     .shadow{box-shadow:0 10px 30px rgba(0,0,0,.08)}
 
-    /* HEADER (stack centrado) */
-    header.site{
-      position:sticky;top:0;z-index:40;background:#fff;color:#111;border-bottom:1px solid var(--line)
-    }
+    /* Header centrado (logo + nombre + menú) */
+    header.site{position:sticky;top:0;z-index:40;background:#fff;border-bottom:1px solid var(--line)}
     .header-wrap{display:flex;flex-direction:column;align-items:center;gap:8px;padding:14px 0}
     .brand-stack{display:flex;flex-direction:column;align-items:center;gap:6px}
-    .brand-stack img{height:84px;width:auto}
-    .brand-title{font:800 22px/1 Poppins,system-ui;letter-spacing:.2px;text-align:center}
+    .brand-stack img{height:84px}
+    .brand-title{font:800 22px/1 Poppins,system-ui;text-align:center}
     nav.menu{display:flex;flex-wrap:wrap;gap:16px;justify-content:center;margin-top:6px}
     nav.menu a{padding:8px 10px;border-radius:10px;color:#444}
     nav.menu a:hover{background:#f3f3f3;color:#111}
 
-    /* HERO (logo protagonista + chips) */
+    /* Compensar header fijo al navegar por anclas */
+    section{scroll-margin-top:140px}
+
+    /* Hero */
     .hero{border-bottom:1px solid var(--line);background:#fff}
-    .hero .wrap{display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;padding:44px 0}
-    .hero .logo-big img{width:360px;height:auto}
+    .hero .wrap{display:flex;flex-direction:column;align-items:center;gap:12px;padding:44px 0}
+    .hero .logo-big img{width:360px}
     @media(min-width:1100px){.hero .logo-big img{width:400px}}
     @media(max-width:520px){.hero .logo-big img{width:220px}}
-
     h1{
-      font-family:Poppins,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
-      font-weight:800;letter-spacing:.2px;
-      font-size:clamp(30px,5vw,52px);line-height:1.04;margin:.1em 0 .2em;text-align:center
+      font-family:Poppins,system-ui; font-weight:800; letter-spacing:.2px;
+      font-size:clamp(30px,5vw,52px); line-height:1.04; margin:.1em 0 .2em; text-align:center
     }
-    h2{font-size:clamp(22px,3.6vw,34px);margin:0 0 10px;text-align:center}
-    p.lead{font-size:clamp(15px,2vw,18px);color:#444;margin:0;text-align:center}
-    .sub{color:var(--muted);text-align:center}
+    h2{font-size:clamp(22px,3.6vw,34px); margin:0 0 10px; text-align:center}
+    p.lead{font-size:clamp(15px,2vw,18px); color:#444; margin:0; text-align:center}
+    .sub{color:var(--muted); text-align:center}
 
-    /* Chips bajo el título */
-    .chips-row{
-      display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:center;margin-top:8px
-    }
+    .chips-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:center;margin-top:8px}
     .chip{display:inline-flex;align-items:center;gap:8px;background:#fafafa;border:1px solid var(--line);color:#444;padding:8px 12px;border-radius:12px;white-space:nowrap}
 
-    /* PayPal — fila propia debajo de los chips */
-    .paypal-row{
-      display:flex;justify-content:center;align-items:center;margin-top:10px
-    }
-    .pp-badge{
-      display:inline-flex;align-items:center;justify-content:center;
-      padding:8px 14px;border:1px solid var(--line);border-radius:999px;background:#fff
-    }
-    .pp-badge svg{height:22px;width:auto;display:block}
+    /* PayPal fila propia */
+    .paypal-row{display:flex;justify-content:center;margin-top:12px}
+    .pp-badge{display:inline-flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:10px 16px}
+    .pp-badge svg{height:22px}
 
     /* Categorías */
-    #categorias h2, #categorias .sub{ text-align:center }
-    .tile{position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:#fff}
-    .tile img{width:100%;height:200px;object-fit:cover;filter:saturate(1) contrast(1.04)}
-    .tile .label{
-      position:absolute;left:50%;bottom:10px;transform:translateX(-50%);
-      background:rgba(0,0,0,.55);backdrop-filter:blur(4px);padding:8px 10px;border-radius:10px;
-      font-weight:800;color:#fff
-    }
+    #categorias h2,#categorias .sub{text-align:center}
+    .tile{position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:#fff;cursor:pointer}
+    .tile img{width:100%;height:200px;object-fit:cover}
+    .tile .label{position:absolute;left:50%;bottom:10px;transform:translateX(-50%);
+      background:rgba(0,0,0,.55);padding:8px 10px;border-radius:10px;color:#fff;font-weight:800}
 
-    /* Productos */
+    /* Productos + filtros */
+    #productos .filters{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:12px 0 6px}
+    .pill{border:1px solid var(--line);background:#fafafa;border-radius:999px;padding:8px 12px;cursor:pointer}
+    .pill.is-active{background:#111;color:#fff;border-color:#111}
     .prod{display:flex;flex-direction:column}
     .prod img{aspect-ratio:1/1;object-fit:cover;background:#f4f4f4}
     .prod .swap{position:relative}
@@ -105,21 +91,21 @@
     .prod .pad{padding:10px}
     .price{font-weight:900;color:#111}
     .stars{color:#C99A10}
+    .hidden{display:none !important}
 
-    /* TRUST BAR centrada */
-    .trustbar{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:10px}
+    /* Trust bar */
+    .trustbar{display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
 
-    /* FAQ — más espacio sobre el card */
+    /* FAQ separación superior mayor */
     #faq .card{margin-top:16px}
 
-    /* FOOTER */
-    footer.site{margin-top:48px;border-top:1px solid var(--line);background:#fff;color:#111}
+    /* Footer */
+    footer.site{margin-top:48px;border-top:1px solid var(--line);background:#fff}
     .footer-head{display:flex;flex-direction:column;align-items:center;gap:8px;padding:18px 0 6px}
     .footer-head img{height:52px}
     .footer-name{font:800 18px/1.1 Poppins,system-ui;text-align:center}
     .footer-grid{display:grid;gap:18px;padding:20px 0}
     @media(min-width:900px){.footer-grid{grid-template-columns:2fr 1fr 1fr}}
-    .footer-grid .sub{color:#666}
     .footer-col{text-align:center}
     @media(min-width:900px){.footer-col{text-align:left}}
     .footer-legal{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:center}
@@ -127,33 +113,24 @@
     .footer-legal .dot{opacity:.35}
     .copy{padding-bottom:20px;color:#666;text-align:center}
 
-    /* WhatsApp flotante — SOLO ICONO, SVG compatible */
+    /* WhatsApp flotante (icono oficial) */
     .floating-wa{
-      position:fixed;right:16px;bottom:16px;background:#25D366;color:#fff;
+      position:fixed;right:16px;bottom:16px;background:#25D366;
       width:60px;height:60px;border-radius:50%;
       display:flex;align-items:center;justify-content:center;
       box-shadow:0 10px 30px rgba(0,0,0,.15);z-index:45;cursor:pointer
     }
     .floating-wa svg{width:32px;height:32px;display:block}
-    
-    /* Ocultar destacados en móvil */
-    @media(max-width:640px){#productos{display:none}}
   </style>
 
   <!-- Schema -->
   <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"Organization",
-    "name":"MotoUrbano MX",
-    "url":"https://motourbano.shop/",
-    "logo":"apple-touch-icon.png",
-    "contactPoint":{"@type":"ContactPoint","contactType":"customer support","areaServed":"MX","availableLanguage":["es"]}
-  }
+  {"@context":"https://schema.org","@type":"Organization","name":"MotoUrbano MX","url":"https://motourbano.shop/","logo":"apple-touch-icon.png",
+  "contactPoint":{"@type":"ContactPoint","contactType":"customer support","areaServed":"MX","availableLanguage":["es"]}}
   </script>
 </head>
 <body>
-  <!-- HEADER centrado con logo arriba -->
+  <!-- HEADER -->
   <header class="site">
     <div class="container header-wrap">
       <div class="brand-stack">
@@ -172,26 +149,24 @@
 
   <!-- HERO -->
   <section id="inicio" class="hero">
-    <div class="container wrap" style="text-align:center">
-      <div class="logo-big">
-        <img src="img/logo.png" alt="Logo MotoUrbano"/>
-      </div>
+    <div class="container wrap">
+      <div class="logo-big"><img src="img/logo.png" alt="Logo MotoUrbano"/></div>
       <h1>Accesorios de moto para la ciudad</h1>
 
-      <!-- Chips -->
       <div class="chips-row">
         <span class="chip">💳 Pagos seguros</span>
         <span class="chip">🚚 Envío a todo México</span>
         <span class="chip">↩️ 14 días devolución</span>
       </div>
 
-      <!-- PayPal bajo los chips -->
+      <!-- PayPal: placa debajo de chips -->
       <div class="paypal-row">
         <span class="pp-badge" title="Pago seguro con PayPal" aria-label="Pago seguro con PayPal">
-          <!-- PayPal (PP) -->
-          <svg viewBox="0 0 96 24" xmlns="http://www.w3.org/2000/svg" role="img">
-            <path fill="#003087" d="M21.9 3.5h-6.7c-.8 0-1.5.6-1.6 1.4L10 25.7c-.1.6.4 1.1 1 1.1h4.3c.6 0 1.1-.4 1.2-1l1-6.5c.1-.7.7-1.2 1.4-1.2h2.1c6.5 0 10.3-3.1 11.3-9.2.5-2.7 0-4.8-1.5-6.2-1.5-1.6-4-2.2-7.9-2.2Zm.8 9.3c-.6 3.7-3.7 3.7-6.7 3.7h-1.7l1.2-7.8c.1-.5.5-.8 1-.8h.9c2.1 0 4.1 0 5.2 1 .7.5 1 1.4.8 2.9Z"/>
-            <path fill="#009CDE" d="M38.5 3.5h-6.7c-.8 0-1.5.6-1.6 1.4l-3.5 20.8c-.1.6.4 1.1 1 1.1H32c.6 0 1.1-.4 1.2-1l1-6.5c.1-.7.7-1.2 1.4-1.2h2.1c6.5 0 10.3-3.1 11.3-9.2.5-2.7 0-4.8-1.5-6.2-1.5-1.6-4-2.2-7.9-2.2Zm.8 9.3c-.6 3.7-3.7 3.7-6.7 3.7h-1.7l1.2-7.8c.1-.5.5-.8 1-.8h.9c2.1 0 4.1 0 5.2 1 .7.5 1 1.4.8 2.9Z"/>
+          <!-- Logo PayPal completo -->
+          <svg viewBox="0 0 210 32" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
+            <path fill="#003087" d="M27.6 3.2H16.2c-1.1 0-2 .8-2.2 1.9L9.4 28.5c-.1.8.5 1.5 1.3 1.5H17c.8 0 1.4-.6 1.6-1.3l1.3-8.3c.1-.9.9-1.5 1.8-1.5h2.7c8.3 0 13.2-4 14.5-11.8.6-3.5 0-6.2-2-8.1-1.9-2.1-5.1-2.8-9.9-2.8Zm1 12c-.8 4.7-4.8 4.7-8.6 4.7h-2.2l1.6-9.9c.1-.6.7-1 1.3-1h1.2c2.7 0 5.3 0 6.7 1.3.8.7 1.3 1.8 1 3.9Z"/>
+            <path fill="#009CDE" d="M48.5 3.2H37.1c-1.1 0-2 .8-2.2 1.9l-4.5 23.4c-.1.8.5 1.5 1.3 1.5h6.3c.8 0 1.4-.6 1.6-1.3l1.3-8.3c.1-.9.9-1.5 1.8-1.5H45c8.3 0 13.2-4 14.5-11.8.6-3.5 0-6.2-2-8.1-1.9-2.1-5.1-2.8-9.9-2.8Zm1 12c-.8 4.7-4.8 4.7-8.6 4.7h-2.2l1.6-9.9c.1-.6.7-1 1.3-1h1.2c2.7 0 5.3 0 6.7 1.3.8.7 1.3 1.8 1 3.9Z"/>
+            <path fill="#003087" d="M73.6 24.9l1.6-9.9h3.6l-.3 1.7c1.1-1.3 2.5-2 4.3-2 2.2 0 3.8 1.3 3.4 3.5l-1.4 6.7h-3.8l1.2-5.6c.2-.9-.3-1.4-1.2-1.4-1 0-1.8.5-2.3 1.5l-1.2 5.5h-3.9Zm21.1-10.2c-2.2 0-3.9.9-5.2 2.7-.7-1.7-2.1-2.7-4.1-2.7-1.7 0-3.1.7-4.3 2.1l.2-1.7h-3.6l-2 12.5h3.8l1.1-6.7c.3-1.5 1.1-2.3 2.5-2.3 1.2 0 1.9.8 1.7 2l-1.3 7h3.8l1.1-6.7c.3-1.5 1.1-2.3 2.5-2.3 1.2 0 1.9.8 1.7 2l-1.3 7h3.8l1.5-8.1c.4-2.7-1.2-4.8-4.6-4.8Zm9.2 10.2 1.5-9.9h3.7l-1.5 9.9h-3.7Zm.6-11.8.5-3.3h3.7l-.5 3.3h-3.7Zm10.9 11.8 1.1-6.5c.2-1.5 1.1-2.3 2.5-2.3s1.9.8 1.7 2l-1.1 6.8h3.8l1.1-6.5c.2-1.5 1.1-2.3 2.5-2.3s1.9.8 1.7 2l-1.1 6.8h3.8l1.5-8.1c.4-2.7-1.2-4.8-4.6-4.8-2.1 0-3.7.7-4.8 2-1-1.3-2.5-2-4.5-2-2 0-3.7.8-4.7 2.2l.2-1.7h-3.5l-2 12.5h3.8Z"/>
           </svg>
         </span>
       </div>
@@ -202,33 +177,29 @@
   <section id="categorias" class="container" style="padding:26px 0">
     <h2>Categorías</h2>
     <p class="sub">Encuentra rápido lo que necesitas para el día a día.</p>
+
     <div class="grid cols-2 cols-5">
-      <a class="tile shadow" href="https://motourbano.shop/collections/soportes" title="Soportes de móvil">
-        <img src="img/cat-soportes.jpg" alt="Soportes de móvil"/>
-        <span class="label">Soportes</span>
-      </a>
-      <a class="tile shadow" href="https://motourbano.shop/collections/guantes" title="Guantes">
-        <img src="img/cat-guantes.jpg" alt="Guantes"/>
-        <span class="label">Guantes</span>
-      </a>
-      <a class="tile shadow" href="https://motourbano.shop/collections/chalecos" title="Chalecos reflectantes">
-        <img src="img/cat-chalecos.jpg" alt="Chalecos"/>
-        <span class="label">Chalecos</span>
-      </a>
-      <a class="tile shadow" href="https://motourbano.shop/collections/bolsas" title="Bolsas">
-        <img src="img/cat-bolsas.jpg" alt="Bolsas"/>
-        <span class="label">Bolsas</span>
-      </a>
-      <a class="tile shadow" href="https://motourbano.shop/collections/rinoneras" title="Riñoneras">
-        <img src="img/cat-rinoneras.jpg" alt="Riñoneras"/>
-        <span class="label">Riñoneras</span>
-      </a>
+      <div class="tile shadow js-cat" data-cat="soportes" title="Soportes de móvil">
+        <img src="img/cat-soportes.jpg" alt="Soportes de móvil"/><span class="label">Soportes</span>
+      </div>
+      <div class="tile shadow js-cat" data-cat="guantes" title="Guantes">
+        <img src="img/cat-guantes.jpg" alt="Guantes"/><span class="label">Guantes</span>
+      </div>
+      <div class="tile shadow js-cat" data-cat="chalecos" title="Chalecos reflectantes">
+        <img src="img/cat-chalecos.jpg" alt="Chalecos"/><span class="label">Chalecos</span>
+      </div>
+      <div class="tile shadow js-cat" data-cat="bolsas" title="Bolsas">
+        <img src="img/cat-bolsas.jpg" alt="Bolsas"/><span class="label">Bolsas</span>
+      </div>
+      <div class="tile shadow js-cat" data-cat="rinoneras" title="Riñoneras">
+        <img src="img/cat-rinoneras.jpg" alt="Riñoneras"/><span class="label">Riñoneras</span>
+      </div>
     </div>
   </section>
 
-  <!-- TRUST BAR centrada -->
+  <!-- TRUST BAR -->
   <section class="container" style="padding:6px 0 16px">
-    <div class="card shadow" style="padding:12px 12px">
+    <div class="card shadow" style="padding:12px">
       <div class="trustbar">
         <span class="chip">🛡️ Compra protegida</span>
         <span class="chip">📦 Tracking del pedido</span>
@@ -238,14 +209,23 @@
     </div>
   </section>
 
-  <!-- PRODUCTOS DESTACADOS (3 items) — oculto en móvil -->
-  <section id="productos" class="container" style="padding:18px 0">
-    <h2>Destacados de la semana</h2>
-    <p class="sub">Top ventas y novedades</p>
+  <!-- PRODUCTOS + filtros -->
+  <section id="productos" class="container" style="padding:26px 0">
+    <h2>Productos</h2>
+    <p class="sub">Top ventas y esenciales urbanos.</p>
 
-    <div class="grid cols-2 cols-3" style="margin-top:12px">
+    <div class="filters" id="filters">
+      <button class="pill is-active" data-cat="all">Todos</button>
+      <button class="pill" data-cat="soportes">Soportes</button>
+      <button class="pill" data-cat="guantes">Guantes</button>
+      <button class="pill" data-cat="chalecos">Chalecos</button>
+      <button class="pill" data-cat="bolsas">Bolsas</button>
+      <button class="pill" data-cat="rinoneras">Riñoneras</button>
+    </div>
+
+    <div class="grid cols-2 cols-4" id="gridProds" style="margin-top:12px">
       <!-- Soporte -->
-      <article class="card prod shadow">
+      <article class="card prod shadow" data-cat="soportes">
         <a href="https://motourbano.shop/products/soporte-antivibracion">
           <div class="swap">
             <img src="img/soporte-antivibracion-01.jpg" alt="Soporte manillar antivibración"/>
@@ -262,7 +242,7 @@
       </article>
 
       <!-- Guantes -->
-      <article class="card prod shadow">
+      <article class="card prod shadow" data-cat="guantes">
         <a href="https://motourbano.shop/products/guantes-impermeables-tactiles">
           <div class="swap">
             <img src="img/guantes-urbanos-verano-01.jpg" alt="Guantes impermeables táctiles"/>
@@ -278,8 +258,25 @@
         </a>
       </article>
 
+      <!-- Chaleco -->
+      <article class="card prod shadow" data-cat="chalecos">
+        <a href="https://motourbano.shop/products/chaleco-reflectante-simple">
+          <div class="swap">
+            <img src="img/chaleco-fosforito-01.jpg" alt="Chaleco reflectante básico"/>
+            <img src="img/chaleco-fosforito-02.jpg" alt="" aria-hidden="true"/>
+          </div>
+          <div class="pad">
+            <div style="display:flex;justify-content:space-between;gap:10px">
+              <strong>Chaleco reflectante</strong>
+              <span class="price">$299 MXN</span>
+            </div>
+            <div class="sub stars">★★★★★ <span style="opacity:.7">(demo)</span></div>
+          </div>
+        </a>
+      </article>
+
       <!-- Riñonera -->
-      <article class="card prod shadow">
+      <article class="card prod shadow" data-cat="rinoneras">
         <a href="https://motourbano.shop/products/rinonera-moto">
           <div class="swap">
             <img src="img/rinonera-impermeable-01.jpg" alt="Riñonera impermeable urbana"/>
@@ -294,10 +291,27 @@
           </div>
         </a>
       </article>
+
+      <!-- Bolsa trasera -->
+      <article class="card prod shadow" data-cat="bolsas">
+        <a href="https://motourbano.shop/products/bolsa-trasera-asiento">
+          <div class="swap">
+            <img src="img/bolsa-trasera-impermeable-01.jpg" alt="Bolsa trasera impermeable para asiento"/>
+            <img src="img/bolsa-trasera-impermeable-02.jpg" alt="" aria-hidden="true"/>
+          </div>
+          <div class="pad">
+            <div style="display:flex;justify-content:space-between;gap:10px">
+              <strong>Bolsa trasera impermeable</strong>
+              <span class="price">$799 MXN</span>
+            </div>
+            <div class="sub stars">★★★★★ <span style="opacity:.7">(demo)</span></div>
+          </div>
+        </a>
+      </article>
     </div>
   </section>
 
-  <!-- FAQ (más espacio encima del card) -->
+  <!-- FAQ -->
   <section id="faq" class="container" style="padding:26px 0 36px">
     <h2>Preguntas frecuentes</h2>
     <div class="card shadow" style="padding:12px">
@@ -316,20 +330,18 @@
     </div>
   </section>
 
-  <!-- FOOTER con encabezado centrado (logo + nombre) -->
+  <!-- FOOTER -->
   <footer id="contacto" class="site">
     <div class="container footer-head">
       <img src="img/logo.png" alt="MotoUrbano"/>
       <div class="footer-name">MotoUrbano MX</div>
     </div>
-
     <div class="container footer-grid">
       <div class="footer-col">
         <p class="sub">Accesorios urbanos, prácticos y fiables. Envío a todo México.</p>
         <p class="sub">Email: <a href="mailto:hola@motourbano.shop">hola@motourbano.shop</a></p>
         <p class="sub">WhatsApp: <a href="https://wa.me/520000000000" target="_blank" rel="noopener">+52 000 000 0000</a></p>
       </div>
-
       <div class="footer-col">
         <p><strong style="color:#111">Legal</strong></p>
         <div class="footer-legal">
@@ -339,34 +351,55 @@
           <a href="#terminos">Términos</a>
         </div>
       </div>
-
       <div class="footer-col">
         <p><strong style="color:#111">Atención</strong></p>
         <p class="sub">Lun–Vie · 10:00–18:00</p>
       </div>
     </div>
-
     <div class="container copy">
       <small>© <span id="year"></span> MotoUrbano MX. Todos los derechos reservados.</small>
     </div>
   </footer>
 
-  <!-- WhatsApp flotante (solo icono, SVG robusto) -->
+  <!-- WhatsApp flotante (icono oficial) -->
   <a class="floating-wa" href="https://wa.me/520000000000" target="_blank" rel="noopener" aria-label="WhatsApp Soporte" title="WhatsApp">
-    <!-- Versión compat: círculo + logotipo interno -->
-    <svg viewBox="0 0 256 256" role="img" aria-hidden="true">
-      <defs>
-        <clipPath id="clipCircle"><circle cx="128" cy="128" r="128"/></clipPath>
-      </defs>
-      <g clip-path="url(#clipCircle)">
-        <rect width="256" height="256" fill="#25D366"/>
-        <path fill="#FFFFFF" d="M187.6 144.6c-4-2-23.8-11.7-27.4-13-3.6-1.3-6.3-2-8.9 2-2.6 4-10.2 13-12.4 15.6-2.3 2.6-4.6 3-8.5 1-4-2-16.8-6.1-32-19.6-11.8-10.5-19.8-23.6-22.1-27.4-2.3-4-.3-6.2 1.7-8.2 1.8-1.8 4-4.6 6-6.9 2-2.3 2.6-4 4-6.7 1.3-2.6.6-5.1-.3-7.1-.9-2-8.9-21.5-12.2-29.4-3.2-7.9-6.5-6.8-8.9-6.8-2.3 0-4.9-.3-7.5-.3s-6.9 1-10.6 5.1c-3.6 4-14 13.7-14 33.4s14.4 38.8 16.4 41.5c2 2.6 28.1 43.2 68.1 60.6 9.5 4.1 17 6.5 22.8 8.4 9.6 3.1 18.2 2.6 25 1.6 7.6-1.1 23.4-9.7 26.7-19 3.3-9.3 3.3-17.2 2.3-18.9-1-1.7-3.9-2.7-8-4.7z"/>
-      </g>
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <circle cx="12" cy="12" r="12" fill="#25D366"/>
+      <path fill="#FFFFFF" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.472-.148-.672.149-.198.297-.768.967-.94 1.165-.173.199-.347.223-.644.075-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.297-.497.099-.198.05-.372-.025-.521-.075-.149-.672-1.62-.921-2.221-.243-.584-.49-.505-.672-.514l-.573-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.097 3.2 5.077 4.487.709.306 1.262.489 1.694.626.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
     </svg>
   </a>
 
   <script>
+    // Año dinámico
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Filtros de productos + click en categorías
+    const pills = Array.from(document.querySelectorAll('.pill'));
+    const prods = Array.from(document.querySelectorAll('#gridProds [data-cat]'));
+    function applyFilter(cat){
+      pills.forEach(p=>p.classList.toggle('is-active', p.dataset.cat===cat || (cat==='all' && p.dataset.cat==='all')));
+      prods.forEach(card=>{
+        card.classList.toggle('hidden', !(cat==='all' || card.dataset.cat===cat));
+      });
+      // Scroll suave al inicio de la sección productos
+      document.querySelector('#productos').scrollIntoView({behavior:'smooth', block:'start'});
+    }
+    pills.forEach(p=>p.addEventListener('click',()=>applyFilter(p.dataset.cat)));
+    document.querySelectorAll('.js-cat').forEach(tile=>{
+      tile.addEventListener('click', ()=>{
+        applyFilter(tile.dataset.cat);
+      });
+    });
+
+    // Enlaces del menú: scroll suave al bloque "start"
+    document.querySelectorAll('nav.menu a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', e=>{
+        e.preventDefault();
+        const id = a.getAttribute('href');
+        const target = document.querySelector(id);
+        if(target){ target.scrollIntoView({behavior:'smooth', block:'start'}); }
+      });
+    });
   </script>
 </body>
 </html>
