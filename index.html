@@ -19,7 +19,7 @@
     :root{ --bg:#ffffff; --elev:#ffffff; --ink:#111; --muted:#666; --line:#eee; --accent:#e10600; }
     *{box-sizing:border-box}
     html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
-    img{display:block;max-width:100%;height:auto;user-drag:none;-webkit-user-drag:none}
+    img{display:block;max-width:100%;height:auto;-webkit-user-drag:none;user-drag:none}
     a{color:inherit;text-decoration:none}
     .container{max-width:1200px;margin:0 auto;padding:0 20px}
     .grid{display:grid;gap:16px}
@@ -44,20 +44,20 @@
 
     /* Hero */
     .hero{border-bottom:1px solid var(--line);background:#fff}
-    .hero .wrap{display:flex;flex-direction:column;align-items:center;gap:12px;padding:44px 0}
+    .hero .wrap{display:flex;flex-direction:column;align-items:center;gap:6px;padding:40px 0}
     .hero .logo-big img{width:360px;height:auto}
     @media(min-width:1100px){.hero .logo-big img{width:400px}}
     @media(max-width:520px){.hero .logo-big img{width:220px}}
-    h1{font-family:Poppins,system-ui;font-weight:800;letter-spacing:.2px;font-size:clamp(30px,5vw,52px);line-height:1.04;margin:.1em 0 .2em;text-align:center}
+    h1{font-family:Poppins,system-ui;font-weight:800;letter-spacing:.2px;font-size:clamp(30px,5vw,52px);line-height:1.04;margin:.05em 0 .1em;text-align:center}
+    .hero-sub{font-size:clamp(14px,2.2vw,18px);color:#444;margin:0;text-align:center}
     h2{font-size:clamp(22px,3.6vw,34px);margin:0 0 10px;text-align:center}
-    p.lead{font-size:clamp(15px,2vw,18px);color:#444;margin:0;text-align:center}
     .sub{color:var(--muted);text-align:center}
 
     .chips-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:center;margin-top:8px}
     .chip{display:inline-flex;align-items:center;gap:8px;background:#fafafa;border:1px solid var(--line);color:#444;padding:8px 12px;border-radius:12px;white-space:nowrap}
 
     /* PayPal */
-    .paypal-row{display:flex;justify-content:center;margin-top:12px}
+    .paypal-row{display:flex;justify-content:center;margin-top:10px}
     .pp-badge{display:inline-flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:10px 16px}
     .pp-badge img{height:22px;display:block}
 
@@ -74,13 +74,13 @@
     .prod{display:flex;flex-direction:column;cursor:pointer}
     .prod img{aspect-ratio:1/1;object-fit:cover;background:#f4f4f4}
     .prod .pad{padding:12px}
-    .prod .title{font-weight:700;line-height:1.25;margin:0 0 6px;font-size:16px}
+    .prod .title{font-weight:700;line-height:1.25;margin:0 0 8px;font-size:16px}
     .prod .meta{display:flex;justify-content:space-between;align-items:center}
     .price{font-weight:900;color:#111}
     .stars{color:#C99A10;font-size:13px}
     .hidden{display:none !important}
 
-    /* Modal producto — compacto, no se corta y con galería */
+    /* Modal producto — compacto, no se corta y con galería + zoom */
     .modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;padding:16px;z-index:60}
     .modal.open{display:flex}
     .modal-card{background:#fff;border-radius:18px;max-width:920px;width:96%;max-height:92vh;display:flex;flex-direction:column;overflow:hidden;border:1px solid var(--line)}
@@ -88,7 +88,7 @@
     .modal-title{font:700 18px/1.2 Poppins,system-ui}
     .modal-body{display:grid;gap:14px;padding:14px;overflow:auto}
     @media(min-width:900px){.modal-body{grid-template-columns:1.05fr .95fr}}
-    .m-main{width:100%;max-height:48vh;object-fit:contain;border-radius:12px;background:#f7f7f7}
+    .m-main{width:100%;max-height:48vh;object-fit:contain;border-radius:12px;background:#f7f7f7;cursor:zoom-in}
     .thumbs{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:8px}
     .thumbs img{width:100%;height:70px;object-fit:cover;border-radius:10px;border:1px solid var(--line);cursor:pointer;background:#fafafa}
     .close{border:none;background:#f3f3f3;border-radius:10px;padding:8px 10px;cursor:pointer}
@@ -97,6 +97,12 @@
     .qty input{width:48px;text-align:center;border:none;padding:8px}
     .btn{display:inline-flex;align-items:center;gap:8px;border:1px solid #111;background:#111;color:#fff;border-radius:12px;padding:10px 14px;cursor:pointer}
     .btn.secondary{background:#fff;color:#111}
+
+    /* Lightbox (zoom en grande) */
+    .lightbox{position:fixed;inset:0;background:rgba(0,0,0,.92);display:none;align-items:center;justify-content:center;z-index:80}
+    .lightbox.open{display:flex}
+    .lightbox img{max-width:95vw;max-height:95vh;object-fit:contain}
+    .lightbox .x{position:absolute;top:14px;right:14px;background:#ffffff22;color:#fff;border:1px solid #ffffff55;border-radius:10px;padding:8px 10px;cursor:pointer}
 
     /* Cart */
     .cart{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;padding:16px;z-index:65}
@@ -119,7 +125,7 @@
     /* Footer centrado */
     footer.site{margin-top:48px;border-top:1px solid var(--line);background:#fff}
     .footer-head{display:flex;flex-direction:column;align-items:center;gap:6px;padding:18px 0 6px}
-    .footer-head img{height:52px}
+    .footer-head img{height:52px;width:auto}
     .footer-name{font:800 18px/1.1 Poppins,system-ui;text-align:center}
     .footer-tag{color:#666;text-align:center;margin-top:2px}
     .footer-grid{display:grid;gap:18px;padding:20px 0}
@@ -130,7 +136,7 @@
     .footer-legal .dot{opacity:.35}
     .copy{padding-bottom:20px;color:#666;text-align:center}
 
-    /* WhatsApp flotante más pro */
+    /* WhatsApp flotante (icono centrado perfecto) */
     .floating-wa{
       position:fixed;right:16px;bottom:16px;background:#25D366;
       width:64px;height:64px;border-radius:50%;
@@ -138,7 +144,7 @@
       border:2px solid #fff;
       box-shadow:0 10px 30px rgba(0,0,0,.18);z-index:45;cursor:pointer
     }
-    .floating-wa svg{width:34px;height:34px;display:block}
+    .floating-wa svg{width:32px;height:32px;display:block}
   </style>
 </head>
 <body>
@@ -146,7 +152,7 @@
   <header class="site">
     <div class="container header-wrap">
       <div class="brand-stack">
-        <img src="img/logo.png" alt="Logo MotoUrbano" width="180" height="84" decoding="async" fetchpriority="high"/>
+        <img src="img/logo.png" alt="Logo MotoUrbano"/>
         <div class="brand-title">MotoUrbano MX</div>
       </div>
       <nav class="menu" aria-label="Principal">
@@ -164,9 +170,10 @@
   <section id="inicio" class="hero">
     <div class="container wrap">
       <div class="logo-big">
-        <img src="img/logo.png" alt="Logo MotoUrbano" width="400" height="160" decoding="async" fetchpriority="high"/>
+        <img src="img/logo.png" alt="Logo MotoUrbano" decoding="async" fetchpriority="high"/>
       </div>
       <h1>Accesorios para moto urbana</h1>
+      <p class="hero-sub">Mucho catálogo, buena calidad y precios honestos — bueno, bonito y barato.</p>
 
       <div class="chips-row">
         <span class="chip">💳 Pagos seguros</span>
@@ -176,7 +183,7 @@
 
       <div class="paypal-row">
         <span class="pp-badge" title="Pago seguro con PayPal" aria-label="Pago seguro con PayPal">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal" width="88" height="22" decoding="async"/>
+          <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal"/>
         </span>
       </div>
     </div>
@@ -189,19 +196,19 @@
 
     <div class="grid cols-2 cols-5">
       <div class="tile shadow js-cat" data-cat="soportes" title="Soportes de móvil">
-        <img src="img/cat-soportes.jpg" alt="Soportes de móvil" loading="lazy" width="480" height="200"/><span class="label">Soportes</span>
+        <img src="img/cat-soportes.jpg" alt="Soportes de móvil" loading="lazy"/><span class="label">Soportes</span>
       </div>
       <div class="tile shadow js-cat" data-cat="guantes" title="Guantes">
-        <img src="img/cat-guantes.jpg" alt="Guantes" loading="lazy" width="480" height="200"/><span class="label">Guantes</span>
+        <img src="img/cat-guantes.jpg" alt="Guantes" loading="lazy"/><span class="label">Guantes</span>
       </div>
       <div class="tile shadow js-cat" data-cat="chalecos" title="Chalecos reflectantes">
-        <img src="img/cat-chalecos.jpg" alt="Chalecos" loading="lazy" width="480" height="200"/><span class="label">Chalecos</span>
+        <img src="img/cat-chalecos.jpg" alt="Chalecos" loading="lazy"/><span class="label">Chalecos</span>
       </div>
       <div class="tile shadow js-cat" data-cat="bolsas" title="Bolsas">
-        <img src="img/cat-bolsas.jpg" alt="Bolsas" loading="lazy" width="480" height="200"/><span class="label">Bolsas</span>
+        <img src="img/cat-bolsas.jpg" alt="Bolsas" loading="lazy"/><span class="label">Bolsas</span>
       </div>
       <div class="tile shadow js-cat" data-cat="rinoneras" title="Riñoneras">
-        <img src="img/cat-rinoneras.jpg" alt="Riñoneras" loading="lazy" width="480" height="200"/><span class="label">Riñoneras</span>
+        <img src="img/cat-rinoneras.jpg" alt="Riñoneras" loading="lazy"/><span class="label">Riñoneras</span>
       </div>
     </div>
   </section>
@@ -240,7 +247,7 @@
         data-desc="Sujeción firme · Absorción de vibraciones · Compatible con la mayoría de manillares"
         data-main="img/cat-soportes.jpg"
         data-gallery='["img/soporte-antivibracion-01.jpg","img/soporte-antivibracion-02.jpg","img/soporte-antivibracion-03.jpg","img/soporte-antivibracion-04.jpg"]'>
-        <img src="img/cat-soportes.jpg" alt="Soporte manillar antivibración" width="600" height="600" decoding="async"/>
+        <img src="img/cat-soportes.jpg" alt="Soporte manillar antivibración" decoding="async"/>
         <div class="pad">
           <div class="title">Soporte manillar antivibración</div>
           <div class="meta">
@@ -258,7 +265,7 @@
         data-desc="Impermeables · Dedos táctiles · Refuerzos en palma"
         data-main="img/cat-guantes.jpg"
         data-gallery='["img/guantes-urbanos-verano-01.jpg","img/guantes-urbanos-verano-02.jpg"]'>
-        <img src="img/cat-guantes.jpg" alt="Guantes impermeables táctiles" width="600" height="600" decoding="async"/>
+        <img src="img/cat-guantes.jpg" alt="Guantes impermeables táctiles" decoding="async"/>
         <div class="pad">
           <div class="title">Guantes impermeables táctiles</div>
           <div class="meta">
@@ -276,7 +283,7 @@
         data-desc="Alta visibilidad · Ajuste sencillo · Ligero"
         data-main="img/cat-chalecos.jpg"
         data-gallery='["img/chaleco-fosforito-01.jpg","img/chaleco-fosforito-02.jpg"]'>
-        <img src="img/cat-chalecos.jpg" alt="Chaleco reflectante" width="600" height="600" decoding="async"/>
+        <img src="img/cat-chalecos.jpg" alt="Chaleco reflectante" decoding="async"/>
         <div class="pad">
           <div class="title">Chaleco reflectante</div>
           <div class="meta">
@@ -294,7 +301,7 @@
         data-desc="Impermeable · Cierre seguro · Bolsillos internos"
         data-main="img/cat-rinoneras.jpg"
         data-gallery='["img/rinonera-impermeable-01.jpg","img/rinonera-impermeable-02.jpg","img/rinonera-impermeable-03.jpg","img/rinonera-impermeable-04.jpg","img/rinonera-impermeable-05.jpg"]'>
-        <img src="img/cat-rinoneras.jpg" alt="Riñonera impermeable" width="600" height="600" decoding="async"/>
+        <img src="img/cat-rinoneras.jpg" alt="Riñonera impermeable" decoding="async"/>
         <div class="pad">
           <div class="title">Riñonera impermeable</div>
           <div class="meta">
@@ -312,7 +319,7 @@
         data-desc="Montaje rápido · Resistente al agua · Capacidad ampliable"
         data-main="img/cat-bolsas.jpg"
         data-gallery='["img/bolsa-trasera-impermeable-01.jpg","img/bolsa-trasera-impermeable-02.jpg"]'>
-        <img src="img/cat-bolsas.jpg" alt="Bolsa trasera impermeable" width="600" height="600" decoding="async"/>
+        <img src="img/cat-bolsas.jpg" alt="Bolsa trasera impermeable" decoding="async"/>
         <div class="pad">
           <div class="title">Bolsa trasera impermeable</div>
           <div class="meta">
@@ -358,7 +365,7 @@
   <!-- FOOTER -->
   <footer id="contacto" class="site">
     <div class="container footer-head">
-      <img src="img/logo.png" alt="MotoUrbano" width="120" height="52" decoding="async"/>
+      <img src="img/logo.png" alt="MotoUrbano"/><!-- sin width/height para no aplastar -->
       <div class="footer-name">MotoUrbano MX</div>
       <div class="footer-tag">Accesorios urbanos, prácticos y fiables. Envío a todo México.</div>
     </div>
@@ -386,12 +393,11 @@
     </div>
   </footer>
 
-  <!-- WhatsApp flotante -->
+  <!-- WhatsApp flotante (icono oficial, centrado) -->
   <a class="floating-wa" href="https://wa.me/520000000000" target="_blank" rel="noopener" aria-label="WhatsApp Soporte" title="WhatsApp">
-    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-      <g transform="translate(0.5,0.5)">
-        <path fill="#FFFFFF" d="M.057 24l1.687-6.163A11.867 11.867 0 0 1 0 11.78C0 5.27 5.373 0 12 0c3.193 0 6.2 1.24 8.477 3.514A11.86 11.86 0 0 1 24 11.78c0 6.51-5.373 11.78-12 11.78-1.99 0-3.89-.467-5.605-1.356L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.347 1.591 5.448 0 9.886-4.355 9.886-9.727 0-5.372-4.438-9.727-9.886-9.727-5.44 0-9.886 4.355-9.886 9.727 0 2.31.81 4.44 2.17 6.167l-.99 3.62 3.36-.65zm11.387-5.464c-.066-.11-.242-.176-.506-.308-.264-.131-1.56-.767-1.8-.853-.24-.088-.415-.131-.59.13-.176.262-.677.853-.83 1.027-.153.176-.307.197-.57.066-.264-.132-1.115-.409-2.124-1.304-.785-.693-1.315-1.551-1.469-1.813-.153-.262-.017-.404.115-.535.118-.117.264-.307.395-.46.131-.154.175-.263.264-.439.088-.175.044-.33-.022-.461-.066-.131-.59-1.42-.807-1.944-.212-.514-.43-.445-.59-.454l-.503-.01c-.175 0-.46.065-.702.33-.242.263-.929.907-.929 2.209 0 1.302.952 2.561 1.084 2.739.131.176 1.873 2.998 4.54 4.206.634.283 1.129.452 1.518.579.638.203 1.221.175 1.678.106.512-.076 1.575-.658 1.798-1.294.22-.636.22-1.18.153-1.293z"/>
-      </g>
+    <!-- Path clásico de WhatsApp dentro de viewBox 24x24, sin transform para evitar recortes -->
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" role="img">
+      <path fill="#FFFFFF" d="M.05 24l1.65-6.01A11.85 11.85 0 0 1 0 11.75C0 5.26 5.35 0 11.95 0 18.54 0 24 5.26 24 11.75c0 6.49-5.46 11.75-12.05 11.75-1.98 0-3.88-.46-5.6-1.35L.05 24zm6.56-3.8c1.66.98 3.25 1.56 5.34 1.56 5.43 0 9.85-4.34 9.85-9.71 0-5.38-4.42-9.72-9.85-9.72-5.4 0-9.85 4.34-9.85 9.72 0 2.3.81 4.43 2.17 6.16l-.99 3.6 3.33-.61zm11.32-5.44c-.07-.11-.24-.18-.5-.31-.26-.13-1.56-.77-1.8-.85-.23-.08-.41-.13-.58.13-.18.26-.69.86-.84 1.03-.15.17-.31.2-.58.07-.27-.13-1.14-.41-2.15-1.31-.79-.7-1.32-1.56-1.48-1.82-.16-.26-.02-.41.11-.54.12-.12.27-.31.4-.47.13-.16.18-.27.27-.45.09-.18.05-.33-.01-.46-.07-.13-.6-1.43-.82-1.96-.22-.53-.44-.46-.6-.47l-.5-.01c-.17 0-.46.07-.7.33-.24.26-.93.91-.93 2.22 0 1.31.96 2.58 1.09 2.75.13.17 1.89 3 4.6 4.21.64.28 1.13.45 1.52.58.64.2 1.23.17 1.69.1.51-.08 1.58-.67 1.8-1.31.22-.64.22-1.2.15-1.31z"/>
     </svg>
   </a>
 
@@ -422,6 +428,12 @@
         </div>
       </div>
     </div>
+  </div>
+
+  <!-- LIGHTBOX (zoom) -->
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <button class="x" id="lbClose" aria-label="Cerrar">✕</button>
+    <img id="lbImg" src="" alt="Imagen ampliada"/>
   </div>
 
   <!-- MODAL Carrito -->
@@ -456,16 +468,16 @@
       var y = document.getElementById('year'); if(y) y.textContent = new Date().getFullYear();
 
       // --------- Filtros + Categorías ----------
-      var filterPills = Array.prototype.slice.call(document.querySelectorAll('#filters .pill'));
-      var prodCards   = Array.prototype.slice.call(document.querySelectorAll('#gridProds [data-cat]'));
+      var filterPills = [].slice.call(document.querySelectorAll('#filters .pill'));
+      var prodCards   = [].slice.call(document.querySelectorAll('#gridProds [data-cat]'));
       function applyFilter(cat){
-        filterPills.forEach(function(p){ p.classList.toggle('is-active', p.dataset.cat===cat || (cat==='all' && p.dataset.cat==='all')); });
+        filterPills.forEach(function(p){ p.classList.toggle('is-active', p.dataset.cat===cat); });
         prodCards.forEach(function(card){ card.classList.toggle('hidden', !(cat==='all' || card.dataset.cat===cat)); });
         var prodSection = document.querySelector('#productos');
         if(prodSection){ prodSection.scrollIntoView({behavior:'smooth', block:'start'}); }
       }
       filterPills.forEach(function(p){ p.addEventListener('click', function(){ applyFilter(p.dataset.cat); }); });
-      Array.prototype.slice.call(document.querySelectorAll('.js-cat')).forEach(function(tile){
+      [].slice.call(document.querySelectorAll('.js-cat')).forEach(function(tile){
         tile.addEventListener('click', function(){ applyFilter(tile.dataset.cat); });
       });
 
@@ -481,14 +493,23 @@
       var qInput = document.getElementById('qInput');
       var mAdd   = document.getElementById('mAdd');
       var mDesc  = document.getElementById('mDesc');
-      var currentProduct = null;
 
+      // Lightbox
+      var lightbox = document.getElementById('lightbox');
+      var lbImg    = document.getElementById('lbImg');
+      var lbClose  = document.getElementById('lbClose');
+      function openLightbox(src, alt){ lbImg.src = src; lbImg.alt = alt||''; lightbox.classList.add('open'); }
+      function closeLightbox(){ lightbox.classList.remove('open'); lbImg.src=''; }
+      lbClose.addEventListener('click', closeLightbox);
+      lightbox.addEventListener('click', function(e){ if(e.target===lightbox) closeLightbox(); });
+      document.addEventListener('keydown', function(e){ if(e.key==='Escape') { closeLightbox(); closeModal(); } });
+
+      var currentProduct = null;
       function bullets(text){ return (text||'').split('·').map(function(s){return s.trim();}).filter(Boolean); }
 
       function openModal(card){
         var gallery = [];
         try{ gallery = JSON.parse(card.getAttribute('data-gallery')||'[]'); }catch(e){ gallery = []; }
-
         currentProduct = {
           name: card.dataset.name,
           priceText: card.dataset.price,
@@ -501,23 +522,22 @@
         mTitle.textContent = currentProduct.name || 'Producto';
         mPrice.textContent = currentProduct.priceText || '';
 
-        // Main = cat-*.jpg; thumbs = fotos reales (sin duplicar)
+        // Principal = cat-*.jpg
         mMain.src = currentProduct.main || '';
         mMain.alt = currentProduct.name || '';
-
-        var thumbs = currentProduct.gallery.filter(function(src){ return src && src!==currentProduct.main; });
-        mThumbs.innerHTML = thumbs.map(function(src){
+        mThumbs.innerHTML = (currentProduct.gallery||[]).map(function(src){
           return '<img src="'+src+'" alt="Vista '+currentProduct.name+'" loading="lazy">';
         }).join('');
 
-        // Click thumb => mostrar en grande (contain)
-        mThumbs.addEventListener('click', function onClick(e){
-          var img = e.target.closest('img');
-          if(!img) return;
-          mMain.src = img.src;
-        }, { once:false });
+        // Abrir lightbox desde principal o thumbnails
+        mMain.onclick = function(){ openLightbox(mMain.src, mMain.alt); };
+        mThumbs.onclick = function(e){
+          var img = e.target.closest('img'); if(!img) return;
+          mMain.src = img.src; mMain.alt = img.alt;
+          openLightbox(img.src, img.alt);
+        };
 
-        // Descripción a bullets
+        // Descripción bullets
         mDesc.innerHTML = bullets(currentProduct.desc).map(function(li){return '<li>'+li+'</li>';}).join('');
 
         qInput.value = 1;
@@ -526,10 +546,10 @@
       function closeModal(){ modal.classList.remove('open'); }
 
       prodCards.forEach(function(card){ card.addEventListener('click', function(){ openModal(card); }); });
-      if(mClose) mClose.addEventListener('click', closeModal);
+      mClose.addEventListener('click', closeModal);
       modal.addEventListener('click', function(e){ if(e.target===modal) closeModal(); });
-      if(qMinus) qMinus.addEventListener('click', function(){ qInput.value = Math.max(1, (parseInt(qInput.value,10)||1)-1 ); });
-      if(qPlus)  qPlus.addEventListener('click', function(){ qInput.value = (parseInt(qInput.value,10)||1)+1; });
+      qMinus.addEventListener('click', function(){ qInput.value = Math.max(1, (parseInt(qInput.value,10)||1)-1 ); });
+      qPlus .addEventListener('click', function(){ qInput.value = (parseInt(qInput.value,10)||1)+1; });
 
       // --------- Carrito (localStorage) ----------
       var cartBtn   = document.getElementById('cartBtn');
@@ -542,7 +562,7 @@
       var ppAmount  = document.getElementById('ppAmount');
       var ppBusiness= document.getElementById('ppBusiness');
 
-      var PAYPAL_BUSINESS = 'tu-correo-paypal@ejemplo.com'; // <-- cámbialo
+      var PAYPAL_BUSINESS = 'tu-correo-paypal@ejemplo.com'; // <-- cámbialo por tu PayPal
       ppBusiness.value = PAYPAL_BUSINESS;
 
       var cartCount = document.getElementById('cartCount');
@@ -553,7 +573,7 @@
       function updateCount(){
         var items = readCart();
         var n = items.reduce(function(s,i){return s+i.qty;},0);
-        if(cartCount) cartCount.textContent = n;
+        cartCount.textContent = n;
       }
       function renderCart(){
         var items = readCart();
@@ -575,8 +595,8 @@
       function openCart(){ renderCart(); cartModal.classList.add('open'); }
       function closeCart(){ cartModal.classList.remove('open'); }
 
-      if(cartBtn) cartBtn.addEventListener('click', function(e){ e.preventDefault(); openCart(); });
-      if(cClose)  cClose.addEventListener('click', closeCart);
+      cartBtn.addEventListener('click', function(e){ e.preventDefault(); openCart(); });
+      cClose .addEventListener('click', closeCart);
       cartModal.addEventListener('click', function(e){ if(e.target===cartModal) closeCart(); });
       cBody.addEventListener('click', function(e){
         var btn = e.target.closest('[data-del]'); if(!btn) return;
@@ -584,10 +604,10 @@
         var items = readCart(); items.splice(idx,1);
         writeCart(items); updateCount(); renderCart();
       });
-      if(cClear) cClear.addEventListener('click', function(){ writeCart([]); updateCount(); renderCart(); });
+      cClear.addEventListener('click', function(){ writeCart([]); updateCount(); renderCart(); });
 
-      // Añadir al carrito desde modal (usa imagen actualmente mostrada en grande)
-      if(mAdd) mAdd.addEventListener('click', function(){
+      // Añadir al carrito
+      mAdd.addEventListener('click', function(){
         var qty = Math.max(1, parseInt(qInput.value,10)||1);
         var items = readCart();
         items.push({ name: mTitle.textContent, price: parseInt((mPrice.textContent||'').replace(/[^0-9]/g,''),10)||0, img: mMain.src, qty: qty });
@@ -595,7 +615,7 @@
       });
 
       // Scroll suave del menú
-      Array.prototype.slice.call(document.querySelectorAll('nav.menu a[href^="#"]')).forEach(function(a){
+      [].slice.call(document.querySelectorAll('nav.menu a[href^="#"]')).forEach(function(a){
         a.addEventListener('click', function(e){
           e.preventDefault();
           var id = a.getAttribute('href');
