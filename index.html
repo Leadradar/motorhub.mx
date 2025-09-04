@@ -4,13 +4,13 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>MotoUrbano MX — Accesorios de moto urbanos, prácticos y fiables</title>
-  <meta name="description" content="Accesorios de moto para moverte mejor por la ciudad. Envío a todo México, pagos seguros y devoluciones en 14 días." />
+  <meta name="description" content="Accesorios urbanos para tu moto: prácticos, fiables y a buen precio. Envío a todo México y devoluciones en 14 días." />
   <meta name="theme-color" content="#ffffff" />
 
   <!-- Social -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content="MotoUrbano MX" />
-  <meta property="og:description" content="Accesorios de moto urbanos, prácticos y fiables." />
+  <meta property="og:description" content="Accesorios urbanos para tu moto." />
   <meta property="og:image" content="https://leadradar.github.io/motorhub.mx/img/hero.jpg" />
 
   <!-- PWA / iconos -->
@@ -47,8 +47,8 @@
     nav.menu a{padding:8px 10px;border-radius:10px;color:#444}
     nav.menu a:hover{background:#f3f3f3;color:#111}
 
-    /* Compensar header fijo al navegar por anclas */
-    section{scroll-margin-top:140px}
+    /* Compensar header fijo al navegar por anclas (grande para que nunca corte) */
+    section{scroll-margin-top:220px}
 
     /* Hero */
     .hero{border-bottom:1px solid var(--line);background:#fff}
@@ -70,7 +70,7 @@
     /* PayPal fila propia */
     .paypal-row{display:flex;justify-content:center;margin-top:12px}
     .pp-badge{display:inline-flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:10px 16px}
-    .pp-badge svg{height:22px}
+    .pp-badge img{height:22px;display:block}
 
     /* Categorías */
     #categorias h2,#categorias .sub{text-align:center}
@@ -83,7 +83,7 @@
     #productos .filters{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:12px 0 6px}
     .pill{border:1px solid var(--line);background:#fafafa;border-radius:999px;padding:8px 12px;cursor:pointer}
     .pill.is-active{background:#111;color:#fff;border-color:#111}
-    .prod{display:flex;flex-direction:column}
+    .prod{display:flex;flex-direction:column;cursor:pointer}
     .prod img{aspect-ratio:1/1;object-fit:cover;background:#f4f4f4}
     .prod .swap{position:relative}
     .prod .swap img:nth-child(2){position:absolute;inset:0;opacity:0;transition:opacity .25s ease}
@@ -92,6 +92,15 @@
     .price{font-weight:900;color:#111}
     .stars{color:#C99A10}
     .hidden{display:none !important}
+
+    /* Modal producto */
+    .modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;padding:20px;z-index:60}
+    .modal.open{display:flex}
+    .modal-card{background:#fff;border-radius:18px;max-width:900px;width:100%;overflow:hidden;border:1px solid var(--line)}
+    .modal-body{display:grid;gap:16px;padding:16px}
+    @media(min-width:900px){.modal-body{grid-template-columns:1fr 1fr}}
+    .modal-head{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid var(--line)}
+    .close{border:none;background:#f3f3f3;border-radius:10px;padding:8px 10px;cursor:pointer}
 
     /* Trust bar */
     .trustbar{display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
@@ -108,8 +117,7 @@
     @media(min-width:900px){.footer-grid{grid-template-columns:2fr 1fr 1fr}}
     .footer-col{text-align:center}
     @media(min-width:900px){.footer-col{text-align:left}}
-    .footer-legal{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:center}
-    @media(min-width:900px){.footer-legal{justify-content:flex-start}}
+    .footer-legal{display:flex;gap:8px;align-items:center;justify-content:center;flex-wrap:nowrap;overflow:auto;white-space:nowrap}
     .footer-legal .dot{opacity:.35}
     .copy{padding-bottom:20px;color:#666;text-align:center}
 
@@ -151,7 +159,7 @@
   <section id="inicio" class="hero">
     <div class="container wrap">
       <div class="logo-big"><img src="img/logo.png" alt="Logo MotoUrbano"/></div>
-      <h1>Accesorios de moto para la ciudad</h1>
+      <h1>Accesorios para moto urbana</h1>
 
       <div class="chips-row">
         <span class="chip">💳 Pagos seguros</span>
@@ -159,15 +167,10 @@
         <span class="chip">↩️ 14 días devolución</span>
       </div>
 
-      <!-- PayPal: placa debajo de chips -->
+      <!-- PayPal: placa debajo de chips (logo oficial) -->
       <div class="paypal-row">
         <span class="pp-badge" title="Pago seguro con PayPal" aria-label="Pago seguro con PayPal">
-          <!-- Logo PayPal completo -->
-          <svg viewBox="0 0 210 32" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
-            <path fill="#003087" d="M27.6 3.2H16.2c-1.1 0-2 .8-2.2 1.9L9.4 28.5c-.1.8.5 1.5 1.3 1.5H17c.8 0 1.4-.6 1.6-1.3l1.3-8.3c.1-.9.9-1.5 1.8-1.5h2.7c8.3 0 13.2-4 14.5-11.8.6-3.5 0-6.2-2-8.1-1.9-2.1-5.1-2.8-9.9-2.8Zm1 12c-.8 4.7-4.8 4.7-8.6 4.7h-2.2l1.6-9.9c.1-.6.7-1 1.3-1h1.2c2.7 0 5.3 0 6.7 1.3.8.7 1.3 1.8 1 3.9Z"/>
-            <path fill="#009CDE" d="M48.5 3.2H37.1c-1.1 0-2 .8-2.2 1.9l-4.5 23.4c-.1.8.5 1.5 1.3 1.5h6.3c.8 0 1.4-.6 1.6-1.3l1.3-8.3c.1-.9.9-1.5 1.8-1.5H45c8.3 0 13.2-4 14.5-11.8.6-3.5 0-6.2-2-8.1-1.9-2.1-5.1-2.8-9.9-2.8Zm1 12c-.8 4.7-4.8 4.7-8.6 4.7h-2.2l1.6-9.9c.1-.6.7-1 1.3-1h1.2c2.7 0 5.3 0 6.7 1.3.8.7 1.3 1.8 1 3.9Z"/>
-            <path fill="#003087" d="M73.6 24.9l1.6-9.9h3.6l-.3 1.7c1.1-1.3 2.5-2 4.3-2 2.2 0 3.8 1.3 3.4 3.5l-1.4 6.7h-3.8l1.2-5.6c.2-.9-.3-1.4-1.2-1.4-1 0-1.8.5-2.3 1.5l-1.2 5.5h-3.9Zm21.1-10.2c-2.2 0-3.9.9-5.2 2.7-.7-1.7-2.1-2.7-4.1-2.7-1.7 0-3.1.7-4.3 2.1l.2-1.7h-3.6l-2 12.5h3.8l1.1-6.7c.3-1.5 1.1-2.3 2.5-2.3 1.2 0 1.9.8 1.7 2l-1.3 7h3.8l1.1-6.7c.3-1.5 1.1-2.3 2.5-2.3 1.2 0 1.9.8 1.7 2l-1.3 7h3.8l1.5-8.1c.4-2.7-1.2-4.8-4.6-4.8Zm9.2 10.2 1.5-9.9h3.7l-1.5 9.9h-3.7Zm.6-11.8.5-3.3h3.7l-.5 3.3h-3.7Zm10.9 11.8 1.1-6.5c.2-1.5 1.1-2.3 2.5-2.3s1.9.8 1.7 2l-1.1 6.8h3.8l1.1-6.5c.2-1.5 1.1-2.3 2.5-2.3s1.9.8 1.7 2l-1.1 6.8h3.8l1.5-8.1c.4-2.7-1.2-4.8-4.6-4.8-2.1 0-3.7.7-4.8 2-1-1.3-2.5-2-4.5-2-2 0-3.7.8-4.7 2.2l.2-1.7h-3.5l-2 12.5h3.8Z"/>
-          </svg>
+          <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal"/>
         </span>
       </div>
     </div>
@@ -203,8 +206,7 @@
       <div class="trustbar">
         <span class="chip">🛡️ Compra protegida</span>
         <span class="chip">📦 Tracking del pedido</span>
-        <span class="chip">🇲🇽 Precios en MXN</span>
-        <span class="chip">☎️ Soporte por WhatsApp</span>
+        <span class="chip">☎️ Atención por WhatsApp</span>
       </div>
     </div>
   </section>
@@ -225,88 +227,78 @@
 
     <div class="grid cols-2 cols-4" id="gridProds" style="margin-top:12px">
       <!-- Soporte -->
-      <article class="card prod shadow" data-cat="soportes">
-        <a href="https://motourbano.shop/products/soporte-antivibracion">
-          <div class="swap">
-            <img src="img/soporte-antivibracion-01.jpg" alt="Soporte manillar antivibración"/>
-            <img src="img/soporte-antivibracion-02.jpg" alt="" aria-hidden="true"/>
+      <article class="card prod shadow" data-cat="soportes" data-name="Soporte manillar antivibración" data-price="$699 MXN" data-img1="img/soporte-antivibracion-01.jpg" data-img2="img/soporte-antivibracion-02.jpg">
+        <div class="swap">
+          <img src="img/soporte-antivibracion-01.jpg" alt="Soporte manillar antivibración"/>
+          <img src="img/soporte-antivibracion-02.jpg" alt="" aria-hidden="true"/>
+        </div>
+        <div class="pad">
+          <div style="display:flex;justify-content:space-between;gap:10px">
+            <strong>Soporte manillar antivibración</strong>
+            <span class="price">$699 MXN</span>
           </div>
-          <div class="pad">
-            <div style="display:flex;justify-content:space-between;gap:10px">
-              <strong>Soporte manillar antivibración</strong>
-              <span class="price">$699 MXN</span>
-            </div>
-            <div class="sub stars">★★★★★ <span style="opacity:.7">(demo)</span></div>
-          </div>
-        </a>
+          <div class="sub stars">★★★★★ <span style="opacity:.7">(demo)</span></div>
+        </div>
       </article>
 
       <!-- Guantes -->
-      <article class="card prod shadow" data-cat="guantes">
-        <a href="https://motourbano.shop/products/guantes-impermeables-tactiles">
-          <div class="swap">
-            <img src="img/guantes-urbanos-verano-01.jpg" alt="Guantes impermeables táctiles"/>
-            <img src="img/guantes-urbanos-verano-02.jpg" alt="" aria-hidden="true"/>
+      <article class="card prod shadow" data-cat="guantes" data-name="Guantes impermeables táctiles" data-price="$649 MXN" data-img1="img/guantes-urbanos-verano-01.jpg" data-img2="img/guantes-urbanos-verano-02.jpg">
+        <div class="swap">
+          <img src="img/guantes-urbanos-verano-01.jpg" alt="Guantes impermeables táctiles"/>
+          <img src="img/guantes-urbanos-verano-02.jpg" alt="" aria-hidden="true"/>
+        </div>
+        <div class="pad">
+          <div style="display:flex;justify-content:space-between;gap:10px">
+            <strong>Guantes impermeables táctiles</strong>
+            <span class="price">$649 MXN</span>
           </div>
-          <div class="pad">
-            <div style="display:flex;justify-content:space-between;gap:10px">
-              <strong>Guantes impermeables táctiles</strong>
-              <span class="price">$649 MXN</span>
-            </div>
-            <div class="sub stars">★★★★★ <span style="opacity:.7">(demo)</span></div>
-          </div>
-        </a>
+          <div class="sub stars">★★★★★ <span style="opacity:.7">(demo)</span></div>
+        </div>
       </article>
 
       <!-- Chaleco -->
-      <article class="card prod shadow" data-cat="chalecos">
-        <a href="https://motourbano.shop/products/chaleco-reflectante-simple">
-          <div class="swap">
-            <img src="img/chaleco-fosforito-01.jpg" alt="Chaleco reflectante básico"/>
-            <img src="img/chaleco-fosforito-02.jpg" alt="" aria-hidden="true"/>
+      <article class="card prod shadow" data-cat="chalecos" data-name="Chaleco reflectante" data-price="$299 MXN" data-img1="img/chaleco-fosforito-01.jpg" data-img2="img/chaleco-fosforito-02.jpg">
+        <div class="swap">
+          <img src="img/chaleco-fosforito-01.jpg" alt="Chaleco reflectante"/>
+          <img src="img/chaleco-fosforito-02.jpg" alt="" aria-hidden="true"/>
+        </div>
+        <div class="pad">
+          <div style="display:flex;justify-content:space-between;gap:10px">
+            <strong>Chaleco reflectante</strong>
+            <span class="price">$299 MXN</span>
           </div>
-          <div class="pad">
-            <div style="display:flex;justify-content:space-between;gap:10px">
-              <strong>Chaleco reflectante</strong>
-              <span class="price">$299 MXN</span>
-            </div>
-            <div class="sub stars">★★★★★ <span style="opacity:.7">(demo)</span></div>
-          </div>
-        </a>
+          <div class="sub stars">★★★★★ <span style="opacity:.7">(demo)</span></div>
+        </div>
       </article>
 
       <!-- Riñonera -->
-      <article class="card prod shadow" data-cat="rinoneras">
-        <a href="https://motourbano.shop/products/rinonera-moto">
-          <div class="swap">
-            <img src="img/rinonera-impermeable-01.jpg" alt="Riñonera impermeable urbana"/>
-            <img src="img/rinonera-impermeable-02.jpg" alt="" aria-hidden="true"/>
+      <article class="card prod shadow" data-cat="rinoneras" data-name="Riñonera impermeable" data-price="$549 MXN" data-img1="img/rinonera-impermeable-01.jpg" data-img2="img/rinonera-impermeable-02.jpg">
+        <div class="swap">
+          <img src="img/rinonera-impermeable-01.jpg" alt="Riñonera impermeable urbana"/>
+          <img src="img/rinonera-impermeable-02.jpg" alt="" aria-hidden="true"/>
+        </div>
+        <div class="pad">
+          <div style="display:flex;justify-content:space-between;gap:10px">
+            <strong>Riñonera impermeable</strong>
+            <span class="price">$549 MXN</span>
           </div>
-          <div class="pad">
-            <div style="display:flex;justify-content:space-between;gap:10px">
-              <strong>Riñonera impermeable</strong>
-              <span class="price">$549 MXN</span>
-            </div>
-            <div class="sub stars">★★★★★ <span style="opacity:.7">(demo)</span></div>
-          </div>
-        </a>
+          <div class="sub stars">★★★★★ <span style="opacity:.7">(demo)</span></div>
+        </div>
       </article>
 
       <!-- Bolsa trasera -->
-      <article class="card prod shadow" data-cat="bolsas">
-        <a href="https://motourbano.shop/products/bolsa-trasera-asiento">
-          <div class="swap">
-            <img src="img/bolsa-trasera-impermeable-01.jpg" alt="Bolsa trasera impermeable para asiento"/>
-            <img src="img/bolsa-trasera-impermeable-02.jpg" alt="" aria-hidden="true"/>
+      <article class="card prod shadow" data-cat="bolsas" data-name="Bolsa trasera impermeable" data-price="$799 MXN" data-img1="img/bolsa-trasera-impermeable-01.jpg" data-img2="img/bolsa-trasera-impermeable-02.jpg">
+        <div class="swap">
+          <img src="img/bolsa-trasera-impermeable-01.jpg" alt="Bolsa trasera impermeable para asiento"/>
+          <img src="img/bolsa-trasera-impermeable-02.jpg" alt="" aria-hidden="true"/>
+        </div>
+        <div class="pad">
+          <div style="display:flex;justify-content:space-between;gap:10px">
+            <strong>Bolsa trasera impermeable</strong>
+            <span class="price">$799 MXN</span>
           </div>
-          <div class="pad">
-            <div style="display:flex;justify-content:space-between;gap:10px">
-              <strong>Bolsa trasera impermeable</strong>
-              <span class="price">$799 MXN</span>
-            </div>
-            <div class="sub stars">★★★★★ <span style="opacity:.7">(demo)</span></div>
-          </div>
-        </a>
+          <div class="sub stars">★★★★★ <span style="opacity:.7">(demo)</span></div>
+        </div>
       </article>
     </div>
   </section>
@@ -369,6 +361,30 @@
     </svg>
   </a>
 
+  <!-- MODAL de producto -->
+  <div class="modal" id="modal">
+    <div class="modal-card">
+      <div class="modal-head">
+        <strong id="mTitle">Producto</strong>
+        <button class="close" id="mClose">Cerrar</button>
+      </div>
+      <div class="modal-body">
+        <div>
+          <img id="mImg1" src="" alt="" />
+          <img id="mImg2" src="" alt="" style="margin-top:10px"/>
+        </div>
+        <div>
+          <p class="sub" id="mPrice" style="font-size:20px;margin:0 0 12px"></p>
+          <p class="sub">Compra segura con PayPal. Envío a todo México y devoluciones en 14 días.</p>
+          <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap">
+            <a class="pill" href="https://wa.me/520000000000" target="_blank" rel="noopener">Comprar por WhatsApp</a>
+            <a class="pill" href="#productos" id="mBack">Volver a productos</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script>
     // Año dinámico
     document.getElementById('year').textContent = new Date().getFullYear();
@@ -381,7 +397,6 @@
       prods.forEach(card=>{
         card.classList.toggle('hidden', !(cat==='all' || card.dataset.cat===cat));
       });
-      // Scroll suave al inicio de la sección productos
       document.querySelector('#productos').scrollIntoView({behavior:'smooth', block:'start'});
     }
     pills.forEach(p=>p.addEventListener('click',()=>applyFilter(p.dataset.cat)));
@@ -391,7 +406,40 @@
       });
     });
 
-    // Enlaces del menú: scroll suave al bloque "start"
+    // Modal de producto (sin salir de la web)
+    const modal = document.getElementById('modal');
+    const mTitle = document.getElementById('mTitle');
+    const mPrice = document.getElementById('mPrice');
+    const mImg1 = document.getElementById('mImg1');
+    const mImg2 = document.getElementById('mImg2');
+    const mClose = document.getElementById('mClose');
+    const mBack = document.getElementById('mBack');
+
+    function openModal(card){
+      mTitle.textContent = card.dataset.name || 'Producto';
+      mPrice.textContent = card.dataset.price || '';
+      mImg1.src = card.dataset.img1 || '';
+      mImg1.alt = card.dataset.name || '';
+      mImg2.src = card.dataset.img2 || '';
+      mImg2.alt = card.dataset.name || '';
+      modal.classList.add('open');
+    }
+    function closeModal(){
+      modal.classList.remove('open');
+    }
+    prods.forEach(card=>{
+      card.addEventListener('click', ()=>openModal(card));
+    });
+    [mClose, mBack].forEach(el=>el.addEventListener('click', e=>{
+      e.preventDefault();
+      closeModal();
+      document.querySelector('#productos').scrollIntoView({behavior:'smooth', block:'start'});
+    }));
+    modal.addEventListener('click', e=>{
+      if(e.target===modal) closeModal();
+    });
+
+    // Enlaces del menú: scroll suave al inicio de la sección
     document.querySelectorAll('nav.menu a[href^="#"]').forEach(a=>{
       a.addEventListener('click', e=>{
         e.preventDefault();
