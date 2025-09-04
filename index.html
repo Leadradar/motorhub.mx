@@ -10,10 +10,19 @@
   <meta property="og:title" content="MotoUrbano MX" />
   <meta property="og:description" content="Accesorios urbanos para tu moto." />
   <meta property="og:image" content="https://leadradar.github.io/motorhub.mx/img/hero.jpg" />
+
   <link rel="icon" type="image/x-icon" href="favicon.ico" />
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="manifest" href="site.webmanifest" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700;800&display=swap" rel="stylesheet">
+
+  <!-- Preload: LCP y cat-* -->
+  <link rel="preload" as="image" href="img/logo.png">
+  <link rel="preload" as="image" href="img/cat-soportes.jpg">
+  <link rel="preload" as="image" href="img/cat-guantes.jpg">
+  <link rel="preload" as="image" href="img/cat-chalecos.jpg">
+  <link rel="preload" as="image" href="img/cat-bolsas.jpg">
+  <link rel="preload" as="image" href="img/cat-rinoneras.jpg">
 
   <style>
     :root{ --bg:#ffffff; --elev:#ffffff; --ink:#111; --muted:#666; --line:#eee; --accent:#e10600; }
@@ -79,7 +88,7 @@
     .stars{color:#C99A10;font-size:13px}
     .hidden{display:none !important}
 
-    /* Modal producto — compacto, con galería + flechas + swipe */
+    /* Modal */
     .modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;padding:16px;z-index:60}
     .modal.open{display:flex}
     .modal-card{background:#fff;border-radius:18px;max-width:920px;width:96%;max-height:92vh;display:flex;flex-direction:column;overflow:hidden;border:1px solid var(--line)}
@@ -89,6 +98,11 @@
     @media(min-width:900px){.modal-body{grid-template-columns:1.05fr .95fr}}
     .media-wrap{position:relative}
     .m-main{width:100%;max-height:48vh;object-fit:contain;border-radius:12px;background:#f7f7f7;cursor:zoom-in}
+    /* skeleton al cargar imagen grande */
+    .m-main.is-loading{background:
+      linear-gradient(90deg,#f3f3f3 25%,#e9e9e9 37%,#f3f3f3 63%);
+      background-size:400% 100%; animation:sheen 1.2s infinite}
+    @keyframes sheen{0%{background-position:100% 0}100%{background-position:0 0}}
     .nav-arrow{position:absolute;top:50%;transform:translateY(-50%);background:#ffffffcc;border:1px solid var(--line);border-radius:12px;padding:8px 10px;cursor:pointer}
     .nav-arrow.prev{left:8px}
     .nav-arrow.next{right:8px}
@@ -102,7 +116,7 @@
     .btn{display:inline-flex;align-items:center;gap:8px;border:1px solid #111;background:#111;color:#fff;border-radius:12px;padding:10px 14px;cursor:pointer}
     .btn.secondary{background:#fff;color:#111}
 
-    /* Lightbox (zoom en grande + pinch zoom) */
+    /* Lightbox */
     .lightbox{position:fixed;inset:0;background:rgba(0,0,0,.92);display:none;align-items:center;justify-content:center;z-index:80;touch-action:none}
     .lightbox.open{display:flex}
     .lightbox img{max-width:95vw;max-height:95vh;object-fit:contain;transform-origin:center center;transition:transform .06s linear}
@@ -127,15 +141,15 @@
     /* Trust bar */
     .trustbar{display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
 
-    /* FAQ con más aire */
+    /* FAQ */
     #faq h2{margin-bottom:22px}
     #faq .card{margin-top:26px}
     #faq{padding-bottom:40px}
 
-    /* Footer centrado */
+    /* Footer */
     footer.site{margin-top:48px;border-top:1px solid var(--line);background:#fff}
     .footer-head{display:flex;flex-direction:column;align-items:center;gap:6px;padding:18px 0 6px}
-    .footer-head img{height:52px;width:auto}
+    .footer-head img{height:72px;width:auto} /* ↑ más grande */
     .footer-name{font:800 18px/1.1 Poppins,system-ui;text-align:center}
     .footer-tag{color:#666;text-align:center;margin-top:2px}
     .footer-grid{display:grid;gap:18px;padding:20px 0}
@@ -146,7 +160,7 @@
     .footer-legal .dot{opacity:.35}
     .copy{padding-bottom:20px;color:#666;text-align:center}
 
-    /* WhatsApp flotante (icono centrado perfecto) */
+    /* WhatsApp flotante — nuevo SVG perfecto */
     .floating-wa{
       position:fixed;right:16px;bottom:16px;background:#25D366;
       width:64px;height:64px;border-radius:50%;
@@ -154,8 +168,7 @@
       border:2px solid #fff;
       box-shadow:0 10px 30px rgba(0,0,0,.18);z-index:45;cursor:pointer
     }
-    .floating-wa svg{width:36px;height:36px;display:block}
-    .floating-wa svg *{vector-effect:non-scaling-stroke}
+    .floating-wa svg{display:block;width:40px;height:40px}
     /* Toast */
     .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#111;color:#fff;padding:10px 14px;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.2);opacity:0;pointer-events:none;transition:opacity .25s, transform .25s;z-index:90}
     .toast.show{opacity:1;transform:translateX(-50%) translateY(-6px)}
@@ -380,7 +393,7 @@
   <!-- FOOTER -->
   <footer id="contacto" class="site">
     <div class="container footer-head">
-      <img src="img/logo.png" alt="MotoUrbano"/><!-- sin width/height para no aplastar -->
+      <img src="img/logo.png" alt="MotoUrbano"/>
       <div class="footer-name">MotoUrbano MX</div>
       <div class="footer-tag">Accesorios urbanos, prácticos y fiables. Envío a todo México.</div>
     </div>
@@ -408,10 +421,13 @@
     </div>
   </footer>
 
-  <!-- WhatsApp flotante (SVG centrado y limpio) -->
+  <!-- WhatsApp flotante (SVG círculo + glifo centrado) -->
   <a class="floating-wa" href="https://wa.me/520000000000" target="_blank" rel="noopener" aria-label="WhatsApp Soporte" title="WhatsApp">
-    <svg viewBox="0 0 256 256" preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false" role="img">
-      <path fill="#FFFFFF" d="M.7 256l17.6-65.8A126.4 126.4 0 0 1 0 128.1C0 57.4 57.3 0 128 0s128 57.4 128 128.1S198.7 256 128 256c-21.3 0-41.6-4.5-60.2-13.3L.7 256zm72.7-41c17.9 10.6 35.1 17 54.6 17 55.6 0 100.7-44.9 100.7-100.1S183.6 31.9 128 31.9 27.3 76.8 27.3 132c0 23.8 8.3 45.8 22.3 63.5l-10.2 37 34-6.5zM199 152.4c-.8-1.3-2.5-2-5.2-3.4-2.7-1.3-16-8-18.5-8.9-2.5-.9-4.2-1.4-6 1.3-1.8 2.7-7.1 9.1-8.7 10.9-1.6 1.8-3.2 2.1-6 1-2.8-1.3-11.7-4.3-22.1-13.3-8.2-7-13.1-15.8-14.7-18.4-1.6-2.6-.2-4.2 1.1-5.5 1.3-1.3 2.9-3.1 4.2-4.7 1.3-1.6 1.8-2.8 2.8-4.6 1-1.8.5-3.4-.1-4.7-.6-1.3-6-14.6-8.3-20.1-2.2-5.4-4.5-4.8-6.2-4.9l-5.1-.1c-1.8 0-4.8.8-7.1 3.4-2.5 2.7-9.4 9.4-9.4 22.9 0 13.5 9.7 26.8 11 28.6 1.2 1.8 19.1 31.2 46.1 43.6 6.4 2.9 11.3 4.7 15.3 5.9 6.4 2.1 12.2 1.8 16.8 1.2 5.1-.8 15.8-6.8 18-13.3 2.2-6.6 2.2-12.2 1.5-13.6z"/>
+    <svg viewBox="0 0 64 64" role="img" aria-hidden="true">
+      <!-- círculo verde -->
+      <circle cx="32" cy="32" r="30" fill="#25D366"/>
+      <!-- glifo blanco, centrado -->
+      <path fill="#FFFFFF" d="M46.3,36.7c-.1.3-.6 1.1-1.2 1.7-.6.6-1.3 1-2.2 1.4-1 .4-1.9.6-2.7.5-.8 0-1.8-.1-3.1-.6-1.3-.5-2.8-1.2-4.6-2.3-1.6-1-3.3-2.5-5.1-4.4-1.8-1.9-3-3.7-3.7-5.2-.7-1.6-1.1-2.9-1.2-4-.1-1.1.2-2.4.8-3.8.6-1.4 1.6-2.2 2.2-2.6.6-.4 1.3-.6 1.7-.6.4 0 .8 0 1 .1.3.1.7.1.9.8.2.7.6 2.3.8 2.9.2.6.2 1 .1 1.4-.1.4-.2.8-.4 1.2-.2.4-.5.9-.7 1.1-.2.3-.4.5-.1 1 .3.5 1.2 2 2.6 3.3 1.8 1.7 3.4 2.3 3.9 2.6s.8.2 1.1-.1c.3-.3 1.3-1.5 1.6-2 .3-.5.7-.4 1.2-.2.5.2 3.1 1.5 3.6 1.7.5.2.9.4 1 .6.1.2.1 1.2 0 1.5Z"/>
     </svg>
   </a>
 
@@ -446,7 +462,7 @@
     </div>
   </div>
 
-  <!-- LIGHTBOX (zoom) -->
+  <!-- LIGHTBOX -->
   <div class="lightbox" id="lightbox" aria-hidden="true">
     <button class="x" id="lbClose" aria-label="Cerrar">✕</button>
     <button class="arrow prev" id="lbPrev" aria-label="Anterior">‹</button>
@@ -466,7 +482,6 @@
         <strong>Total: <span id="cTotal">$0 MXN</span></strong>
         <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
           <button class="btn secondary" id="cClear" type="button">Vaciar</button>
-          <!-- PayPal Standard (reemplaza el correo) -->
           <form id="ppForm" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
             <input type="hidden" name="cmd" value="_xclick">
             <input type="hidden" name="business" id="ppBusiness" value="">
@@ -488,10 +503,9 @@
       var $ = function(sel,ctx){ return (ctx||document).querySelector(sel); };
       var $$= function(sel,ctx){ return [].slice.call((ctx||document).querySelectorAll(sel)); };
 
-      // Año dinámico
       var y = $('#year'); if(y) y.textContent = new Date().getFullYear();
 
-      // --------- Filtros + Categorías ----------
+      /* ---------- FILTROS ---------- */
       var filterPills = $$('#filters .pill');
       var prodCards   = $$('#gridProds [data-cat]');
       function applyFilter(cat){
@@ -502,7 +516,7 @@
       filterPills.forEach(function(p){ p.addEventListener('click', function(){ applyFilter(p.dataset.cat); }); });
       $$('.js-cat').forEach(function(tile){ tile.addEventListener('click', function(){ applyFilter(tile.dataset.cat); }); });
 
-      // --------- Modal de producto con galería ----------
+      /* ---------- MODAL PRODUCTO ---------- */
       var modal   = $('#modal');
       var mTitle  = $('#mTitle');
       var mPrice  = $('#mPrice');
@@ -528,14 +542,15 @@
       var current = { images:[], index:0, name:'', priceText:'', price:0 };
 
       function bullets(text){ return (text||'').split('·').map(function(s){return s.trim();}).filter(Boolean); }
-      function setActiveThumb(){
-        $$('#mThumbs img').forEach(function(t){ t.classList.toggle('active', t.src===mMain.src); });
-      }
+      function setActiveThumb(){ $$('#mThumbs img').forEach(function(t){ t.classList.toggle('active', t.src===mMain.src); }); }
       function showImage(idx){
         if(!current.images.length) return;
         current.index = (idx+current.images.length)%current.images.length;
-        mMain.src = current.images[current.index]; mMain.alt = current.name;
-        setActiveThumb();
+        mMain.classList.add('is-loading');
+        var nextSrc = current.images[current.index];
+        var im = new Image(); im.decoding='async'; im.onload = function(){
+          mMain.src = nextSrc; mMain.alt = current.name; mMain.classList.remove('is-loading'); setActiveThumb();
+        }; im.src = nextSrc;
       }
 
       function openModal(card){
@@ -552,12 +567,18 @@
         current.images = [current.main].concat(gallery.filter(Boolean));
         mTitle.textContent = current.name || 'Producto';
         mPrice.textContent = current.priceText || '';
-        showImage(0);
+
+        // render principal (rápido: la cat-* suele estar cacheada ya)
+        mMain.classList.remove('is-loading');
+        mMain.src = current.images[0]; mMain.alt = current.name;
+
+        // miniaturas
         mThumbs.innerHTML = current.images.map(function(src,i){
-          return '<img src="'+src+'" alt="Vista '+(i+1)+' '+current.name+'" loading="lazy">';
+          return '<img src="'+src+'" alt="Vista '+(i+1)+' '+current.name+'" loading="lazy" decoding="async">';
         }).join('');
         setActiveThumb();
 
+        // listeners
         mThumbs.onclick = function(e){
           var img = e.target.closest('img'); if(!img) return;
           var idx = current.images.indexOf(img.src);
@@ -573,36 +594,38 @@
         mMain.addEventListener('touchmove',  function(ev){ if(ev.touches.length!==1) return; dx=ev.touches[0].clientX-sx; dy=ev.touches[0].clientY-sy; }, {passive:true});
         mMain.addEventListener('touchend',   function(){ if(Math.abs(dx)>40 && Math.abs(dy)<40){ if(dx<0) showImage(current.index+1); else showImage(current.index-1);} dx=dy=0; }, {passive:true});
 
+        // descripción
         mDesc.innerHTML = bullets(card.dataset.desc||'').map(function(li){return '<li>'+li+'</li>';}).join('');
+
         qInput.value = 1;
         modal.classList.add('open');
+
+        // prefetch inmediato del resto de la galería al abrir
+        current.images.slice(1).forEach(function(src){ var i=new Image(); i.decoding='async'; i.src=src; });
       }
       function closeModal(){ modal.classList.remove('open'); }
 
-      prodCards.forEach(function(card){ card.addEventListener('click', function(){ openModal(card); }); });
+      $$('#gridProds [data-cat]').forEach(function(card){ card.addEventListener('click', function(){ openModal(card); }); });
       mClose.addEventListener('click', closeModal);
       modal.addEventListener('click', function(e){ if(e.target===modal) closeModal(); });
+
       qMinus.addEventListener('click', function(){ qInput.value = Math.max(1, (parseInt(qInput.value,10)||1)-1 ); });
       qPlus .addEventListener('click', function(){ qInput.value = (parseInt(qInput.value,10)||1)+1; });
 
-      // --------- Lightbox (zoom + pinch) ----------
+      document.addEventListener('keydown', function(e){
+        if(!modal.classList.contains('open')) return;
+        if(e.key==='Escape') closeModal();
+        if(e.key==='ArrowLeft') showImage(current.index-1);
+        if(e.key==='ArrowRight') showImage(current.index+1);
+      });
+
+      /* ---------- LIGHTBOX ---------- */
       function openLightbox(src, alt){ lbImg.src=src; lbImg.alt=alt||''; scale=1; tx=0; ty=0; applyTransform(); lightbox.classList.add('open'); }
       function closeLightbox(){ lightbox.classList.remove('open'); }
       lbClose.addEventListener('click', closeLightbox);
       lbPrev.addEventListener('click', function(){ showImage(current.index-1); lbImg.src=current.images[current.index]; });
       lbNext.addEventListener('click', function(){ showImage(current.index+1); lbImg.src=current.images[current.index]; });
       lightbox.addEventListener('click', function(e){ if(e.target===lightbox) closeLightbox(); });
-      document.addEventListener('keydown', function(e){
-        if(lightbox.classList.contains('open')){
-          if(e.key==='Escape') closeLightbox();
-          if(e.key==='ArrowLeft'){ lbPrev.click(); }
-          if(e.key==='ArrowRight'){ lbNext.click(); }
-        }
-        if(modal.classList.contains('open')){
-          if(e.key==='ArrowLeft') showImage(current.index-1);
-          if(e.key==='ArrowRight') showImage(current.index+1);
-        }
-      });
 
       var scale=1, tx=0, ty=0;
       function applyTransform(){ lbImg.style.transform = 'translate('+tx+'px,'+ty+'px) scale('+scale+')'; }
@@ -613,17 +636,15 @@
         applyTransform();
       }, {passive:false});
 
-      var touches = [];
       var startDist=0, startScale=1, startX=0, startY=0;
       lightbox.addEventListener('touchstart', function(e){
         if(!lightbox.classList.contains('open')) return;
-        touches = e.touches;
-        if(touches.length===2){
-          startDist = Math.hypot(touches[0].clientX-touches[1].clientX, touches[0].clientY-touches[1].clientY);
+        if(e.touches.length===2){
+          startDist = Math.hypot(e.touches[0].clientX-e.touches[1].clientX, e.touches[0].clientY-e.touches[1].clientY);
           startScale = scale;
-        }else if(touches.length===1){
-          startX = touches[0].clientX - tx;
-          startY = touches[0].clientY - ty;
+        }else if(e.touches.length===1){
+          startX = e.touches[0].clientX - tx;
+          startY = e.touches[0].clientY - ty;
         }
       }, {passive:true});
       lightbox.addEventListener('touchmove', function(e){
@@ -645,30 +666,23 @@
         lastTap=now;
       });
 
-      // --------- Carrito (localStorage) ----------
+      /* ---------- CARRITO ---------- */
       var cartBtn   = $('#cartBtn');
       var cartModal = $('#cart');
       var cClose    = $('#cClose');
       var cBody     = $('#cBody');
       var cTotal    = $('#cTotal');
       var cClear    = $('#cClear');
-      var ppForm    = $('#ppForm');
       var ppAmount  = $('#ppAmount');
       var ppBusiness= $('#ppBusiness');
-
-      var PAYPAL_BUSINESS = 'tu-correo-paypal@ejemplo.com'; // <-- cámbialo por tu PayPal
-      ppBusiness.value = PAYPAL_BUSINESS;
+      var PAYPAL_BUSINESS = 'tu-correo-paypal@ejemplo.com'; ppBusiness.value = PAYPAL_BUSINESS;
 
       var cartCount = $('#cartCount');
       var STORAGE_KEY = 'mu_cart';
       function readCart(){ try{ return JSON.parse(localStorage.getItem(STORAGE_KEY)||'[]'); }catch(e){ return []; } }
       function writeCart(items){ localStorage.setItem(STORAGE_KEY, JSON.stringify(items)); }
       function cartSum(items){ return items.reduce(function(s,i){return s + i.price*i.qty;}, 0); }
-      function updateCount(){
-        var items = readCart();
-        var n = items.reduce(function(s,i){return s+i.qty;},0);
-        cartCount.textContent = n;
-      }
+      function updateCount(){ var items = readCart(); var n = items.reduce(function(s,i){return s+i.qty;},0); cartCount.textContent = n; }
 
       function renderCart(){
         var items = readCart();
@@ -677,7 +691,7 @@
         }else{
           cBody.innerHTML = items.map(function(i,idx){
             return '<div class="cart-item">'
-              + '<img src="'+i.img+'" alt="'+i.name+'" loading="lazy">'
+              + '<img src="'+i.img+'" alt="'+i.name+'" loading="lazy" decoding="async">'
               + '<div><div style="font-weight:700">'+i.name+'</div>'
               + '<div class="sub">$'+i.price+' MXN c/u</div></div>'
               + '<div style="display:flex;align-items:center;gap:8px">'
@@ -695,7 +709,6 @@
         cTotal.textContent = '$'+total+' MXN';
         ppAmount.value = Number(total).toFixed(2);
       }
-
       function openCart(){ renderCart(); cartModal.classList.add('open'); }
       function closeCart(){ cartModal.classList.remove('open'); }
 
@@ -703,39 +716,32 @@
       cClose .addEventListener('click', closeCart);
       cartModal.addEventListener('click', function(e){ if(e.target===cartModal) closeCart(); });
 
-      // eventos de cantidad / eliminar
       cBody.addEventListener('click', function(e){
         var del = e.target.closest('[data-del]');
         if(del){
           var idx = parseInt(del.dataset.del,10);
           var items = readCart(); items.splice(idx,1);
-          writeCart(items); updateCount(); renderCart();
-          return;
+          writeCart(items); updateCount(); renderCart(); return;
         }
         var actBtn = e.target.closest('button[data-act]');
         if(actBtn){
           var idx = parseInt(actBtn.dataset.idx,10);
-          var items = readCart();
-          if(!items[idx]) return;
+          var items = readCart(); if(!items[idx]) return;
           if(actBtn.dataset.act==='minus'){ items[idx].qty = Math.max(1, (items[idx].qty||1)-1); }
           if(actBtn.dataset.act==='plus'){ items[idx].qty = (items[idx].qty||1)+1; }
           writeCart(items); updateCount(); renderCart();
         }
       });
       cBody.addEventListener('change', function(e){
-        var inp = e.target.closest('input[data-act="input"]');
-        if(!inp) return;
+        var inp = e.target.closest('input[data-act="input"]'); if(!inp) return;
         var idx = parseInt(inp.dataset.idx,10);
-        var items = readCart();
-        if(!items[idx]) return;
+        var items = readCart(); if(!items[idx]) return;
         var v = Math.max(1, parseInt(inp.value,10)||1);
-        items[idx].qty = v;
-        writeCart(items); updateCount(); renderCart();
+        items[idx].qty = v; writeCart(items); updateCount(); renderCart();
       });
-
       cClear.addEventListener('click', function(){ writeCart([]); updateCount(); renderCart(); });
 
-      // Añadir al carrito (acumula si ya existe el mismo producto + misma imagen)
+      // Añadir al carrito (acumula ítems iguales)
       var toast = $('#toast');
       function showToast(){ toast.classList.add('show'); setTimeout(function(){ toast.classList.remove('show'); }, 1400); }
       mAdd.addEventListener('click', function(){
@@ -749,7 +755,7 @@
         writeCart(items); updateCount(); openCart(); closeModal(); showToast();
       });
 
-      // Scroll suave del menú
+      /* ---------- SCROLL SUAVE ---------- */
       $$('.menu a[href^="#"]').forEach(function(a){
         a.addEventListener('click', function(e){
           e.preventDefault();
@@ -759,10 +765,23 @@
         });
       });
 
-      // PayPal merchant (edítalo)
-      var ppBusiness = $('#ppBusiness'); if(ppBusiness) ppBusiness.value = 'tu-correo-paypal@ejemplo.com';
+      /* ---------- PREFETCH GALERÍAS EN SEGUNDO PLANO ---------- */
+      function prefetch(g){ g.forEach(function(src){ var i=new Image(); i.decoding='async'; i.src=src; }); }
+      // al estar en reposo
+      (window.requestIdleCallback||setTimeout)(function(){
+        $$('#gridProds [data-gallery]').forEach(function(card){
+          try{ var g = JSON.parse(card.getAttribute('data-gallery')||'[]'); prefetch(g); }catch(e){}
+        });
+      }, 300);
+      // al pasar el mouse
+      $$('#gridProds [data-gallery]').forEach(function(card){
+        card.addEventListener('mouseenter', function(){
+          try{ var g = JSON.parse(card.getAttribute('data-gallery')||'[]'); prefetch(g); }catch(e){}
+        }, {passive:true});
+      });
 
-      // Contador inicial
+      /* ---------- INIT ---------- */
+      var ppBusiness = $('#ppBusiness'); if(ppBusiness) ppBusiness.value = 'tu-correo-paypal@ejemplo.com';
       updateCount();
     });
   </script>
