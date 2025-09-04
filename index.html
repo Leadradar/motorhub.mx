@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>MotoUrbano MX — Accesorios urbanos para tu moto</title>
-  <meta name="description" content="Accesorios urbanos para tu moto: prácticos, fiables y a buen precio. Envío a todo México y devoluciones en 14 días." />
+  <meta name="description" content="Accesorios urbanos para tu moto: fiables, precios claros y envío a todo México. Devoluciones en 14 días." />
   <meta name="theme-color" content="#ffffff" />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="MotoUrbano MX" />
@@ -44,20 +44,19 @@
 
     /* Hero */
     .hero{border-bottom:1px solid var(--line);background:#fff}
-    .hero .wrap{display:flex;flex-direction:column;align-items:center;gap:6px;padding:40px 0}
+    .hero .wrap{display:flex;flex-direction:column;align-items:center;gap:10px;padding:38px 0}
     .hero .logo-big img{width:360px;height:auto}
     @media(min-width:1100px){.hero .logo-big img{width:400px}}
     @media(max-width:520px){.hero .logo-big img{width:220px}}
     h1{font-family:Poppins,system-ui;font-weight:800;letter-spacing:.2px;font-size:clamp(30px,5vw,52px);line-height:1.04;margin:.05em 0 .1em;text-align:center}
-    .hero-sub{font-size:clamp(14px,2.2vw,18px);color:#444;margin:0;text-align:center}
+    .hero-sub{font-size:clamp(14px,2.2vw,18px);color:#444;margin:4px 0 10px;text-align:center}
     h2{font-size:clamp(22px,3.6vw,34px);margin:0 0 10px;text-align:center}
     .sub{color:var(--muted);text-align:center}
-
-    .chips-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:center;margin-top:8px}
+    .chips-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:center;margin-top:14px}
     .chip{display:inline-flex;align-items:center;gap:8px;background:#fafafa;border:1px solid var(--line);color:#444;padding:8px 12px;border-radius:12px;white-space:nowrap}
 
     /* PayPal */
-    .paypal-row{display:flex;justify-content:center;margin-top:10px}
+    .paypal-row{display:flex;justify-content:center;margin-top:14px}
     .pp-badge{display:inline-flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:10px 16px}
     .pp-badge img{height:22px;display:block}
 
@@ -80,7 +79,7 @@
     .stars{color:#C99A10;font-size:13px}
     .hidden{display:none !important}
 
-    /* Modal producto — compacto, no se corta y con galería + zoom */
+    /* Modal producto — compacto, con galería + flechas + swipe */
     .modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;padding:16px;z-index:60}
     .modal.open{display:flex}
     .modal-card{background:#fff;border-radius:18px;max-width:920px;width:96%;max-height:92vh;display:flex;flex-direction:column;overflow:hidden;border:1px solid var(--line)}
@@ -88,9 +87,14 @@
     .modal-title{font:700 18px/1.2 Poppins,system-ui}
     .modal-body{display:grid;gap:14px;padding:14px;overflow:auto}
     @media(min-width:900px){.modal-body{grid-template-columns:1.05fr .95fr}}
+    .media-wrap{position:relative}
     .m-main{width:100%;max-height:48vh;object-fit:contain;border-radius:12px;background:#f7f7f7;cursor:zoom-in}
+    .nav-arrow{position:absolute;top:50%;transform:translateY(-50%);background:#ffffffcc;border:1px solid var(--line);border-radius:12px;padding:8px 10px;cursor:pointer}
+    .nav-arrow.prev{left:8px}
+    .nav-arrow.next{right:8px}
     .thumbs{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:8px}
-    .thumbs img{width:100%;height:70px;object-fit:cover;border-radius:10px;border:1px solid var(--line);cursor:pointer;background:#fafafa}
+    .thumbs img{width:100%;height:70px;object-fit:cover;border-radius:10px;border:2px solid transparent;cursor:pointer;background:#fafafa}
+    .thumbs img.active{border-color:#111}
     .close{border:none;background:#f3f3f3;border-radius:10px;padding:8px 10px;cursor:pointer}
     .qty{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:10px;overflow:hidden}
     .qty button{background:#f6f6f6;border:none;padding:8px 10px;cursor:pointer}
@@ -98,11 +102,14 @@
     .btn{display:inline-flex;align-items:center;gap:8px;border:1px solid #111;background:#111;color:#fff;border-radius:12px;padding:10px 14px;cursor:pointer}
     .btn.secondary{background:#fff;color:#111}
 
-    /* Lightbox (zoom en grande) */
-    .lightbox{position:fixed;inset:0;background:rgba(0,0,0,.92);display:none;align-items:center;justify-content:center;z-index:80}
+    /* Lightbox (zoom en grande + pinch zoom) */
+    .lightbox{position:fixed;inset:0;background:rgba(0,0,0,.92);display:none;align-items:center;justify-content:center;z-index:80;touch-action:none}
     .lightbox.open{display:flex}
-    .lightbox img{max-width:95vw;max-height:95vh;object-fit:contain}
+    .lightbox img{max-width:95vw;max-height:95vh;object-fit:contain;transform-origin:center center;transition:transform .06s linear}
     .lightbox .x{position:absolute;top:14px;right:14px;background:#ffffff22;color:#fff;border:1px solid #ffffff55;border-radius:10px;padding:8px 10px;cursor:pointer}
+    .lightbox .arrow{position:absolute;top:50%;transform:translateY(-50%);background:#ffffff22;color:#fff;border:1px solid #ffffff55;border-radius:10px;padding:10px 12px;cursor:pointer}
+    .lightbox .arrow.prev{left:14px}
+    .lightbox .arrow.next{right:14px}
 
     /* Cart */
     .cart{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;padding:16px;z-index:65}
@@ -112,6 +119,9 @@
     .cart-body{padding:12px 16px;overflow:auto}
     .cart-item{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;border-bottom:1px solid var(--line);padding:10px 0}
     .cart-item img{width:60px;height:60px;object-fit:cover;border-radius:10px}
+    .cart-item .qtyline{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+    .cart-item .qtyline button{background:#f6f6f6;border:none;padding:6px 10px;cursor:pointer}
+    .cart-item .qtyline input{width:44px;text-align:center;border:none;padding:6px}
     .cart-foot{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-top:1px solid var(--line);gap:10px;flex-wrap:wrap}
 
     /* Trust bar */
@@ -144,7 +154,11 @@
       border:2px solid #fff;
       box-shadow:0 10px 30px rgba(0,0,0,.18);z-index:45;cursor:pointer
     }
-    .floating-wa svg{width:32px;height:32px;display:block}
+    .floating-wa svg{width:36px;height:36px;display:block}
+    .floating-wa svg *{vector-effect:non-scaling-stroke}
+    /* Toast */
+    .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#111;color:#fff;padding:10px 14px;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.2);opacity:0;pointer-events:none;transition:opacity .25s, transform .25s;z-index:90}
+    .toast.show{opacity:1;transform:translateX(-50%) translateY(-6px)}
   </style>
 </head>
 <body>
@@ -173,12 +187,13 @@
         <img src="img/logo.png" alt="Logo MotoUrbano" decoding="async" fetchpriority="high"/>
       </div>
       <h1>Accesorios para moto urbana</h1>
-      <p class="hero-sub">Mucho catálogo, buena calidad y precios honestos — bueno, bonito y barato.</p>
+      <p class="hero-sub">Accesorios urbanos fiables, precios claros y envío a todo México.</p>
 
       <div class="chips-row">
         <span class="chip">💳 Pagos seguros</span>
         <span class="chip">🚚 Envío a todo México</span>
         <span class="chip">↩️ 14 días devolución</span>
+        <span class="chip">🚚 Envío gratis</span>
       </div>
 
       <div class="paypal-row">
@@ -227,7 +242,7 @@
   <!-- PRODUCTOS -->
   <section id="productos" class="container" style="padding:26px 0">
     <h2>Productos</h2>
-    <p class="sub">Top ventas y esenciales urbanos.</p>
+    <p class="sub">Selección pensada para la ciudad.</p>
 
     <div class="filters" id="filters">
       <button class="pill is-active" data-cat="all">Todos</button>
@@ -393,11 +408,10 @@
     </div>
   </footer>
 
-  <!-- WhatsApp flotante (icono oficial, centrado) -->
+  <!-- WhatsApp flotante (SVG centrado y limpio) -->
   <a class="floating-wa" href="https://wa.me/520000000000" target="_blank" rel="noopener" aria-label="WhatsApp Soporte" title="WhatsApp">
-    <!-- Path clásico de WhatsApp dentro de viewBox 24x24, sin transform para evitar recortes -->
-    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" role="img">
-      <path fill="#FFFFFF" d="M.05 24l1.65-6.01A11.85 11.85 0 0 1 0 11.75C0 5.26 5.35 0 11.95 0 18.54 0 24 5.26 24 11.75c0 6.49-5.46 11.75-12.05 11.75-1.98 0-3.88-.46-5.6-1.35L.05 24zm6.56-3.8c1.66.98 3.25 1.56 5.34 1.56 5.43 0 9.85-4.34 9.85-9.71 0-5.38-4.42-9.72-9.85-9.72-5.4 0-9.85 4.34-9.85 9.72 0 2.3.81 4.43 2.17 6.16l-.99 3.6 3.33-.61zm11.32-5.44c-.07-.11-.24-.18-.5-.31-.26-.13-1.56-.77-1.8-.85-.23-.08-.41-.13-.58.13-.18.26-.69.86-.84 1.03-.15.17-.31.2-.58.07-.27-.13-1.14-.41-2.15-1.31-.79-.7-1.32-1.56-1.48-1.82-.16-.26-.02-.41.11-.54.12-.12.27-.31.4-.47.13-.16.18-.27.27-.45.09-.18.05-.33-.01-.46-.07-.13-.6-1.43-.82-1.96-.22-.53-.44-.46-.6-.47l-.5-.01c-.17 0-.46.07-.7.33-.24.26-.93.91-.93 2.22 0 1.31.96 2.58 1.09 2.75.13.17 1.89 3 4.6 4.21.64.28 1.13.45 1.52.58.64.2 1.23.17 1.69.1.51-.08 1.58-.67 1.8-1.31.22-.64.22-1.2.15-1.31z"/>
+    <svg viewBox="0 0 256 256" preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false" role="img">
+      <path fill="#FFFFFF" d="M.7 256l17.6-65.8A126.4 126.4 0 0 1 0 128.1C0 57.4 57.3 0 128 0s128 57.4 128 128.1S198.7 256 128 256c-21.3 0-41.6-4.5-60.2-13.3L.7 256zm72.7-41c17.9 10.6 35.1 17 54.6 17 55.6 0 100.7-44.9 100.7-100.1S183.6 31.9 128 31.9 27.3 76.8 27.3 132c0 23.8 8.3 45.8 22.3 63.5l-10.2 37 34-6.5zM199 152.4c-.8-1.3-2.5-2-5.2-3.4-2.7-1.3-16-8-18.5-8.9-2.5-.9-4.2-1.4-6 1.3-1.8 2.7-7.1 9.1-8.7 10.9-1.6 1.8-3.2 2.1-6 1-2.8-1.3-11.7-4.3-22.1-13.3-8.2-7-13.1-15.8-14.7-18.4-1.6-2.6-.2-4.2 1.1-5.5 1.3-1.3 2.9-3.1 4.2-4.7 1.3-1.6 1.8-2.8 2.8-4.6 1-1.8.5-3.4-.1-4.7-.6-1.3-6-14.6-8.3-20.1-2.2-5.4-4.5-4.8-6.2-4.9l-5.1-.1c-1.8 0-4.8.8-7.1 3.4-2.5 2.7-9.4 9.4-9.4 22.9 0 13.5 9.7 26.8 11 28.6 1.2 1.8 19.1 31.2 46.1 43.6 6.4 2.9 11.3 4.7 15.3 5.9 6.4 2.1 12.2 1.8 16.8 1.2 5.1-.8 15.8-6.8 18-13.3 2.2-6.6 2.2-12.2 1.5-13.6z"/>
     </svg>
   </a>
 
@@ -409,8 +423,10 @@
         <button class="close" id="mClose" aria-label="Cerrar">✕</button>
       </div>
       <div class="modal-body">
-        <div>
+        <div class="media-wrap">
           <img id="mMain" class="m-main" src="" alt="" />
+          <button class="nav-arrow prev" id="mPrev" aria-label="Anterior">‹</button>
+          <button class="nav-arrow next" id="mNext" aria-label="Siguiente">›</button>
           <div id="mThumbs" class="thumbs"></div>
         </div>
         <div>
@@ -433,7 +449,9 @@
   <!-- LIGHTBOX (zoom) -->
   <div class="lightbox" id="lightbox" aria-hidden="true">
     <button class="x" id="lbClose" aria-label="Cerrar">✕</button>
+    <button class="arrow prev" id="lbPrev" aria-label="Anterior">‹</button>
     <img id="lbImg" src="" alt="Imagen ampliada"/>
+    <button class="arrow next" id="lbNext" aria-label="Siguiente">›</button>
   </div>
 
   <!-- MODAL Carrito -->
@@ -462,84 +480,100 @@
     </div>
   </div>
 
+  <!-- TOAST -->
+  <div class="toast" id="toast">Añadido al carrito</div>
+
   <script>
     document.addEventListener('DOMContentLoaded', function(){
+      var $ = function(sel,ctx){ return (ctx||document).querySelector(sel); };
+      var $$= function(sel,ctx){ return [].slice.call((ctx||document).querySelectorAll(sel)); };
+
       // Año dinámico
-      var y = document.getElementById('year'); if(y) y.textContent = new Date().getFullYear();
+      var y = $('#year'); if(y) y.textContent = new Date().getFullYear();
 
       // --------- Filtros + Categorías ----------
-      var filterPills = [].slice.call(document.querySelectorAll('#filters .pill'));
-      var prodCards   = [].slice.call(document.querySelectorAll('#gridProds [data-cat]'));
+      var filterPills = $$('#filters .pill');
+      var prodCards   = $$('#gridProds [data-cat]');
       function applyFilter(cat){
         filterPills.forEach(function(p){ p.classList.toggle('is-active', p.dataset.cat===cat); });
         prodCards.forEach(function(card){ card.classList.toggle('hidden', !(cat==='all' || card.dataset.cat===cat)); });
-        var prodSection = document.querySelector('#productos');
-        if(prodSection){ prodSection.scrollIntoView({behavior:'smooth', block:'start'}); }
+        var prodSection = $('#productos'); if(prodSection){ prodSection.scrollIntoView({behavior:'smooth', block:'start'}); }
       }
       filterPills.forEach(function(p){ p.addEventListener('click', function(){ applyFilter(p.dataset.cat); }); });
-      [].slice.call(document.querySelectorAll('.js-cat')).forEach(function(tile){
-        tile.addEventListener('click', function(){ applyFilter(tile.dataset.cat); });
-      });
+      $$('.js-cat').forEach(function(tile){ tile.addEventListener('click', function(){ applyFilter(tile.dataset.cat); }); });
 
       // --------- Modal de producto con galería ----------
-      var modal = document.getElementById('modal');
-      var mTitle = document.getElementById('mTitle');
-      var mPrice = document.getElementById('mPrice');
-      var mMain  = document.getElementById('mMain');
-      var mThumbs= document.getElementById('mThumbs');
-      var mClose = document.getElementById('mClose');
-      var qMinus = document.getElementById('qMinus');
-      var qPlus  = document.getElementById('qPlus');
-      var qInput = document.getElementById('qInput');
-      var mAdd   = document.getElementById('mAdd');
-      var mDesc  = document.getElementById('mDesc');
+      var modal   = $('#modal');
+      var mTitle  = $('#mTitle');
+      var mPrice  = $('#mPrice');
+      var mMain   = $('#mMain');
+      var mThumbs = $('#mThumbs');
+      var mPrev   = $('#mPrev');
+      var mNext   = $('#mNext');
+      var mClose  = $('#mClose');
+      var qMinus  = $('#qMinus');
+      var qPlus   = $('#qPlus');
+      var qInput  = $('#qInput');
+      var mAdd    = $('#mAdd');
+      var mDesc   = $('#mDesc');
 
-      // Lightbox
-      var lightbox = document.getElementById('lightbox');
-      var lbImg    = document.getElementById('lbImg');
-      var lbClose  = document.getElementById('lbClose');
-      function openLightbox(src, alt){ lbImg.src = src; lbImg.alt = alt||''; lightbox.classList.add('open'); }
-      function closeLightbox(){ lightbox.classList.remove('open'); lbImg.src=''; }
-      lbClose.addEventListener('click', closeLightbox);
-      lightbox.addEventListener('click', function(e){ if(e.target===lightbox) closeLightbox(); });
-      document.addEventListener('keydown', function(e){ if(e.key==='Escape') { closeLightbox(); closeModal(); } });
+      var lightbox = $('#lightbox');
+      var lbImg    = $('#lbImg');
+      var lbClose  = $('#lbClose');
+      var lbPrev   = $('#lbPrev');
+      var lbNext   = $('#lbNext');
 
-      var currentProduct = null;
+      var toast    = $('#toast');
+
+      var current = { images:[], index:0, name:'', priceText:'', price:0 };
+
       function bullets(text){ return (text||'').split('·').map(function(s){return s.trim();}).filter(Boolean); }
+      function setActiveThumb(){
+        $$('#mThumbs img').forEach(function(t){ t.classList.toggle('active', t.src===mMain.src); });
+      }
+      function showImage(idx){
+        if(!current.images.length) return;
+        current.index = (idx+current.images.length)%current.images.length;
+        mMain.src = current.images[current.index]; mMain.alt = current.name;
+        setActiveThumb();
+      }
 
       function openModal(card){
         var gallery = [];
         try{ gallery = JSON.parse(card.getAttribute('data-gallery')||'[]'); }catch(e){ gallery = []; }
-        currentProduct = {
+        current = {
           name: card.dataset.name,
           priceText: card.dataset.price,
           price: parseInt((card.dataset.price||'').replace(/[^0-9]/g,''),10) || 0,
           main: card.getAttribute('data-main') || '',
-          gallery: gallery,
-          desc: card.dataset.desc || ''
+          images: [],
+          index:0
         };
-
-        mTitle.textContent = currentProduct.name || 'Producto';
-        mPrice.textContent = currentProduct.priceText || '';
-
-        // Principal = cat-*.jpg
-        mMain.src = currentProduct.main || '';
-        mMain.alt = currentProduct.name || '';
-        mThumbs.innerHTML = (currentProduct.gallery||[]).map(function(src){
-          return '<img src="'+src+'" alt="Vista '+currentProduct.name+'" loading="lazy">';
+        current.images = [current.main].concat(gallery.filter(Boolean));
+        mTitle.textContent = current.name || 'Producto';
+        mPrice.textContent = current.priceText || '';
+        showImage(0);
+        mThumbs.innerHTML = current.images.map(function(src,i){
+          return '<img src="'+src+'" alt="Vista '+(i+1)+' '+current.name+'" loading="lazy">';
         }).join('');
+        setActiveThumb();
 
-        // Abrir lightbox desde principal o thumbnails
-        mMain.onclick = function(){ openLightbox(mMain.src, mMain.alt); };
         mThumbs.onclick = function(e){
           var img = e.target.closest('img'); if(!img) return;
-          mMain.src = img.src; mMain.alt = img.alt;
-          openLightbox(img.src, img.alt);
+          var idx = current.images.indexOf(img.src);
+          if(idx>-1){ showImage(idx); openLightbox(img.src, img.alt); }
         };
+        mMain.onclick = function(){ openLightbox(mMain.src, mMain.alt); };
+        mPrev.onclick = function(){ showImage(current.index-1); };
+        mNext.onclick = function(){ showImage(current.index+1); };
 
-        // Descripción bullets
-        mDesc.innerHTML = bullets(currentProduct.desc).map(function(li){return '<li>'+li+'</li>';}).join('');
+        // swipe
+        var sx=0, sy=0, dx=0, dy=0;
+        mMain.addEventListener('touchstart', function(ev){ if(ev.touches.length!==1) return; sx=ev.touches[0].clientX; sy=ev.touches[0].clientY; }, {passive:true});
+        mMain.addEventListener('touchmove',  function(ev){ if(ev.touches.length!==1) return; dx=ev.touches[0].clientX-sx; dy=ev.touches[0].clientY-sy; }, {passive:true});
+        mMain.addEventListener('touchend',   function(){ if(Math.abs(dx)>40 && Math.abs(dy)<40){ if(dx<0) showImage(current.index+1); else showImage(current.index-1);} dx=dy=0; }, {passive:true});
 
+        mDesc.innerHTML = bullets(card.dataset.desc||'').map(function(li){return '<li>'+li+'</li>';}).join('');
         qInput.value = 1;
         modal.classList.add('open');
       }
@@ -551,21 +585,81 @@
       qMinus.addEventListener('click', function(){ qInput.value = Math.max(1, (parseInt(qInput.value,10)||1)-1 ); });
       qPlus .addEventListener('click', function(){ qInput.value = (parseInt(qInput.value,10)||1)+1; });
 
+      // --------- Lightbox (zoom + pinch) ----------
+      function openLightbox(src, alt){ lbImg.src=src; lbImg.alt=alt||''; scale=1; tx=0; ty=0; applyTransform(); lightbox.classList.add('open'); }
+      function closeLightbox(){ lightbox.classList.remove('open'); }
+      lbClose.addEventListener('click', closeLightbox);
+      lbPrev.addEventListener('click', function(){ showImage(current.index-1); lbImg.src=current.images[current.index]; });
+      lbNext.addEventListener('click', function(){ showImage(current.index+1); lbImg.src=current.images[current.index]; });
+      lightbox.addEventListener('click', function(e){ if(e.target===lightbox) closeLightbox(); });
+      document.addEventListener('keydown', function(e){
+        if(lightbox.classList.contains('open')){
+          if(e.key==='Escape') closeLightbox();
+          if(e.key==='ArrowLeft'){ lbPrev.click(); }
+          if(e.key==='ArrowRight'){ lbNext.click(); }
+        }
+        if(modal.classList.contains('open')){
+          if(e.key==='ArrowLeft') showImage(current.index-1);
+          if(e.key==='ArrowRight') showImage(current.index+1);
+        }
+      });
+
+      var scale=1, tx=0, ty=0;
+      function applyTransform(){ lbImg.style.transform = 'translate('+tx+'px,'+ty+'px) scale('+scale+')'; }
+      lightbox.addEventListener('wheel', function(e){
+        e.preventDefault();
+        var delta = e.deltaY>0? -0.1: 0.1;
+        scale = Math.max(1, Math.min(5, scale+delta));
+        applyTransform();
+      }, {passive:false});
+
+      var touches = [];
+      var startDist=0, startScale=1, startX=0, startY=0;
+      lightbox.addEventListener('touchstart', function(e){
+        if(!lightbox.classList.contains('open')) return;
+        touches = e.touches;
+        if(touches.length===2){
+          startDist = Math.hypot(touches[0].clientX-touches[1].clientX, touches[0].clientY-touches[1].clientY);
+          startScale = scale;
+        }else if(touches.length===1){
+          startX = touches[0].clientX - tx;
+          startY = touches[0].clientY - ty;
+        }
+      }, {passive:true});
+      lightbox.addEventListener('touchmove', function(e){
+        if(!lightbox.classList.contains('open')) return;
+        if(e.touches.length===2){
+          var d = Math.hypot(e.touches[0].clientX-e.touches[1].clientX, e.touches[0].clientY-e.touches[1].clientY);
+          scale = Math.max(1, Math.min(5, startScale * (d/startDist)));
+          applyTransform();
+        }else if(e.touches.length===1 && scale>1){
+          tx = e.touches[0].clientX - startX;
+          ty = e.touches[0].clientY - startY;
+          applyTransform();
+        }
+      }, {passive:true});
+      var lastTap=0;
+      lightbox.addEventListener('touchend', function(){
+        var now = Date.now();
+        if(now-lastTap<300){ scale=1; tx=0; ty=0; applyTransform(); }
+        lastTap=now;
+      });
+
       // --------- Carrito (localStorage) ----------
-      var cartBtn   = document.getElementById('cartBtn');
-      var cartModal = document.getElementById('cart');
-      var cClose    = document.getElementById('cClose');
-      var cBody     = document.getElementById('cBody');
-      var cTotal    = document.getElementById('cTotal');
-      var cClear    = document.getElementById('cClear');
-      var ppForm    = document.getElementById('ppForm');
-      var ppAmount  = document.getElementById('ppAmount');
-      var ppBusiness= document.getElementById('ppBusiness');
+      var cartBtn   = $('#cartBtn');
+      var cartModal = $('#cart');
+      var cClose    = $('#cClose');
+      var cBody     = $('#cBody');
+      var cTotal    = $('#cTotal');
+      var cClear    = $('#cClear');
+      var ppForm    = $('#ppForm');
+      var ppAmount  = $('#ppAmount');
+      var ppBusiness= $('#ppBusiness');
 
       var PAYPAL_BUSINESS = 'tu-correo-paypal@ejemplo.com'; // <-- cámbialo por tu PayPal
       ppBusiness.value = PAYPAL_BUSINESS;
 
-      var cartCount = document.getElementById('cartCount');
+      var cartCount = $('#cartCount');
       var STORAGE_KEY = 'mu_cart';
       function readCart(){ try{ return JSON.parse(localStorage.getItem(STORAGE_KEY)||'[]'); }catch(e){ return []; } }
       function writeCart(items){ localStorage.setItem(STORAGE_KEY, JSON.stringify(items)); }
@@ -575,6 +669,7 @@
         var n = items.reduce(function(s,i){return s+i.qty;},0);
         cartCount.textContent = n;
       }
+
       function renderCart(){
         var items = readCart();
         if(items.length===0){
@@ -583,8 +678,16 @@
           cBody.innerHTML = items.map(function(i,idx){
             return '<div class="cart-item">'
               + '<img src="'+i.img+'" alt="'+i.name+'" loading="lazy">'
-              + '<div><div style="font-weight:700">'+i.name+'</div><div class="sub">'+i.qty+' × $'+i.price+' MXN</div></div>'
-              + '<button class="close" data-del="'+idx+'">Eliminar</button>'
+              + '<div><div style="font-weight:700">'+i.name+'</div>'
+              + '<div class="sub">$'+i.price+' MXN c/u</div></div>'
+              + '<div style="display:flex;align-items:center;gap:8px">'
+              + '  <div class="qtyline">'
+              + '    <button data-act="minus" data-idx="'+idx+'">−</button>'
+              + '    <input type="number" min="1" value="'+i.qty+'" data-idx="'+idx+'" data-act="input" />'
+              + '    <button data-act="plus" data-idx="'+idx+'">+</button>'
+              + '  </div>'
+              + '  <button class="close" data-del="'+idx+'">Eliminar</button>'
+              + '</div>'
               + '</div>';
           }).join('');
         }
@@ -592,30 +695,62 @@
         cTotal.textContent = '$'+total+' MXN';
         ppAmount.value = Number(total).toFixed(2);
       }
+
       function openCart(){ renderCart(); cartModal.classList.add('open'); }
       function closeCart(){ cartModal.classList.remove('open'); }
 
       cartBtn.addEventListener('click', function(e){ e.preventDefault(); openCart(); });
       cClose .addEventListener('click', closeCart);
       cartModal.addEventListener('click', function(e){ if(e.target===cartModal) closeCart(); });
+
+      // eventos de cantidad / eliminar
       cBody.addEventListener('click', function(e){
-        var btn = e.target.closest('[data-del]'); if(!btn) return;
-        var idx = parseInt(btn.dataset.del,10);
-        var items = readCart(); items.splice(idx,1);
+        var del = e.target.closest('[data-del]');
+        if(del){
+          var idx = parseInt(del.dataset.del,10);
+          var items = readCart(); items.splice(idx,1);
+          writeCart(items); updateCount(); renderCart();
+          return;
+        }
+        var actBtn = e.target.closest('button[data-act]');
+        if(actBtn){
+          var idx = parseInt(actBtn.dataset.idx,10);
+          var items = readCart();
+          if(!items[idx]) return;
+          if(actBtn.dataset.act==='minus'){ items[idx].qty = Math.max(1, (items[idx].qty||1)-1); }
+          if(actBtn.dataset.act==='plus'){ items[idx].qty = (items[idx].qty||1)+1; }
+          writeCart(items); updateCount(); renderCart();
+        }
+      });
+      cBody.addEventListener('change', function(e){
+        var inp = e.target.closest('input[data-act="input"]');
+        if(!inp) return;
+        var idx = parseInt(inp.dataset.idx,10);
+        var items = readCart();
+        if(!items[idx]) return;
+        var v = Math.max(1, parseInt(inp.value,10)||1);
+        items[idx].qty = v;
         writeCart(items); updateCount(); renderCart();
       });
+
       cClear.addEventListener('click', function(){ writeCart([]); updateCount(); renderCart(); });
 
-      // Añadir al carrito
+      // Añadir al carrito (acumula si ya existe el mismo producto + misma imagen)
+      var toast = $('#toast');
+      function showToast(){ toast.classList.add('show'); setTimeout(function(){ toast.classList.remove('show'); }, 1400); }
       mAdd.addEventListener('click', function(){
-        var qty = Math.max(1, parseInt(qInput.value,10)||1);
+        var qty = Math.max(1, parseInt($('#qInput').value,10)||1);
         var items = readCart();
-        items.push({ name: mTitle.textContent, price: parseInt((mPrice.textContent||'').replace(/[^0-9]/g,''),10)||0, img: mMain.src, qty: qty });
-        writeCart(items); updateCount(); openCart(); closeModal();
+        var name = $('#mTitle').textContent;
+        var price= parseInt(($('#mPrice').textContent||'').replace(/[^0-9]/g,''),10)||0;
+        var img  = $('#mMain').src;
+        var found = items.find(function(it){ return it.name===name && it.img===img && it.price===price; });
+        if(found){ found.qty += qty; } else { items.push({ name:name, price:price, img:img, qty:qty }); }
+        writeCart(items); updateCount(); openCart(); closeModal(); showToast();
       });
 
       // Scroll suave del menú
-      [].slice.call(document.querySelectorAll('nav.menu a[href^="#"]')).forEach(function(a){
+      $$('.menu a[href^="#"]').forEach(function(a){
         a.addEventListener('click', function(e){
           e.preventDefault();
           var id = a.getAttribute('href');
@@ -623,6 +758,9 @@
           if(target){ target.scrollIntoView({behavior:'smooth', block:'start'}); }
         });
       });
+
+      // PayPal merchant (edítalo)
+      var ppBusiness = $('#ppBusiness'); if(ppBusiness) ppBusiness.value = 'tu-correo-paypal@ejemplo.com';
 
       // Contador inicial
       updateCount();
