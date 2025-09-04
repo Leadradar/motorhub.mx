@@ -72,6 +72,10 @@
     /* Cards producto */
     .prod{display:flex;flex-direction:column}
     .prod img{aspect-ratio: 1/1;object-fit:cover;background:#f3f4f6}
+    /* Hover swap de imagen de producto */
+    .prod .swap{position:relative}
+    .prod .swap img:nth-child(2){position:absolute;inset:0;opacity:0;transition:opacity .25s ease}
+    .prod:hover .swap img:nth-child(2){opacity:1}
     .prod .pad{padding:10px}
     .price{font-weight:900}
     .stars{color:#EDC531}
@@ -205,7 +209,10 @@
       <!-- Reemplaza las imágenes y enlaces por tus productos reales -->
       <article class="card prod shadow">
         <a href="#">
-          <img src="/img/p1.jpg" alt="Soporte móvil antivibración"/>
+          <div class="swap">
+            <img src="/img/products/soporte-antivibracion/soporte-antivibracion-01.jpg" alt="Soporte móvil antivibración"/>
+            <img src="/img/products/soporte-antivibracion/soporte-antivibracion-02.jpg" alt="" aria-hidden="true"/>
+          </div>
           <div class="pad">
             <div style="display:flex;justify-content:space-between;gap:10px">
               <strong>Soporte móvil antivibración</strong>
@@ -217,7 +224,10 @@
       </article>
       <article class="card prod shadow">
         <a href="#">
-          <img src="/img/p2.jpg" alt="Guantes urbanos verano"/>
+          <div class="swap">
+            <img src="/img/products/guantes-urbanos-verano/guantes-urbanos-verano-01.jpg" alt="Guantes urbanos verano"/>
+            <img src="/img/products/guantes-urbanos-verano/guantes-urbanos-verano-02.jpg" alt="" aria-hidden="true"/>
+          </div>
           <div class="pad">
             <div style="display:flex;justify-content:space-between;gap:10px">
               <strong>Guantes urbanos verano</strong>
@@ -229,7 +239,10 @@
       </article>
       <article class="card prod shadow">
         <a href="#">
-          <img src="/img/p3.jpg" alt="Chubasquero compacto"/>
+          <div class="swap">
+            <img src="/img/products/chubasquero-compacto/chubasquero-compacto-01.jpg" alt="Chubasquero compacto"/>
+            <img src="/img/products/chubasquero-compacto/chubasquero-compacto-02.jpg" alt="" aria-hidden="true"/>
+          </div>
           <div class="pad">
             <div style="display:flex;justify-content:space-between;gap:10px">
               <strong>Chubasquero compacto</strong>
@@ -241,7 +254,10 @@
       </article>
       <article class="card prod shadow">
         <a href="#">
-          <img src="/img/p4.jpg" alt="Bolsa trasera impermeable"/>
+          <div class="swap">
+            <img src="/img/products/bolsa-trasera-impermeable/bolsa-trasera-impermeable-01.jpg" alt="Bolsa trasera impermeable"/>
+            <img src="/img/products/bolsa-trasera-impermeable/bolsa-trasera-impermeable-02.jpg" alt="" aria-hidden="true"/>
+          </div>
           <div class="pad">
             <div style="display:flex;justify-content:space-between;gap:10px">
               <strong>Bolsa trasera impermeable</strong>
