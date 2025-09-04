@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>MotoUrbano MX — Accesorios urbanos para tu moto</title>
-  <meta name="description" content="Accesorios urbanos para tu moto: fiables, precios claros y envío a todo México. Devoluciones en 14 días." />
+  <title>MotoUrbano MX — Accesorios para tu moto</title>
+  <meta name="description" content="Accesorios para tu moto: fiables, precios claros y envío a todo México. Devoluciones en 14 días." />
   <meta name="theme-color" content="#ffffff" />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="MotoUrbano MX" />
-  <meta property="og:description" content="Accesorios urbanos para tu moto." />
+  <meta property="og:description" content="Accesorios para tu moto." />
   <meta property="og:image" content="https://leadradar.github.io/motorhub.mx/img/hero.jpg" />
 
   <link rel="icon" type="image/x-icon" href="favicon.ico" />
@@ -16,7 +16,7 @@
   <link rel="manifest" href="site.webmanifest" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700;800&display=swap" rel="stylesheet">
 
-  <!-- Preload: LCP y cat-* -->
+  <!-- Preload: logo + categorías (mejora de LCP) -->
   <link rel="preload" as="image" href="img/logo.png">
   <link rel="preload" as="image" href="img/cat-soportes.jpg">
   <link rel="preload" as="image" href="img/cat-guantes.jpg">
@@ -48,24 +48,24 @@
     nav.menu a:hover{background:#f3f3f3;color:#111}
     #cartBtn{font-weight:700}
 
-    /* Compensar header fijo */
+    /* Compensar header fijo al anclar */
     section{scroll-margin-top:220px}
 
     /* Hero */
     .hero{border-bottom:1px solid var(--line);background:#fff}
-    .hero .wrap{display:flex;flex-direction:column;align-items:center;gap:10px;padding:38px 0}
+    .hero .wrap{display:flex;flex-direction:column;align-items:center;gap:14px;padding:40px 0}
     .hero .logo-big img{width:360px;height:auto}
     @media(min-width:1100px){.hero .logo-big img{width:400px}}
     @media(max-width:520px){.hero .logo-big img{width:220px}}
     h1{font-family:Poppins,system-ui;font-weight:800;letter-spacing:.2px;font-size:clamp(30px,5vw,52px);line-height:1.04;margin:.05em 0 .1em;text-align:center}
-    .hero-sub{font-size:clamp(14px,2.2vw,18px);color:#444;margin:4px 0 10px;text-align:center}
+    .hero-sub{font-size:clamp(14px,2.2vw,18px);color:#444;margin:2px 0 6px;text-align:center}
     h2{font-size:clamp(22px,3.6vw,34px);margin:0 0 10px;text-align:center}
     .sub{color:var(--muted);text-align:center}
-    .chips-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:center;margin-top:14px}
+    .chips-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:center;margin-top:10px}
     .chip{display:inline-flex;align-items:center;gap:8px;background:#fafafa;border:1px solid var(--line);color:#444;padding:8px 12px;border-radius:12px;white-space:nowrap}
 
     /* PayPal */
-    .paypal-row{display:flex;justify-content:center;margin-top:14px}
+    .paypal-row{display:flex;justify-content:center;margin-top:10px}
     .pp-badge{display:inline-flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:10px 16px}
     .pp-badge img{height:22px;display:block}
 
@@ -82,13 +82,13 @@
     .prod{display:flex;flex-direction:column;cursor:pointer}
     .prod img{aspect-ratio:1/1;object-fit:cover;background:#f4f4f4}
     .prod .pad{padding:12px}
-    .prod .title{font-weight:700;line-height:1.25;margin:0 0 8px;font-size:16px}
+    .prod .title{font-weight:700;line-height:1.25;margin:0 0 6px;font-size:16px}
     .prod .meta{display:flex;justify-content:space-between;align-items:center}
     .price{font-weight:900;color:#111}
     .stars{color:#C99A10;font-size:13px}
     .hidden{display:none !important}
 
-    /* Modal */
+    /* Modal producto */
     .modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;padding:16px;z-index:60}
     .modal.open{display:flex}
     .modal-card{background:#fff;border-radius:18px;max-width:920px;width:96%;max-height:92vh;display:flex;flex-direction:column;overflow:hidden;border:1px solid var(--line)}
@@ -99,9 +99,9 @@
     .media-wrap{position:relative}
     .m-main{width:100%;max-height:48vh;object-fit:contain;border-radius:12px;background:#f7f7f7;cursor:zoom-in}
     /* skeleton al cargar imagen grande */
-    .m-main.is-loading{background:
-      linear-gradient(90deg,#f3f3f3 25%,#e9e9e9 37%,#f3f3f3 63%);
-      background-size:400% 100%; animation:sheen 1.2s infinite}
+    .m-main.is-loading{
+      background:linear-gradient(90deg,#f3f3f3 25%,#e9e9e9 37%,#f3f3f3 63%);
+      background-size:400% 100%;animation:sheen 1.2s infinite}
     @keyframes sheen{0%{background-position:100% 0}100%{background-position:0 0}}
     .nav-arrow{position:absolute;top:50%;transform:translateY(-50%);background:#ffffffcc;border:1px solid var(--line);border-radius:12px;padding:8px 10px;cursor:pointer}
     .nav-arrow.prev{left:8px}
@@ -149,7 +149,7 @@
     /* Footer */
     footer.site{margin-top:48px;border-top:1px solid var(--line);background:#fff}
     .footer-head{display:flex;flex-direction:column;align-items:center;gap:6px;padding:18px 0 6px}
-    .footer-head img{height:72px;width:auto} /* ↑ más grande */
+    .footer-head img{height:72px;width:auto}
     .footer-name{font:800 18px/1.1 Poppins,system-ui;text-align:center}
     .footer-tag{color:#666;text-align:center;margin-top:2px}
     .footer-grid{display:grid;gap:18px;padding:20px 0}
@@ -160,7 +160,7 @@
     .footer-legal .dot{opacity:.35}
     .copy{padding-bottom:20px;color:#666;text-align:center}
 
-    /* WhatsApp flotante — nuevo SVG perfecto */
+    /* WhatsApp flotante (logo oficial) */
     .floating-wa{
       position:fixed;right:16px;bottom:16px;background:#25D366;
       width:64px;height:64px;border-radius:50%;
@@ -199,10 +199,10 @@
       <div class="logo-big">
         <img src="img/logo.png" alt="Logo MotoUrbano" decoding="async" fetchpriority="high"/>
       </div>
-      <h1>Accesorios para moto urbana</h1>
-      <p class="hero-sub">Accesorios urbanos fiables, precios claros y envío a todo México.</p>
+      <h1>Accesorios para tu moto</h1>
+      <p class="hero-sub">Accesorios fiables, precios claros y envío a todo México.</p>
 
-      <div class="chips-row">
+      <div class="chips-row" aria-label="Sellos de confianza">
         <span class="chip">💳 Pagos seguros</span>
         <span class="chip">🚚 Envío a todo México</span>
         <span class="chip">↩️ 14 días devolución</span>
@@ -421,13 +421,15 @@
     </div>
   </footer>
 
-  <!-- WhatsApp flotante (SVG círculo + glifo centrado) -->
+  <!-- WhatsApp flotante (logo oficial) -->
   <a class="floating-wa" href="https://wa.me/520000000000" target="_blank" rel="noopener" aria-label="WhatsApp Soporte" title="WhatsApp">
-    <svg viewBox="0 0 64 64" role="img" aria-hidden="true">
+    <svg viewBox="0 0 512 512" role="img" aria-hidden="true">
       <!-- círculo verde -->
-      <circle cx="32" cy="32" r="30" fill="#25D366"/>
-      <!-- glifo blanco, centrado -->
-      <path fill="#FFFFFF" d="M46.3,36.7c-.1.3-.6 1.1-1.2 1.7-.6.6-1.3 1-2.2 1.4-1 .4-1.9.6-2.7.5-.8 0-1.8-.1-3.1-.6-1.3-.5-2.8-1.2-4.6-2.3-1.6-1-3.3-2.5-5.1-4.4-1.8-1.9-3-3.7-3.7-5.2-.7-1.6-1.1-2.9-1.2-4-.1-1.1.2-2.4.8-3.8.6-1.4 1.6-2.2 2.2-2.6.6-.4 1.3-.6 1.7-.6.4 0 .8 0 1 .1.3.1.7.1.9.8.2.7.6 2.3.8 2.9.2.6.2 1 .1 1.4-.1.4-.2.8-.4 1.2-.2.4-.5.9-.7 1.1-.2.3-.4.5-.1 1 .3.5 1.2 2 2.6 3.3 1.8 1.7 3.4 2.3 3.9 2.6s.8.2 1.1-.1c.3-.3 1.3-1.5 1.6-2 .3-.5.7-.4 1.2-.2.5.2 3.1 1.5 3.6 1.7.5.2.9.4 1 .6.1.2.1 1.2 0 1.5Z"/>
+      <circle cx="256" cy="256" r="256" fill="#25D366"/>
+      <!-- bocadillo blanco -->
+      <path fill="#FFFFFF" d="M256 118c-75.6 0-137 61.4-137 137 0 24 6.3 47.3 18.3 68.1L120 392l70.8-17.6c20 10.9 42.6 16.6 65.2 16.6 75.6 0 137-61.4 137-137S331.6 118 256 118zm0-26c90.1 0 163 72.9 163 163s-72.9 163-163 163c-23.6 0-46.7-5.1-67.9-14.7l-5-2.3-51.1 12.7 13.4-49-2.6-5.1C132.2 338.8 118 300.2 118 255c0-90.1 72.9-163 163-163z"/>
+      <!-- auricular verde dentro del bocadillo -->
+      <path fill="#25D366" d="M330.7 298.7c-2.7 7.6-8.6 15.5-16.3 20.1-8.3 4.9-19.1 7.3-31.9 4.2-35.2-8.3-77.7-41.1-93.2-72-6-11.8-10.9-27-2.8-40.5 3.6-6 9.5-12.6 15.1-16.9 4.5-3.5 10.5-3 14.2-.9l2.4 1.4c4.7 2.7 12.7 18.4 14.6 25 .6 2 .5 3.9-.1 5.6-1.1 3.3-4.9 8.2-7.1 10.7-2.1 2.4-2.3 4.2-1 6.8 5.5 10.6 25.3 30.5 38.1 36.3 2.6 1.2 4.4 1 6.7-.9 2.9-2.5 8.2-8.9 10.9-10.2 1.6-.8 3.6-1 5.6-.4 6.8 2.1 22.4 9.9 25.2 12.9 1.1 1.2 1.7 2.9 1.7 4.8 0 1.6-.3 3.3-.9 4.9z"/>
     </svg>
   </a>
 
@@ -482,6 +484,7 @@
         <strong>Total: <span id="cTotal">$0 MXN</span></strong>
         <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
           <button class="btn secondary" id="cClear" type="button">Vaciar</button>
+          <!-- PayPal Standard: cambia tu correo abajo -->
           <form id="ppForm" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
             <input type="hidden" name="cmd" value="_xclick">
             <input type="hidden" name="business" id="ppBusiness" value="">
@@ -503,6 +506,7 @@
       var $ = function(sel,ctx){ return (ctx||document).querySelector(sel); };
       var $$= function(sel,ctx){ return [].slice.call((ctx||document).querySelectorAll(sel)); };
 
+      // Año
       var y = $('#year'); if(y) y.textContent = new Date().getFullYear();
 
       /* ---------- FILTROS ---------- */
@@ -517,29 +521,17 @@
       $$('.js-cat').forEach(function(tile){ tile.addEventListener('click', function(){ applyFilter(tile.dataset.cat); }); });
 
       /* ---------- MODAL PRODUCTO ---------- */
-      var modal   = $('#modal');
-      var mTitle  = $('#mTitle');
-      var mPrice  = $('#mPrice');
-      var mMain   = $('#mMain');
-      var mThumbs = $('#mThumbs');
-      var mPrev   = $('#mPrev');
-      var mNext   = $('#mNext');
-      var mClose  = $('#mClose');
-      var qMinus  = $('#qMinus');
-      var qPlus   = $('#qPlus');
-      var qInput  = $('#qInput');
-      var mAdd    = $('#mAdd');
-      var mDesc   = $('#mDesc');
+      var modal   = $('#modal'), mTitle = $('#mTitle'), mPrice = $('#mPrice'),
+          mMain   = $('#mMain'), mThumbs= $('#mThumbs'),
+          mPrev   = $('#mPrev'), mNext  = $('#mNext'), mClose = $('#mClose'),
+          qMinus  = $('#qMinus'), qPlus = $('#qPlus'), qInput = $('#qInput'),
+          mAdd    = $('#mAdd'),   mDesc = $('#mDesc');
 
-      var lightbox = $('#lightbox');
-      var lbImg    = $('#lbImg');
-      var lbClose  = $('#lbClose');
-      var lbPrev   = $('#lbPrev');
-      var lbNext   = $('#lbNext');
+      var lightbox = $('#lightbox'), lbImg = $('#lbImg'), lbClose = $('#lbClose'),
+          lbPrev   = $('#lbPrev'),  lbNext = $('#lbNext');
 
       var toast    = $('#toast');
-
-      var current = { images:[], index:0, name:'', priceText:'', price:0 };
+      var current  = { images:[], index:0, name:'', priceText:'', price:0 };
 
       function bullets(text){ return (text||'').split('·').map(function(s){return s.trim();}).filter(Boolean); }
       function setActiveThumb(){ $$('#mThumbs img').forEach(function(t){ t.classList.toggle('active', t.src===mMain.src); }); }
@@ -568,11 +560,11 @@
         mTitle.textContent = current.name || 'Producto';
         mPrice.textContent = current.priceText || '';
 
-        // render principal (rápido: la cat-* suele estar cacheada ya)
+        // principal
         mMain.classList.remove('is-loading');
         mMain.src = current.images[0]; mMain.alt = current.name;
 
-        // miniaturas
+        // thumbs
         mThumbs.innerHTML = current.images.map(function(src,i){
           return '<img src="'+src+'" alt="Vista '+(i+1)+' '+current.name+'" loading="lazy" decoding="async">';
         }).join('');
@@ -594,13 +586,13 @@
         mMain.addEventListener('touchmove',  function(ev){ if(ev.touches.length!==1) return; dx=ev.touches[0].clientX-sx; dy=ev.touches[0].clientY-sy; }, {passive:true});
         mMain.addEventListener('touchend',   function(){ if(Math.abs(dx)>40 && Math.abs(dy)<40){ if(dx<0) showImage(current.index+1); else showImage(current.index-1);} dx=dy=0; }, {passive:true});
 
-        // descripción
+        // bullets
         mDesc.innerHTML = bullets(card.dataset.desc||'').map(function(li){return '<li>'+li+'</li>';}).join('');
 
         qInput.value = 1;
         modal.classList.add('open');
 
-        // prefetch inmediato del resto de la galería al abrir
+        // prefetch del resto de la galería
         current.images.slice(1).forEach(function(src){ var i=new Image(); i.decoding='async'; i.src=src; });
       }
       function closeModal(){ modal.classList.remove('open'); }
@@ -613,27 +605,25 @@
       qPlus .addEventListener('click', function(){ qInput.value = (parseInt(qInput.value,10)||1)+1; });
 
       document.addEventListener('keydown', function(e){
-        if(!modal.classList.contains('open')) return;
-        if(e.key==='Escape') closeModal();
-        if(e.key==='ArrowLeft') showImage(current.index-1);
-        if(e.key==='ArrowRight') showImage(current.index+1);
+        if(modal.classList.contains('open')){
+          if(e.key==='Escape') closeModal();
+          if(e.key==='ArrowLeft') showImage(current.index-1);
+          if(e.key==='ArrowRight') showImage(current.index+1);
+        }
       });
 
       /* ---------- LIGHTBOX ---------- */
+      var scale=1, tx=0, ty=0;
       function openLightbox(src, alt){ lbImg.src=src; lbImg.alt=alt||''; scale=1; tx=0; ty=0; applyTransform(); lightbox.classList.add('open'); }
       function closeLightbox(){ lightbox.classList.remove('open'); }
       lbClose.addEventListener('click', closeLightbox);
       lbPrev.addEventListener('click', function(){ showImage(current.index-1); lbImg.src=current.images[current.index]; });
       lbNext.addEventListener('click', function(){ showImage(current.index+1); lbImg.src=current.images[current.index]; });
       lightbox.addEventListener('click', function(e){ if(e.target===lightbox) closeLightbox(); });
-
-      var scale=1, tx=0, ty=0;
       function applyTransform(){ lbImg.style.transform = 'translate('+tx+'px,'+ty+'px) scale('+scale+')'; }
       lightbox.addEventListener('wheel', function(e){
         e.preventDefault();
-        var delta = e.deltaY>0? -0.1: 0.1;
-        scale = Math.max(1, Math.min(5, scale+delta));
-        applyTransform();
+        var delta = e.deltaY>0? -0.1: 0.1; scale = Math.max(1, Math.min(5, scale+delta)); applyTransform();
       }, {passive:false});
 
       var startDist=0, startScale=1, startX=0, startY=0;
@@ -643,20 +633,16 @@
           startDist = Math.hypot(e.touches[0].clientX-e.touches[1].clientX, e.touches[0].clientY-e.touches[1].clientY);
           startScale = scale;
         }else if(e.touches.length===1){
-          startX = e.touches[0].clientX - tx;
-          startY = e.touches[0].clientY - ty;
+          startX = e.touches[0].clientX - tx; startY = e.touches[0].clientY - ty;
         }
       }, {passive:true});
       lightbox.addEventListener('touchmove', function(e){
         if(!lightbox.classList.contains('open')) return;
         if(e.touches.length===2){
           var d = Math.hypot(e.touches[0].clientX-e.touches[1].clientX, e.touches[0].clientY-e.touches[1].clientY);
-          scale = Math.max(1, Math.min(5, startScale * (d/startDist)));
-          applyTransform();
+          scale = Math.max(1, Math.min(5, startScale * (d/startDist))); applyTransform();
         }else if(e.touches.length===1 && scale>1){
-          tx = e.touches[0].clientX - startX;
-          ty = e.touches[0].clientY - startY;
-          applyTransform();
+          tx = e.touches[0].clientX - startX; ty = e.touches[0].clientY - startY; applyTransform();
         }
       }, {passive:true});
       var lastTap=0;
@@ -667,14 +653,9 @@
       });
 
       /* ---------- CARRITO ---------- */
-      var cartBtn   = $('#cartBtn');
-      var cartModal = $('#cart');
-      var cClose    = $('#cClose');
-      var cBody     = $('#cBody');
-      var cTotal    = $('#cTotal');
-      var cClear    = $('#cClear');
-      var ppAmount  = $('#ppAmount');
-      var ppBusiness= $('#ppBusiness');
+      var cartBtn   = $('#cartBtn'), cartModal = $('#cart'), cClose = $('#cClose'),
+          cBody     = $('#cBody'),   cTotal    = $('#cTotal'), cClear = $('#cClear'),
+          ppAmount  = $('#ppAmount'), ppBusiness = $('#ppBusiness');
       var PAYPAL_BUSINESS = 'tu-correo-paypal@ejemplo.com'; ppBusiness.value = PAYPAL_BUSINESS;
 
       var cartCount = $('#cartCount');
@@ -712,8 +693,8 @@
       function openCart(){ renderCart(); cartModal.classList.add('open'); }
       function closeCart(){ cartModal.classList.remove('open'); }
 
-      cartBtn.addEventListener('click', function(e){ e.preventDefault(); openCart(); });
-      cClose .addEventListener('click', closeCart);
+      $('#cartBtn').addEventListener('click', function(e){ e.preventDefault(); openCart(); });
+      $('#cClose').addEventListener('click', closeCart);
       cartModal.addEventListener('click', function(e){ if(e.target===cartModal) closeCart(); });
 
       cBody.addEventListener('click', function(e){
@@ -741,8 +722,7 @@
       });
       cClear.addEventListener('click', function(){ writeCart([]); updateCount(); renderCart(); });
 
-      // Añadir al carrito (acumula ítems iguales)
-      var toast = $('#toast');
+      // Añadir al carrito
       function showToast(){ toast.classList.add('show'); setTimeout(function(){ toast.classList.remove('show'); }, 1400); }
       mAdd.addEventListener('click', function(){
         var qty = Math.max(1, parseInt($('#qInput').value,10)||1);
@@ -765,15 +745,13 @@
         });
       });
 
-      /* ---------- PREFETCH GALERÍAS EN SEGUNDO PLANO ---------- */
+      /* ---------- PREFETCH GALERÍAS ---------- */
       function prefetch(g){ g.forEach(function(src){ var i=new Image(); i.decoding='async'; i.src=src; }); }
-      // al estar en reposo
       (window.requestIdleCallback||setTimeout)(function(){
         $$('#gridProds [data-gallery]').forEach(function(card){
           try{ var g = JSON.parse(card.getAttribute('data-gallery')||'[]'); prefetch(g); }catch(e){}
         });
       }, 300);
-      // al pasar el mouse
       $$('#gridProds [data-gallery]').forEach(function(card){
         card.addEventListener('mouseenter', function(){
           try{ var g = JSON.parse(card.getAttribute('data-gallery')||'[]'); prefetch(g); }catch(e){}
