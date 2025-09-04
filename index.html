@@ -23,7 +23,6 @@
 
   <style>
     :root{
-      /* Tema claro */
       --bg:#ffffff;
       --elev:#ffffff;
       --ink:#111111;
@@ -48,17 +47,17 @@
       position:sticky;top:0;z-index:40;
       background:#fff;color:#111;border-bottom:1px solid var(--line)
     }
-    .nav{display:flex;align-items:center;justify-content:space-between;height:86px}
+    .nav{display:flex;align-items:center;justify-content:space-between;height:100px}
     .brand{display:flex;align-items:center;gap:12px;font-weight:900;letter-spacing:.2px}
-    .brand img{height:72px;width:auto}
-    @media(max-width:480px){.brand img{height:56px}}
+    .brand img{height:88px;width:auto}    /* logo header MÁS GRANDE */
+    @media(max-width:480px){.brand img{height:60px}}
     .menu{display:none;gap:14px;align-items:center}
     .menu a{padding:10px 12px;border-radius:10px;color:#444}
     .menu a:hover{background:#f3f3f3;color:#111}
     .burger{display:inline-flex;flex-direction:column;gap:4px;padding:10px;border-radius:10px;border:1px solid var(--line);background:#fff}
     .burger span{width:20px;height:2px;background:#111}
     @media(min-width:900px){.menu{display:flex}.burger{display:none}}
-    .mobile-panel{position:fixed;inset:0 0 auto 0;top:86px;background:#fff;border-top:1px solid var(--line);display:none;color:#111}
+    .mobile-panel{position:fixed;inset:0 0 auto 0;top:100px;background:#fff;border-top:1px solid var(--line);display:none;color:#111}
     .mobile-panel.open{display:block}
 
     /* Badges / chips */
@@ -67,35 +66,39 @@
     .btn{display:inline-flex;align-items:center;gap:10px;background:var(--accent);color:#fff;font-weight:800;border:none;border-radius:14px;padding:12px 16px;cursor:pointer}
     .btn:hover{background:var(--accent-2)}
 
-    /* HERO (centrado con logo protagonista) */
+    /* HERO (logo protagonista) */
     .hero{position:relative;border-bottom:1px solid var(--line);background:#fff}
     .hero .wrap{
       display:flex;align-items:center;justify-content:center;flex-direction:column;
       gap:12px; padding:56px 0
     }
-    .hero .logo-big img{width:280px;height:auto}
-    @media(min-width:1100px){.hero .logo-big img{width:320px}}
+    .hero .logo-big img{width:320px;height:auto}
+    @media(min-width:1100px){.hero .logo-big img{width:360px}}
     @media(max-width:520px){.hero .logo-big img{width:220px}}
 
     h1{
       font-family:Poppins,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
       font-weight:800;letter-spacing:.2px;
-      font-size:clamp(30px,5vw,52px);line-height:1.04;margin:.1em 0 .2em
+      font-size:clamp(30px,5vw,52px);line-height:1.04;margin:.15em 0 .2em;
+      text-align:center;
     }
     h2{font-size:clamp(22px,3.6vw,34px);margin:0 0 8px}
-    p.lead{font-size:clamp(15px,2vw,18px);color:#444;margin:0}
-
-    .sub{color:var(--muted)}
+    p.lead{font-size:clamp(15px,2vw,18px);color:#444;margin:0;text-align:center}
 
     /* Subtítulo con logos (PayPal) */
     .badges-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:center;margin-top:8px}
     .pp{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border:1px solid var(--line);border-radius:999px;background:#fff}
-    .pp svg{height:16px;width:auto;display:block}
+    .pp svg{height:18px;width:auto;display:block}
 
     /* Categorías */
+    #categorias h2, #categorias .sub{ text-align:center }
     .tile{position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:#fff}
     .tile img{width:100%;height:200px;object-fit:cover;filter:saturate(1) contrast(1.04)}
-    .tile .label{position:absolute;left:10px;bottom:10px;background:rgba(0,0,0,.55);backdrop-filter:blur(4px);padding:8px 10px;border-radius:10px;font-weight:800;color:#fff}
+    .tile .label{
+      position:absolute;left:50%;bottom:10px;transform:translateX(-50%);
+      background:rgba(0,0,0,.55);backdrop-filter:blur(4px);padding:8px 10px;border-radius:10px;
+      font-weight:800;color:#fff
+    }
 
     /* Productos */
     .prod{display:flex;flex-direction:column}
@@ -115,18 +118,16 @@
     .footer-grid{display:grid;gap:18px;padding:28px 0}
     @media(min-width:900px){.footer-grid{grid-template-columns:2fr 1fr 1fr}}
     .footer-grid .sub{color:#666}
+    .footer-top{display:flex;align-items:center;gap:12px}
+    .footer-top img{height:36px}    /* logo footer MÁS PEQUEÑO */
 
-    /* Footer móvil: más armonía */
+    /* Footer móvil: armonioso y centrado */
     @media(max-width:640px){
-      .footer-grid{gap:12px;padding:20px 0}
-      .footer-top{display:flex;align-items:center;gap:12px}
-      .footer-top img{height:42px}
-      .footer-legal{
-        display:flex;flex-wrap:wrap;gap:8px;align-items:center
-      }
-      .footer-legal a{color:#333}
+      .footer-grid{gap:14px;padding:20px 0}
+      .footer-top{justify-content:center}
+      .footer-col{text-align:center}
+      .footer-legal{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:center}
       .footer-legal .dot{opacity:.35}
-      .footer-col{margin-top:4px}
     }
 
     /* WhatsApp flotante — icono oficial en círculo */
@@ -136,7 +137,12 @@
       font-weight:800;box-shadow:0 10px 30px rgba(0,0,0,.15);z-index:45;line-height:1
     }
     .floating-wa .wa-ic{
-      width:22px;height:22px;display:block;flex:0 0 22px
+      width:26px;height:26px;display:block;flex:0 0 26px
+    }
+
+    /* Ocultar destacados en móvil */
+    @media(max-width:640px){
+      #productos{display:none}
     }
   </style>
 
@@ -191,13 +197,20 @@
         <img src="img/logo.png" alt="Logo MotoUrbano"/>
       </div>
       <h1>Accesorios de moto para la ciudad</h1>
-      <p class="lead">Calidad sin sorpresas: <span class="pp">
-        <!-- PayPal wordmark SVG -->
-        <svg viewBox="0 0 96 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <path fill="#003087" d="M12.3 3.6c-1.5 0-2.7.7-3.4 1.9l-.2 1.1h2.2l.1-.5c.3-.6.8-.9 1.5-.9h2.5c.7 0 1 .3.9.9l-1.5 9.4c-.1.6-.4.9-1.1.9h-1.3c-.6 0-1-.3-.9-.9l.4-2.4H6.9l-.6 3.6c-.2 1.5.7 2.5 2.3 2.5h3.4c1.5 0 2.7-.7 3.3-1.9l.2-1.1 1.4-8.8c.2-1.5-.7-2.5-2.2-2.5h-3.4z"/>
-          <path fill="#009CDE" d="M27.3 3.6c-1.5 0-2.7.7-3.4 1.9l-.2 1.1h2.2l.1-.5c.3-.6.8-.9 1.5-.9H30c.7 0 1 .3.9.9l-1.5 9.4c-.1.6-.4.9-1.1.9H27c-.6 0-1-.3-.9-.9l.4-2.4h-2.8l-.6 3.6c-.2 1.5.7 2.5 2.3 2.5h3.4c1.5 0 2.7-.7 3.3-1.9l.2-1.1 1.4-8.8c.2-1.5-.7-2.5-2.2-2.5h-3.4z"/>
-        </svg>
-        PayPal</span>, devoluciones 14 días y envío a todo México.</p>
+
+      <p class="lead">
+        Calidad sin sorpresas:
+        <span class="pp" title="Pagos con PayPal">
+          <!-- PayPal brand SVG -->
+          <svg viewBox="0 0 144 32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="PayPal">
+            <g>
+              <path fill="#003087" d="M21.9 3.5h-6.7c-.8 0-1.5.6-1.6 1.4L10 25.7c-.1.6.4 1.1 1 1.1h4.3c.6 0 1.1-.4 1.2-1l1-6.5c.1-.7.7-1.2 1.4-1.2h2.1c6.5 0 10.3-3.1 11.3-9.2.5-2.7 0-4.8-1.5-6.2-1.5-1.6-4-2.2-7.9-2.2Zm.8 9.3c-.6 3.7-3.7 3.7-6.7 3.7h-1.7l1.2-7.8c.1-.5.5-.8 1-.8h.9c2.1 0 4.1 0 5.2 1 .7.5 1 1.4.8 2.9Z"/>
+              <path fill="#009CDE" d="M38.5 3.5h-6.7c-.8 0-1.5.6-1.6 1.4l-3.5 20.8c-.1.6.4 1.1 1 1.1H32c.6 0 1.1-.4 1.2-1l1-6.5c.1-.7.7-1.2 1.4-1.2h2.1c6.5 0 10.3-3.1 11.3-9.2.5-2.7 0-4.8-1.5-6.2-1.5-1.6-4-2.2-7.9-2.2Zm.8 9.3c-.6 3.7-3.7 3.7-6.7 3.7h-1.7l1.2-7.8c.1-.5.5-.8 1-.8h.9c2.1 0 4.1 0 5.2 1 .7.5 1 1.4.8 2.9Z"/>
+            </g>
+          </svg>
+          PayPal
+        </span>, devoluciones 14 días y envío a todo México.
+      </p>
 
       <div class="grid cols-3" style="margin:14px 0 0;justify-items:center">
         <span class="chip">💳 Pagos seguros (PayPal)</span>
@@ -247,7 +260,7 @@
     </div>
   </section>
 
-  <!-- PRODUCTOS DESTACADOS (3 items) -->
+  <!-- PRODUCTOS DESTACADOS (3 items) — oculto en móvil vía CSS -->
   <section id="productos" class="container" style="padding:18px 0">
     <div style="display:flex;justify-content:space-between;align-items:end;gap:10px">
       <div>
@@ -330,7 +343,7 @@
     </div>
   </section>
 
-  <!-- FOOTER (claro, móvil armonioso) -->
+  <!-- FOOTER -->
   <footer id="contacto" class="site">
     <div class="container footer-grid">
       <div class="footer-col">
@@ -365,7 +378,7 @@
 
   <!-- WhatsApp flotante (icono oficial) -->
   <a class="floating-wa" href="https://wa.me/520000000000" target="_blank" rel="noopener" aria-label="WhatsApp Soporte">
-    <!-- círculo verde + logomarca blanca -->
+    <!-- Icono nítido, sin depender de CSS externos -->
     <svg class="wa-ic" viewBox="0 0 512 512" aria-hidden="true" focusable="false">
       <circle cx="256" cy="256" r="256" fill="#25D366"/>
       <path fill="#FFFFFF" d="M380.9 306.5c-5.8-2.9-34.5-17-39.8-18.9-5.3-1.9-9.1-2.9-12.9 2.9-3.8 5.8-14.8 18.9-18.1 22.7-3.3 3.8-6.7 4.4-12.4 1.5-5.8-2.9-24.3-8.9-46.3-28.3-17.1-15.2-28.7-34-32-39.8-3.3-5.8-.4-9 2.5-11.9 2.6-2.6 5.8-6.7 8.7-10 2.9-3.3 3.8-5.8 5.8-9.6 1.9-3.8.9-7.3-.5-10.2-1.5-2.9-12.9-31.2-17.7-42.6-4.7-11.4-9.4-9.8-12.9-9.8-3.3 0-7.1-.4-10.9-.4s-10 1.5-15.3 7.3c-5.3 5.8-20.2 19.8-20.2 48.2s20.7 55.9 23.6 59.7c2.9 3.8 40.7 62.1 98.5 87.1 13.8 5.9 24.6 9.4 33 12.1 13.8 4.4 26.4 3.8 36.3 2.3 11.1-1.6 34-13.9 38.8-27.2 4.8-13.3 4.8-24.7 3.3-27.2-1.5-2.5-5.6-3.9-11.4-6.8z"/>
