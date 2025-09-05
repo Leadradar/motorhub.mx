@@ -83,10 +83,14 @@
     .pill{border:1px solid #000;background:#fff;border-radius:999px;padding:8px 12px;cursor:pointer;transition:border-color .15s, box-shadow .15s, background .15s}
     .pill:hover,.pill.is-active{background:var(--accent-weak);border-color:var(--accent);box-shadow:inset 0 0 0 2px var(--accent-weak)}
 
-    /* Grid centrado + aire lateral para acentos completos */
+    /* Grid centrado */
     #gridProds{justify-items:center; padding:0 8px}
     .prod{display:flex;flex-direction:column;cursor:pointer;transition:box-shadow .15s, border-color .15s; width:100%; max-width:500px; margin:0 4px; border:1px solid var(--line); border-radius:18px}
-    .prod img{aspect-ratio:1/1;object-fit:cover;background:#f4f4f4}
+    .prod .img-wrap{position:relative; width:100%}
+    .prod .img-wrap img{aspect-ratio:1/1;object-fit:cover;background:#f4f4f4; width:100%; height:auto; display:block; transition:opacity .18s ease}
+    .prod .img-wrap img.hover-img{position:absolute; inset:0; opacity:0}
+    .prod:hover .img-wrap img.hover-img{opacity:1}
+    .prod:hover .img-wrap img.base-img{opacity:0}
     .prod .pad{padding:12px; text-align:center}
     .prod .title{font-weight:700;line-height:1.25;margin:0 0 6px;font-size:16px}
     .prod .meta{display:flex;justify-content:center;align-items:center; gap:10px}
@@ -104,13 +108,12 @@
     .modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;padding:16px;z-index:60}
     .modal.open{display:flex}
     .modal-card{background:#fff;border-radius:18px;max-width:1120px;width:min(96vw,1120px);max-height:92vh;display:flex;flex-direction:column;overflow:hidden;border:1px solid var(--line);margin:auto}
-
     .modal-head{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid var(--line)}
     .modal-title{font:700 18px/1.2 Poppins,system-ui}
     .modal-body{display:grid;gap:16px;padding:16px;overflow:auto;align-items:start}
 
-    /* Modal producto: 50/50, sin huecos */
-    @media(min-width:900px){.modal-body.prod{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
+    /* Modal producto refinado */
+    @media(min-width:900px){.modal-body.prod{grid-template-columns:60% 40%}}
     .media-wrap{position:relative}
     .m-main{width:100%;max-height:80vh;object-fit:contain;border-radius:12px;background:#f7f7f7;cursor:zoom-in}
     .m-main.is-loading{background:linear-gradient(90deg,#f3f3f3 25%,#e9e9e9 37%,#f3f3f3 63%);background-size:400% 100%;animation:sheen 1.2s infinite}
@@ -121,10 +124,15 @@
     .thumbs{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:8px}
     .thumbs img{width:100%;height:84px;object-fit:cover;border-radius:10px;border:2px solid transparent;cursor:pointer;background:#fafafa}
     .thumbs img.active{border-color:#000}
+
+    .detail-col{display:flex;flex-direction:column;align-items:flex-start}
     .badge-price{display:inline-block;background:var(--accent-weak);border:1px solid var(--accent);border-radius:999px;padding:10px 14px;font:800 22px/1 Poppins,system-ui;margin:0 0 12px}
     .features{list-style:none;padding:0;margin:0 0 16px}
     .features li{position:relative;padding-left:22px;margin:8px 0}
     .features li::before{content:"";position:absolute;left:0;top:7px;width:10px;height:10px;border-radius:50%;background:var(--accent-weak);border:1px solid var(--accent)}
+    .qty{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+    .qty button{background:#f6f6f6;border:none;padding:8px 10px;cursor:pointer}
+    .qty input{width:56px;text-align:center;border:none;padding:8px}
 
     /* Lightbox */
     .lightbox{position:fixed;inset:0;background:#000000eb;display:none;align-items:center;justify-content:center;z-index:80;touch-action:none}
@@ -171,7 +179,7 @@
     .contact-item a.btn{display:inline-block;margin-top:2px}
     .contact-item:hover{border-color:var(--accent); box-shadow:inset 0 0 0 2px var(--accent-weak)}
 
-    /* FAQ (fondo gris, acento sólo en hover) */
+    /* FAQ */
     #faq details{border:1px solid var(--line);border-radius:12px;margin:10px 0;padding:10px;background:#f6f6f6;transition:border-color .15s, box-shadow .15s}
     #faq details:hover{border-color:var(--accent); box-shadow:inset 0 0 0 2px var(--accent-weak)}
     #faq summary{cursor:pointer;font-weight:700}
@@ -196,12 +204,12 @@
         const modal=document.getElementById('legalModal'); const body=document.getElementById('legalBody'); const title=document.getElementById('legalTitle');
         if(!modal||!body||!title) return false;
         title.textContent=data.title; body.innerHTML='<div class="sub" style="text-align:left">'+data.body+'</div>';
-        modal.classList.add('open'); return false; /* <- evita scroll al # */
+        modal.classList.add('open'); return false;
       };
       window.MU_openMailModal = function(){
         const modal=document.getElementById('emailModal');
         if(modal){ modal.classList.add('open'); }
-        return false; /* <- evita scroll */
+        return false;
       };
       window.MU_copyEmail = function(){
         const email='hola@motourbano.shop';
@@ -322,7 +330,10 @@
         data-desc="Sujeción firme · Absorción de vibraciones · Compatible con la mayoría de manillares"
         data-main="img/cat-soportes.jpg"
         data-gallery='["img/soporte-antivibracion-01.jpg","img/soporte-antivibracion-02.jpg","img/soporte-antivibracion-03.jpg","img/soporte-antivibracion-04.jpg"]'>
-        <img src="img/cat-soportes.jpg" alt="Soporte manillar antivibración" decoding="async" loading="lazy"/>
+        <div class="img-wrap">
+          <img class="base-img" src="img/cat-soportes.jpg" alt="Soporte manillar antivibración" decoding="async" loading="lazy"/>
+          <!-- la hover-img se inyecta por JS si existe -->
+        </div>
         <div class="pad">
           <div class="title">Soporte manillar antivibración</div>
           <div class="meta">
@@ -340,7 +351,9 @@
         data-desc="Impermeables · Dedos táctiles · Refuerzos en palma"
         data-main="img/cat-guantes.jpg"
         data-gallery='["img/guantes-urbanos-verano-01.jpg","img/guantes-urbanos-verano-02.jpg"]'>
-        <img src="img/cat-guantes.jpg" alt="Guantes impermeables táctiles" decoding="async" loading="lazy"/>
+        <div class="img-wrap">
+          <img class="base-img" src="img/cat-guantes.jpg" alt="Guantes impermeables táctiles" decoding="async" loading="lazy"/>
+        </div>
         <div class="pad">
           <div class="title">Guantes impermeables táctiles</div>
           <div class="meta">
@@ -358,7 +371,9 @@
         data-desc="Alta visibilidad · Ajuste sencillo · Ligero"
         data-main="img/cat-chalecos.jpg"
         data-gallery='["img/chaleco-fosforito-01.jpg","img/chaleco-fosforito-02.jpg"]'>
-        <img src="img/cat-chalecos.jpg" alt="Chaleco reflectante" decoding="async" loading="lazy"/>
+        <div class="img-wrap">
+          <img class="base-img" src="img/cat-chalecos.jpg" alt="Chaleco reflectante" decoding="async" loading="lazy"/>
+        </div>
         <div class="pad">
           <div class="title">Chaleco reflectante</div>
           <div class="meta">
@@ -376,7 +391,9 @@
         data-desc="Impermeable · Cierre seguro · Bolsillos internos"
         data-main="img/cat-rinoneras.jpg"
         data-gallery='["img/rinonera-impermeable-01.jpg","img/rinonera-impermeable-02.jpg","img/rinonera-impermeable-03.jpg","img/rinonera-impermeable-04.jpg","img/rinonera-impermeable-05.jpg"]'>
-        <img src="img/cat-rinoneras.jpg" alt="Riñonera impermeable" decoding="async" loading="lazy"/>
+        <div class="img-wrap">
+          <img class="base-img" src="img/cat-rinoneras.jpg" alt="Riñonera impermeable" decoding="async" loading="lazy"/>
+        </div>
         <div class="pad">
           <div class="title">Riñonera impermeable</div>
           <div class="meta">
@@ -394,7 +411,9 @@
         data-desc="Montaje rápido · Resistente al agua · Capacidad ampliable"
         data-main="img/cat-bolsas.jpg"
         data-gallery='["img/bolsa-trasera-impermeable-01.jpg","img/bolsa-trasera-impermeable-02.jpg"]'>
-        <img src="img/cat-bolsas.jpg" alt="Bolsa trasera impermeable" decoding="async" loading="lazy"/>
+        <div class="img-wrap">
+          <img class="base-img" src="img/cat-bolsas.jpg" alt="Bolsa trasera impermeable" decoding="async" loading="lazy"/>
+        </div>
         <div class="pad">
           <div class="title">Bolsa trasera impermeable</div>
           <div class="meta">
@@ -495,7 +514,7 @@
           <button class="nav-arrow next" id="mNext" aria-label="Siguiente">›</button>
           <div id="mThumbs" class="thumbs"></div>
         </div>
-        <div>
+        <div class="detail-col">
           <div id="mPrice" class="badge-price"></div>
           <ul id="mDesc" class="features"></ul>
           <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
@@ -614,7 +633,7 @@
       filterPills.forEach(p=> p.addEventListener('click', ()=> applyFilter(p.dataset.cat)));
       $$('.js-cat').forEach(tile=> tile.addEventListener('click', ()=> applyFilter(tile.dataset.cat)));
 
-      /* ===== Helpers modales (abrir/cerrar robusto) ===== */
+      /* ---- MODALES cerrar/abrir ---- */
       function attachClosable(modalSel, closeSel){
         const modal=$(modalSel); if(!modal) return;
         const closeBtn=$(closeSel); if(closeBtn) closeBtn.addEventListener('click', ()=> modal.classList.remove('open'));
@@ -688,10 +707,6 @@
 
         current.images.slice(1).forEach(src=>{ const i=new Image(); i.decoding='async'; i.src=src; });
       }
-      function closeModal(){ if(modal) modal.classList.remove('open'); }
-      $$('#gridProds [data-cat]').forEach(card=> card.addEventListener('click', ()=> openModal(card)));
-      if(qMinus) qMinus.addEventListener('click', ()=> qInput.value=Math.max(1,(parseInt(qInput.value,10)||1)-1));
-      if(qPlus)  qPlus .addEventListener('click', ()=> qInput.value=(parseInt(qInput.value,10)||1)+1);
 
       /* Lightbox */
       function openLightbox(src,alt){ if(!lbImg||!lightbox) return; lbImg.src=src; lbImg.alt=alt||''; scale=1; tx=0; ty=0; applyTransform(); lightbox.classList.add('open'); }
@@ -792,25 +807,25 @@
         a.addEventListener('click', function(e){ e.preventDefault(); const id=a.getAttribute('href'); if(id && id.length>1){ scrollToId(id); } });
       });
 
-      /* Hover: cambiar a segunda imagen */
+      /* Prefetch galerías y HOVER con imagen secundaria superpuesta */
       function prefetch(arr){ arr.forEach(src=>{ const i=new Image(); i.decoding='async'; i.src=src; }); }
       (window.requestIdleCallback||setTimeout)(function(){
-        $$('#gridProds [data-gallery]').forEach(function(card){ try{ const g=JSON.parse(card.getAttribute('data-gallery')||'[]'); prefetch(g); }catch(e){} });
+        $$('#gridProds [data-gallery]').forEach(function(card){
+          try{
+            const g=JSON.parse(card.getAttribute('data-gallery')||'[]'); prefetch(g);
+            const second = g && g[0] ? g[0] : null;
+            const wrap = card.querySelector('.img-wrap');
+            if(second && wrap && !wrap.querySelector('.hover-img')){
+              const h = document.createElement('img');
+              h.className='hover-img';
+              h.alt='Vista secundaria';
+              h.loading='lazy'; h.decoding='async';
+              h.src=second;
+              wrap.appendChild(h);
+            }
+          }catch(e){}
+        });
       },300);
-
-      $$('#gridProds [data-gallery]').forEach(card=>{
-        const imgEl = card.querySelector('img');
-        let second=null, orig=null;
-        try{
-          const g=JSON.parse(card.getAttribute('data-gallery')||'[]');
-          second = g && g[0] ? g[0] : null;
-          orig = card.getAttribute('data-main');
-        }catch(e){}
-        if(imgEl && second && orig){
-          card.addEventListener('mouseenter', function(){ imgEl.src = second; }, {passive:true});
-          card.addEventListener('mouseleave', function(){ imgEl.src = orig; }, {passive:true});
-        }
-      });
 
       /* PayPal email */
       const ppBusinessEl=$('#ppBusiness'); if(ppBusinessEl) ppBusinessEl.value='tu-correo-paypal@ejemplo.com';
