@@ -157,17 +157,21 @@
     .footer-legal .dot{opacity:.35}
     .copy{padding-bottom:20px;color:#666;text-align:center}
 
-    /* WhatsApp flotante — usando TU PNG (con círculo ya incluido) */
+    /* WhatsApp flotante — SIN RECORTAR IMG, fondo blanco igual que la web */
     .floating-wa{
       position:fixed; right:16px; bottom:16px;
       width:64px; height:64px; border-radius:50%;
       display:flex; align-items:center; justify-content:center;
-      background:transparent;   /* tu PNG ya trae fondo/círculo */
-      border:none; box-shadow:none;
+      background:#fff;               /* mismo blanco que la web */
+      border:1px solid #eee;         /* sutil para el borde del botón */
+      box-shadow:0 10px 30px rgba(0,0,0,.12);
       z-index:45; cursor:pointer;
-      font-size:0; line-height:0; /* nunca muestra texto */
+      font-size:0; line-height:0;    /* nunca aparece texto */
     }
-    .floating-wa img{ width:64px; height:64px; display:block; object-fit:contain }
+    .floating-wa img{
+      width:44px; height:44px;       /* no recortamos el PNG */
+      display:block;
+    }
     .floating-wa *{ pointer-events:none }
 
     /* Toast */
@@ -422,9 +426,9 @@
     </div>
   </footer>
 
-  <!-- WhatsApp flotante — usando TU PNG -->
+  <!-- WhatsApp flotante — usando tu PNG, sin recortes y fondo blanco -->
   <a class="floating-wa" href="https://wa.me/520000000000" target="_blank" rel="noopener" aria-label="WhatsApp">
-    <img src="img/whatsapp.png" alt="WhatsApp" width="64" height="64" decoding="async">
+    <img src="img/whatsapp.png" alt="WhatsApp" width="44" height="44" decoding="async">
   </a>
 
   <!-- MODAL de producto -->
@@ -652,7 +656,7 @@
           cBody.innerHTML=items.map(function(i,idx){
             return '<div class="cart-item">'
               +'<img src="'+i.img+'" alt="'+i.name+'" loading="lazy" decoding="async">'
-              +'<div><div style="font-weight:700">'+i.name+'</div><div class="sub">$'+i.price+' MXN c/u</div></div>'
+              +'<div><div style="font-weight:700)">'+i.name+'</div><div class="sub">$'+i.price+' MXN c/u</div></div>'
               +'<div style="display:flex;align-items:center;gap:8px">'
               +  '<div class="qtyline">'
               +    '<button data-act="minus" data-idx="'+idx+'">−</button>'
