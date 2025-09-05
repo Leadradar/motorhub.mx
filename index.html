@@ -16,19 +16,20 @@
   <link rel="manifest" href="site.webmanifest" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700;800&display=swap" rel="stylesheet">
 
-  <!-- Preload mínimo para acelerar FCP -->
-  <link rel="preload" as="image" href="img/logo.png" imagesrcset="img/logo.png 1x">
+  <!-- Preload mínimo -->
+  <link rel="preload" as="image" href="img/logo.png">
 
   <style>
     :root{
-      /* Paleta corporativa: NEGRO, ROJO, BLANCO */
-      --bg:#ffffff; --elev:#ffffff; --ink:#0c0c0c; --muted:#5a5a5a; --line:#ebebeb;
-      --accent:#cf0a0a;        /* rojo elegante, no chillón */
-      --accent-weak:#fbecec;   /* rojo muy suave para hovers/fondos */
+      /* Paleta corporativa */
+      --bg:#ffffff; --elev:#ffffff; --ink:#0b0b0b; --muted:#5d5d5d; --line:#e9e9e9;
+      --accent:#cf0a0a;          /* rojo elegante */
+      --accent-weak:#fbecec;     /* rojo claro para sombras de realce */
       --shadow:0 10px 30px rgba(0,0,0,.08);
 
       --header-pad-y:14px; --header-logo:84px; --header-title:22px; --header-h:220px;
     }
+
     *{box-sizing:border-box}
     html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
     img{display:block;max-width:100%;height:auto;-webkit-user-drag:none;user-drag:none}
@@ -44,7 +45,6 @@
     header.site{
       position:sticky; top:0; z-index:40; background:#fff; border-bottom:1px solid var(--line);
       transition:padding .18s ease, box-shadow .18s ease;
-      will-change: box-shadow, padding;
     }
     .header-wrap{display:flex;flex-direction:column;align-items:center;gap:8px;padding:var(--header-pad-y) 0}
     .brand-stack{display:flex;flex-direction:column;align-items:center;gap:6px}
@@ -55,13 +55,18 @@
     nav.menu{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:6px}
     nav.menu a{
       padding:6px 10px;border-radius:10px;color:#333;font-size:14px;border:1px solid transparent;
-      transition:background .15s ease, border-color .15s ease;
+      transition:background .15s ease, border-color .15s ease, box-shadow .15s ease;
     }
-    nav.menu a:hover{background:var(--accent-weak);border-color:var(--accent)}
+    /* Estilo de referencia: hover del menú */
+    nav.menu a:hover{
+      background:var(--accent-weak);
+      border-color:var(--accent);
+      box-shadow:inset 0 0 0 2px var(--accent-weak);
+    }
     nav.menu a:focus-visible{outline:2px solid var(--accent)}
     #cartBtn{font-weight:700}
 
-    /* Header compacto en móvil y al hacer scroll */
+    /* Header compacto al hacer scroll */
     @media(max-width:640px){
       :root{ --header-pad-y:8px; --header-logo:60px; --header-title:18px;}
       nav.menu{gap:8px}
@@ -72,7 +77,7 @@
     header.site.is-scrolled .brand-title{font-size:18px}
     header.site.is-scrolled .header-wrap{padding:8px 0}
 
-    /* Compensación header fijo (se recalcula por JS) */
+    /* Compensación header fijo */
     section{scroll-margin-top:calc(var(--header-h) + 8px); content-visibility:auto; contain-intrinsic-size:auto 600px;}
 
     /* Hero */
@@ -86,10 +91,7 @@
     h2{font-size:clamp(22px,3.6vw,34px);margin:0 0 10px;text-align:center}
     .sub{color:var(--muted);text-align:center}
     .chips-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:center;margin-top:14px}
-    .chip{
-      display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);color:#333;
-      padding:8px 12px;border-radius:12px;white-space:nowrap
-    }
+    .chip{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);color:#333;padding:8px 12px;border-radius:12px;white-space:nowrap}
 
     /* PayPal */
     .paypal-row{display:flex;justify-content:center;margin-top:12px}
@@ -98,32 +100,43 @@
 
     /* Categorías */
     #categorias h2,#categorias .sub{text-align:center}
-    .tile{position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:#fff;cursor:pointer}
+    .tile{position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:#fff;cursor:pointer;transition:box-shadow .15s, outline-color .15s}
     .tile img{width:100%;height:200px;object-fit:cover}
-    .tile .label{
-      position:absolute;left:50%;bottom:10px;transform:translateX(-50%);
-      background:#000000b3;padding:8px 10px;border-radius:10px;color:#fff;font-weight:800
-    }
-    .tile:hover{outline:2px solid var(--accent)}
+    .tile .label{position:absolute;left:50%;bottom:10px;transform:translateX(-50%);background:#000000b3;padding:8px 10px;border-radius:10px;color:#fff;font-weight:800}
+    .tile:hover{outline:2px solid var(--accent); box-shadow:inset 0 0 0 2px var(--accent-weak)}
 
     /* Productos + filtros */
     #productos .filters{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:12px 0 6px}
-    .pill{border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 12px;cursor:pointer}
-    .pill.is-active{border-color:#000;background:#fff;box-shadow:inset 0 0 0 2px var(--accent)}
-    .prod{display:flex;flex-direction:column;cursor:pointer}
+    .pill{
+      border:1px solid #000;background:#fff;border-radius:999px;padding:8px 12px;cursor:pointer;
+      transition:border-color .15s, box-shadow .15s, background .15s;
+    }
+    .pill:hover,
+    .pill.is-active{
+      background:var(--accent-weak);
+      border-color:var(--accent);
+      box-shadow:inset 0 0 0 2px var(--accent-weak);
+    }
+    .prod{display:flex;flex-direction:column;cursor:pointer;transition:box-shadow .15s, outline-color .15s}
     .prod img{aspect-ratio:1/1;object-fit:cover;background:#f4f4f4}
     .prod .pad{padding:12px}
     .prod .title{font-weight:700;line-height:1.25;margin:0 0 6px;font-size:16px}
     .prod .meta{display:flex;justify-content:space-between;align-items:center}
     .price{font-weight:900;color:#000}
-    .stars{color:#C99A10;font-size:13px}
+    .stars{color:#000;font-size:13px}
+    .prod:hover{outline:2px solid var(--accent); box-shadow:inset 0 0 0 2px var(--accent-weak)}
     .hidden{display:none !important}
 
-    /* Botones */
-    .btn{display:inline-flex;align-items:center;gap:8px;border:1px solid #000;background:#000;color:#fff;border-radius:12px;padding:10px 14px;cursor:pointer;transition:background .15s ease,border-color .15s ease}
-    .btn:hover{background:var(--accent);border-color:var(--accent)}
+    /* Botones (unificados al estilo hover del menú) */
+    .btn{
+      display:inline-flex;align-items:center;gap:8px;
+      background:#fff;color:#000;border:1px solid #000;border-radius:12px;padding:10px 14px;cursor:pointer;
+      transition:background .15s,border-color .15s, box-shadow .15s;
+    }
+    .btn:hover{background:var(--accent-weak);border-color:var(--accent);box-shadow:inset 0 0 0 2px var(--accent-weak)}
     .btn.secondary{background:#fff;color:#000;border-color:#000}
-    .btn.secondary:hover{background:#fff;border-color:var(--accent);box-shadow:0 0 0 2px var(--accent-weak) inset}
+    .btn.secondary:hover{background:var(--accent-weak);border-color:var(--accent);box-shadow:inset 0 0 0 2px var(--accent-weak)}
+    .close{border:none;background:#f3f3f3;border-radius:10px;padding:8px 10px;cursor:pointer}
 
     /* Modal producto */
     .modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;padding:16px;z-index:60}
@@ -144,8 +157,6 @@
     .thumbs img{width:100%;height:70px;object-fit:cover;border-radius:10px;border:2px solid transparent;cursor:pointer;background:#fafafa}
     .thumbs img.active{border-color:#000}
 
-    .close{border:none;background:#f3f3f3;border-radius:10px;padding:8px 10px;cursor:pointer}
-
     .qty{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:10px;overflow:hidden}
     .qty button{background:#f6f6f6;border:none;padding:8px 10px;cursor:pointer}
     .qty input{width:48px;text-align:center;border:none;padding:8px}
@@ -159,7 +170,7 @@
     .lightbox .arrow.prev{left:14px}
     .lightbox .arrow.next{right:14px}
 
-    /* Cart */
+    /* Carrito */
     .cart{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;padding:16px;z-index:65}
     .cart.open{display:flex}
     .cart-card{background:#fff;border-radius:18px;max-width:760px;width:96%;max-height:92vh;display:flex;flex-direction:column;overflow:hidden;border:1px solid var(--line)}
@@ -184,14 +195,27 @@
     .copy{padding:10px 0 20px;color:#666;text-align:center}
     .footer-legal{display:flex;gap:8px;align-items:center;justify-content:center;flex-wrap:wrap}
     .footer-legal .dot{opacity:.35}
+    .footer-legal a{
+      padding:4px 6px;border-radius:8px;border:1px solid transparent;transition:background .15s,border-color .15s, box-shadow .15s;
+    }
+    .footer-legal a:hover{
+      background:var(--accent-weak); border-color:var(--accent); box-shadow:inset 0 0 0 2px var(--accent-weak);
+    }
 
     /* Contacto */
-    .contact-grid{display:grid;gap:14px;grid-template-columns:1fr;max-width:900px;margin:14px auto 0}
-    @media(min-width:720px){.contact-grid{grid-template-columns:repeat(3,1fr)}}
-    .contact-item{border:1px solid var(--line);border-radius:16px;padding:16px 14px;text-align:center}
-    .contact-item strong{display:block;font:700 16px/1.2 Poppins,system-ui;margin-bottom:6px}
-    .contact-item .sub{line-height:1.5;margin-bottom:10px}
+    .contact-grid{display:grid;gap:16px;grid-template-columns:1fr;max-width:900px;margin:16px auto 0}
+    @media(min-width:900px){.contact-grid{grid-template-columns:repeat(3,1fr)}}
+    .contact-item{border:1px solid var(--line);border-radius:16px;padding:18px 16px;text-align:center;transition:box-shadow .15s, outline-color .15s}
+    .contact-item strong{display:block;font:700 18px/1.2 Poppins,system-ui;margin-bottom:8px}
+    .contact-item .sub{line-height:1.6;margin-bottom:12px}
     .contact-item a.btn{display:inline-block;margin-top:2px}
+    .contact-item:hover{outline:2px solid var(--accent); box-shadow:inset 0 0 0 2px var(--accent-weak)}
+
+    /* FAQ hover/acento */
+    #faq .faq-block{background:#fff;border:1px solid var(--line);border-radius:12px;margin:10px 0;padding:10px;transition:box-shadow .15s, border-color .15s}
+    #faq .faq-block:hover{border-color:var(--accent); box-shadow:inset 0 0 0 2px var(--accent-weak)}
+    #faq summary{cursor:pointer;font-weight:700}
+    #faq .answer{margin-top:8px}
 
     /* WhatsApp flotante — SOLO PNG */
     .floating-wa{
@@ -210,7 +234,6 @@
       <div class="brand-stack">
         <img src="img/logo.png" alt="Logo MotoUrbano" fetchpriority="high"/>
         <div class="brand-title">MotoUrbano MX</div>
-        <!-- Bandera de México -->
         <div class="flag-mx" aria-label="México">
           <svg viewBox="0 0 16 10" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Bandera de México">
             <rect width="16" height="10" fill="#fff"/>
@@ -296,12 +319,12 @@
     <p class="sub">Selección pensada para la ciudad.</p>
 
     <div class="filters" id="filters">
-      <button class="pill is-active" data-cat="all">Todos</button>
-      <button class="pill" data-cat="soportes">Soportes</button>
-      <button class="pill" data-cat="guantes">Guantes</button>
-      <button class="pill" data-cat="chalecos">Chalecos</button>
-      <button class="pill" data-cat="bolsas">Bolsas</button>
-      <button class="pill" data-cat="rinoneras">Riñoneras</button>
+      <button class="pill is-active" data-cat="all" type="button">Todos</button>
+      <button class="pill" data-cat="soportes" type="button">Soportes</button>
+      <button class="pill" data-cat="guantes" type="button">Guantes</button>
+      <button class="pill" data-cat="chalecos" type="button">Chalecos</button>
+      <button class="pill" data-cat="bolsas" type="button">Bolsas</button>
+      <button class="pill" data-cat="rinoneras" type="button">Riñoneras</button>
     </div>
 
     <div class="grid cols-2 cols-4" id="gridProds" style="margin-top:12px">
@@ -401,25 +424,25 @@
   <section id="faq" class="container" style="padding:26px 0 10px">
     <h2>Preguntas frecuentes</h2>
     <div class="card shadow" style="padding:12px">
-      <details style="background:#fff;border:1px solid var(--line);border-radius:12px;margin:10px 0;padding:10px">
-        <summary style="cursor:pointer;font-weight:700">¿Cuánto tarda el envío?</summary>
-        <div class="sub" style="margin-top:8px">Entre 10 y 20 días hábiles según la zona. Te compartimos la guía para darle rastreo.</div>
+      <details class="faq-block">
+        <summary>¿Cuánto tarda el envío?</summary>
+        <div class="sub answer">Entre 10 y 20 días hábiles según la zona. Te compartimos la guía para darle rastreo.</div>
       </details>
-      <details style="background:#fff;border:1px solid var(--line);border-radius:12px;margin:10px 0;padding:10px">
-        <summary style="cursor:pointer;font-weight:700">¿Cómo funcionan las devoluciones?</summary>
-        <div class="sub" style="margin-top:8px">Tienes 14 días desde la entrega. Escríbenos por WhatsApp con tu número de pedido y te guiamos.</div>
+      <details class="faq-block">
+        <summary>¿Cómo funcionan las devoluciones?</summary>
+        <div class="sub answer">Tienes 14 días desde la entrega. Escríbenos por WhatsApp con tu número de pedido y te guiamos.</div>
       </details>
-      <details style="background:#fff;border:1px solid var(--line);border-radius:12px;margin:10px 0;padding:10px">
-        <summary style="cursor:pointer;font-weight:700">¿Qué métodos de pago aceptan?</summary>
-        <div class="sub" style="margin-top:8px">PayPal y tarjetas bancarias. Pronto añadiremos más opciones.</div>
+      <details class="faq-block">
+        <summary>¿Qué métodos de pago aceptan?</summary>
+        <div class="sub answer">PayPal y tarjetas bancarias. Pronto añadiremos más opciones.</div>
       </details>
-      <details style="background:#fff;border:1px solid var(--line);border-radius:12px;margin:10px 0;padding:10px">
-        <summary style="cursor:pointer;font-weight:700">¿Puedo pedir factura?</summary>
-        <div class="sub" style="margin-top:8px">Sí. Envíanos tus datos fiscales a <strong>hola@motourbano.shop</strong> junto con el número de pedido.</div>
+      <details class="faq-block">
+        <summary>¿Puedo pedir factura?</summary>
+        <div class="sub answer">Sí. Envíanos tus datos fiscales a <strong>hola@motourbano.shop</strong> junto con el número de pedido.</div>
       </details>
-      <details style="background:#fff;border:1px solid var(--line);border-radius:12px;margin:10px 0;padding:10px">
-        <summary style="cursor:pointer;font-weight:700">¿Los productos tienen garantía?</summary>
-        <div class="sub" style="margin-top:8px">Sí, garantía de 6 meses por defectos de fábrica.</div>
+      <details class="faq-block">
+        <summary>¿Los productos tienen garantía?</summary>
+        <div class="sub answer">Sí, garantía de 6 meses por defectos de fábrica.</div>
       </details>
     </div>
   </section>
@@ -432,7 +455,7 @@
       <div class="contact-item">
         <strong>Email</strong>
         <div class="sub">hola@motourbano.shop</div>
-        <a id="btnEmail" class="btn secondary" href="mailto:hola@motourbano.shop">Enviar correo</a>
+        <a id="btnEmail" class="btn secondary" href="mailto:hola@motourbano.shop?subject=Consulta%20MotoUrbano%20MX" onclick="/* fallback */ window.location.href='mailto:hola@motourbano.shop?subject=Consulta%20MotoUrbano%20MX'; return true;">Enviar correo</a>
       </div>
       <div class="contact-item">
         <strong>WhatsApp</strong>
@@ -442,7 +465,7 @@
       <div class="contact-item">
         <strong>Devoluciones</strong>
         <div class="sub">Plazo de 14 días</div>
-        <a class="btn secondary" href="#" data-legal="devoluciones">Ver política</a>
+        <a class="btn secondary" href="#legal-devoluciones" data-legal="devoluciones" onclick="openLegal('devoluciones'); return false;">Ver política</a>
       </div>
     </div>
   </section>
@@ -456,10 +479,10 @@
     </div>
 
     <div class="container footer-legal" style="padding-bottom:6px">
-      <a href="#" data-legal="envios" role="button" tabindex="0">Envíos</a><span class="dot">·</span>
-      <a href="#" data-legal="devoluciones" role="button" tabindex="0">Devoluciones</a><span class="dot">·</span>
-      <a href="#" data-legal="privacidad" role="button" tabindex="0">Privacidad</a><span class="dot">·</span>
-      <a href="#" data-legal="terminos" role="button" tabindex="0">Términos</a>
+      <a href="#legal-envios" data-legal="envios" onclick="openLegal('envios'); return false;">Envíos</a><span class="dot">·</span>
+      <a href="#legal-devoluciones" data-legal="devoluciones" onclick="openLegal('devoluciones'); return false;">Devoluciones</a><span class="dot">·</span>
+      <a href="#legal-privacidad" data-legal="privacidad" onclick="openLegal('privacidad'); return false;">Privacidad</a><span class="dot">·</span>
+      <a href="#legal-terminos" data-legal="terminos" onclick="openLegal('terminos'); return false;">Términos</a>
     </div>
 
     <div class="container copy">
@@ -549,7 +572,9 @@
   </div>
 
   <!-- TOAST -->
-  <div class="toast" id="toast" style="position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#111;color:#fff;padding:10px 14px;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.2);opacity:0;pointer-events:none;transition:opacity .25s, transform .25s;z-index:90">Añadido al carrito</div>
+  <div class="toast" id="toast" style="position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#111;color:#fff;padding:10px 14px;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.2);opacity:0;pointer-events:none;transition:opacity .25s, transform .25s;z-index:90">
+    Añadido al carrito
+  </div>
 
   <script>
     document.addEventListener('DOMContentLoaded', function(){
@@ -582,7 +607,7 @@
       var filterPills = $$('#filters .pill');
       var prodCards   = $$('#gridProds [data-cat]');
       function applyFilter(cat){
-        $$('#filters .pill').forEach(function(p){ p.classList.toggle('is-active', p.dataset.cat===cat); });
+        filterPills.forEach(function(p){ p.classList.toggle('is-active', p.dataset.cat===cat); });
         prodCards.forEach(function(card){ card.classList.toggle('hidden', !(cat==='all' || card.dataset.cat===cat)); });
         scrollToId('#productos');
       }
@@ -644,7 +669,7 @@
         mPrev.onclick=function(){ showImage(current.index-1); };
         mNext.onclick=function(){ showImage(current.index+1); };
 
-        // Swipe móvil
+        // Swipe básico
         var sx=0,sy=0,dx=0,dy=0;
         mMain.addEventListener('touchstart',function(ev){ if(ev.touches.length!==1)return; sx=ev.touches[0].clientX; sy=ev.touches[0].clientY; },{passive:true});
         mMain.addEventListener('touchmove',function(ev){ if(ev.touches.length!==1)return; dx=ev.touches[0].clientX-sx; dy=ev.touches[0].clientY-sy; },{passive:true});
@@ -798,7 +823,7 @@
         writeCart(items); updateCount(); openCart(); closeModal(); showToast();
       });
 
-      /* ===== Scroll anclas: SIEMPRE al inicio exacto ===== */
+      /* ===== Scroll de menú ===== */
       $$('.menu a[href^="#"]').forEach(function(a){
         a.addEventListener('click', function(e){
           e.preventDefault();
@@ -823,7 +848,7 @@
       /* ===== PAYPAL email ===== */
       var ppBusiness = $('#ppBusiness'); if(ppBusiness) ppBusiness.value = 'tu-correo-paypal@ejemplo.com';
 
-      /* ===== LEGALES en modal (delegación robusta) ===== */
+      /* ===== LEGALES en modal ===== */
       var legalData = {
         envios: {
           title: 'Política de Envíos — MotoUrbano MX',
@@ -865,13 +890,12 @@
         legalModal.classList.add('open');
       }
       function closeLegal(){ legalModal.classList.remove('open'); }
+      window.openLegal = openLegal;
+
       legalClose.addEventListener('click', closeLegal);
       legalModal.addEventListener('click', function(e){ if(e.target===legalModal) closeLegal(); });
 
-      // Exponer para usos inline o fallbacks
-      window.openLegal = openLegal;
-
-      // Delegación universal para <a data-legal>
+      // Delegación segura (sólo para data-legal)
       document.addEventListener('click', function(e){
         const a = e.target.closest('a[data-legal]');
         if(a){
@@ -880,26 +904,14 @@
         }
       }, {passive:false});
 
-      // Botón email: fallback JS extra por si el navegador no dispara mailto por políticas del user-agent
-      const btnEmail = $('#btnEmail');
-      if(btnEmail){
-        btnEmail.addEventListener('click', function(e){
-          const href = btnEmail.getAttribute('href') || '';
-          if(!href.startsWith('mailto:')){
-            e.preventDefault();
-            location.href = 'mailto:hola@motourbano.shop';
-          }
-        });
-      }
-
       /* ===== INIT ===== */
       updateHeaderUi();
       if(location.hash){ setTimeout(function(){ scrollToId(location.hash); }, 50); }
 
-      // Contador carrito
-      function updateCount(){ var items=readCart(); var n=items.reduce(function(s,i){return s+i.qty;},0); $('#cartCount').textContent=n; }
-      function readCart(){ try{ return JSON.parse(localStorage.getItem('mu_cart')||'[]'); }catch(e){ return []; } }
-      updateCount();
+      // Contador carrito (redefinimos locales para este scope)
+      function updateCount2(){ var items=readCart2(); var n=items.reduce(function(s,i){return s+i.qty;},0); $('#cartCount').textContent=n; }
+      function readCart2(){ try{ return JSON.parse(localStorage.getItem('mu_cart')||'[]'); }catch(e){ return []; } }
+      updateCount2();
     });
   </script>
 </body>
