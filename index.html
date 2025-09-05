@@ -62,9 +62,7 @@
       nav.menu{gap:8px}
       nav.menu a{padding:5px 8px;font-size:13px}
     }
-    header.site.is-scrolled{
-      box-shadow:0 6px 18px rgba(0,0,0,.06);
-    }
+    header.site.is-scrolled{ box-shadow:0 6px 18px rgba(0,0,0,.06); }
     header.site.is-scrolled .brand-stack img{height:52px}
     header.site.is-scrolled .brand-title{font-size:18px}
     header.site.is-scrolled .header-wrap{padding:8px 0}
@@ -133,6 +131,7 @@
     .qty input{width:48px;text-align:center;border:none;padding:8px}
     .btn{display:inline-flex;align-items:center;gap:8px;border:1px solid #111;background:#111;color:#fff;border-radius:12px;padding:10px 14px;cursor:pointer}
     .btn.secondary{background:#fff;color:#111}
+    .btn.secondary:hover{background:#f7f7f7}
 
     /* Lightbox */
     .lightbox{position:fixed;inset:0;background:rgba(0,0,0,.92);display:none;align-items:center;justify-content:center;z-index:80;touch-action:none}
@@ -220,7 +219,6 @@
         <img src="img/logo.png" alt="Logo MotoUrbano" decoding="async" fetchpriority="high"/>
       </div>
       <h1>Accesorios para tu moto</h1>
-      <!-- Sub sin repetir la idea de envío -->
       <p class="hero-sub">Pagos seguros y precios claros.</p>
 
       <div class="chips-row" aria-label="Sellos de confianza">
@@ -415,17 +413,17 @@
       <div class="contact-item">
         <strong>Email</strong>
         <div class="sub">hola@motourbano.shop</div>
-        <a class="btn secondary" href="mailto:hola@motourbano.shop">Enviar correo</a>
+        <a id="btnEmail" class="btn secondary" href="mailto:hola@motourbano.shop">Enviar correo</a>
       </div>
       <div class="contact-item">
         <strong>WhatsApp</strong>
         <div class="sub">Lun a Vie · 10:00–18:00</div>
-        <a class="btn" href="https://wa.me/520000000000" target="_blank" rel="noopener">Abrir WhatsApp</a>
+        <a class="btn secondary" href="https://wa.me/520000000000" target="_blank" rel="noopener">Abrir WhatsApp</a>
       </div>
       <div class="contact-item">
         <strong>Devoluciones</strong>
         <div class="sub">Plazo de 14 días</div>
-        <a class="btn secondary" href="#" data-legal="devoluciones">Ver política</a>
+        <a class="btn secondary" href="javascript:void(0)" data-legal="devoluciones">Ver política</a>
       </div>
     </div>
   </section>
@@ -439,10 +437,10 @@
     </div>
 
     <div class="container footer-legal" style="padding-bottom:6px">
-      <a href="#" data-legal="envios">Envíos</a><span class="dot">·</span>
-      <a href="#" data-legal="devoluciones">Devoluciones</a><span class="dot">·</span>
-      <a href="#" data-legal="privacidad">Privacidad</a><span class="dot">·</span>
-      <a href="#" data-legal="terminos">Términos</a>
+      <a href="javascript:void(0)" data-legal="envios" role="button" tabindex="0">Envíos</a><span class="dot">·</span>
+      <a href="javascript:void(0)" data-legal="devoluciones" role="button" tabindex="0">Devoluciones</a><span class="dot">·</span>
+      <a href="javascript:void(0)" data-legal="privacidad" role="button" tabindex="0">Privacidad</a><span class="dot">·</span>
+      <a href="javascript:void(0)" data-legal="terminos" role="button" tabindex="0">Términos</a>
     </div>
 
     <div class="container copy">
@@ -544,7 +542,6 @@
       function updateHeaderUi(){
         const sc = window.scrollY||window.pageYOffset;
         header.classList.toggle('is-scrolled', sc>8);
-        // Altura real del header para compensar anclas
         const h = header.getBoundingClientRect().height;
         document.documentElement.style.setProperty('--header-h', h+'px');
       }
@@ -552,7 +549,6 @@
       window.addEventListener('scroll', updateHeaderUi, {passive:true});
       window.addEventListener('resize', updateHeaderUi);
 
-      // Helper scroll que siempre deja la sección al inicio visible
       function scrollToId(id){
         const el = document.querySelector(id);
         if(!el) return;
@@ -640,7 +636,6 @@
         qInput.value=1;
         modal.classList.add('open');
 
-        // Prefetch resto
         current.images.slice(1).forEach(function(src){ var i=new Image(); i.decoding='async'; i.src=src; });
       }
       function closeModal(){ modal.classList.remove('open'); }
@@ -760,7 +755,6 @@
       });
       if($('#cClear')) $('#cClear').addEventListener('click', function(){ writeCart([]); updateCount(); renderCart(); });
 
-      // Añadir al carrito
       function showToast(){
         var t=$('#toast');
         if(!t) return;
@@ -854,7 +848,7 @@
       legalClose.addEventListener('click', closeLegal);
       legalModal.addEventListener('click', function(e){ if(e.target===legalModal) closeLegal(); });
 
-      // Delegación para CUALQUIER enlace con data-legal (footer o tarjetas)
+      // Delegación: abrir modales desde cualquier <a data-legal>
       document.addEventListener('click', function(e){
         const a = e.target.closest('a[data-legal]');
         if(a){
@@ -863,10 +857,20 @@
         }
       });
 
+      // Botón email: respaldo JS por si algún navegador bloquea mailto al ser un "botón"
+      const btnEmail = $('#btnEmail');
+      if(btnEmail){
+        btnEmail.addEventListener('click', function(e){
+          // si trae mailto funciona, pero forzamos por si acaso:
+          if(!btnEmail.getAttribute('href') || !btnEmail.getAttribute('href').startsWith('mailto:')){
+            e.preventDefault();
+            window.location.href = 'mailto:hola@motourbano.shop';
+          }
+        });
+      }
+
       /* ===== INIT ===== */
       updateHeaderUi();
-      var y = $('#year'); if(y) y.textContent = new Date().getFullYear();
-      // Si se carga con hash en URL, aseguramos compensación
       if(location.hash){ setTimeout(function(){ scrollToId(location.hash); }, 50); }
 
       // Contador carrito
