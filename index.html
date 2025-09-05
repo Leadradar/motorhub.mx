@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>MotoUrbano MX — Accesorios para tu moto</title>
-  <meta name="description" content="Accesorios para tu moto con precios claros y soporte por WhatsApp. Devoluciones en 14 días." />
+  <title>MotoUrbano MX — Equipo y accesorios para motociclistas</title>
+  <meta name="description" content="Equipo y accesorios para motociclistas, precios claros y soporte por WhatsApp. Devoluciones en 14 días." />
   <meta name="theme-color" content="#ffffff" />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="MotoUrbano MX" />
-  <meta property="og:description" content="Accesorios para tu moto." />
+  <meta property="og:description" content="Equipo y accesorios para motociclistas." />
   <meta property="og:image" content="https://leadradar.github.io/motorhub.mx/img/hero.jpg" />
 
   <link rel="icon" href="favicon.ico" />
@@ -26,7 +26,7 @@
     html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
     img{display:block;max-width:100%;height:auto;-webkit-user-drag:none;user-drag:none}
     a{color:inherit;text-decoration:none}
-    .container{max-width:1200px;margin:0 auto;padding:0 28px} /* +aire lateral */
+    .container{max-width:1200px;margin:0 auto;padding:0 28px}
     .grid{display:grid;gap:16px}
     @media(min-width:700px){.grid.cols-2{grid-template-columns:repeat(2,1fr)}}
     @media(min-width:900px){.grid.cols-3{grid-template-columns:repeat(3,1fr)}.grid.cols-4{grid-template-columns:repeat(4,1fr)}.grid.cols-5{grid-template-columns:repeat(5,1fr)}}
@@ -70,7 +70,7 @@
     .chips-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:center;margin-top:14px}
     .chip{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);color:#333;padding:8px 12px;border-radius:12px;white-space:nowrap}
 
-    /* Categorías (sin outline que se “corta”, sólo sombra/acento interior) */
+    /* Categorías (sin outline que se corta, usamos borde + inset) */
     #categorias h2,#categorias .sub{text-align:center}
     .tile{position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:#fff;cursor:pointer;transition:box-shadow .15s, border-color .15s}
     .tile img{width:100%;height:200px;object-fit:cover}
@@ -100,7 +100,7 @@
     .btn:hover{background:var(--accent-weak);border-color:var(--accent);box-shadow:inset 0 0 0 2px var(--accent-weak)}
     .close{border:none;background:#f3f3f3;border-radius:10px;padding:8px 10px;cursor:pointer}
 
-    /* Modal base */
+    /* Modal base (centrado real) */
     .modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;padding:16px;z-index:60}
     .modal.open{display:flex}
     .modal-card{background:#fff;border-radius:18px;max-width:1120px;width:min(96vw,1120px);max-height:92vh;display:flex;flex-direction:column;overflow:hidden;border:1px solid var(--line);margin:auto}
@@ -108,10 +108,10 @@
     .modal-head{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid var(--line)}
     .modal-title{font:700 18px/1.2 Poppins,system-ui}
 
-    .modal-body{display:grid;gap:16px;padding:16px;overflow:auto}
+    .modal-body{display:grid;gap:16px;padding:16px;overflow:auto;align-items:start}
 
-    /* Modal producto mejorado */
-    @media(min-width:900px){.modal-body.prod{grid-template-columns:1fr 1fr}}
+    /* Modal producto (dos columnas balanceadas sin “hueco” a la derecha) */
+    @media(min-width:900px){.modal-body.prod{grid-template-columns:minmax(0,1.05fr) minmax(0,0.95fr)}}
     .media-wrap{position:relative}
     .m-main{width:100%;max-height:75vh;object-fit:contain;border-radius:12px;background:#f7f7f7;cursor:zoom-in}
     .m-main.is-loading{background:linear-gradient(90deg,#f3f3f3 25%,#e9e9e9 37%,#f3f3f3 63%);background-size:400% 100%;animation:sheen 1.2s infinite}
@@ -172,9 +172,9 @@
     .contact-item a.btn{display:inline-block;margin-top:2px}
     .contact-item:hover{border-color:var(--accent); box-shadow:inset 0 0 0 2px var(--accent-weak)}
 
-    /* FAQ: SIN sombra permanente; sólo hover, acento fijo en borde */
-    #faq details{border:1px solid var(--accent);border-radius:12px;margin:10px 0;padding:10px;background:#fff;transition:background .15s, box-shadow .15s}
-    #faq details:hover{background:var(--accent-weak); box-shadow:inset 0 0 0 2px var(--accent-weak)}
+    /* FAQ (fondo gris, acento sólo en hover) */
+    #faq details{border:1px solid var(--line);border-radius:12px;margin:10px 0;padding:10px;background:#f6f6f6;transition:border-color .15s, box-shadow .15s}
+    #faq details:hover{border-color:var(--accent); box-shadow:inset 0 0 0 2px var(--accent-weak)}
     #faq summary{cursor:pointer;font-weight:700}
     #faq .answer{margin-top:8px}
 
@@ -193,16 +193,16 @@
         terminos:{title:'Términos y Condiciones — MotoUrbano MX',body:'<p>El uso del sitio implica aceptación de estos términos. Precios y disponibilidad pueden cambiar.</p><p>Imágenes ilustrativas. Si hay error o falta de inventario, se puede cancelar con reembolso íntegro.</p><p>Dudas: <a href="mailto:hola@motourbano.shop">hola@motourbano.shop</a>.</p>'}
       };
       window.MU_openLegal = function(key){
-        const data=(window.MU_LEGAL||{})[key]; if(!data) return false;
+        const data=(window.MU_LEGAL||{})[key]; if(!data) return;
         const modal=document.getElementById('legalModal'); const body=document.getElementById('legalBody'); const title=document.getElementById('legalTitle');
-        if(!modal||!body||!title) return false;
+        if(!modal||!body||!title) return;
         title.textContent=data.title; body.innerHTML='<div class="sub" style="text-align:left">'+data.body+'</div>';
-        modal.classList.add('open'); return false;
+        modal.classList.add('open');
       };
       window.MU_openMail = function(){
-        // refuerzo para navegadores que ignoran el href
+        // Refuerzo sin bloquear el default del <a>
         window.location.href='mailto:hola@motourbano.shop?subject=Consulta%20MotoUrbano%20MX';
-        return false;
+        return true;
       };
     })();
   </script>
@@ -240,7 +240,7 @@
       <div class="logo-big">
         <img src="img/logo.png" alt="Logo MotoUrbano" decoding="async" fetchpriority="high"/>
       </div>
-      <h1>Accesorios para tu moto</h1>
+      <h1>Equipo y accesorios para motociclistas</h1>
       <p class="hero-sub">Pagos seguros y precios claros.</p>
 
       <div class="chips-row" aria-label="Sellos de confianza">
@@ -250,9 +250,9 @@
         <span class="chip">🎁 Envío gratis</span>
       </div>
 
-      <div class="paypal-row">
-        <span class="pp-badge" title="Pago seguro con PayPal" aria-label="Pago seguro con PayPal">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal" loading="lazy" decoding="async"/>
+      <div class="paypal-row" style="display:flex;justify-content:center;margin-top:12px">
+        <span class="pp-badge" title="Pago seguro con PayPal" aria-label="Pago seguro con PayPal" style="display:inline-flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:10px 16px">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal" loading="lazy" decoding="async" style="height:22px;display:block"/>
         </span>
       </div>
     </div>
@@ -435,7 +435,7 @@
       <div class="contact-item">
         <strong>Email</strong>
         <div class="sub">hola@motourbano.shop</div>
-        <a class="btn" href="mailto:hola@motourbano.shop?subject=Consulta%20MotoUrbano%20MX" onclick="return MU_openMail();">Enviar correo</a>
+        <a class="btn" href="mailto:hola@motourbano.shop?subject=Consulta%20MotoUrbano%20MX" onclick="MU_openMail()">Enviar correo</a>
       </div>
       <div class="contact-item">
         <strong>WhatsApp</strong>
@@ -445,7 +445,7 @@
       <div class="contact-item">
         <strong>Devoluciones</strong>
         <div class="sub">Plazo de 14 días</div>
-        <a class="btn" href="#" onclick="return MU_openLegal('devoluciones');">Ver política</a>
+        <a class="btn" href="#" onclick="MU_openLegal('devoluciones')">Ver política</a>
       </div>
     </div>
   </section>
@@ -459,14 +459,14 @@
     </div>
 
     <div class="container footer-legal" style="padding-bottom:6px">
-      <a href="#" onclick="return MU_openLegal('envios');">Envíos</a><span class="dot">·</span>
-      <a href="#" onclick="return MU_openLegal('devoluciones');">Devoluciones</a><span class="dot">·</span>
-      <a href="#" onclick="return MU_openLegal('privacidad');">Privacidad</a><span class="dot">·</span>
-      <a href="#" onclick="return MU_openLegal('terminos');">Términos</a>
+      <a href="#" onclick="MU_openLegal('envios')">Envíos</a><span class="dot">·</span>
+      <a href="#" onclick="MU_openLegal('devoluciones')">Devoluciones</a><span class="dot">·</span>
+      <a href="#" onclick="MU_openLegal('privacidad')">Privacidad</a><span class="dot">·</span>
+      <a href="#" onclick="MU_openLegal('terminos')">Términos</a>
     </div>
 
     <div class="container copy">
-      <small>© <span id="year"></span> MotoUrbano MX</small>
+      <small>© <span id="year"></span> MotoUrbano MX — Hecho con pasión por el motociclismo.</small>
     </div>
   </footer>
 
@@ -526,7 +526,6 @@
         <strong>Total: <span id="cTotal">$0 MXN</span></strong>
         <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
           <button class="btn" id="cClear" type="button">Vaciar</button>
-          <!-- PayPal Standard: cambia tu correo abajo -->
           <form id="ppForm" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
             <input type="hidden" name="cmd" value="_xclick">
             <input type="hidden" name="business" id="ppBusiness" value="">
@@ -561,7 +560,7 @@
       const $ = (sel,ctx)=> (ctx||document).querySelector(sel);
       const $$= (sel,ctx)=> [].slice.call((ctx||document).querySelectorAll(sel));
 
-      /* Header compacto + compensación (sin null errors) */
+      /* Header compacto + compensación */
       const header = $('#siteHeader');
       function updateHeaderUi(){
         if(!header) return;
@@ -592,7 +591,7 @@
       filterPills.forEach(p=> p.addEventListener('click', ()=> applyFilter(p.dataset.cat)));
       $$('.js-cat').forEach(tile=> tile.addEventListener('click', ()=> applyFilter(tile.dataset.cat)));
 
-      /* ===== Helpers de modales (cierre robusto) ===== */
+      /* ===== Helpers modales (abrir/cerrar robusto) ===== */
       function attachClosable(modalSel, closeSel){
         const modal=$(modalSel); if(!modal) return;
         const closeBtn=$(closeSel); if(closeBtn) closeBtn.addEventListener('click', ()=> modal.classList.remove('open'));
@@ -604,10 +603,9 @@
 
       document.addEventListener('keydown', function(e){
         if(e.key!=='Escape') return;
-        const legal=$('#legalModal'); if(legal && legal.classList.contains('open')) legal.classList.remove('open');
-        const prod=$('#modal');      if(prod  && prod.classList.contains('open'))  prod.classList.remove('open');
-        const cart=$('#cart');       if(cart  && cart.classList.contains('open'))  cart.classList.remove('open');
-        const lb=$('#lightbox');     if(lb    && lb.classList.contains('open'))    lb.classList.remove('open');
+        ['#legalModal','#modal','#cart','#lightbox'].forEach(sel=>{
+          const el=$(sel); if(el && el.classList.contains('open')) el.classList.remove('open');
+        });
       });
 
       /* ===== Modal producto ===== */
@@ -636,45 +634,44 @@
         let gallery=[]; try{ gallery=JSON.parse(card.getAttribute('data-gallery')||'[]'); }catch(e){}
         current={ name:card.dataset.name, priceText:card.dataset.price, price:parseInt((card.dataset.price||'').replace(/[^0-9]/g,''),10)||0, main:card.getAttribute('data-main')||'', images:[], index:0 };
         current.images=[current.main].concat(gallery.filter(Boolean));
-        mTitle.textContent=current.name||'Producto';
-        mPrice.textContent=current.priceText||'';
-        mMain.classList.remove('is-loading');
-        mMain.src=current.images[0]; mMain.dataset.src=current.images[0]; mMain.alt=current.name;
-        mThumbs.innerHTML=current.images.map((src,i)=> `<img data-src="${src}" alt="Vista ${i+1} ${current.name}" loading="lazy" decoding="async" src="${src}">`).join('');
+        if(mTitle) mTitle.textContent=current.name||'Producto';
+        if(mPrice) mPrice.textContent=current.priceText||'';
+        if(mMain){ mMain.classList.remove('is-loading'); mMain.src=current.images[0]; mMain.dataset.src=current.images[0]; mMain.alt=current.name; }
+        if(mThumbs) mThumbs.innerHTML=current.images.map((src,i)=> `<img data-src="${src}" alt="Vista ${i+1} ${current.name}" loading="lazy" decoding="async" src="${src}">`).join('');
         setActiveThumb();
 
-        // Click en miniatura -> cambiar imagen + abrir lightbox
-        mThumbs.onclick=function(e){
+        if(mThumbs) mThumbs.onclick=function(e){
           const img=e.target.closest('img'); if(!img) return;
           const idx=current.images.indexOf(img.getAttribute('data-src'));
           if(idx>-1){ showImage(idx); openLightbox(current.images[idx], 'Vista '+(idx+1)+' '+current.name); }
         };
-        // Click en imagen principal -> lightbox
-        mMain.onclick=function(){ openLightbox(mMain.src, mMain.alt); };
+        if(mMain) mMain.onclick=function(){ openLightbox(mMain.src, mMain.alt); };
 
         if(mPrev) mPrev.onclick=function(){ showImage(current.index-1); };
         if(mNext) mNext.onclick=function(){ showImage(current.index+1); };
 
         // Swipe móvil
         let sx=0,sy=0,dx=0,dy=0;
-        mMain.addEventListener('touchstart',function(ev){ if(ev.touches.length!==1)return; sx=ev.touches[0].clientX; sy=ev.touches[0].clientY; },{passive:true});
-        mMain.addEventListener('touchmove',function(ev){ if(ev.touches.length!==1)return; dx=ev.touches[0].clientX-sx; dy=ev.touches[0].clientY-sy; },{passive:true});
-        mMain.addEventListener('touchend',function(){ if(Math.abs(dx)>40 && Math.abs(dy)<40){ if(dx<0)showImage(current.index+1); else showImage(current.index-1);} dx=dy=0; },{passive:true});
+        if(mMain){
+          mMain.addEventListener('touchstart',function(ev){ if(ev.touches.length!==1)return; sx=ev.touches[0].clientX; sy=ev.touches[0].clientY; },{passive:true});
+          mMain.addEventListener('touchmove',function(ev){ if(ev.touches.length!==1)return; dx=ev.touches[0].clientX-sx; dy=ev.touches[0].clientY-sy; },{passive:true});
+          mMain.addEventListener('touchend',function(){ if(Math.abs(dx)>40 && Math.abs(dy)<40){ if(dx<0)showImage(current.index+1); else showImage(current.index-1);} dx=dy=0; },{passive:true});
+        }
 
-        mDesc.innerHTML=bullets(card.dataset.desc||'').map(li=> '<li>'+li+'</li>').join('');
-        qInput.value=1; modal.classList.add('open');
+        if(mDesc) mDesc.innerHTML=bullets(card.dataset.desc||'').map(li=> '<li>'+li+'</li>').join('');
+        if(qInput) qInput.value=1;
+        if(modal) modal.classList.add('open');
+
         current.images.slice(1).forEach(src=>{ const i=new Image(); i.decoding='async'; i.src=src; });
       }
       function closeModal(){ if(modal) modal.classList.remove('open'); }
       $$('#gridProds [data-cat]').forEach(card=> card.addEventListener('click', ()=> openModal(card)));
-
       if(qMinus) qMinus.addEventListener('click', ()=> qInput.value=Math.max(1,(parseInt(qInput.value,10)||1)-1));
       if(qPlus)  qPlus .addEventListener('click', ()=> qInput.value=(parseInt(qInput.value,10)||1)+1);
 
       /* Lightbox */
       function openLightbox(src,alt){ if(!lbImg||!lightbox) return; lbImg.src=src; lbImg.alt=alt||''; scale=1; tx=0; ty=0; applyTransform(); lightbox.classList.add('open'); }
       function closeLightbox(){ if(lightbox) lightbox.classList.remove('open'); }
-      window.openLightbox=openLightbox;
       if(lbClose) lbClose.addEventListener('click', closeLightbox);
       if(lbPrev)  lbPrev .addEventListener('click', function(){ showImage(current.index-1); lbImg.src=current.images[current.index]; });
       if(lbNext)  lbNext .addEventListener('click', function(){ showImage(current.index+1); lbImg.src=current.images[current.index]; });
@@ -777,13 +774,26 @@
         $$('#gridProds [data-gallery]').forEach(function(card){ try{ const g=JSON.parse(card.getAttribute('data-gallery')||'[]'); prefetch(g); }catch(e){} });
       },300);
       $$('#gridProds [data-gallery]').forEach(card=>{
-        card.addEventListener('mouseenter', function(){ try{ const g=JSON.parse(card.getAttribute('data-gallery')||'[]'); prefetch(g); }catch(e){} }, {passive:true});
+        card.addEventListener('mouseenter', function(){
+          try{
+            const main = card.getAttribute('data-main');
+            const g = JSON.parse(card.getAttribute('data-gallery')||'[]');
+            const second = g && g[0] ? g[0] : null;
+            const imgEl = card.querySelector('img');
+            if(second && imgEl){ imgEl.dataset._orig = main; imgEl.src = second; }
+          }catch(e){}
+        }, {passive:true});
+        card.addEventListener('mouseleave', function(){
+          const imgEl = card.querySelector('img');
+          const orig = card.getAttribute('data-main');
+          if(imgEl && orig){ imgEl.src = orig; }
+        }, {passive:true});
       });
 
       /* PayPal email */
       const ppBusinessEl=$('#ppBusiness'); if(ppBusinessEl) ppBusinessEl.value='tu-correo-paypal@ejemplo.com';
 
-      /* Init seguro */
+      /* Init */
       updateHeaderUi();
       if(location.hash){ setTimeout(()=>{ scrollToId(location.hash); }, 50); }
       (function initCount(){ try{ const items=JSON.parse(localStorage.getItem('mu_cart')||'[]'); const n=items.reduce((s,i)=>s+i.qty,0); const cc=$('#cartCount'); if(cc) cc.textContent=n; }catch(_){ const cc=$('#cartCount'); if(cc) cc.textContent='0'; } })();
