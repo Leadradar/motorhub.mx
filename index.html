@@ -54,7 +54,6 @@
     header.site.is-scrolled .brand-title{font-size:18px}
     header.site.is-scrolled .header-wrap{padding:8px 0}
 
-    /* Compensación header fijo */
     section{scroll-margin-top:calc(var(--header-h) + 8px); content-visibility:auto; contain-intrinsic-size:auto 600px;}
 
     /* Hero */
@@ -83,7 +82,6 @@
     .pill{border:1px solid #000;background:#fff;border-radius:999px;padding:8px 12px;cursor:pointer;transition:border-color .15s, box-shadow .15s, background .15s}
     .pill:hover,.pill.is-active{background:var(--accent-weak);border-color:var(--accent);box-shadow:inset 0 0 0 2px var(--accent-weak)}
 
-    /* Grid centrado */
     #gridProds{justify-items:center; padding:0 8px}
     .prod{display:flex;flex-direction:column;cursor:pointer;transition:box-shadow .15s, border-color .15s; width:100%; max-width:500px; margin:0 4px; border:1px solid var(--line); border-radius:18px}
     .prod .img-wrap{position:relative; width:100%}
@@ -104,15 +102,13 @@
     .btn:hover{background:var(--accent-weak);border-color:var(--accent);box-shadow:inset 0 0 0 2px var(--accent-weak)}
     .close{border:none;background:#f3f3f3;border-radius:10px;padding:8px 10px;cursor:pointer}
 
-    /* Modal base */
+    /* Modal base y producto */
     .modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;padding:16px;z-index:60}
     .modal.open{display:flex}
     .modal-card{background:#fff;border-radius:18px;max-width:1120px;width:min(96vw,1120px);max-height:92vh;display:flex;flex-direction:column;overflow:hidden;border:1px solid var(--line);margin:auto}
     .modal-head{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid var(--line)}
     .modal-title{font:700 18px/1.2 Poppins,system-ui}
     .modal-body{display:grid;gap:16px;padding:16px;overflow:auto;align-items:start}
-
-    /* Modal producto refinado */
     @media(min-width:900px){.modal-body.prod{grid-template-columns:60% 40%}}
     .media-wrap{position:relative}
     .m-main{width:100%;max-height:80vh;object-fit:contain;border-radius:12px;background:#f7f7f7;cursor:zoom-in}
@@ -124,15 +120,11 @@
     .thumbs{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:8px}
     .thumbs img{width:100%;height:84px;object-fit:cover;border-radius:10px;border:2px solid transparent;cursor:pointer;background:#fafafa}
     .thumbs img.active{border-color:#000}
-
     .detail-col{display:flex;flex-direction:column;align-items:flex-start}
     .badge-price{display:inline-block;background:var(--accent-weak);border:1px solid var(--accent);border-radius:999px;padding:10px 14px;font:800 22px/1 Poppins,system-ui;margin:0 0 12px}
     .features{list-style:none;padding:0;margin:0 0 16px}
     .features li{position:relative;padding-left:22px;margin:8px 0}
     .features li::before{content:"";position:absolute;left:0;top:7px;width:10px;height:10px;border-radius:50%;background:var(--accent-weak);border:1px solid var(--accent)}
-    .qty{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:10px;overflow:hidden}
-    .qty button{background:#f6f6f6;border:none;padding:8px 10px;cursor:pointer}
-    .qty input{width:56px;text-align:center;border:none;padding:8px}
 
     /* Lightbox */
     .lightbox{position:fixed;inset:0;background:#000000eb;display:none;align-items:center;justify-content:center;z-index:80;touch-action:none}
@@ -332,7 +324,6 @@
         data-gallery='["img/soporte-antivibracion-01.jpg","img/soporte-antivibracion-02.jpg","img/soporte-antivibracion-03.jpg","img/soporte-antivibracion-04.jpg"]'>
         <div class="img-wrap">
           <img class="base-img" src="img/cat-soportes.jpg" alt="Soporte manillar antivibración" decoding="async" loading="lazy"/>
-          <!-- la hover-img se inyecta por JS si existe -->
         </div>
         <div class="pad">
           <div class="title">Soporte manillar antivibración</div>
@@ -674,7 +665,7 @@
         im.src=nextSrc;
       }
       function openModal(card){
-        let gallery=[]; try{ gallery=JSON.parse(card.getAttribute('data-gallery')||'[]'); }catch(e){}
+        let gallery=[]; try{ gallery=JSON.parse(card.getAttribute('data-gallery')||'[]'); }catch(e){ gallery=[]; }
         current={ name:card.dataset.name, priceText:card.dataset.price, price:parseInt((card.dataset.price||'').replace(/[^0-9]/g,''),10)||0, main:card.getAttribute('data-main')||'', images:[], index:0 };
         current.images=[current.main].concat(gallery.filter(Boolean));
         if(mTitle) mTitle.textContent=current.name||'Producto';
@@ -737,7 +728,7 @@
       /* Carrito */
       const cartBtn=$('#cartBtn'), cartModal=$('#cart'), cClose=$('#cClose'),
             cBody=$('#cBody'), cTotal=$('#cTotal'), cClear=$('#cClear'),
-            ppAmount=$('#ppAmount'), ppBusiness=$('#ppBusiness');
+            ppAmount=$('#ppAmount'), ppBusiness=$('#ppBusiness']);
       const PAYPAL_BUSINESS='tu-correo-paypal@ejemplo.com'; if(ppBusiness) ppBusiness.value=PAYPAL_BUSINESS;
 
       const STORAGE_KEY='mu_cart';
@@ -807,33 +798,47 @@
         a.addEventListener('click', function(e){ e.preventDefault(); const id=a.getAttribute('href'); if(id && id.length>1){ scrollToId(id); } });
       });
 
-      /* Prefetch galerías y HOVER con imagen secundaria superpuesta */
+      /* Prefetch galerías + HOVER robusto (fallback si no hay segunda) */
       function prefetch(arr){ arr.forEach(src=>{ const i=new Image(); i.decoding='async'; i.src=src; }); }
-      (window.requestIdleCallback||setTimeout)(function(){
+      (window.requestIdleCallback || function(cb){ return setTimeout(cb,0); })(function(){
         $$('#gridProds [data-gallery]').forEach(function(card){
-          try{
-            const g=JSON.parse(card.getAttribute('data-gallery')||'[]'); prefetch(g);
-            const second = g && g[0] ? g[0] : null;
-            const wrap = card.querySelector('.img-wrap');
-            if(second && wrap && !wrap.querySelector('.hover-img')){
-              const h = document.createElement('img');
-              h.className='hover-img';
-              h.alt='Vista secundaria';
-              h.loading='lazy'; h.decoding='async';
-              h.src=second;
-              wrap.appendChild(h);
-            }
-          }catch(e){}
+          let g=[]; try{ g=JSON.parse(card.getAttribute('data-gallery')||'[]'); }catch(e){ g=[]; }
+          prefetch(g);
+          const wrap = card.querySelector('.img-wrap');
+          const base = card.querySelector('.base-img');
+          const second = (g && g[0]) ? g[0] : (base ? base.getAttribute('src') : null);
+          if(wrap && second && !wrap.querySelector('.hover-img')){
+            const h = document.createElement('img');
+            h.className='hover-img';
+            h.alt=(card.dataset.name||'')+' vista';
+            h.loading='lazy'; h.decoding='async';
+            h.src=second;
+            wrap.appendChild(h);
+          }
         });
-      },300);
+      });
+
+      /* Delegación de CLICK para abrir modal (robusto) */
+      const grid = $('#gridProds');
+      if(grid){
+        grid.addEventListener('click', function(e){
+          const card = e.target.closest('article.prod');
+          if(!card || !grid.contains(card)) return;
+          openModal(card);
+        });
+      }
 
       /* PayPal email */
       const ppBusinessEl=$('#ppBusiness'); if(ppBusinessEl) ppBusinessEl.value='tu-correo-paypal@ejemplo.com';
 
-      /* Init seguro */
+      /* Init */
       updateHeaderUi();
       if(location.hash){ setTimeout(()=>{ scrollToId(location.hash); }, 50); }
-      (function initCount(){ try{ const items=JSON.parse(localStorage.getItem('mu_cart')||'[]'); const n=items.reduce((s,i)=>s+i.qty,0); const cc=$('#cartCount'); if(cc) cc.textContent=n; }catch(_){ const cc=$('#cartCount'); if(cc) cc.textContent='0'; } })();
+      try{
+        const items=JSON.parse(localStorage.getItem('mu_cart')||'[]');
+        const n=items.reduce((s,i)=>s+i.qty,0);
+        const cc=$('#cartCount'); if(cc) cc.textContent=n;
+      }catch(_){ const cc=$('#cartCount'); if(cc) cc.textContent='0'; }
     });
   </script>
 </body>
