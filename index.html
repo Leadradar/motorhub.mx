@@ -16,7 +16,7 @@
   <link rel="manifest" href="site.webmanifest" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700;800&display=swap" rel="stylesheet">
 
-  <!-- Preload para mejorar LCP -->
+  <!-- Preload -->
   <link rel="preload" as="image" href="img/logo.png">
   <link rel="preload" as="image" href="img/cat-soportes.jpg">
   <link rel="preload" as="image" href="img/cat-guantes.jpg">
@@ -43,12 +43,14 @@
     .brand-stack{display:flex;flex-direction:column;align-items:center;gap:6px}
     .brand-stack img{height:84px;width:auto}
     .brand-title{font:800 22px/1 Poppins,system-ui;text-align:center}
+    .flag-mx{margin-top:2px}
+    .flag-mx svg{width:22px;height:14px;display:block}
     nav.menu{display:flex;flex-wrap:wrap;gap:16px;justify-content:center;margin-top:6px}
     nav.menu a{padding:8px 10px;border-radius:10px;color:#444}
     nav.menu a:hover{background:#f3f3f3;color:#111}
     #cartBtn{font-weight:700}
 
-    /* Compensación header fijo al anclar */
+    /* Compensación header fijo */
     section{scroll-margin-top:220px}
 
     /* Hero */
@@ -61,11 +63,11 @@
     .hero-sub{font-size:clamp(14px,2.2vw,18px);color:#444;margin:2px 0 6px;text-align:center}
     h2{font-size:clamp(22px,3.6vw,34px);margin:0 0 10px;text-align:center}
     .sub{color:var(--muted);text-align:center}
-    .chips-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:center;margin-top:10px}
+    .chips-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:center;margin-top:14px}
     .chip{display:inline-flex;align-items:center;gap:8px;background:#fafafa;border:1px solid var(--line);color:#444;padding:8px 12px;border-radius:12px;white-space:nowrap}
 
     /* PayPal */
-    .paypal-row{display:flex;justify-content:center;margin-top:10px}
+    .paypal-row{display:flex;justify-content:center;margin-top:12px}
     .pp-badge{display:inline-flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:10px 16px}
     .pp-badge img{height:22px;display:block}
 
@@ -157,20 +159,23 @@
     .footer-legal .dot{opacity:.35}
     .copy{padding-bottom:20px;color:#666;text-align:center}
 
-    /* WhatsApp flotante — SIN RECORTAR IMG, fondo blanco igual que la web */
+    /* WhatsApp flotante — fondo blanco y máscara circular no destructiva */
     .floating-wa{
       position:fixed; right:16px; bottom:16px;
       width:64px; height:64px; border-radius:50%;
       display:flex; align-items:center; justify-content:center;
       background:#fff;               /* mismo blanco que la web */
-      border:1px solid #eee;         /* sutil para el borde del botón */
+      border:1px solid #eee;         /* sutil */
       box-shadow:0 10px 30px rgba(0,0,0,.12);
       z-index:45; cursor:pointer;
-      font-size:0; line-height:0;    /* nunca aparece texto */
+      font-size:0; line-height:0;
     }
     .floating-wa img{
-      width:44px; height:44px;       /* no recortamos el PNG */
-      display:block;
+      width:44px; height:44px; display:block;
+      /* máscara circular: no cambia tu archivo, solo oculta esquinas si existieran */
+      -webkit-mask-image: radial-gradient(#000 98%, transparent 100%);
+              mask-image: radial-gradient(#000 98%, transparent 100%);
+      -webkit-mask-repeat:no-repeat; mask-repeat:no-repeat;
     }
     .floating-wa *{ pointer-events:none }
 
@@ -186,6 +191,17 @@
       <div class="brand-stack">
         <img src="img/logo.png" alt="Logo MotoUrbano"/>
         <div class="brand-title">MotoUrbano MX</div>
+        <!-- Bandera de México -->
+        <div class="flag-mx" aria-label="México">
+          <!-- SVG MX -->
+          <svg viewBox="0 0 16 10" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Bandera de México">
+            <rect width="16" height="10" fill="#fff"/>
+            <rect width="5.333" height="10" x="0" y="0" fill="#006847"/>
+            <rect width="5.333" height="10" x="10.667" y="0" fill="#ce1126"/>
+            <!-- escudo simplificado -->
+            <circle cx="8" cy="5" r="1.2" fill="#a67c00"/>
+          </svg>
+        </div>
       </div>
       <nav class="menu" aria-label="Principal">
         <a href="#inicio">Inicio</a>
@@ -426,12 +442,12 @@
     </div>
   </footer>
 
-  <!-- WhatsApp flotante — usando tu PNG, sin recortes y fondo blanco -->
+  <!-- WhatsApp flotante -->
   <a class="floating-wa" href="https://wa.me/520000000000" target="_blank" rel="noopener" aria-label="WhatsApp">
     <img src="img/whatsapp.png" alt="WhatsApp" width="44" height="44" decoding="async">
   </a>
 
-  <!-- MODAL de producto -->
+  <!-- MODAL Producto -->
   <div class="modal" id="modal" aria-hidden="true">
     <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="mTitle">
       <div class="modal-head">
@@ -583,7 +599,7 @@
         qInput.value=1;
         modal.classList.add('open');
 
-        // Prefetch resto de galería
+        // Prefetch resto
         current.images.slice(1).forEach(function(src){ var i=new Image(); i.decoding='async'; i.src=src; });
       }
       function closeModal(){ modal.classList.remove('open'); }
@@ -601,7 +617,7 @@
         if(e.key==='ArrowRight') showImage(current.index+1);
       });
 
-      /* LIGHTBOX con zoom y swipe */
+      /* LIGHTBOX */
       function openLightbox(src,alt){ lbImg.src=src; lbImg.alt=alt||''; scale=1; tx=0; ty=0; applyTransform(); lightbox.classList.add('open'); }
       function closeLightbox(){ lightbox.classList.remove('open'); }
       lbClose.addEventListener('click', closeLightbox);
@@ -656,7 +672,7 @@
           cBody.innerHTML=items.map(function(i,idx){
             return '<div class="cart-item">'
               +'<img src="'+i.img+'" alt="'+i.name+'" loading="lazy" decoding="async">'
-              +'<div><div style="font-weight:700)">'+i.name+'</div><div class="sub">$'+i.price+' MXN c/u</div></div>'
+              +'<div><div style="font-weight:700">'+i.name+'</div><div class="sub">$'+i.price+' MXN c/u</div></div>'
               +'<div style="display:flex;align-items:center;gap:8px">'
               +  '<div class="qtyline">'
               +    '<button data-act="minus" data-idx="'+idx+'">−</button>'
@@ -705,7 +721,7 @@
 
       // Añadir al carrito
       function showToast(){ toast.classList.add('show'); setTimeout(function(){ toast.classList.remove('show'); }, 1400); }
-      mAdd.addEventListener('click', function(){
+      $('#mAdd').addEventListener('click', function(){
         var qty=Math.max(1, parseInt($('#qInput').value,10)||1);
         var items=readCart();
         var name=$('#mTitle').textContent;
@@ -716,7 +732,7 @@
         writeCart(items); updateCount(); openCart(); closeModal(); showToast();
       });
 
-      /* Scroll suave del menú */
+      /* Scroll suave menú */
       $$('.menu a[href^="#"]').forEach(function(a){
         a.addEventListener('click', function(e){
           e.preventDefault();
@@ -725,7 +741,7 @@
         });
       });
 
-      /* Prefetch de galerías (idle + hover) */
+      /* Prefetch de galerías */
       function prefetch(g){ g.forEach(function(src){ var i=new Image(); i.decoding='async'; i.src=src; }); }
       (window.requestIdleCallback||setTimeout)(function(){
         $$('#gridProds [data-gallery]').forEach(function(card){
