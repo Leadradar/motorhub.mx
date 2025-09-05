@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>MotoUrbano MX — Accesorios para tu moto</title>
-  <meta name="description" content="Accesorios para tu moto: fiables, precios claros y envío a todo México. Devoluciones en 14 días." />
+  <meta name="description" content="Accesorios para tu moto con precios claros y soporte por WhatsApp. Devoluciones en 14 días." />
   <meta name="theme-color" content="#ffffff" />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="MotoUrbano MX" />
@@ -141,11 +141,6 @@
     /* Trust bar */
     .trustbar{display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
 
-    /* FAQ */
-    #faq h2{margin-bottom:22px}
-    #faq .card{margin-top:26px}
-    #faq{padding-bottom:40px}
-
     /* Footer */
     footer.site{margin-top:48px;border-top:1px solid var(--line);background:#fff}
     .footer-head{display:flex;flex-direction:column;align-items:center;gap:6px;padding:18px 0 6px}
@@ -175,12 +170,10 @@
         <div class="brand-title">MotoUrbano MX</div>
         <!-- Bandera de México -->
         <div class="flag-mx" aria-label="México">
-          <!-- SVG MX -->
           <svg viewBox="0 0 16 10" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Bandera de México">
             <rect width="16" height="10" fill="#fff"/>
             <rect width="5.333" height="10" x="0" y="0" fill="#006847"/>
             <rect width="5.333" height="10" x="10.667" y="0" fill="#ce1126"/>
-            <!-- escudo simplificado -->
             <circle cx="8" cy="5" r="1.2" fill="#a67c00"/>
           </svg>
         </div>
@@ -203,13 +196,14 @@
         <img src="img/logo.png" alt="Logo MotoUrbano" decoding="async" fetchpriority="high"/>
       </div>
       <h1>Accesorios para tu moto</h1>
-      <p class="hero-sub">Accesorios fiables, precios claros y envío a todo México.</p>
+      <!-- Sub sin repetir envío -->
+      <p class="hero-sub">Pagos seguros y precios claros.</p>
 
       <div class="chips-row" aria-label="Sellos de confianza">
-        <span class="chip">💳 Pagos seguros</span>
-        <span class="chip">🚚 Envío a todo México</span>
-        <span class="chip">↩️ 14 días devolución</span>
-        <span class="chip">🚚 Envío gratis</span>
+        <span class="chip">💳 Pago fácil y seguro</span>
+        <span class="chip">🇲🇽 Envío a todo el país</span>
+        <span class="chip">🔄 Devolución en 14 días</span>
+        <span class="chip">🎁 Envío gratis</span>
       </div>
 
       <div class="paypal-row">
@@ -248,9 +242,9 @@
   <section class="container" style="padding:6px 0 16px">
     <div class="card shadow" style="padding:12px">
       <div class="trustbar">
-        <span class="chip">🛡️ Compra protegida</span>
-        <span class="chip">📦 Tracking del pedido</span>
-        <span class="chip">☎️ Atención por WhatsApp</span>
+        <span class="chip">💳 Pago 100% seguro</span>
+        <span class="chip">📄 Seguimiento con guía</span>
+        <span class="chip">💬 Atención por WhatsApp</span>
       </div>
     </div>
   </section>
@@ -368,11 +362,11 @@
     <div class="card shadow" style="padding:12px">
       <details style="background:#fff;border:1px solid var(--line);border-radius:12px;margin:10px 0;padding:10px">
         <summary style="cursor:pointer;font-weight:700">¿Cuánto tarda el envío?</summary>
-        <div class="sub" style="margin-top:8px">Entre 10 y 20 días hábiles según la zona. Recibirás notificaciones con el tracking del pedido.</div>
+        <div class="sub" style="margin-top:8px">Entre 10 y 20 días hábiles según la zona. Te compartimos la guía para que le des seguimiento.</div>
       </details>
       <details style="background:#fff;border:1px solid var(--line);border-radius:12px;margin:10px 0;padding:10px">
         <summary style="cursor:pointer;font-weight:700">¿Cómo funcionan las devoluciones?</summary>
-        <div class="sub" style="margin-top:8px">Tienes 14 días desde la entrega. Escríbenos por WhatsApp con tu número de pedido y te ayudamos con el proceso.</div>
+        <div class="sub" style="margin-top:8px">Tienes 14 días desde la entrega. Escríbenos por WhatsApp con tu número de pedido y te guiamos.</div>
       </details>
       <details style="background:#fff;border:1px solid var(--line);border-radius:12px;margin:10px 0;padding:10px">
         <summary style="cursor:pointer;font-weight:700">¿Qué métodos de pago aceptan?</summary>
@@ -389,7 +383,7 @@
     </div>
   </section>
 
-  <!-- FOOTER BÁSICO + ENLACES LEGALES -->
+  <!-- FOOTER -->
   <footer id="contacto" class="site">
     <div class="container footer-head">
       <img src="img/logo.png" alt="MotoUrbano"/>
@@ -398,10 +392,10 @@
     </div>
 
     <div class="container footer-legal" style="padding-bottom:6px">
-      <a href="#envios">Envíos</a><span class="dot">·</span>
-      <a href="#devoluciones">Devoluciones</a><span class="dot">·</span>
-      <a href="#privacidad">Privacidad</a><span class="dot">·</span>
-      <a href="#terminos">Términos</a>
+      <a href="#" data-legal="envios">Envíos</a><span class="dot">·</span>
+      <a href="#" data-legal="devoluciones">Devoluciones</a><span class="dot">·</span>
+      <a href="#" data-legal="privacidad">Privacidad</a><span class="dot">·</span>
+      <a href="#" data-legal="terminos">Términos</a>
     </div>
 
     <div class="container copy">
@@ -479,47 +473,19 @@
     </div>
   </div>
 
+  <!-- MODAL Legales (reutilizable) -->
+  <div class="modal" id="legalModal" aria-hidden="true">
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="legalTitle">
+      <div class="modal-head">
+        <div class="modal-title" id="legalTitle">Información legal</div>
+        <button class="close" id="legalClose" aria-label="Cerrar">✕</button>
+      </div>
+      <div class="modal-body" id="legalBody" style="padding:16px;display:block"></div>
+    </div>
+  </div>
+
   <!-- TOAST -->
   <div class="toast" id="toast" style="position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#111;color:#fff;padding:10px 14px;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.2);opacity:0;pointer-events:none;transition:opacity .25s, transform .25s;z-index:90">Añadido al carrito</div>
-
-  <!-- LEGALES -->
-  <section id="envios" class="container" style="padding:30px 0 10px">
-    <h2>Política de Envíos — MotoUrbano MX</h2>
-    <div class="card" style="padding:14px">
-      <p style="margin:8px 0">Realizamos envíos a todo México mediante mensajería certificada. Los tiempos de entrega estimados son de <strong>10 a 20 días hábiles</strong> según la zona del país.</p>
-      <p style="margin:8px 0">Una vez procesado el pedido, enviaremos el <strong>número de guía</strong> al correo facilitado. Es responsabilidad del cliente proporcionar datos de envío completos y correctos.</p>
-      <p style="margin:8px 0">En caso de retrasos atribuibles a la paquetería o causas de fuerza mayor, MotoUrbano MX mantendrá informado al cliente y brindará soporte para el seguimiento correspondiente.</p>
-      <p class="sub">Contacto: <a href="mailto:hola@motourbano.shop">hola@motourbano.shop</a></p>
-    </div>
-  </section>
-
-  <section id="devoluciones" class="container" style="padding:20px 0 10px">
-    <h2>Política de Devoluciones — MotoUrbano MX</h2>
-    <div class="card" style="padding:14px">
-      <p style="margin:8px 0">El cliente cuenta con un plazo de <strong>14 días naturales</strong> desde la recepción para solicitar la devolución de su compra.</p>
-      <p style="margin:8px 0">El artículo debe estar en su <strong>estado original</strong>, sin uso, con etiquetas y empaques completos. Se podrá requerir evidencia fotográfica previa a la autorización.</p>
-      <p style="margin:8px 0">Para iniciar el proceso, escribe a <a href="mailto:hola@motourbano.shop">hola@motourbano.shop</a> o contáctanos por WhatsApp indicando <strong>número de pedido</strong> y motivo. Te enviaremos instrucciones y dirección de retorno.</p>
-      <p style="margin:8px 0">Una vez recibido y verificado el producto, se gestionará el reembolso por el mismo medio de pago.</p>
-    </div>
-  </section>
-
-  <section id="privacidad" class="container" style="padding:20px 0 10px">
-    <h2>Aviso de Privacidad — MotoUrbano MX</h2>
-    <div class="card" style="padding:14px">
-      <p style="margin:8px 0">MotoUrbano MX trata los datos personales exclusivamente para <strong>gestión de pedidos, atención al cliente</strong> y comunicaciones relacionadas con la compra.</p>
-      <p style="margin:8px 0">Los datos se resguardan con medidas de seguridad administrativas y técnicas razonables. No se comparten con terceros salvo por obligación legal o para la correcta prestación del servicio (por ejemplo, paquetería y pasarela de pago).</p>
-      <p style="margin:8px 0">Puedes ejercer tus derechos de acceso, rectificación, cancelación u oposición escribiendo a <a href="mailto:hola@motourbano.shop">hola@motourbano.shop</a>.</p>
-    </div>
-  </section>
-
-  <section id="terminos" class="container" style="padding:20px 0 40px">
-    <h2>Términos y Condiciones — MotoUrbano MX</h2>
-    <div class="card" style="padding:14px">
-      <p style="margin:8px 0">El uso de este sitio implica la aceptación de estos términos. Los precios, promociones y disponibilidad pueden cambiar sin previo aviso.</p>
-      <p style="margin:8px 0">Las imágenes tienen carácter ilustrativo. En caso de error tipográfico o de disponibilidad, MotoUrbano MX se reserva el derecho de cancelar el pedido con reembolso íntegro.</p>
-      <p style="margin:8px 0">Cualquier controversia se resolverá conforme a la legislación aplicable. Para consultas, contáctanos en <a href="mailto:hola@motourbano.shop">hola@motourbano.shop</a>.</p>
-    </div>
-  </section>
 
   <script>
     document.addEventListener('DOMContentLoaded', function(){
@@ -771,8 +737,63 @@
         }, {passive:true});
       });
 
-      /* Init */
+      /* PAYPAL email */
       var ppBusiness = $('#ppBusiness'); if(ppBusiness) ppBusiness.value = 'tu-correo-paypal@ejemplo.com';
+
+      /* LEGALES en modal */
+      var legalData = {
+        envios: {
+          title: 'Política de Envíos — MotoUrbano MX',
+          body: '<p>Realizamos envíos a todo México mediante mensajería certificada. Los tiempos estimados son de <strong>10 a 20 días hábiles</strong> según tu zona.</p>'
+              + '<p>Al procesar tu pedido te compartiremos la <strong>guía</strong> por correo para que des seguimiento. Es importante ingresar datos de envío completos y correctos.</p>'
+              + '<p>Ante retrasos por paquetería o fuerza mayor, te mantendremos informado y daremos soporte.</p>'
+              + '<p class="sub">Contacto: <a href="mailto:hola@motourbano.shop">hola@motourbano.shop</a></p>'
+        },
+        devoluciones: {
+          title: 'Política de Devoluciones — MotoUrbano MX',
+          body: '<p>Cuentas con <strong>14 días naturales</strong> desde la recepción para solicitar devolución.</p>'
+              + '<p>El artículo debe estar en su <strong>estado original</strong>, sin uso y con empaques/etiquetas completos. Puede solicitarse evidencia fotográfica.</p>'
+              + '<p>Escríbenos a <a href="mailto:hola@motourbano.shop">hola@motourbano.shop</a> o por WhatsApp, indicando tu <strong>número de pedido</strong> y motivo. Te enviaremos instrucciones y dirección de retorno.</p>'
+              + '<p>Tras recibir y validar el producto, gestionamos el reembolso por el mismo medio de pago.</p>'
+        },
+        privacidad: {
+          title: 'Aviso de Privacidad — MotoUrbano MX',
+          body: '<p>Recabamos y tratamos datos personales únicamente para la <strong>gestión de pedidos</strong>, <strong>atención al cliente</strong> y comunicaciones relacionadas.</p>'
+              + '<p>Protegemos tus datos con medidas administrativas y técnicas razonables. Sólo los compartimos con terceros necesarios para prestar el servicio (paquetería, pasarela de pago) o por obligación legal.</p>'
+              + '<p>Para ejercer ARCO (acceso, rectificación, cancelación u oposición), escríbenos a <a href="mailto:hola@motourbano.shop">hola@motourbano.shop</a>.</p>'
+        },
+        terminos: {
+          title: 'Términos y Condiciones — MotoUrbano MX',
+          body: '<p>El uso de este sitio implica la aceptación de estos términos. Precios, promociones y disponibilidad pueden cambiar sin previo aviso.</p>'
+              + '<p>Las imágenes son ilustrativas. En caso de error tipográfico o falta de inventario, MotoUrbano MX podrá cancelar el pedido con reembolso íntegro.</p>'
+              + '<p>Controversias se resolverán conforme a la legislación aplicable. Contacto: <a href="mailto:hola@motourbano.shop">hola@motourbano.shop</a>.</p>'
+        }
+      };
+
+      var legalModal = $('#legalModal');
+      var legalTitle = $('#legalTitle');
+      var legalBody  = $('#legalBody');
+      var legalClose = $('#legalClose');
+
+      function openLegal(key){
+        var data = legalData[key]; if(!data) return;
+        legalTitle.textContent = data.title;
+        legalBody.innerHTML    = '<div class="sub" style="text-align:left">'+data.body+'</div>';
+        legalModal.classList.add('open');
+      }
+      function closeLegal(){ legalModal.classList.remove('open'); }
+
+      legalClose.addEventListener('click', closeLegal);
+      legalModal.addEventListener('click', function(e){ if(e.target===legalModal) closeLegal(); });
+
+      $$('.footer-legal [data-legal]').forEach(function(a){
+        a.addEventListener('click', function(e){
+          e.preventDefault();
+          openLegal(a.getAttribute('data-legal'));
+        });
+      });
+
+      /* FIN INIT */
       updateCount();
     });
   </script>
