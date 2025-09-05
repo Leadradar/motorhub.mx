@@ -54,6 +54,7 @@
     header.site.is-scrolled .brand-title{font-size:18px}
     header.site.is-scrolled .header-wrap{padding:8px 0}
 
+    /* Compensación header fijo */
     section{scroll-margin-top:calc(var(--header-h) + 8px); content-visibility:auto; contain-intrinsic-size:auto 600px;}
 
     /* Hero */
@@ -87,8 +88,9 @@
     .prod .img-wrap{position:relative; width:100%}
     .prod .img-wrap img{aspect-ratio:1/1;object-fit:cover;background:#f4f4f4; width:100%; height:auto; display:block; transition:opacity .18s ease}
     .prod .img-wrap img.hover-img{position:absolute; inset:0; opacity:0}
-    .prod:hover .img-wrap img.hover-img{opacity:1}
-    .prod:hover .img-wrap img.base-img{opacity:0}
+    /* SOLO si la tarjeta está lista (segunda imagen cargada) hacemos el swap */
+    .prod.ready:hover .img-wrap img.hover-img{opacity:1}
+    .prod.ready:hover .img-wrap img.base-img{opacity:0}
     .prod .pad{padding:12px; text-align:center}
     .prod .title{font-weight:700;line-height:1.25;margin:0 0 6px;font-size:16px}
     .prod .meta{display:flex;justify-content:center;align-items:center; gap:10px}
@@ -783,7 +785,7 @@
       });
       if(cClear) cClear.addEventListener('click', function(){ writeCart([]); updateCount(); renderCart(); });
 
-      function showToast(txt){ if(!toast) return; if(txt) toast.textContent=txt; toast.style.opacity='1'; toast.style.transform='translateX(-50%) translateY(-6px)'; setTimeout(()=>{ toast.style.opacity='0'; toast.style.transform='translateX(-50%)'; toast.textContent='Añadido al carrito'; }, 1400); }
+      function showToast(txt){ const t=$('#toast'); if(!t) return; if(txt) t.textContent=txt; t.style.opacity='1'; t.style.transform='translateX(-50%) translateY(-6px)'; setTimeout(()=>{ t.style.opacity='0'; t.style.transform='translateX(-50%)'; t.textContent='Añadido al carrito'; }, 1400); }
       if(mAdd) mAdd.addEventListener('click', function(){
         const qty=Math.max(1, parseInt(qInput.value,10)||1);
         const items=readCart(); const name=mTitle.textContent;
@@ -798,27 +800,25 @@
         a.addEventListener('click', function(e){ e.preventDefault(); const id=a.getAttribute('href'); if(id && id.length>1){ scrollToId(id); } });
       });
 
-      /* Prefetch galerías + HOVER robusto (fallback si no hay segunda) */
-      function prefetch(arr){ arr.forEach(src=>{ const i=new Image(); i.decoding='async'; i.src=src; }); }
-      (window.requestIdleCallback || function(cb){ return setTimeout(cb,0); })(function(){
-        $$('#gridProds [data-gallery]').forEach(function(card){
-          let g=[]; try{ g=JSON.parse(card.getAttribute('data-gallery')||'[]'); }catch(e){ g=[]; }
-          prefetch(g);
-          const wrap = card.querySelector('.img-wrap');
-          const base = card.querySelector('.base-img');
-          const second = (g && g[0]) ? g[0] : (base ? base.getAttribute('src') : null);
-          if(wrap && second && !wrap.querySelector('.hover-img')){
-            const h = document.createElement('img');
-            h.className='hover-img';
-            h.alt=(card.dataset.name||'')+' vista';
-            h.loading='lazy'; h.decoding='async';
-            h.src=second;
-            wrap.appendChild(h);
-          }
-        });
+      /* Prefetch + HOVER seguro: añadimos hover-img y marcamos .ready sólo cuando cargue */
+      $$('#gridProds article.prod').forEach(function(card){
+        let g=[]; try{ g=JSON.parse(card.getAttribute('data-gallery')||'[]'); }catch(e){ g=[]; }
+        const wrap = card.querySelector('.img-wrap');
+        const base = card.querySelector('.base-img');
+        const second = (g && g[0]) ? g[0] : (base ? base.getAttribute('src') : null);
+        if(wrap && second){
+          const h = document.createElement('img');
+          h.className='hover-img';
+          h.alt=(card.dataset.name||'')+' vista';
+          h.loading='lazy'; h.decoding='async';
+          h.style.opacity='0';
+          h.addEventListener('load', ()=> { h.style.opacity='0'; card.classList.add('ready'); }); // habilita swap
+          h.src=second;
+          wrap.appendChild(h);
+        }
       });
 
-      /* Delegación de CLICK para abrir modal (robusto) */
+      /* Delegación de CLICK + listener por tarjeta para abrir modal */
       const grid = $('#gridProds');
       if(grid){
         grid.addEventListener('click', function(e){
@@ -827,6 +827,9 @@
           openModal(card);
         });
       }
+      $$('#gridProds article.prod').forEach(card=>{
+        card.addEventListener('click', ()=> openModal(card));
+      });
 
       /* PayPal email */
       const ppBusinessEl=$('#ppBusiness'); if(ppBusinessEl) ppBusinessEl.value='tu-correo-paypal@ejemplo.com';
