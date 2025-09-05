@@ -25,7 +25,10 @@
   <link rel="preload" as="image" href="img/cat-rinoneras.jpg">
 
   <style>
-    :root{ --bg:#ffffff; --elev:#ffffff; --ink:#111; --muted:#666; --line:#eee; --accent:#e10600; }
+    :root{
+      --bg:#ffffff; --elev:#ffffff; --ink:#111; --muted:#666; --line:#eee; --accent:#e10600;
+      --header-pad-y:14px; --header-logo:84px; --header-title:22px; --header-h:220px;
+    }
     *{box-sizing:border-box}
     html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
     img{display:block;max-width:100%;height:auto;-webkit-user-drag:none;user-drag:none}
@@ -38,26 +41,41 @@
     .shadow{box-shadow:0 10px 30px rgba(0,0,0,.08)}
 
     /* Header */
-    header.site{position:sticky;top:0;z-index:40;background:#fff;border-bottom:1px solid var(--line)}
-    .header-wrap{display:flex;flex-direction:column;align-items:center;gap:8px;padding:14px 0}
+    header.site{
+      position:sticky; top:0; z-index:40; background:#fff; border-bottom:1px solid var(--line);
+      transition:padding .18s ease, box-shadow .18s ease;
+    }
+    .header-wrap{display:flex;flex-direction:column;align-items:center;gap:8px;padding:var(--header-pad-y) 0}
     .brand-stack{display:flex;flex-direction:column;align-items:center;gap:6px}
-    .brand-stack img{height:84px;width:auto}
-    .brand-title{font:800 22px/1 Poppins,system-ui;text-align:center}
+    .brand-stack img{height:var(--header-logo);width:auto;transition:height .18s ease}
+    .brand-title{font:800 var(--header-title)/1 Poppins,system-ui;text-align:center;transition:font-size .18s ease}
     .flag-mx{margin-top:2px}
     .flag-mx svg{width:22px;height:14px;display:block}
-    nav.menu{display:flex;flex-wrap:wrap;gap:16px;justify-content:center;margin-top:6px}
-    nav.menu a{padding:8px 10px;border-radius:10px;color:#444}
+    nav.menu{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:6px}
+    nav.menu a{padding:6px 10px;border-radius:10px;color:#444;font-size:14px}
     nav.menu a:hover{background:#f3f3f3;color:#111}
     #cartBtn{font-weight:700}
 
-    /* Compensación header fijo */
-    section{scroll-margin-top:220px}
-    @media(max-width:600px){ section{scroll-margin-top:140px} }
+    /* Header compacto en móvil y al hacer scroll */
+    @media(max-width:640px){
+      :root{ --header-pad-y:8px; --header-logo:60px; --header-title:18px;}
+      nav.menu{gap:8px}
+      nav.menu a{padding:5px 8px;font-size:13px}
+    }
+    header.site.is-scrolled{
+      box-shadow:0 6px 18px rgba(0,0,0,.06);
+    }
+    header.site.is-scrolled .brand-stack img{height:52px}
+    header.site.is-scrolled .brand-title{font-size:18px}
+    header.site.is-scrolled .header-wrap{padding:8px 0}
+
+    /* Compensación header fijo (se recalcula por JS) */
+    section{scroll-margin-top:calc(var(--header-h) + 8px)}
 
     /* Hero */
     .hero{border-bottom:1px solid var(--line);background:#fff}
-    .hero .wrap{display:flex;flex-direction:column;align-items:center;gap:14px;padding:40px 0}
-    .hero .logo-big img{width:360px;height:auto}
+    .hero .wrap{display:flex;flex-direction:column;align-items:center;gap:14px;padding:36px 0}
+    .hero .logo-big img{width:340px;height:auto}
     @media(min-width:1100px){.hero .logo-big img{width:400px}}
     @media(max-width:520px){.hero .logo-big img{width:220px}}
     h1{font-family:Poppins,system-ui;font-weight:800;letter-spacing:.2px;font-size:clamp(30px,5vw,52px);line-height:1.04;margin:.05em 0 .1em;text-align:center}
@@ -151,7 +169,13 @@
     .footer-legal{display:flex;gap:8px;align-items:center;justify-content:center;flex-wrap:wrap}
     .footer-legal .dot{opacity:.35}
 
-    /* WhatsApp flotante — SOLO PNG (sin fondo) */
+    /* Contacto mini-cards */
+    .contact-grid{display:grid;gap:12px;grid-template-columns:1fr;max-width:720px;margin:10px auto 0}
+    @media(min-width:640px){.contact-grid{grid-template-columns:repeat(3,1fr)}}
+    .contact-item{border:1px solid var(--line);border-radius:14px;padding:12px;text-align:center}
+    .contact-item a.btn{display:inline-block;margin-top:6px}
+
+    /* WhatsApp flotante — SOLO PNG */
     .floating-wa{
       position:fixed; right:16px; bottom:16px;
       width:64px; height:64px;
@@ -163,7 +187,7 @@
 </head>
 <body>
   <!-- HEADER -->
-  <header class="site">
+  <header class="site" id="siteHeader">
     <div class="container header-wrap">
       <div class="brand-stack">
         <img src="img/logo.png" alt="Logo MotoUrbano"/>
@@ -196,7 +220,7 @@
         <img src="img/logo.png" alt="Logo MotoUrbano" decoding="async" fetchpriority="high"/>
       </div>
       <h1>Accesorios para tu moto</h1>
-      <!-- Sub sin repetir envío -->
+      <!-- Sub sin repetir la idea de envío -->
       <p class="hero-sub">Pagos seguros y precios claros.</p>
 
       <div class="chips-row" aria-label="Sellos de confianza">
@@ -242,8 +266,8 @@
   <section class="container" style="padding:6px 0 16px">
     <div class="card shadow" style="padding:12px">
       <div class="trustbar">
-        <span class="chip">💳 Pago 100% seguro</span>
-        <span class="chip">📄 Seguimiento con guía</span>
+        <span class="chip">🔒 Pago 100% seguro</span>
+        <span class="chip">🧭 Rastreo con número de guía</span>
         <span class="chip">💬 Atención por WhatsApp</span>
       </div>
     </div>
@@ -357,12 +381,12 @@
   </section>
 
   <!-- PREGUNTAS FRECUENTES -->
-  <section id="faq" class="container" style="padding:26px 0 36px">
+  <section id="faq" class="container" style="padding:26px 0 10px">
     <h2>Preguntas frecuentes</h2>
     <div class="card shadow" style="padding:12px">
       <details style="background:#fff;border:1px solid var(--line);border-radius:12px;margin:10px 0;padding:10px">
         <summary style="cursor:pointer;font-weight:700">¿Cuánto tarda el envío?</summary>
-        <div class="sub" style="margin-top:8px">Entre 10 y 20 días hábiles según la zona. Te compartimos la guía para que le des seguimiento.</div>
+        <div class="sub" style="margin-top:8px">Entre 10 y 20 días hábiles según la zona. Te compartimos la guía para darle rastreo.</div>
       </details>
       <details style="background:#fff;border:1px solid var(--line);border-radius:12px;margin:10px 0;padding:10px">
         <summary style="cursor:pointer;font-weight:700">¿Cómo funcionan las devoluciones?</summary>
@@ -383,8 +407,31 @@
     </div>
   </section>
 
+  <!-- CONTACTO -->
+  <section id="contacto" class="container" style="padding:10px 0 36px">
+    <h2>Contacto</h2>
+    <p class="sub">¿Tienes dudas? Escríbenos y con gusto te ayudamos.</p>
+    <div class="contact-grid">
+      <div class="contact-item">
+        <strong>Email</strong>
+        <div class="sub">hola@motourbano.shop</div>
+        <a class="btn secondary" href="mailto:hola@motourbano.shop">Enviar correo</a>
+      </div>
+      <div class="contact-item">
+        <strong>WhatsApp</strong>
+        <div class="sub">Lun a Vie · 10:00–18:00</div>
+        <a class="btn" href="https://wa.me/520000000000" target="_blank" rel="noopener">Abrir WhatsApp</a>
+      </div>
+      <div class="contact-item">
+        <strong>Devoluciones</strong>
+        <div class="sub">Plazo de 14 días</div>
+        <a class="btn secondary" href="#" data-legal="devoluciones">Ver política</a>
+      </div>
+    </div>
+  </section>
+
   <!-- FOOTER -->
-  <footer id="contacto" class="site">
+  <footer class="site">
     <div class="container footer-head">
       <img src="img/logo.png" alt="MotoUrbano"/>
       <div class="footer-name">MotoUrbano MX</div>
@@ -492,20 +539,42 @@
       var $ = function(sel,ctx){ return (ctx||document).querySelector(sel); };
       var $$= function(sel,ctx){ return [].slice.call((ctx||document).querySelectorAll(sel)); };
 
+      /* ===== Header compacto y compensación dinámica ===== */
+      const header = $('#siteHeader');
+      function updateHeaderUi(){
+        const sc = window.scrollY||window.pageYOffset;
+        header.classList.toggle('is-scrolled', sc>8);
+        // Altura real del header para compensar anclas
+        const h = header.getBoundingClientRect().height;
+        document.documentElement.style.setProperty('--header-h', h+'px');
+      }
+      updateHeaderUi();
+      window.addEventListener('scroll', updateHeaderUi, {passive:true});
+      window.addEventListener('resize', updateHeaderUi);
+
+      // Helper scroll que siempre deja la sección al inicio visible
+      function scrollToId(id){
+        const el = document.querySelector(id);
+        if(!el) return;
+        const headerH = header.getBoundingClientRect().height;
+        const y = el.getBoundingClientRect().top + window.pageYOffset - headerH - 6;
+        window.scrollTo({top:y, behavior:'smooth'});
+      }
+
       var y = $('#year'); if(y) y.textContent = new Date().getFullYear();
 
-      /* FILTROS */
+      /* ===== FILTROS ===== */
       var filterPills = $$('#filters .pill');
       var prodCards   = $$('#gridProds [data-cat]');
       function applyFilter(cat){
         $$('#filters .pill').forEach(function(p){ p.classList.toggle('is-active', p.dataset.cat===cat); });
         prodCards.forEach(function(card){ card.classList.toggle('hidden', !(cat==='all' || card.dataset.cat===cat)); });
-        var prodSection = $('#productos'); if(prodSection){ prodSection.scrollIntoView({behavior:'smooth', block:'start'}); }
+        scrollToId('#productos');
       }
       filterPills.forEach(function(p){ p.addEventListener('click', function(){ applyFilter(p.dataset.cat); }); });
       $$('.js-cat').forEach(function(tile){ tile.addEventListener('click', function(){ applyFilter(tile.dataset.cat); }); });
 
-      /* MODAL PRODUCTO */
+      /* ===== MODAL PRODUCTO ===== */
       var modal=$('#modal'), mTitle=$('#mTitle'), mPrice=$('#mPrice'),
           mMain=$('#mMain'), mThumbs=$('#mThumbs'),
           mPrev=$('#mPrev'), mNext=$('#mNext'), mClose=$('#mClose'),
@@ -589,7 +658,7 @@
         if(e.key==='ArrowRight') showImage(current.index+1);
       });
 
-      /* LIGHTBOX */
+      /* ===== LIGHTBOX ===== */
       function openLightbox(src,alt){ lbImg.src=src; lbImg.alt=alt||''; scale=1; tx=0; ty=0; applyTransform(); lightbox.classList.add('open'); }
       function closeLightbox(){ lightbox.classList.remove('open'); }
       lbClose.addEventListener('click', closeLightbox);
@@ -623,7 +692,7 @@
         var now=Date.now(); if(now-lastTap<300){ scale=1; tx=0; ty=0; applyTransform(); } lastTap=now;
       });
 
-      /* CARRITO */
+      /* ===== CARRITO ===== */
       var cartBtn=$('#cartBtn'), cartModal=$('#cart'), cClose=$('#cClose'),
           cBody=$('#cBody'), cTotal=$('#cTotal'), cClear=$('#cClear'),
           ppAmount=$('#ppAmount'), ppBusiness=$('#ppBusiness');
@@ -715,16 +784,16 @@
         writeCart(items); updateCount(); openCart(); closeModal(); showToast();
       });
 
-      /* Scroll suave menú a inicio SIEMPRE */
+      /* ===== Scroll anclas: SIEMPRE al inicio exacto ===== */
       $$('.menu a[href^="#"]').forEach(function(a){
         a.addEventListener('click', function(e){
           e.preventDefault();
-          var target=document.querySelector(a.getAttribute('href'));
-          if(target){ target.scrollIntoView({behavior:'smooth', block:'start'}); }
+          const id=a.getAttribute('href');
+          if(id && id.length>1){ scrollToId(id); }
         });
       });
 
-      /* Prefetch de galerías */
+      /* ===== Prefetch de galerías ===== */
       function prefetch(g){ g.forEach(function(src){ var i=new Image(); i.decoding='async'; i.src=src; }); }
       (window.requestIdleCallback||setTimeout)(function(){
         $$('#gridProds [data-gallery]').forEach(function(card){
@@ -737,15 +806,15 @@
         }, {passive:true});
       });
 
-      /* PAYPAL email */
+      /* ===== PAYPAL email ===== */
       var ppBusiness = $('#ppBusiness'); if(ppBusiness) ppBusiness.value = 'tu-correo-paypal@ejemplo.com';
 
-      /* LEGALES en modal */
+      /* ===== LEGALES en modal (delegación robusta) ===== */
       var legalData = {
         envios: {
           title: 'Política de Envíos — MotoUrbano MX',
           body: '<p>Realizamos envíos a todo México mediante mensajería certificada. Los tiempos estimados son de <strong>10 a 20 días hábiles</strong> según tu zona.</p>'
-              + '<p>Al procesar tu pedido te compartiremos la <strong>guía</strong> por correo para que des seguimiento. Es importante ingresar datos de envío completos y correctos.</p>'
+              + '<p>Al procesar tu pedido te compartiremos la <strong>guía</strong> por correo para que des seguimiento.</p>'
               + '<p>Ante retrasos por paquetería o fuerza mayor, te mantendremos informado y daremos soporte.</p>'
               + '<p class="sub">Contacto: <a href="mailto:hola@motourbano.shop">hola@motourbano.shop</a></p>'
         },
@@ -753,20 +822,20 @@
           title: 'Política de Devoluciones — MotoUrbano MX',
           body: '<p>Cuentas con <strong>14 días naturales</strong> desde la recepción para solicitar devolución.</p>'
               + '<p>El artículo debe estar en su <strong>estado original</strong>, sin uso y con empaques/etiquetas completos. Puede solicitarse evidencia fotográfica.</p>'
-              + '<p>Escríbenos a <a href="mailto:hola@motourbano.shop">hola@motourbano.shop</a> o por WhatsApp, indicando tu <strong>número de pedido</strong> y motivo. Te enviaremos instrucciones y dirección de retorno.</p>'
+              + '<p>Escríbenos a <a href="mailto:hola@motourbano.shop">hola@motourbano.shop</a> o por WhatsApp indicando tu <strong>número de pedido</strong>.</p>'
               + '<p>Tras recibir y validar el producto, gestionamos el reembolso por el mismo medio de pago.</p>'
         },
         privacidad: {
           title: 'Aviso de Privacidad — MotoUrbano MX',
-          body: '<p>Recabamos y tratamos datos personales únicamente para la <strong>gestión de pedidos</strong>, <strong>atención al cliente</strong> y comunicaciones relacionadas.</p>'
-              + '<p>Protegemos tus datos con medidas administrativas y técnicas razonables. Sólo los compartimos con terceros necesarios para prestar el servicio (paquetería, pasarela de pago) o por obligación legal.</p>'
-              + '<p>Para ejercer ARCO (acceso, rectificación, cancelación u oposición), escríbenos a <a href="mailto:hola@motourbano.shop">hola@motourbano.shop</a>.</p>'
+          body: '<p>Tratamos datos personales para <strong>gestión de pedidos</strong>, <strong>atención al cliente</strong> y comunicaciones relacionadas.</p>'
+              + '<p>Protegemos tus datos con medidas razonables. Sólo los compartimos con terceros necesarios (paquetería, pasarela de pago) u obligación legal.</p>'
+              + '<p>Ejercer ARCO: <a href="mailto:hola@motourbano.shop">hola@motourbano.shop</a>.</p>'
         },
         terminos: {
           title: 'Términos y Condiciones — MotoUrbano MX',
-          body: '<p>El uso de este sitio implica la aceptación de estos términos. Precios, promociones y disponibilidad pueden cambiar sin previo aviso.</p>'
-              + '<p>Las imágenes son ilustrativas. En caso de error tipográfico o falta de inventario, MotoUrbano MX podrá cancelar el pedido con reembolso íntegro.</p>'
-              + '<p>Controversias se resolverán conforme a la legislación aplicable. Contacto: <a href="mailto:hola@motourbano.shop">hola@motourbano.shop</a>.</p>'
+          body: '<p>El uso de este sitio implica la aceptación de estos términos. Precios y disponibilidad pueden cambiar sin previo aviso.</p>'
+              + '<p>Imágenes ilustrativas. En caso de error o falta de inventario, se podrá cancelar con reembolso íntegro.</p>'
+              + '<p>Para consultas: <a href="mailto:hola@motourbano.shop">hola@motourbano.shop</a>.</p>'
         }
       };
 
@@ -782,18 +851,27 @@
         legalModal.classList.add('open');
       }
       function closeLegal(){ legalModal.classList.remove('open'); }
-
       legalClose.addEventListener('click', closeLegal);
       legalModal.addEventListener('click', function(e){ if(e.target===legalModal) closeLegal(); });
 
-      $$('.footer-legal [data-legal]').forEach(function(a){
-        a.addEventListener('click', function(e){
+      // Delegación para CUALQUIER enlace con data-legal (footer o tarjetas)
+      document.addEventListener('click', function(e){
+        const a = e.target.closest('a[data-legal]');
+        if(a){
           e.preventDefault();
           openLegal(a.getAttribute('data-legal'));
-        });
+        }
       });
 
-      /* FIN INIT */
+      /* ===== INIT ===== */
+      updateHeaderUi();
+      var y = $('#year'); if(y) y.textContent = new Date().getFullYear();
+      // Si se carga con hash en URL, aseguramos compensación
+      if(location.hash){ setTimeout(function(){ scrollToId(location.hash); }, 50); }
+
+      // Contador carrito
+      function updateCount(){ var items=readCart(); var n=items.reduce(function(s,i){return s+i.qty;},0); $('#cartCount').textContent=n; }
+      function readCart(){ try{ return JSON.parse(localStorage.getItem('mu_cart')||'[]'); }catch(e){ return []; } }
       updateCount();
     });
   </script>
