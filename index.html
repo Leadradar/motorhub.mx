@@ -52,6 +52,7 @@
 
     /* Compensación header fijo */
     section{scroll-margin-top:220px}
+    @media(max-width:600px){ section{scroll-margin-top:140px} }
 
     /* Hero */
     .hero{border-bottom:1px solid var(--line);background:#fff}
@@ -151,37 +152,18 @@
     .footer-head img{height:72px;width:auto}
     .footer-name{font:800 18px/1.1 Poppins,system-ui;text-align:center}
     .footer-tag{color:#666;text-align:center;margin-top:2px}
-    .footer-grid{display:grid;gap:18px;padding:20px 0}
-    @media(min-width:900px){.footer-grid{grid-template-columns:repeat(2,1fr)}}
-    .footer-col{text-align:center}
-    .footer-col h3{margin:0 0 6px;font:700 16px/1.2 Poppins,system-ui;text-align:center}
-    .footer-legal{display:flex;gap:8px;align-items:center;justify-content:center;flex-wrap:nowrap;overflow:auto;white-space:nowrap}
+    .copy{padding:10px 0 20px;color:#666;text-align:center}
+    .footer-legal{display:flex;gap:8px;align-items:center;justify-content:center;flex-wrap:wrap}
     .footer-legal .dot{opacity:.35}
-    .copy{padding-bottom:20px;color:#666;text-align:center}
 
-    /* WhatsApp flotante — fondo blanco y máscara circular no destructiva */
+    /* WhatsApp flotante — SOLO PNG (sin fondo) */
     .floating-wa{
       position:fixed; right:16px; bottom:16px;
-      width:64px; height:64px; border-radius:50%;
+      width:64px; height:64px;
       display:flex; align-items:center; justify-content:center;
-      background:#fff;               /* mismo blanco que la web */
-      border:1px solid #eee;         /* sutil */
-      box-shadow:0 10px 30px rgba(0,0,0,.12);
       z-index:45; cursor:pointer;
-      font-size:0; line-height:0;
     }
-    .floating-wa img{
-      width:44px; height:44px; display:block;
-      /* máscara circular: no cambia tu archivo, solo oculta esquinas si existieran */
-      -webkit-mask-image: radial-gradient(#000 98%, transparent 100%);
-              mask-image: radial-gradient(#000 98%, transparent 100%);
-      -webkit-mask-repeat:no-repeat; mask-repeat:no-repeat;
-    }
-    .floating-wa *{ pointer-events:none }
-
-    /* Toast */
-    .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#111;color:#fff;padding:10px 14px;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.2);opacity:0;pointer-events:none;transition:opacity .25s, transform .25s;z-index:90}
-    .toast.show{opacity:1;transform:translateX(-50%) translateY(-6px)}
+    .floating-wa img{ width:64px; height:64px; display:block; }
   </style>
 </head>
 <body>
@@ -207,7 +189,7 @@
         <a href="#inicio">Inicio</a>
         <a href="#categorias">Categorías</a>
         <a href="#productos">Productos</a>
-        <a href="#faq">FAQ</a>
+        <a href="#faq">Preguntas frecuentes</a>
         <a href="#contacto">Contacto</a>
         <a href="#" id="cartBtn">Carrito (<span id="cartCount">0</span>)</a>
       </nav>
@@ -292,7 +274,7 @@
       <article class="card prod shadow"
         data-cat="soportes"
         data-name="Soporte manillar antivibración"
-        data-price="$699 MXN"
+        data-price="$499 MXN"
         data-desc="Sujeción firme · Absorción de vibraciones · Compatible con la mayoría de manillares"
         data-main="img/cat-soportes.jpg"
         data-gallery='["img/soporte-antivibracion-01.jpg","img/soporte-antivibracion-02.jpg","img/soporte-antivibracion-03.jpg","img/soporte-antivibracion-04.jpg"]'>
@@ -300,7 +282,7 @@
         <div class="pad">
           <div class="title">Soporte manillar antivibración</div>
           <div class="meta">
-            <span class="price">$699 MXN</span>
+            <span class="price">$499 MXN</span>
             <span class="stars">★★★★★ <span style="opacity:.7">(demo)</span></span>
           </div>
         </div>
@@ -331,7 +313,7 @@
         data-price="$299 MXN"
         data-desc="Alta visibilidad · Ajuste sencillo · Ligero"
         data-main="img/cat-chalecos.jpg"
-        data-gallery='["img/chaleco-fosforito-01.jpg","img/chaleco-fosforito-02.jpg"]'>
+        data-gallery='["img/chaleco-fosforito-01.jpg","img/chaleco-fosporito-02.jpg"]'>
         <img src="img/cat-chalecos.jpg" alt="Chaleco reflectante" decoding="async"/>
         <div class="pad">
           <div class="title">Chaleco reflectante</div>
@@ -380,38 +362,34 @@
     </div>
   </section>
 
-  <!-- FAQ -->
+  <!-- PREGUNTAS FRECUENTES -->
   <section id="faq" class="container" style="padding:26px 0 36px">
     <h2>Preguntas frecuentes</h2>
     <div class="card shadow" style="padding:12px">
       <details style="background:#fff;border:1px solid var(--line);border-radius:12px;margin:10px 0;padding:10px">
         <summary style="cursor:pointer;font-weight:700">¿Cuánto tarda el envío?</summary>
-        <div class="sub" style="margin-top:8px">Entre 10 y 20 días laborables según la zona. Recibirás emails con el estado del pedido.</div>
+        <div class="sub" style="margin-top:8px">Entre 10 y 20 días hábiles según la zona. Recibirás notificaciones con el tracking del pedido.</div>
       </details>
       <details style="background:#fff;border:1px solid var(--line);border-radius:12px;margin:10px 0;padding:10px">
         <summary style="cursor:pointer;font-weight:700">¿Cómo funcionan las devoluciones?</summary>
-        <div class="sub" style="margin-top:8px">Tienes 14 días desde la recepción. Escríbenos por WhatsApp con tu número de pedido.</div>
+        <div class="sub" style="margin-top:8px">Tienes 14 días desde la entrega. Escríbenos por WhatsApp con tu número de pedido y te ayudamos con el proceso.</div>
       </details>
       <details style="background:#fff;border:1px solid var(--line);border-radius:12px;margin:10px 0;padding:10px">
         <summary style="cursor:pointer;font-weight:700">¿Qué métodos de pago aceptan?</summary>
-        <div class="sub" style="margin-top:8px">PayPal y tarjetas. Pronto añadiremos más opciones.</div>
+        <div class="sub" style="margin-top:8px">PayPal y tarjetas bancarias. Pronto añadiremos más opciones.</div>
       </details>
       <details style="background:#fff;border:1px solid var(--line);border-radius:12px;margin:10px 0;padding:10px">
         <summary style="cursor:pointer;font-weight:700">¿Puedo pedir factura?</summary>
-        <div class="sub" style="margin-top:8px">Sí. Escríbenos por WhatsApp con tus datos fiscales y el número de pedido.</div>
+        <div class="sub" style="margin-top:8px">Sí. Envíanos tus datos fiscales a <strong>hola@motourbano.shop</strong> junto con el número de pedido.</div>
       </details>
       <details style="background:#fff;border:1px solid var(--line);border-radius:12px;margin:10px 0;padding:10px">
         <summary style="cursor:pointer;font-weight:700">¿Los productos tienen garantía?</summary>
-        <div class="sub" style="margin-top:8px">Garantía de 6 meses por defectos de fábrica. Si pasa algo, lo resolvemos.</div>
-      </details>
-      <details style="background:#fff;border:1px solid var(--line);border-radius:12px;margin:10px 0;padding:10px">
-        <summary style="cursor:pointer;font-weight:700">¿Cómo consulto el estatus del pedido?</summary>
-        <div class="sub" style="margin-top:8px">Te enviaremos el tracking por email. Si lo necesitas, pídenoslo por WhatsApp.</div>
+        <div class="sub" style="margin-top:8px">Sí, garantía de 6 meses por defectos de fábrica.</div>
       </details>
     </div>
   </section>
 
-  <!-- FOOTER -->
+  <!-- FOOTER BÁSICO + ENLACES LEGALES -->
   <footer id="contacto" class="site">
     <div class="container footer-head">
       <img src="img/logo.png" alt="MotoUrbano"/>
@@ -419,32 +397,21 @@
       <div class="footer-tag">Accesorios urbanos, prácticos y fiables. Envío a todo México.</div>
     </div>
 
-    <div class="container footer-grid">
-      <div class="footer-col">
-        <h3>Legal</h3>
-        <div class="footer-legal">
-          <a href="#envios">Envíos</a><span class="dot">·</span>
-          <a href="#devoluciones">Devoluciones</a><span class="dot">·</span>
-          <a href="#privacidad">Privacidad</a><span class="dot">·</span>
-          <a href="#terminos">Términos</a>
-        </div>
-      </div>
-      <div class="footer-col">
-        <h3>Atención</h3>
-        <p class="sub">Lun–Vie · 10:00–18:00</p>
-        <p class="sub">Email: <a href="mailto:hola@motourbano.shop">hola@motourbano.shop</a></p>
-        <p class="sub">WhatsApp: <a href="https://wa.me/520000000000" target="_blank" rel="noopener">+52 000 000 0000</a></p>
-      </div>
+    <div class="container footer-legal" style="padding-bottom:6px">
+      <a href="#envios">Envíos</a><span class="dot">·</span>
+      <a href="#devoluciones">Devoluciones</a><span class="dot">·</span>
+      <a href="#privacidad">Privacidad</a><span class="dot">·</span>
+      <a href="#terminos">Términos</a>
     </div>
 
     <div class="container copy">
-      <small>© <span id="year"></span> MotoUrbano MX. Todos los derechos reservados.</small>
+      <small>© <span id="year"></span> MotoUrbano MX</small>
     </div>
   </footer>
 
   <!-- WhatsApp flotante -->
   <a class="floating-wa" href="https://wa.me/520000000000" target="_blank" rel="noopener" aria-label="WhatsApp">
-    <img src="img/whatsapp.png" alt="WhatsApp" width="44" height="44" decoding="async">
+    <img src="img/whatsapp.png" alt="WhatsApp" width="64" height="64" decoding="async">
   </a>
 
   <!-- MODAL Producto -->
@@ -513,7 +480,46 @@
   </div>
 
   <!-- TOAST -->
-  <div class="toast" id="toast">Añadido al carrito</div>
+  <div class="toast" id="toast" style="position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#111;color:#fff;padding:10px 14px;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.2);opacity:0;pointer-events:none;transition:opacity .25s, transform .25s;z-index:90">Añadido al carrito</div>
+
+  <!-- LEGALES -->
+  <section id="envios" class="container" style="padding:30px 0 10px">
+    <h2>Política de Envíos — MotoUrbano MX</h2>
+    <div class="card" style="padding:14px">
+      <p style="margin:8px 0">Realizamos envíos a todo México mediante mensajería certificada. Los tiempos de entrega estimados son de <strong>10 a 20 días hábiles</strong> según la zona del país.</p>
+      <p style="margin:8px 0">Una vez procesado el pedido, enviaremos el <strong>número de guía</strong> al correo facilitado. Es responsabilidad del cliente proporcionar datos de envío completos y correctos.</p>
+      <p style="margin:8px 0">En caso de retrasos atribuibles a la paquetería o causas de fuerza mayor, MotoUrbano MX mantendrá informado al cliente y brindará soporte para el seguimiento correspondiente.</p>
+      <p class="sub">Contacto: <a href="mailto:hola@motourbano.shop">hola@motourbano.shop</a></p>
+    </div>
+  </section>
+
+  <section id="devoluciones" class="container" style="padding:20px 0 10px">
+    <h2>Política de Devoluciones — MotoUrbano MX</h2>
+    <div class="card" style="padding:14px">
+      <p style="margin:8px 0">El cliente cuenta con un plazo de <strong>14 días naturales</strong> desde la recepción para solicitar la devolución de su compra.</p>
+      <p style="margin:8px 0">El artículo debe estar en su <strong>estado original</strong>, sin uso, con etiquetas y empaques completos. Se podrá requerir evidencia fotográfica previa a la autorización.</p>
+      <p style="margin:8px 0">Para iniciar el proceso, escribe a <a href="mailto:hola@motourbano.shop">hola@motourbano.shop</a> o contáctanos por WhatsApp indicando <strong>número de pedido</strong> y motivo. Te enviaremos instrucciones y dirección de retorno.</p>
+      <p style="margin:8px 0">Una vez recibido y verificado el producto, se gestionará el reembolso por el mismo medio de pago.</p>
+    </div>
+  </section>
+
+  <section id="privacidad" class="container" style="padding:20px 0 10px">
+    <h2>Aviso de Privacidad — MotoUrbano MX</h2>
+    <div class="card" style="padding:14px">
+      <p style="margin:8px 0">MotoUrbano MX trata los datos personales exclusivamente para <strong>gestión de pedidos, atención al cliente</strong> y comunicaciones relacionadas con la compra.</p>
+      <p style="margin:8px 0">Los datos se resguardan con medidas de seguridad administrativas y técnicas razonables. No se comparten con terceros salvo por obligación legal o para la correcta prestación del servicio (por ejemplo, paquetería y pasarela de pago).</p>
+      <p style="margin:8px 0">Puedes ejercer tus derechos de acceso, rectificación, cancelación u oposición escribiendo a <a href="mailto:hola@motourbano.shop">hola@motourbano.shop</a>.</p>
+    </div>
+  </section>
+
+  <section id="terminos" class="container" style="padding:20px 0 40px">
+    <h2>Términos y Condiciones — MotoUrbano MX</h2>
+    <div class="card" style="padding:14px">
+      <p style="margin:8px 0">El uso de este sitio implica la aceptación de estos términos. Los precios, promociones y disponibilidad pueden cambiar sin previo aviso.</p>
+      <p style="margin:8px 0">Las imágenes tienen carácter ilustrativo. En caso de error tipográfico o de disponibilidad, MotoUrbano MX se reserva el derecho de cancelar el pedido con reembolso íntegro.</p>
+      <p style="margin:8px 0">Cualquier controversia se resolverá conforme a la legislación aplicable. Para consultas, contáctanos en <a href="mailto:hola@motourbano.shop">hola@motourbano.shop</a>.</p>
+    </div>
+  </section>
 
   <script>
     document.addEventListener('DOMContentLoaded', function(){
@@ -526,7 +532,7 @@
       var filterPills = $$('#filters .pill');
       var prodCards   = $$('#gridProds [data-cat]');
       function applyFilter(cat){
-        filterPills.forEach(function(p){ p.classList.toggle('is-active', p.dataset.cat===cat); });
+        $$('#filters .pill').forEach(function(p){ p.classList.toggle('is-active', p.dataset.cat===cat); });
         prodCards.forEach(function(card){ card.classList.toggle('hidden', !(cat==='all' || card.dataset.cat===cat)); });
         var prodSection = $('#productos'); if(prodSection){ prodSection.scrollIntoView({behavior:'smooth', block:'start'}); }
       }
@@ -717,10 +723,21 @@
         var v=Math.max(1, parseInt(inp.value,10)||1);
         items[idx].qty=v; writeCart(items); updateCount(); renderCart();
       });
-      cClear.addEventListener('click', function(){ writeCart([]); updateCount(); renderCart(); });
+      if($('#cClear')) $('#cClear').addEventListener('click', function(){ writeCart([]); updateCount(); renderCart(); });
 
       // Añadir al carrito
-      function showToast(){ toast.classList.add('show'); setTimeout(function(){ toast.classList.remove('show'); }, 1400); }
+      function showToast(){
+        var t=$('#toast');
+        if(!t) return;
+        t.classList.add('show');
+        t.style.opacity='1';
+        t.style.transform='translateX(-50%) translateY(-6px)';
+        setTimeout(function(){
+          t.classList.remove('show');
+          t.style.opacity='0';
+          t.style.transform='translateX(-50%)';
+        }, 1400);
+      }
       $('#mAdd').addEventListener('click', function(){
         var qty=Math.max(1, parseInt($('#qInput').value,10)||1);
         var items=readCart();
@@ -732,7 +749,7 @@
         writeCart(items); updateCount(); openCart(); closeModal(); showToast();
       });
 
-      /* Scroll suave menú */
+      /* Scroll suave menú a inicio SIEMPRE */
       $$('.menu a[href^="#"]').forEach(function(a){
         a.addEventListener('click', function(e){
           e.preventDefault();
