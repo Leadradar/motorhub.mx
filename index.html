@@ -19,36 +19,24 @@
   <style>
     :root{
       --bg:#ffffff; --elev:#ffffff; --ink:#0b0b0b; --muted:#5d5d5d; --line:#e9e9e9;
-      --accent:#cf0a0a;           /* rojo elegante */
-      --accent-weak:#fbecec;      /* rojo suave para fondo/sombra */
-      --shadow:0 10px 30px rgba(0,0,0,.08);
-
+      --accent:#cf0a0a; --accent-weak:#fbecec; --shadow:0 10px 30px rgba(0,0,0,.08);
       --header-pad-y:14px; --header-logo:84px; --header-title:22px; --header-h:220px;
     }
-
     *{box-sizing:border-box}
     html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
     img{display:block;max-width:100%;height:auto;-webkit-user-drag:none;user-drag:none}
     a{color:inherit;text-decoration:none}
-    .container{max-width:1200px;margin:0 auto;padding:0 20px}
+    .container{max-width:1200px;margin:0 auto;padding:0 24px}
     .grid{display:grid;gap:16px}
     @media(min-width:700px){.grid.cols-2{grid-template-columns:repeat(2,1fr)}}
     @media(min-width:900px){.grid.cols-3{grid-template-columns:repeat(3,1fr)}.grid.cols-4{grid-template-columns:repeat(4,1fr)}.grid.cols-5{grid-template-columns:repeat(5,1fr)}}
     .card{background:var(--elev);border:1px solid var(--line);border-radius:18px;overflow:hidden}
     .shadow{box-shadow:var(--shadow)}
 
-    /* Utilidad acento permanente */
-    .accent-perma{
-      background:var(--accent-weak)!important;
-      border-color:var(--accent)!important;
-      box-shadow:inset 0 0 0 2px var(--accent-weak)!important;
-    }
+    .accent-perma{background:var(--accent-weak)!important;border-color:var(--accent)!important;box-shadow:inset 0 0 0 2px var(--accent-weak)!important}
 
     /* Header */
-    header.site{
-      position:sticky; top:0; z-index:40; background:#fff; border-bottom:1px solid var(--line);
-      transition:padding .18s ease, box-shadow .18s ease;
-    }
+    header.site{position:sticky; top:0; z-index:40; background:#fff; border-bottom:1px solid var(--line); transition:padding .18s ease, box-shadow .18s ease}
     .header-wrap{display:flex;flex-direction:column;align-items:center;gap:8px;padding:var(--header-pad-y) 0}
     .brand-stack{display:flex;flex-direction:column;align-items:center;gap:6px}
     .brand-stack img{height:var(--header-logo);width:auto;transition:height .18s ease}
@@ -56,26 +44,12 @@
     .flag-mx{margin-top:2px}
     .flag-mx svg{width:22px;height:14px;display:block}
     nav.menu{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:6px}
-    nav.menu a{
-      padding:6px 10px;border-radius:10px;color:#333;font-size:14px;border:1px solid transparent;
-      transition:background .15s ease, border-color .15s ease, box-shadow .15s ease;
-    }
-    nav.menu a:hover,
-    nav.menu a.is-active{
-      background:var(--accent-weak);
-      border-color:var(--accent);
-      box-shadow:inset 0 0 0 2px var(--accent-weak);
-    }
+    nav.menu a{padding:6px 10px;border-radius:10px;color:#333;font-size:14px;border:1px solid transparent;transition:background .15s, border-color .15s, box-shadow .15s}
+    nav.menu a:hover,nav.menu a.is-active{background:var(--accent-weak);border-color:var(--accent);box-shadow:inset 0 0 0 2px var(--accent-weak)}
     nav.menu a:focus-visible{outline:2px solid var(--accent)}
     #cartBtn{font-weight:700}
-
-    /* Header compacto */
-    @media(max-width:640px){
-      :root{ --header-pad-y:8px; --header-logo:60px; --header-title:18px;}
-      nav.menu{gap:8px}
-      nav.menu a{padding:5px 8px;font-size:13px}
-    }
-    header.site.is-scrolled{ box-shadow:0 6px 18px rgba(0,0,0,.06); }
+    @media(max-width:640px){:root{ --header-pad-y:8px; --header-logo:60px; --header-title:18px;} nav.menu{gap:8px} nav.menu a{padding:5px 8px;font-size:13px}}
+    header.site.is-scrolled{ box-shadow:0 6px 18px rgba(0,0,0,.06)}
     header.site.is-scrolled .brand-stack img{height:52px}
     header.site.is-scrolled .brand-title{font-size:18px}
     header.site.is-scrolled .header-wrap{padding:8px 0}
@@ -96,11 +70,6 @@
     .chips-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:center;margin-top:14px}
     .chip{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);color:#333;padding:8px 12px;border-radius:12px;white-space:nowrap}
 
-    /* PayPal */
-    .paypal-row{display:flex;justify-content:center;margin-top:12px}
-    .pp-badge{display:inline-flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:10px 16px}
-    .pp-badge img{height:22px;display:block}
-
     /* Categorías */
     #categorias h2,#categorias .sub{text-align:center}
     .tile{position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:#fff;cursor:pointer;transition:box-shadow .15s, outline-color .15s}
@@ -109,16 +78,14 @@
     .tile:hover{outline:2px solid var(--accent); box-shadow:inset 0 0 0 2px var(--accent-weak)}
 
     /* Productos + filtros */
+    #productos{padding-bottom:30px}
     #productos .filters{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:12px 0 6px}
-    .pill{
-      border:1px solid #000;background:#fff;border-radius:999px;padding:8px 12px;cursor:pointer;
-      transition:border-color .15s, box-shadow .15s, background .15s;
-    }
+    .pill{border:1px solid #000;background:#fff;border-radius:999px;padding:8px 12px;cursor:pointer;transition:border-color .15s, box-shadow .15s, background .15s}
     .pill:hover,.pill.is-active{background:var(--accent-weak);border-color:var(--accent);box-shadow:inset 0 0 0 2px var(--accent-weak)}
 
-    /* Centramos los “recuadros” de productos */
-    #gridProds{justify-items:center}
-    .prod{display:flex;flex-direction:column;cursor:pointer;transition:box-shadow .15s, outline-color .15s; width:100%; max-width:500px}
+    /* Grid centrado + aire lateral para que no “se corte” el acento */
+    #gridProds{justify-items:center; padding:0 8px}
+    .prod{display:flex;flex-direction:column;cursor:pointer;transition:box-shadow .15s, outline-color .15s; width:100%; max-width:500px; margin:0 4px}
     .prod img{aspect-ratio:1/1;object-fit:cover;background:#f4f4f4}
     .prod .pad{padding:12px; text-align:center}
     .prod .title{font-weight:700;line-height:1.25;margin:0 0 6px;font-size:16px}
@@ -128,38 +95,36 @@
     .prod:hover{outline:2px solid var(--accent); box-shadow:inset 0 0 0 2px var(--accent-weak)}
     .hidden{display:none !important}
 
-    /* Botones (perma rojo) */
-    .btn{
-      display:inline-flex;align-items:center;gap:8px;
-      background:#fff;color:#000;border:1px solid var(--accent);border-radius:12px;padding:10px 14px;cursor:pointer;
-      transition:background .15s,border-color .15s, box-shadow .15s;
-    }
+    /* Botones */
+    .btn{display:inline-flex;align-items:center;gap:8px;background:#fff;color:#000;border:1px solid var(--accent);border-radius:12px;padding:10px 14px;cursor:pointer;transition:background .15s,border-color .15s, box-shadow .15s}
     .btn:hover{background:var(--accent-weak);border-color:var(--accent);box-shadow:inset 0 0 0 2px var(--accent-weak)}
     .close{border:none;background:#f3f3f3;border-radius:10px;padding:8px 10px;cursor:pointer}
 
     /* Modal base */
     .modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;padding:16px;z-index:60}
     .modal.open{display:flex}
-    .modal-card{background:#fff;border-radius:18px;max-width:920px;width:96%;max-height:92vh;display:flex;flex-direction:column;overflow:hidden;border:1px solid var(--line)}
-    .modal-head{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-bottom:1px solid var(--line)}
-    .modal-title{font:700 18px/1.2 Poppins,system-ui}
-    .modal-body{display:grid;gap:14px;padding:14px;overflow:auto}
+    .modal-card{background:#fff;border-radius:18px;max-width:1100px;width:min(96vw,1100px);max-height:92vh;display:flex;flex-direction:column;overflow:hidden;border:1px solid var(--line)}
 
-    /* Modal producto */
-    @media(min-width:900px){.modal-body.prod{grid-template-columns:1.05fr .95fr}}
+    .modal-head{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid var(--line)}
+    .modal-title{font:700 18px/1.2 Poppins,system-ui}
+
+    .modal-body{display:grid;gap:14px;padding:16px;overflow:auto}
+
+    /* Modal producto mejorado */
+    @media(min-width:900px){.modal-body.prod{grid-template-columns:1fr 1fr}}
     .media-wrap{position:relative}
-    .m-main{width:100%;max-height:48vh;object-fit:contain;border-radius:12px;background:#f7f7f7;cursor:zoom-in}
+    .m-main{width:100%;max-height:70vh;object-fit:contain;border-radius:12px;background:#f7f7f7;cursor:zoom-in}
     .m-main.is-loading{background:linear-gradient(90deg,#f3f3f3 25%,#e9e9e9 37%,#f3f3f3 63%);background-size:400% 100%;animation:sheen 1.2s infinite}
     @keyframes sheen{0%{background-position:100% 0}100%{background-position:0 0}}
     .nav-arrow{position:absolute;top:50%;transform:translateY(-50%);background:#ffffffcc;border:1px solid var(--line);border-radius:12px;padding:8px 10px;cursor:pointer}
     .nav-arrow.prev{left:8px}
     .nav-arrow.next{right:8px}
     .thumbs{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:8px}
-    .thumbs img{width:100%;height:70px;object-fit:cover;border-radius:10px;border:2px solid transparent;cursor:pointer;background:#fafafa}
+    .thumbs img{width:100%;height:84px;object-fit:cover;border-radius:10px;border:2px solid transparent;cursor:pointer;background:#fafafa}
     .thumbs img.active{border-color:#000}
-    .badge-price{display:inline-block;background:var(--accent-weak);border:1px solid var(--accent);border-radius:999px;padding:8px 12px;font:800 20px/1 Poppins,system-ui;margin:0 0 12px}
+    .badge-price{display:inline-block;background:var(--accent-weak);border:1px solid var(--accent);border-radius:999px;padding:10px 14px;font:800 22px/1 Poppins,system-ui;margin:0 0 12px}
     .features{list-style:none;padding:0;margin:0 0 16px}
-    .features li{position:relative;padding-left:22px;margin:6px 0}
+    .features li{position:relative;padding-left:22px;margin:8px 0}
     .features li::before{content:"";position:absolute;left:0;top:7px;width:10px;height:10px;border-radius:50%;background:var(--accent-weak);border:1px solid var(--accent)}
 
     /* Lightbox */
@@ -196,10 +161,7 @@
     .copy{padding:10px 0 20px;color:#666;text-align:center}
     .footer-legal{display:flex;gap:8px;align-items:center;justify-content:center;flex-wrap:wrap}
     .footer-legal .dot{opacity:.35}
-    .footer-legal a{
-      padding:4px 6px;border-radius:8px;border:1px solid var(--accent);
-      background:var(--accent-weak); box-shadow:inset 0 0 0 2px var(--accent-weak);
-    }
+    .footer-legal a{padding:4px 6px;border-radius:8px;border:1px solid var(--accent);background:var(--accent-weak); box-shadow:inset 0 0 0 2px var(--accent-weak)}
 
     /* Contacto */
     .contact-grid{display:grid;gap:16px;grid-template-columns:1fr;max-width:900px;margin:16px auto 0}
@@ -210,67 +172,36 @@
     .contact-item a.btn{display:inline-block;margin-top:2px}
     .contact-item:hover{outline:2px solid var(--accent); box-shadow:inset 0 0 0 2px var(--accent-weak)}
 
-    /* FAQ (acento permanente) */
-    #faq details{border:1px solid var(--accent);border-radius:12px;margin:10px 0;padding:10px;background:var(--accent-weak)}
+    /* FAQ: SIN sombra permanente; sólo hover, acento fijo en borde */
+    #faq details{border:1px solid var(--accent);border-radius:12px;margin:10px 0;padding:10px;background:#fff;transition:background .15s, box-shadow .15s}
+    #faq details:hover{background:var(--accent-weak); box-shadow:inset 0 0 0 2px var(--accent-weak)}
     #faq summary{cursor:pointer;font-weight:700}
     #faq .answer{margin-top:8px}
 
     /* WhatsApp flotante */
-    .floating-wa{position:fixed; right:16px; bottom:16px; width:64px; height:64px; display:flex; align-items:center; justify-content:center; z-index:45; cursor:pointer;}
-    .floating-wa img{ width:64px; height:64px; display:block; }
+    .floating-wa{position:fixed; right:16px; bottom:16px; width:64px; height:64px; display:flex; align-items:center; justify-content:center; z-index:45; cursor:pointer}
+    .floating-wa img{ width:64px; height:64px; display:block }
   </style>
 
-  <!-- Funciones GLOBALES para LEGAL -->
+  <!-- Legal data + helpers -->
   <script>
     (function(){
       window.MU_LEGAL = {
-        envios: { title:'Política de Envíos — MotoUrbano MX',
-          body:'<p>Realizamos envíos a todo México mediante mensajería certificada. Los tiempos estimados son de <strong>10 a 20 días hábiles</strong> según tu zona.</p>'
-              +'<p>Al procesar tu pedido te compartimos la <strong>guía</strong> por correo para dar rastreo.</p>'
-              +'<p>Ante retrasos por paquetería o fuerza mayor, te mantendremos al tanto.</p>'
-              +'<p class="sub">Contacto: <a href="mailto:hola@motourbano.shop">hola@motourbano.shop</a></p>' },
-        devoluciones: { title:'Política de Devoluciones — MotoUrbano MX',
-          body:'<p>Tienes <strong>14 días naturales</strong> desde la entrega para solicitar devolución.</p>'
-              +'<p>El artículo debe estar en su <strong>estado original</strong>, sin uso y con empaques completos.</p>'
-              +'<p>Escríbenos a <a href="mailto:hola@motourbano.shop">hola@motourbano.shop</a> o por WhatsApp con tu <strong>número de pedido</strong>.</p>'
-              +'<p>Tras validar, realizamos el reembolso por el mismo medio de pago.</p>' },
-        privacidad: { title:'Aviso de Privacidad — MotoUrbano MX',
-          body:'<p>Usamos tus datos para <strong>gestión de pedidos</strong>, <strong>atención</strong> y comunicaciones relacionadas.</p>'
-              +'<p>Compartimos lo mínimo con terceros (paquetería, pagos) o por obligación legal.</p>'
-              +'<p>Derechos ARCO: <a href="mailto:hola@motourbano.shop">hola@motourbano.shop</a>.</p>' },
-        terminos: { title:'Términos y Condiciones — MotoUrbano MX',
-          body:'<p>El uso del sitio implica aceptación de estos términos. Precios y disponibilidad pueden cambiar.</p>'
-              +'<p>Imágenes ilustrativas. Si hay error o falta de inventario, se puede cancelar con reembolso íntegro.</p>'
-              +'<p>Dudas: <a href="mailto:hola@motourbano.shop">hola@motourbano.shop</a>.</p>' }
+        envios:{title:'Política de Envíos — MotoUrbano MX',body:'<p>Envíos a todo México mediante mensajería certificada. Tiempo estimado: <strong>10 a 20 días hábiles</strong> según tu zona.</p><p>Compartimos tu <strong>número de guía</strong> por correo para rastreo.</p><p>Si hay retrasos de paquetería, te acompañamos en todo momento.</p><p class="sub">Contacto: <a href="mailto:hola@motourbano.shop">hola@motourbano.shop</a></p>'},
+        devoluciones:{title:'Política de Devoluciones — MotoUrbano MX',body:'<p>Tienes <strong>14 días naturales</strong> desde la entrega para solicitar devolución.</p><p>El producto debe estar <strong>sin uso</strong> y con empaques/etiquetas completos.</p><p>Escríbenos a <a href="mailto:hola@motourbano.shop">hola@motourbano.shop</a> o por WhatsApp con tu <strong>número de pedido</strong>.</p><p>Tras validar, hacemos reembolso por el mismo medio de pago.</p>'},
+        privacidad:{title:'Aviso de Privacidad — MotoUrbano MX',body:'<p>Usamos tus datos para <strong>gestión de pedidos</strong>, atención y comunicaciones.</p><p>Compartimos lo mínimo con terceros (paquetería, pagos) o por obligación legal.</p><p>Derechos ARCO: <a href="mailto:hola@motourbano.shop">hola@motourbano.shop</a>.</p>'},
+        terminos:{title:'Términos y Condiciones — MotoUrbano MX',body:'<p>El uso del sitio implica aceptación de estos términos. Precios y disponibilidad pueden cambiar.</p><p>Imágenes ilustrativas. Si hay error o falta de inventario, se puede cancelar con reembolso íntegro.</p><p>Dudas: <a href="mailto:hola@motourbano.shop">hola@motourbano.shop</a>.</p>'}
       };
-
-      function ensureLegalModal(){
-        if(document.getElementById('legalModal')) return;
-        var wrap=document.createElement('div');
-        wrap.innerHTML =
-          '<div class="modal" id="legalModal" aria-hidden="true">'
-        + '  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="legalTitle">'
-        + '    <div class="modal-head">'
-        + '      <div class="modal-title" id="legalTitle">Información legal</div>'
-        + '      <button class="close" id="legalClose" aria-label="Cerrar">✕</button>'
-        + '    </div>'
-        + '    <div class="modal-body" id="legalBody" style="padding:16px;display:block"></div>'
-        + '  </div>'
-        + '</div>';
-        document.body.appendChild(wrap.firstChild);
-        var modal=document.getElementById('legalModal');
-        document.getElementById('legalClose').addEventListener('click', function(){ modal.classList.remove('open'); });
-        modal.addEventListener('click', function(e){ if(e.target===modal) modal.classList.remove('open'); });
-      }
-
       window.MU_openLegal = function(key){
-        ensureLegalModal();
-        var data=(window.MU_LEGAL||{})[key];
-        if(!data) return false;
-        document.getElementById('legalTitle').textContent=data.title;
-        document.getElementById('legalBody').innerHTML='<div class="sub" style="text-align:left">'+data.body+'</div>';
-        document.getElementById('legalModal').classList.add('open');
-        return false; // clave: NO navegar
+        const data=(window.MU_LEGAL||{})[key]; if(!data) return false;
+        const body=document.getElementById('legalBody'); const title=document.getElementById('legalTitle'); const modal=document.getElementById('legalModal');
+        if(!modal||!body||!title) return false;
+        title.textContent=data.title; body.innerHTML='<div class="sub" style="text-align:left">'+data.body+'</div>';
+        modal.classList.add('open'); return false;
+      };
+      window.MU_openMail = function(){
+        window.location.href='mailto:hola@motourbano.shop?subject=Consulta%20MotoUrbano%20MX';
+        return false;
       };
     })();
   </script>
@@ -362,7 +293,7 @@
   </section>
 
   <!-- PRODUCTOS -->
-  <section id="productos" class="container" style="padding:26px 0">
+  <section id="productos" class="container">
     <h2>Productos</h2>
     <p class="sub">Selección pensada para la ciudad.</p>
 
@@ -468,27 +399,27 @@
     </div>
   </section>
 
-  <!-- FAQ (acento permanente) -->
+  <!-- FAQ -->
   <section id="faq" class="container" style="padding:26px 0 10px">
     <h2>Preguntas frecuentes</h2>
     <div class="card shadow" style="padding:12px">
-      <details class="accent-perma">
+      <details>
         <summary>¿Cuánto tarda el envío?</summary>
         <div class="sub answer">Entre 10 y 20 días hábiles según la zona. Te compartimos la guía para darle rastreo.</div>
       </details>
-      <details class="accent-perma">
+      <details>
         <summary>¿Cómo funcionan las devoluciones?</summary>
         <div class="sub answer">Tienes 14 días desde la entrega. Escríbenos por WhatsApp con tu número de pedido y te guiamos.</div>
       </details>
-      <details class="accent-perma">
+      <details>
         <summary>¿Qué métodos de pago aceptan?</summary>
         <div class="sub answer">PayPal y tarjetas bancarias. Pronto añadiremos más opciones.</div>
       </details>
-      <details class="accent-perma">
+      <details>
         <summary>¿Puedo pedir factura?</summary>
         <div class="sub answer">Sí. Envíanos tus datos fiscales a <strong>hola@motourbano.shop</strong> junto con el número de pedido.</div>
       </details>
-      <details class="accent-perma">
+      <details>
         <summary>¿Los productos tienen garantía?</summary>
         <div class="sub answer">Sí, garantía de 6 meses por defectos de fábrica.</div>
       </details>
@@ -503,8 +434,7 @@
       <div class="contact-item">
         <strong>Email</strong>
         <div class="sub">hola@motourbano.shop</div>
-        <!-- IMPORTANTE: mailto sin listeners -->
-        <a class="btn" href="mailto:hola@motourbano.shop?subject=Consulta%20MotoUrbano%20MX">Enviar correo</a>
+        <a class="btn" href="mailto:hola@motourbano.shop?subject=Consulta%20MotoUrbano%20MX" onclick="return MU_openMail();">Enviar correo</a>
       </div>
       <div class="contact-item">
         <strong>WhatsApp</strong>
@@ -514,7 +444,6 @@
       <div class="contact-item">
         <strong>Devoluciones</strong>
         <div class="sub">Plazo de 14 días</div>
-        <!-- Abrir modal SIEMPRE -->
         <a class="btn" href="#" onclick="return MU_openLegal('devoluciones');">Ver política</a>
       </div>
     </div>
@@ -529,10 +458,10 @@
     </div>
 
     <div class="container footer-legal" style="padding-bottom:6px">
-      <a href="#" onclick="return MU_openLegal('envios');" class="accent-perma">Envíos</a><span class="dot">·</span>
-      <a href="#" onclick="return MU_openLegal('devoluciones');" class="accent-perma">Devoluciones</a><span class="dot">·</span>
-      <a href="#" onclick="return MU_openLegal('privacidad');" class="accent-perma">Privacidad</a><span class="dot">·</span>
-      <a href="#" onclick="return MU_openLegal('terminos');" class="accent-perma">Términos</a>
+      <a href="#" onclick="return MU_openLegal('envios');">Envíos</a><span class="dot">·</span>
+      <a href="#" onclick="return MU_openLegal('devoluciones');">Devoluciones</a><span class="dot">·</span>
+      <a href="#" onclick="return MU_openLegal('privacidad');">Privacidad</a><span class="dot">·</span>
+      <a href="#" onclick="return MU_openLegal('terminos');">Términos</a>
     </div>
 
     <div class="container copy">
@@ -596,6 +525,7 @@
         <strong>Total: <span id="cTotal">$0 MXN</span></strong>
         <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
           <button class="btn" id="cClear" type="button">Vaciar</button>
+          <!-- PayPal Standard: cambia tu correo abajo -->
           <form id="ppForm" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
             <input type="hidden" name="cmd" value="_xclick">
             <input type="hidden" name="business" id="ppBusiness" value="">
@@ -609,7 +539,7 @@
     </div>
   </div>
 
-  <!-- MODAL Legal (presente y sin display:none inline) -->
+  <!-- MODAL Legal -->
   <div class="modal" id="legalModal" aria-hidden="true">
     <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="legalTitle">
       <div class="modal-head">
@@ -681,10 +611,11 @@
         mTitle.textContent=current.name||'Producto'; mPrice.textContent=current.priceText||''; mMain.classList.remove('is-loading'); mMain.src=current.images[0]; mMain.alt=current.name;
         mThumbs.innerHTML=current.images.map(function(src,i){ return '<img src="'+src+'" alt="Vista '+(i+1)+' '+current.name+'" loading="lazy" decoding="async">'; }).join('');
         setActiveThumb();
-        mThumbs.onclick=function(e){ var img=e.target.closest('img'); if(!img) return; var idx=current.images.indexOf(img.src); if(idx>-1){ showImage(idx); openLightbox(img.src, img.alt); } };
+        mThumbs.onclick=function(e){ var img=e.target.closest('img'); if(!img) return; var idx=current.images.indexOf(img.src); if(idx>-1){ showImage(idx); openLightbox(current.images[idx], 'Vista '+(idx+1)+' '+current.name); } };
         mMain.onclick=function(){ openLightbox(mMain.src, mMain.alt); };
         mPrev.onclick=function(){ showImage(current.index-1); }; mNext.onclick=function(){ showImage(current.index+1); };
 
+        // Swipe
         var sx=0,sy=0,dx=0,dy=0;
         mMain.addEventListener('touchstart',function(ev){ if(ev.touches.length!==1)return; sx=ev.touches[0].clientX; sy=ev.touches[0].clientY; },{passive:true});
         mMain.addEventListener('touchmove',function(ev){ if(ev.touches.length!==1)return; dx=ev.touches[0].clientX-sx; dy=ev.touches[0].clientY-sy; },{passive:true});
@@ -703,10 +634,13 @@
       qPlus .addEventListener('click', function(){ qInput.value=(parseInt(qInput.value,10)||1)+1; });
 
       document.addEventListener('keydown', function(e){
-        if(!modal.classList.contains('open')) return;
-        if(e.key==='Escape') closeModal();
-        if(e.key==='ArrowLeft') showImage(current.index-1);
-        if(e.key==='ArrowRight') showImage(current.index+1);
+        if(modal.classList.contains('open')){
+          if(e.key==='Escape') closeModal();
+          if(e.key==='ArrowLeft') showImage(current.index-1);
+          if(e.key==='ArrowRight') showImage(current.index+1);
+        }
+        if($('#legalModal').classList.contains('open') && e.key==='Escape'){ $('#legalModal').classList.remove('open'); }
+        if($('#cart').classList.contains('open') && e.key==='Escape'){ $('#cart').classList.remove('open'); }
       });
 
       /* Lightbox */
@@ -808,13 +742,12 @@
       /* PayPal email */
       var ppBusiness=$('#ppBusiness'); if(ppBusiness) ppBusiness.value='tu-correo-paypal@ejemplo.com';
 
-      /* Delegación SÓLO para data-legal (sin tocar mailto ni otros) */
-      document.addEventListener('click', function(e){
-        var a=e.target.closest('a[data-legal]');
-        if(a){ e.preventDefault(); var key=a.getAttribute('data-legal'); if(window.MU_openLegal) MU_openLegal(key); }
-      }, {passive:false});
+      /* LEGAL: listeners de cierre SIEMPRE activos */
+      var legalModal=$('#legalModal'); var legalClose=$('#legalClose');
+      if(legalClose) legalClose.addEventListener('click', function(){ legalModal.classList.remove('open'); });
+      if(legalModal) legalModal.addEventListener('click', function(e){ if(e.target===legalModal) legalModal.classList.remove('open'); });
 
-      /* Init compensación + hash */
+      /* Init */
       updateHeaderUi();
       if(location.hash){ setTimeout(function(){ scrollToId(location.hash); }, 50); }
       (function initCount(){ try{ var items=JSON.parse(localStorage.getItem('mu_cart')||'[]'); var n=items.reduce((s,i)=>s+i.qty,0); $('#cartCount').textContent=n; }catch(_){ $('#cartCount').textContent='0'; } })();
