@@ -16,17 +16,17 @@
   <link rel="manifest" href="site.webmanifest" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700;800&display=swap" rel="stylesheet">
 
-  <!-- Preload -->
-  <link rel="preload" as="image" href="img/logo.png">
-  <link rel="preload" as="image" href="img/cat-soportes.jpg">
-  <link rel="preload" as="image" href="img/cat-guantes.jpg">
-  <link rel="preload" as="image" href="img/cat-chalecos.jpg">
-  <link rel="preload" as="image" href="img/cat-bolsas.jpg">
-  <link rel="preload" as="image" href="img/cat-rinoneras.jpg">
+  <!-- Preload mínimo para acelerar FCP -->
+  <link rel="preload" as="image" href="img/logo.png" imagesrcset="img/logo.png 1x">
 
   <style>
     :root{
-      --bg:#ffffff; --elev:#ffffff; --ink:#111; --muted:#666; --line:#eee; --accent:#e10600;
+      /* Paleta corporativa: NEGRO, ROJO, BLANCO */
+      --bg:#ffffff; --elev:#ffffff; --ink:#0c0c0c; --muted:#5a5a5a; --line:#ebebeb;
+      --accent:#cf0a0a;        /* rojo elegante, no chillón */
+      --accent-weak:#fbecec;   /* rojo muy suave para hovers/fondos */
+      --shadow:0 10px 30px rgba(0,0,0,.08);
+
       --header-pad-y:14px; --header-logo:84px; --header-title:22px; --header-h:220px;
     }
     *{box-sizing:border-box}
@@ -38,12 +38,13 @@
     @media(min-width:700px){.grid.cols-2{grid-template-columns:repeat(2,1fr)}}
     @media(min-width:900px){.grid.cols-3{grid-template-columns:repeat(3,1fr)}.grid.cols-4{grid-template-columns:repeat(4,1fr)}.grid.cols-5{grid-template-columns:repeat(5,1fr)}}
     .card{background:var(--elev);border:1px solid var(--line);border-radius:18px;overflow:hidden}
-    .shadow{box-shadow:0 10px 30px rgba(0,0,0,.08)}
+    .shadow{box-shadow:var(--shadow)}
 
     /* Header */
     header.site{
       position:sticky; top:0; z-index:40; background:#fff; border-bottom:1px solid var(--line);
       transition:padding .18s ease, box-shadow .18s ease;
+      will-change: box-shadow, padding;
     }
     .header-wrap{display:flex;flex-direction:column;align-items:center;gap:8px;padding:var(--header-pad-y) 0}
     .brand-stack{display:flex;flex-direction:column;align-items:center;gap:6px}
@@ -52,8 +53,12 @@
     .flag-mx{margin-top:2px}
     .flag-mx svg{width:22px;height:14px;display:block}
     nav.menu{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:6px}
-    nav.menu a{padding:6px 10px;border-radius:10px;color:#444;font-size:14px}
-    nav.menu a:hover{background:#f3f3f3;color:#111}
+    nav.menu a{
+      padding:6px 10px;border-radius:10px;color:#333;font-size:14px;border:1px solid transparent;
+      transition:background .15s ease, border-color .15s ease;
+    }
+    nav.menu a:hover{background:var(--accent-weak);border-color:var(--accent)}
+    nav.menu a:focus-visible{outline:2px solid var(--accent)}
     #cartBtn{font-weight:700}
 
     /* Header compacto en móvil y al hacer scroll */
@@ -68,7 +73,7 @@
     header.site.is-scrolled .header-wrap{padding:8px 0}
 
     /* Compensación header fijo (se recalcula por JS) */
-    section{scroll-margin-top:calc(var(--header-h) + 8px)}
+    section{scroll-margin-top:calc(var(--header-h) + 8px); content-visibility:auto; contain-intrinsic-size:auto 600px;}
 
     /* Hero */
     .hero{border-bottom:1px solid var(--line);background:#fff}
@@ -77,11 +82,14 @@
     @media(min-width:1100px){.hero .logo-big img{width:400px}}
     @media(max-width:520px){.hero .logo-big img{width:220px}}
     h1{font-family:Poppins,system-ui;font-weight:800;letter-spacing:.2px;font-size:clamp(30px,5vw,52px);line-height:1.04;margin:.05em 0 .1em;text-align:center}
-    .hero-sub{font-size:clamp(14px,2.2vw,18px);color:#444;margin:2px 0 6px;text-align:center}
+    .hero-sub{font-size:clamp(14px,2.2vw,18px);color:#333;margin:2px 0 6px;text-align:center}
     h2{font-size:clamp(22px,3.6vw,34px);margin:0 0 10px;text-align:center}
     .sub{color:var(--muted);text-align:center}
     .chips-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:center;margin-top:14px}
-    .chip{display:inline-flex;align-items:center;gap:8px;background:#fafafa;border:1px solid var(--line);color:#444;padding:8px 12px;border-radius:12px;white-space:nowrap}
+    .chip{
+      display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);color:#333;
+      padding:8px 12px;border-radius:12px;white-space:nowrap
+    }
 
     /* PayPal */
     .paypal-row{display:flex;justify-content:center;margin-top:12px}
@@ -92,20 +100,30 @@
     #categorias h2,#categorias .sub{text-align:center}
     .tile{position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:#fff;cursor:pointer}
     .tile img{width:100%;height:200px;object-fit:cover}
-    .tile .label{position:absolute;left:50%;bottom:10px;transform:translateX(-50%);background:rgba(0,0,0,.55);padding:8px 10px;border-radius:10px;color:#fff;font-weight:800}
+    .tile .label{
+      position:absolute;left:50%;bottom:10px;transform:translateX(-50%);
+      background:#000000b3;padding:8px 10px;border-radius:10px;color:#fff;font-weight:800
+    }
+    .tile:hover{outline:2px solid var(--accent)}
 
     /* Productos + filtros */
     #productos .filters{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:12px 0 6px}
-    .pill{border:1px solid var(--line);background:#fafafa;border-radius:999px;padding:8px 12px;cursor:pointer}
-    .pill.is-active{background:#111;color:#fff;border-color:#111}
+    .pill{border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 12px;cursor:pointer}
+    .pill.is-active{border-color:#000;background:#fff;box-shadow:inset 0 0 0 2px var(--accent)}
     .prod{display:flex;flex-direction:column;cursor:pointer}
     .prod img{aspect-ratio:1/1;object-fit:cover;background:#f4f4f4}
     .prod .pad{padding:12px}
     .prod .title{font-weight:700;line-height:1.25;margin:0 0 6px;font-size:16px}
     .prod .meta{display:flex;justify-content:space-between;align-items:center}
-    .price{font-weight:900;color:#111}
+    .price{font-weight:900;color:#000}
     .stars{color:#C99A10;font-size:13px}
     .hidden{display:none !important}
+
+    /* Botones */
+    .btn{display:inline-flex;align-items:center;gap:8px;border:1px solid #000;background:#000;color:#fff;border-radius:12px;padding:10px 14px;cursor:pointer;transition:background .15s ease,border-color .15s ease}
+    .btn:hover{background:var(--accent);border-color:var(--accent)}
+    .btn.secondary{background:#fff;color:#000;border-color:#000}
+    .btn.secondary:hover{background:#fff;border-color:var(--accent);box-shadow:0 0 0 2px var(--accent-weak) inset}
 
     /* Modal producto */
     .modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;padding:16px;z-index:60}
@@ -124,14 +142,13 @@
     .nav-arrow.next{right:8px}
     .thumbs{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:8px}
     .thumbs img{width:100%;height:70px;object-fit:cover;border-radius:10px;border:2px solid transparent;cursor:pointer;background:#fafafa}
-    .thumbs img.active{border-color:#111}
+    .thumbs img.active{border-color:#000}
+
     .close{border:none;background:#f3f3f3;border-radius:10px;padding:8px 10px;cursor:pointer}
+
     .qty{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:10px;overflow:hidden}
     .qty button{background:#f6f6f6;border:none;padding:8px 10px;cursor:pointer}
     .qty input{width:48px;text-align:center;border:none;padding:8px}
-    .btn{display:inline-flex;align-items:center;gap:8px;border:1px solid #111;background:#111;color:#fff;border-radius:12px;padding:10px 14px;cursor:pointer}
-    .btn.secondary{background:#fff;color:#111}
-    .btn.secondary:hover{background:#f7f7f7}
 
     /* Lightbox */
     .lightbox{position:fixed;inset:0;background:rgba(0,0,0,.92);display:none;align-items:center;justify-content:center;z-index:80;touch-action:none}
@@ -168,11 +185,13 @@
     .footer-legal{display:flex;gap:8px;align-items:center;justify-content:center;flex-wrap:wrap}
     .footer-legal .dot{opacity:.35}
 
-    /* Contacto mini-cards */
-    .contact-grid{display:grid;gap:12px;grid-template-columns:1fr;max-width:720px;margin:10px auto 0}
-    @media(min-width:640px){.contact-grid{grid-template-columns:repeat(3,1fr)}}
-    .contact-item{border:1px solid var(--line);border-radius:14px;padding:12px;text-align:center}
-    .contact-item a.btn{display:inline-block;margin-top:6px}
+    /* Contacto */
+    .contact-grid{display:grid;gap:14px;grid-template-columns:1fr;max-width:900px;margin:14px auto 0}
+    @media(min-width:720px){.contact-grid{grid-template-columns:repeat(3,1fr)}}
+    .contact-item{border:1px solid var(--line);border-radius:16px;padding:16px 14px;text-align:center}
+    .contact-item strong{display:block;font:700 16px/1.2 Poppins,system-ui;margin-bottom:6px}
+    .contact-item .sub{line-height:1.5;margin-bottom:10px}
+    .contact-item a.btn{display:inline-block;margin-top:2px}
 
     /* WhatsApp flotante — SOLO PNG */
     .floating-wa{
@@ -189,7 +208,7 @@
   <header class="site" id="siteHeader">
     <div class="container header-wrap">
       <div class="brand-stack">
-        <img src="img/logo.png" alt="Logo MotoUrbano"/>
+        <img src="img/logo.png" alt="Logo MotoUrbano" fetchpriority="high"/>
         <div class="brand-title">MotoUrbano MX</div>
         <!-- Bandera de México -->
         <div class="flag-mx" aria-label="México">
@@ -230,7 +249,7 @@
 
       <div class="paypal-row">
         <span class="pp-badge" title="Pago seguro con PayPal" aria-label="Pago seguro con PayPal">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal"/>
+          <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal" loading="lazy" decoding="async"/>
         </span>
       </div>
     </div>
@@ -243,19 +262,19 @@
 
     <div class="grid cols-2 cols-5">
       <div class="tile shadow js-cat" data-cat="soportes" title="Soportes de móvil">
-        <img src="img/cat-soportes.jpg" alt="Soportes de móvil" loading="lazy"/><span class="label">Soportes</span>
+        <img src="img/cat-soportes.jpg" alt="Soportes de móvil" loading="lazy" decoding="async"/><span class="label">Soportes</span>
       </div>
       <div class="tile shadow js-cat" data-cat="guantes" title="Guantes">
-        <img src="img/cat-guantes.jpg" alt="Guantes" loading="lazy"/><span class="label">Guantes</span>
+        <img src="img/cat-guantes.jpg" alt="Guantes" loading="lazy" decoding="async"/><span class="label">Guantes</span>
       </div>
       <div class="tile shadow js-cat" data-cat="chalecos" title="Chalecos reflectantes">
-        <img src="img/cat-chalecos.jpg" alt="Chalecos" loading="lazy"/><span class="label">Chalecos</span>
+        <img src="img/cat-chalecos.jpg" alt="Chalecos" loading="lazy" decoding="async"/><span class="label">Chalecos</span>
       </div>
       <div class="tile shadow js-cat" data-cat="bolsas" title="Bolsas">
-        <img src="img/cat-bolsas.jpg" alt="Bolsas" loading="lazy"/><span class="label">Bolsas</span>
+        <img src="img/cat-bolsas.jpg" alt="Bolsas" loading="lazy" decoding="async"/><span class="label">Bolsas</span>
       </div>
       <div class="tile shadow js-cat" data-cat="rinoneras" title="Riñoneras">
-        <img src="img/cat-rinoneras.jpg" alt="Riñoneras" loading="lazy"/><span class="label">Riñoneras</span>
+        <img src="img/cat-rinoneras.jpg" alt="Riñoneras" loading="lazy" decoding="async"/><span class="label">Riñoneras</span>
       </div>
     </div>
   </section>
@@ -294,7 +313,7 @@
         data-desc="Sujeción firme · Absorción de vibraciones · Compatible con la mayoría de manillares"
         data-main="img/cat-soportes.jpg"
         data-gallery='["img/soporte-antivibracion-01.jpg","img/soporte-antivibracion-02.jpg","img/soporte-antivibracion-03.jpg","img/soporte-antivibracion-04.jpg"]'>
-        <img src="img/cat-soportes.jpg" alt="Soporte manillar antivibración" decoding="async"/>
+        <img src="img/cat-soportes.jpg" alt="Soporte manillar antivibración" decoding="async" loading="lazy"/>
         <div class="pad">
           <div class="title">Soporte manillar antivibración</div>
           <div class="meta">
@@ -312,7 +331,7 @@
         data-desc="Impermeables · Dedos táctiles · Refuerzos en palma"
         data-main="img/cat-guantes.jpg"
         data-gallery='["img/guantes-urbanos-verano-01.jpg","img/guantes-urbanos-verano-02.jpg"]'>
-        <img src="img/cat-guantes.jpg" alt="Guantes impermeables táctiles" decoding="async"/>
+        <img src="img/cat-guantes.jpg" alt="Guantes impermeables táctiles" decoding="async" loading="lazy"/>
         <div class="pad">
           <div class="title">Guantes impermeables táctiles</div>
           <div class="meta">
@@ -330,7 +349,7 @@
         data-desc="Alta visibilidad · Ajuste sencillo · Ligero"
         data-main="img/cat-chalecos.jpg"
         data-gallery='["img/chaleco-fosforito-01.jpg","img/chaleco-fosporito-02.jpg"]'>
-        <img src="img/cat-chalecos.jpg" alt="Chaleco reflectante" decoding="async"/>
+        <img src="img/cat-chalecos.jpg" alt="Chaleco reflectante" decoding="async" loading="lazy"/>
         <div class="pad">
           <div class="title">Chaleco reflectante</div>
           <div class="meta">
@@ -348,7 +367,7 @@
         data-desc="Impermeable · Cierre seguro · Bolsillos internos"
         data-main="img/cat-rinoneras.jpg"
         data-gallery='["img/rinonera-impermeable-01.jpg","img/rinonera-impermeable-02.jpg","img/rinonera-impermeable-03.jpg","img/rinonera-impermeable-04.jpg","img/rinonera-impermeable-05.jpg"]'>
-        <img src="img/cat-rinoneras.jpg" alt="Riñonera impermeable" decoding="async"/>
+        <img src="img/cat-rinoneras.jpg" alt="Riñonera impermeable" decoding="async" loading="lazy"/>
         <div class="pad">
           <div class="title">Riñonera impermeable</div>
           <div class="meta">
@@ -366,7 +385,7 @@
         data-desc="Montaje rápido · Resistente al agua · Capacidad ampliable"
         data-main="img/cat-bolsas.jpg"
         data-gallery='["img/bolsa-trasera-impermeable-01.jpg","img/bolsa-trasera-impermeable-02.jpg"]'>
-        <img src="img/cat-bolsas.jpg" alt="Bolsa trasera impermeable" decoding="async"/>
+        <img src="img/cat-bolsas.jpg" alt="Bolsa trasera impermeable" decoding="async" loading="lazy"/>
         <div class="pad">
           <div class="title">Bolsa trasera impermeable</div>
           <div class="meta">
@@ -423,7 +442,7 @@
       <div class="contact-item">
         <strong>Devoluciones</strong>
         <div class="sub">Plazo de 14 días</div>
-        <a class="btn secondary" href="javascript:void(0)" data-legal="devoluciones">Ver política</a>
+        <a class="btn secondary" href="#" data-legal="devoluciones">Ver política</a>
       </div>
     </div>
   </section>
@@ -431,16 +450,16 @@
   <!-- FOOTER -->
   <footer class="site">
     <div class="container footer-head">
-      <img src="img/logo.png" alt="MotoUrbano"/>
+      <img src="img/logo.png" alt="MotoUrbano" loading="lazy" decoding="async"/>
       <div class="footer-name">MotoUrbano MX</div>
       <div class="footer-tag">Accesorios urbanos, prácticos y fiables. Envío a todo México.</div>
     </div>
 
     <div class="container footer-legal" style="padding-bottom:6px">
-      <a href="javascript:void(0)" data-legal="envios" role="button" tabindex="0">Envíos</a><span class="dot">·</span>
-      <a href="javascript:void(0)" data-legal="devoluciones" role="button" tabindex="0">Devoluciones</a><span class="dot">·</span>
-      <a href="javascript:void(0)" data-legal="privacidad" role="button" tabindex="0">Privacidad</a><span class="dot">·</span>
-      <a href="javascript:void(0)" data-legal="terminos" role="button" tabindex="0">Términos</a>
+      <a href="#" data-legal="envios" role="button" tabindex="0">Envíos</a><span class="dot">·</span>
+      <a href="#" data-legal="devoluciones" role="button" tabindex="0">Devoluciones</a><span class="dot">·</span>
+      <a href="#" data-legal="privacidad" role="button" tabindex="0">Privacidad</a><span class="dot">·</span>
+      <a href="#" data-legal="terminos" role="button" tabindex="0">Términos</a>
     </div>
 
     <div class="container copy">
@@ -450,7 +469,7 @@
 
   <!-- WhatsApp flotante -->
   <a class="floating-wa" href="https://wa.me/520000000000" target="_blank" rel="noopener" aria-label="WhatsApp">
-    <img src="img/whatsapp.png" alt="WhatsApp" width="64" height="64" decoding="async">
+    <img src="img/whatsapp.png" alt="WhatsApp" width="64" height="64" decoding="async" loading="lazy">
   </a>
 
   <!-- MODAL Producto -->
@@ -656,6 +675,7 @@
       /* ===== LIGHTBOX ===== */
       function openLightbox(src,alt){ lbImg.src=src; lbImg.alt=alt||''; scale=1; tx=0; ty=0; applyTransform(); lightbox.classList.add('open'); }
       function closeLightbox(){ lightbox.classList.remove('open'); }
+      window.openLightbox = openLightbox;
       lbClose.addEventListener('click', closeLightbox);
       lbPrev.addEventListener('click', function(){ showImage(current.index-1); lbImg.src=current.images[current.index]; });
       lbNext.addEventListener('click', function(){ showImage(current.index+1); lbImg.src=current.images[current.index]; });
@@ -848,23 +868,26 @@
       legalClose.addEventListener('click', closeLegal);
       legalModal.addEventListener('click', function(e){ if(e.target===legalModal) closeLegal(); });
 
-      // Delegación: abrir modales desde cualquier <a data-legal>
+      // Exponer para usos inline o fallbacks
+      window.openLegal = openLegal;
+
+      // Delegación universal para <a data-legal>
       document.addEventListener('click', function(e){
         const a = e.target.closest('a[data-legal]');
         if(a){
           e.preventDefault();
           openLegal(a.getAttribute('data-legal'));
         }
-      });
+      }, {passive:false});
 
-      // Botón email: respaldo JS por si algún navegador bloquea mailto al ser un "botón"
+      // Botón email: fallback JS extra por si el navegador no dispara mailto por políticas del user-agent
       const btnEmail = $('#btnEmail');
       if(btnEmail){
         btnEmail.addEventListener('click', function(e){
-          // si trae mailto funciona, pero forzamos por si acaso:
-          if(!btnEmail.getAttribute('href') || !btnEmail.getAttribute('href').startsWith('mailto:')){
+          const href = btnEmail.getAttribute('href') || '';
+          if(!href.startsWith('mailto:')){
             e.preventDefault();
-            window.location.href = 'mailto:hola@motourbano.shop';
+            location.href = 'mailto:hola@motourbano.shop';
           }
         });
       }
