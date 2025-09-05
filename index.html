@@ -16,14 +16,11 @@
   <link rel="manifest" href="site.webmanifest" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700;800&display=swap" rel="stylesheet">
 
-  <!-- Preload mínimo -->
-  <link rel="preload" as="image" href="img/logo.png">
-
   <style>
     :root{
       --bg:#ffffff; --elev:#ffffff; --ink:#0b0b0b; --muted:#5d5d5d; --line:#e9e9e9;
       --accent:#cf0a0a;           /* rojo elegante */
-      --accent-weak:#fbecec;      /* sombra/fondo rojo suave */
+      --accent-weak:#fbecec;      /* rojo suave para fondo/sombra */
       --shadow:0 10px 30px rgba(0,0,0,.08);
 
       --header-pad-y:14px; --header-logo:84px; --header-title:22px; --header-h:220px;
@@ -39,6 +36,13 @@
     @media(min-width:900px){.grid.cols-3{grid-template-columns:repeat(3,1fr)}.grid.cols-4{grid-template-columns:repeat(4,1fr)}.grid.cols-5{grid-template-columns:repeat(5,1fr)}}
     .card{background:var(--elev);border:1px solid var(--line);border-radius:18px;overflow:hidden}
     .shadow{box-shadow:var(--shadow)}
+
+    /* Utilidades de acento */
+    .accent-perma{
+      background:var(--accent-weak)!important;
+      border-color:var(--accent)!important;
+      box-shadow:inset 0 0 0 2px var(--accent-weak)!important;
+    }
 
     /* Header */
     header.site{
@@ -56,10 +60,8 @@
       padding:6px 10px;border-radius:10px;color:#333;font-size:14px;border:1px solid transparent;
       transition:background .15s ease, border-color .15s ease, box-shadow .15s ease;
     }
-    /* ESTILO BASE DE ACENTO (referencia) */
-    .is-accent:hover,
-    .is-accent.is-active,
-    nav.menu a:hover{
+    nav.menu a:hover,
+    nav.menu a.is-active{
       background:var(--accent-weak);
       border-color:var(--accent);
       box-shadow:inset 0 0 0 2px var(--accent-weak);
@@ -112,7 +114,7 @@
       border:1px solid #000;background:#fff;border-radius:999px;padding:8px 12px;cursor:pointer;
       transition:border-color .15s, box-shadow .15s, background .15s;
     }
-    .pill.is-active, .pill:hover{background:var(--accent-weak);border-color:var(--accent);box-shadow:inset 0 0 0 2px var(--accent-weak)}
+    .pill:hover,.pill.is-active{background:var(--accent-weak);border-color:var(--accent);box-shadow:inset 0 0 0 2px var(--accent-weak)}
     .prod{display:flex;flex-direction:column;cursor:pointer;transition:box-shadow .15s, outline-color .15s}
     .prod img{aspect-ratio:1/1;object-fit:cover;background:#f4f4f4}
     .prod .pad{padding:12px}
@@ -123,25 +125,26 @@
     .prod:hover{outline:2px solid var(--accent); box-shadow:inset 0 0 0 2px var(--accent-weak)}
     .hidden{display:none !important}
 
-    /* Botones (unificados) */
+    /* Botones unificados: SIEMPRE acento rojo (no sólo hover) */
     .btn{
       display:inline-flex;align-items:center;gap:8px;
       background:#fff;color:#000;border:1px solid #000;border-radius:12px;padding:10px 14px;cursor:pointer;
       transition:background .15s,border-color .15s, box-shadow .15s;
     }
+    .btn.accent-perma{border-color:var(--accent)}
     .btn:hover{background:var(--accent-weak);border-color:var(--accent);box-shadow:inset 0 0 0 2px var(--accent-weak)}
-    .btn.secondary{background:#fff;color:#000;border-color:#000}
-    .btn.secondary:hover{background:var(--accent-weak);border-color:var(--accent);box-shadow:inset 0 0 0 2px var(--accent-weak)}
     .close{border:none;background:#f3f3f3;border-radius:10px;padding:8px 10px;cursor:pointer}
 
-    /* Modal producto */
+    /* Modal base */
     .modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;padding:16px;z-index:60}
     .modal.open{display:flex}
     .modal-card{background:#fff;border-radius:18px;max-width:920px;width:96%;max-height:92vh;display:flex;flex-direction:column;overflow:hidden;border:1px solid var(--line)}
     .modal-head{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-bottom:1px solid var(--line)}
     .modal-title{font:700 18px/1.2 Poppins,system-ui}
     .modal-body{display:grid;gap:14px;padding:14px;overflow:auto}
-    @media(min-width:900px){.modal-body{grid-template-columns:1.05fr .95fr}}
+
+    /* Modal producto (mejorado) */
+    @media(min-width:900px){.modal-body.prod{grid-template-columns:1.05fr .95fr}}
     .media-wrap{position:relative}
     .m-main{width:100%;max-height:48vh;object-fit:contain;border-radius:12px;background:#f7f7f7;cursor:zoom-in}
     .m-main.is-loading{background:linear-gradient(90deg,#f3f3f3 25%,#e9e9e9 37%,#f3f3f3 63%);background-size:400% 100%;animation:sheen 1.2s infinite}
@@ -152,18 +155,10 @@
     .thumbs{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:8px}
     .thumbs img{width:100%;height:70px;object-fit:cover;border-radius:10px;border:2px solid transparent;cursor:pointer;background:#fafafa}
     .thumbs img.active{border-color:#000}
-
-    /* Detalles elegantes en modal producto */
-    .badge-price{
-      display:inline-block; background:var(--accent-weak); border:1px solid var(--accent);
-      border-radius:999px; padding:8px 12px; font:800 20px/1 Poppins,system-ui; margin:0 0 12px;
-    }
+    .badge-price{display:inline-block;background:var(--accent-weak);border:1px solid var(--accent);border-radius:999px;padding:8px 12px;font:800 20px/1 Poppins,system-ui;margin:0 0 12px}
     .features{list-style:none;padding:0;margin:0 0 16px}
     .features li{position:relative;padding-left:22px;margin:6px 0}
-    .features li::before{
-      content:""; position:absolute; left:0; top:7px; width:10px; height:10px; border-radius:50%;
-      background:var(--accent-weak); border:1px solid var(--accent);
-    }
+    .features li::before{content:"";position:absolute;left:0;top:7px;width:10px;height:10px;border-radius:50%;background:var(--accent-weak);border:1px solid var(--accent)}
 
     /* Lightbox */
     .lightbox{position:fixed;inset:0;background:#000000eb;display:none;align-items:center;justify-content:center;z-index:80;touch-action:none}
@@ -188,9 +183,7 @@
     .cart-item .qtyline button:hover{background:var(--accent-weak);border-left:1px solid var(--accent)}
     .cart-item .qtyline input{width:44px;text-align:center;border:none;padding:6px}
     .cart-foot{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-top:1px solid var(--line);gap:10px;flex-wrap:wrap}
-    #cTotal{
-      display:inline-block;background:var(--accent-weak);border:1px solid var(--accent);border-radius:999px;padding:6px 10px;
-    }
+    #cTotal{display:inline-block;background:var(--accent-weak);border:1px solid var(--accent);border-radius:999px;padding:6px 10px}
 
     /* Trust bar */
     .trustbar{display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
@@ -205,11 +198,11 @@
     .footer-legal{display:flex;gap:8px;align-items:center;justify-content:center;flex-wrap:wrap}
     .footer-legal .dot{opacity:.35}
     .footer-legal a{
-      padding:4px 6px;border-radius:8px;border:1px solid transparent;transition:background .15s,border-color .15s, box-shadow .15s;
+      padding:4px 6px;border-radius:8px;border:1px solid transparent;
+      transition:background .15s,border-color .15s, box-shadow .15s;
     }
-    .footer-legal a:hover{
-      background:var(--accent-weak); border-color:var(--accent); box-shadow:inset 0 0 0 2px var(--accent-weak);
-    }
+    .footer-legal a.accent-perma{border-color:var(--accent)}
+    .footer-legal a:hover{background:var(--accent-weak); border-color:var(--accent); box-shadow:inset 0 0 0 2px var(--accent-weak)}
 
     /* Contacto */
     .contact-grid{display:grid;gap:16px;grid-template-columns:1fr;max-width:900px;margin:16px auto 0}
@@ -220,9 +213,8 @@
     .contact-item a.btn{display:inline-block;margin-top:2px}
     .contact-item:hover{outline:2px solid var(--accent); box-shadow:inset 0 0 0 2px var(--accent-weak)}
 
-    /* FAQ con sombreado rojo */
-    #faq details{border:1px solid var(--line);border-radius:12px;margin:10px 0;padding:10px;background:#fff;transition:box-shadow .15s,border-color .15s}
-    #faq details:hover{border-color:var(--accent); box-shadow:inset 0 0 0 2px var(--accent-weak)}
+    /* FAQ con ACENTO PERMANENTE */
+    #faq details{border:1px solid var(--accent);border-radius:12px;margin:10px 0;padding:10px;background:var(--accent-weak)}
     #faq summary{cursor:pointer;font-weight:700}
     #faq .answer{margin-top:8px}
 
@@ -233,10 +225,9 @@
     .floating-wa img{ width:64px; height:64px; display:block; }
   </style>
 
-  <!-- FUNCIONES GLOBALES PARA MODALES (defensivas y disponibles desde el principio) -->
+  <!-- Funciones GLOBALES para modales (cargadas ANTES del body para que existan siempre) -->
   <script>
     (function(){
-      // Contenido legal global:
       window.MU_LEGAL = {
         envios: {
           title: 'Política de Envíos — MotoUrbano MX',
@@ -266,35 +257,34 @@
         }
       };
 
-      // Abrir modal legal: crea el modal si no existe (fallback a prueba de errores).
+      // Crea el modal legal una única vez
+      function ensureLegalModal(){
+        if(document.getElementById('legalModal')) return;
+        var wrap = document.createElement('div');
+        wrap.innerHTML =
+          '<div class="modal" id="legalModal" aria-hidden="true">'
+        + '  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="legalTitle">'
+        + '    <div class="modal-head">'
+        + '      <div class="modal-title" id="legalTitle">Información legal</div>'
+        + '      <button class="close" id="legalClose" aria-label="Cerrar">✕</button>'
+        + '    </div>'
+        + '    <div class="modal-body" id="legalBody" style="padding:16px;display:block"></div>'
+        + '  </div>'
+        + '</div>';
+        document.body.appendChild(wrap.firstChild);
+        var modal = document.getElementById('legalModal');
+        document.getElementById('legalClose').addEventListener('click', function(){ modal.classList.remove('open'); });
+        modal.addEventListener('click', function(e){ if(e.target===modal) modal.classList.remove('open'); });
+      }
+
+      // API global para abrir modal legal
       window.MU_openLegal = function(key){
-        try{
-          var data = (window.MU_LEGAL||{})[key]; if(!data) return;
-          var modal = document.getElementById('legalModal');
-          if(!modal){
-            var wrap = document.createElement('div');
-            wrap.innerHTML =
-              '<div class="modal" id="legalModal" aria-hidden="true">'
-            + '  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="legalTitle">'
-            + '    <div class="modal-head">'
-            + '      <div class="modal-title" id="legalTitle">Información legal</div>'
-            + '      <button class="close" id="legalClose" aria-label="Cerrar">✕</button>'
-            + '    </div>'
-            + '    <div class="modal-body" id="legalBody" style="padding:16px;display:block"></div>'
-            + '  </div>'
-            + '</div>';
-            document.body.appendChild(wrap.firstChild);
-            modal = document.getElementById('legalModal');
-            modal.addEventListener('click', function(e){ if(e.target===modal) modal.classList.remove('open'); });
-            document.getElementById('legalClose').addEventListener('click', function(){ modal.classList.remove('open'); });
-          }
-          document.getElementById('legalTitle').textContent = data.title;
-          document.getElementById('legalBody').innerHTML   = '<div class="sub" style="text-align:left">'+data.body+'</div>';
-          modal.classList.add('open');
-        }catch(err){
-          console.error('MU_openLegal error:', err);
-        }
-        return false;
+        ensureLegalModal();
+        var data = (window.MU_LEGAL||{})[key]; if(!data) return false;
+        document.getElementById('legalTitle').textContent = data.title;
+        document.getElementById('legalBody').innerHTML   = '<div class="sub" style="text-align:left">'+data.body+'</div>';
+        document.getElementById('legalModal').classList.add('open');
+        return false; // evita navegación de <a>
       };
     })();
   </script>
@@ -316,12 +306,12 @@
         </div>
       </div>
       <nav class="menu" aria-label="Principal">
-        <a href="#inicio" class="is-accent">Inicio</a>
-        <a href="#categorias" class="is-accent">Categorías</a>
-        <a href="#productos" class="is-accent">Productos</a>
-        <a href="#faq" class="is-accent">Preguntas frecuentes</a>
-        <a href="#contacto" class="is-accent">Contacto</a>
-        <a href="#" id="cartBtn" class="is-accent">Carrito (<span id="cartCount">0</span>)</a>
+        <a href="#inicio">Inicio</a>
+        <a href="#categorias">Categorías</a>
+        <a href="#productos">Productos</a>
+        <a href="#faq">Preguntas frecuentes</a>
+        <a href="#contacto">Contacto</a>
+        <a href="#" id="cartBtn">Carrito (<span id="cartCount">0</span>)</a>
       </nav>
     </div>
   </header>
@@ -391,12 +381,12 @@
     <p class="sub">Selección pensada para la ciudad.</p>
 
     <div class="filters" id="filters">
-      <button class="pill is-accent is-active" data-cat="all" type="button">Todos</button>
-      <button class="pill is-accent" data-cat="soportes" type="button">Soportes</button>
-      <button class="pill is-accent" data-cat="guantes" type="button">Guantes</button>
-      <button class="pill is-accent" data-cat="chalecos" type="button">Chalecos</button>
-      <button class="pill is-accent" data-cat="bolsas" type="button">Bolsas</button>
-      <button class="pill is-accent" data-cat="rinoneras" type="button">Riñoneras</button>
+      <button class="pill accent-perma is-active" data-cat="all" type="button">Todos</button>
+      <button class="pill accent-perma" data-cat="soportes" type="button">Soportes</button>
+      <button class="pill accent-perma" data-cat="guantes" type="button">Guantes</button>
+      <button class="pill accent-perma" data-cat="chalecos" type="button">Chalecos</button>
+      <button class="pill accent-perma" data-cat="bolsas" type="button">Bolsas</button>
+      <button class="pill accent-perma" data-cat="rinoneras" type="button">Riñoneras</button>
     </div>
 
     <div class="grid cols-2 cols-4" id="gridProds" style="margin-top:12px">
@@ -492,27 +482,27 @@
     </div>
   </section>
 
-  <!-- PREGUNTAS FRECUENTES -->
+  <!-- PREGUNTAS FRECUENTES (ACENTO PERMANENTE) -->
   <section id="faq" class="container" style="padding:26px 0 10px">
     <h2>Preguntas frecuentes</h2>
     <div class="card shadow" style="padding:12px">
-      <details>
+      <details class="accent-perma">
         <summary>¿Cuánto tarda el envío?</summary>
         <div class="sub answer">Entre 10 y 20 días hábiles según la zona. Te compartimos la guía para darle rastreo.</div>
       </details>
-      <details>
+      <details class="accent-perma">
         <summary>¿Cómo funcionan las devoluciones?</summary>
         <div class="sub answer">Tienes 14 días desde la entrega. Escríbenos por WhatsApp con tu número de pedido y te guiamos.</div>
       </details>
-      <details>
+      <details class="accent-perma">
         <summary>¿Qué métodos de pago aceptan?</summary>
         <div class="sub answer">PayPal y tarjetas bancarias. Pronto añadiremos más opciones.</div>
       </details>
-      <details>
+      <details class="accent-perma">
         <summary>¿Puedo pedir factura?</summary>
         <div class="sub answer">Sí. Envíanos tus datos fiscales a <strong>hola@motourbano.shop</strong> junto con el número de pedido.</div>
       </details>
-      <details>
+      <details class="accent-perma">
         <summary>¿Los productos tienen garantía?</summary>
         <div class="sub answer">Sí, garantía de 6 meses por defectos de fábrica.</div>
       </details>
@@ -527,17 +517,17 @@
       <div class="contact-item">
         <strong>Email</strong>
         <div class="sub">hola@motourbano.shop</div>
-        <a class="btn secondary" href="mailto:hola@motourbano.shop?subject=Consulta%20MotoUrbano%20MX">Enviar correo</a>
+        <a class="btn accent-perma" href="mailto:hola@motourbano.shop?subject=Consulta%20MotoUrbano%20MX">Enviar correo</a>
       </div>
       <div class="contact-item">
         <strong>WhatsApp</strong>
         <div class="sub">Lun a Vie · 10:00–18:00</div>
-        <a class="btn secondary" href="https://wa.me/520000000000" target="_blank" rel="noopener">Abrir WhatsApp</a>
+        <a class="btn accent-perma" href="https://wa.me/520000000000" target="_blank" rel="noopener">Abrir WhatsApp</a>
       </div>
       <div class="contact-item">
         <strong>Devoluciones</strong>
         <div class="sub">Plazo de 14 días</div>
-        <a class="btn secondary" href="#!" onclick="return MU_openLegal('devoluciones');">Ver política</a>
+        <a class="btn accent-perma" href="#" data-legal="devoluciones">Ver política</a>
       </div>
     </div>
   </section>
@@ -551,10 +541,10 @@
     </div>
 
     <div class="container footer-legal" style="padding-bottom:6px">
-      <a href="#!" onclick="return MU_openLegal('envios');">Envíos</a><span class="dot">·</span>
-      <a href="#!" onclick="return MU_openLegal('devoluciones');">Devoluciones</a><span class="dot">·</span>
-      <a href="#!" onclick="return MU_openLegal('privacidad');">Privacidad</a><span class="dot">·</span>
-      <a href="#!" onclick="return MU_openLegal('terminos');">Términos</a>
+      <a href="#" class="accent-perma" data-legal="envios">Envíos</a><span class="dot">·</span>
+      <a href="#" class="accent-perma" data-legal="devoluciones">Devoluciones</a><span class="dot">·</span>
+      <a href="#" class="accent-perma" data-legal="privacidad">Privacidad</a><span class="dot">·</span>
+      <a href="#" class="accent-perma" data-legal="terminos">Términos</a>
     </div>
 
     <div class="container copy">
@@ -574,7 +564,7 @@
         <div class="modal-title" id="mTitle">Producto</div>
         <button class="close" id="mClose" aria-label="Cerrar">✕</button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body prod">
         <div class="media-wrap">
           <img id="mMain" class="m-main" src="" alt="" />
           <button class="nav-arrow prev" id="mPrev" aria-label="Anterior">‹</button>
@@ -590,7 +580,7 @@
               <input type="number" id="qInput" value="1" min="1" />
               <button type="button" id="qPlus">+</button>
             </div>
-            <button class="btn" id="mAdd">Añadir al carrito</button>
+            <button class="btn accent-perma" id="mAdd">Añadir al carrito</button>
           </div>
           <div class="sub" style="font-size:12px">Pago seguro con PayPal · Envío a todo México · Devoluciones 14 días</div>
         </div>
@@ -617,7 +607,7 @@
       <div class="cart-foot">
         <strong>Total: <span id="cTotal">$0 MXN</span></strong>
         <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
-          <button class="btn secondary" id="cClear" type="button">Vaciar</button>
+          <button class="btn accent-perma" id="cClear" type="button">Vaciar</button>
           <!-- PayPal Standard: cambia tu correo abajo -->
           <form id="ppForm" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
             <input type="hidden" name="cmd" value="_xclick">
@@ -625,15 +615,15 @@
             <input type="hidden" name="item_name" value="Pedido MotoUrbano MX">
             <input type="hidden" name="amount" id="ppAmount" value="0.00">
             <input type="hidden" name="currency_code" value="MXN">
-            <button type="submit" class="btn">Pagar con PayPal / Tarjeta</button>
+            <button type="submit" class="btn accent-perma">Pagar con PayPal / Tarjeta</button>
           </form>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- MODAL Legales (creado si hiciera falta por MU_openLegal) -->
-  <div class="modal" id="legalModal" aria-hidden="true" style="display:none">
+  <!-- MODAL Legal (sin display:none inline) -->
+  <div class="modal" id="legalModal" aria-hidden="true">
     <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="legalTitle">
       <div class="modal-head">
         <div class="modal-title" id="legalTitle">Información legal</div>
@@ -653,52 +643,41 @@
       var $ = function(sel,ctx){ return (ctx||document).querySelector(sel); };
       var $$= function(sel,ctx){ return [].slice.call((ctx||document).querySelectorAll(sel)); };
 
-      /* ===== Header compacto y compensación dinámica ===== */
+      /* Header compacto + compensación */
       const header = $('#siteHeader');
-      function updateHeaderUi(){
-        const sc = window.scrollY||window.pageYOffset;
-        header.classList.toggle('is-scrolled', sc>8);
-        const h = header.getBoundingClientRect().height;
-        document.documentElement.style.setProperty('--header-h', h+'px');
-      }
-      updateHeaderUi();
-      window.addEventListener('scroll', updateHeaderUi, {passive:true});
-      window.addEventListener('resize', updateHeaderUi);
+      function updateHeaderUi(){ const sc=window.scrollY||window.pageYOffset; header.classList.toggle('is-scrolled', sc>8); const h=header.getBoundingClientRect().height; document.documentElement.style.setProperty('--header-h', h+'px'); }
+      updateHeaderUi(); window.addEventListener('scroll', updateHeaderUi, {passive:true}); window.addEventListener('resize', updateHeaderUi);
 
       function scrollToId(id){
-        const el = document.querySelector(id);
-        if(!el) return;
-        const headerH = header.getBoundingClientRect().height;
-        const y = el.getBoundingClientRect().top + window.pageYOffset - headerH - 6;
-        window.scrollTo({top:y, behavior:'smooth'});
+        const el=document.querySelector(id); if(!el) return;
+        const headerH=header.getBoundingClientRect().height;
+        const y=el.getBoundingClientRect().top + window.pageYOffset - headerH - 6;
+        window.scrollTo({top:y,behavior:'smooth'});
       }
 
-      var y = $('#year'); if(y) y.textContent = new Date().getFullYear();
+      var y=$('#year'); if(y) y.textContent=new Date().getFullYear();
 
-      /* ===== FILTROS ===== */
-      var filterPills = $$('#filters .pill');
-      var prodCards   = $$('#gridProds [data-cat]');
+      /* Filtros */
+      var filterPills=$$('#filters .pill');
+      var prodCards=$$('#gridProds [data-cat]');
       function applyFilter(cat){
         filterPills.forEach(function(p){ p.classList.toggle('is-active', p.dataset.cat===cat); });
-        prodCards.forEach(function(card){ card.classList.toggle('hidden', !(cat==='all' || card.dataset.cat===cat)); });
+        prodCards.forEach(function(card){ card.classList.toggle('hidden', !(cat==='all'||card.dataset.cat===cat)); });
         scrollToId('#productos');
       }
       filterPills.forEach(function(p){ p.addEventListener('click', function(){ applyFilter(p.dataset.cat); }); });
       $$('.js-cat').forEach(function(tile){ tile.addEventListener('click', function(){ applyFilter(tile.dataset.cat); }); });
 
-      /* ===== MODAL PRODUCTO ===== */
+      /* Modal producto */
       var modal=$('#modal'), mTitle=$('#mTitle'), mPrice=$('#mPrice'),
           mMain=$('#mMain'), mThumbs=$('#mThumbs'),
           mPrev=$('#mPrev'), mNext=$('#mNext'), mClose=$('#mClose'),
           qMinus=$('#qMinus'), qPlus=$('#qPlus'), qInput=$('#qInput'),
           mAdd=$('#mAdd'), mDesc=$('#mDesc');
 
-      var lightbox=$('#lightbox'), lbImg=$('#lbImg'), lbClose=$('#lbClose'),
-          lbPrev=$('#lbPrev'), lbNext=$('#lbNext');
+      var lightbox=$('#lightbox'), lbImg=$('#lbImg'), lbClose=$('#lbClose'), lbPrev=$('#lbPrev'), lbNext=$('#lbNext');
 
-      var toast=$('#toast');
-      var current={images:[],index:0,name:'',priceText:'',price:0};
-
+      var toast=$('#toast'); var current={images:[],index:0,name:'',priceText:'',price:0};
       function bullets(text){ return (text||'').split('·').map(function(s){return s.trim();}).filter(Boolean); }
       function setActiveThumb(){ $$('#mThumbs img').forEach(function(t){ t.classList.toggle('active', t.src===mMain.src); }); }
       function showImage(idx){
@@ -706,53 +685,27 @@
         current.index=(idx+current.images.length)%current.images.length;
         mMain.classList.add('is-loading');
         var nextSrc=current.images[current.index];
-        var im=new Image(); im.decoding='async'; im.onload=function(){
-          mMain.src=nextSrc; mMain.alt=current.name; mMain.classList.remove('is-loading'); setActiveThumb();
-        }; im.src=nextSrc;
+        var im=new Image(); im.decoding='async'; im.onload=function(){ mMain.src=nextSrc; mMain.alt=current.name; mMain.classList.remove('is-loading'); setActiveThumb(); }; im.src=nextSrc;
       }
-
       function openModal(card){
-        var gallery=[];
-        try{ gallery=JSON.parse(card.getAttribute('data-gallery')||'[]'); }catch(e){ gallery=[]; }
-        current={
-          name:card.dataset.name,
-          priceText:card.dataset.price,
-          price:parseInt((card.dataset.price||'').replace(/[^0-9]/g,''),10)||0,
-          main:card.getAttribute('data-main')||'',
-          images:[],index:0
-        };
+        var gallery=[]; try{ gallery=JSON.parse(card.getAttribute('data-gallery')||'[]'); }catch(e){}
+        current={ name:card.dataset.name, priceText:card.dataset.price, price:parseInt((card.dataset.price||'').replace(/[^0-9]/g,''),10)||0, main:card.getAttribute('data-main')||'', images:[], index:0 };
         current.images=[current.main].concat(gallery.filter(Boolean));
-        mTitle.textContent=current.name||'Producto';
-        mPrice.textContent=current.priceText||'';
-        mMain.classList.remove('is-loading');
-        mMain.src=current.images[0]; mMain.alt=current.name;
-
-        mThumbs.innerHTML=current.images.map(function(src,i){
-          return '<img src="'+src+'" alt="Vista '+(i+1)+' '+current.name+'" loading="lazy" decoding="async">';
-        }).join('');
+        mTitle.textContent=current.name||'Producto'; mPrice.textContent=current.priceText||''; mMain.classList.remove('is-loading'); mMain.src=current.images[0]; mMain.alt=current.name;
+        mThumbs.innerHTML=current.images.map(function(src,i){ return '<img src="'+src+'" alt="Vista '+(i+1)+' '+current.name+'" loading="lazy" decoding="async">'; }).join('');
         setActiveThumb();
-
-        mThumbs.onclick=function(e){
-          var img=e.target.closest('img'); if(!img) return;
-          var idx=current.images.indexOf(img.src);
-          if(idx>-1){ showImage(idx); openLightbox(img.src, img.alt); }
-        };
+        mThumbs.onclick=function(e){ var img=e.target.closest('img'); if(!img) return; var idx=current.images.indexOf(img.src); if(idx>-1){ showImage(idx); openLightbox(img.src, img.alt); } };
         mMain.onclick=function(){ openLightbox(mMain.src, mMain.alt); };
-        mPrev.onclick=function(){ showImage(current.index-1); };
-        mNext.onclick=function(){ showImage(current.index+1); };
+        mPrev.onclick=function(){ showImage(current.index-1); }; mNext.onclick=function(){ showImage(current.index+1); };
 
-        // Swipe básico
+        // Swipe
         var sx=0,sy=0,dx=0,dy=0;
         mMain.addEventListener('touchstart',function(ev){ if(ev.touches.length!==1)return; sx=ev.touches[0].clientX; sy=ev.touches[0].clientY; },{passive:true});
         mMain.addEventListener('touchmove',function(ev){ if(ev.touches.length!==1)return; dx=ev.touches[0].clientX-sx; dy=ev.touches[0].clientY-sy; },{passive:true});
         mMain.addEventListener('touchend',function(){ if(Math.abs(dx)>40 && Math.abs(dy)<40){ if(dx<0)showImage(current.index+1); else showImage(current.index-1);} dx=dy=0; },{passive:true});
 
-        // Descripción (estilo features elegante)
         mDesc.innerHTML=bullets(card.dataset.desc||'').map(function(li){return '<li>'+li+'</li>';}).join('');
-
-        qInput.value=1;
-        modal.classList.add('open');
-
+        qInput.value=1; modal.classList.add('open');
         current.images.slice(1).forEach(function(src){ var i=new Image(); i.decoding='async'; i.src=src; });
       }
       function closeModal(){ modal.classList.remove('open'); }
@@ -770,10 +723,10 @@
         if(e.key==='ArrowRight') showImage(current.index+1);
       });
 
-      /* ===== LIGHTBOX ===== */
+      /* Lightbox */
       function openLightbox(src,alt){ lbImg.src=src; lbImg.alt=alt||''; scale=1; tx=0; ty=0; applyTransform(); lightbox.classList.add('open'); }
       function closeLightbox(){ lightbox.classList.remove('open'); }
-      window.openLightbox = openLightbox;
+      window.openLightbox=openLightbox;
       lbClose.addEventListener('click', closeLightbox);
       lbPrev.addEventListener('click', function(){ showImage(current.index-1); lbImg.src=current.images[current.index]; });
       lbNext.addEventListener('click', function(){ showImage(current.index+1); lbImg.src=current.images[current.index]; });
@@ -781,35 +734,17 @@
 
       var scale=1, tx=0, ty=0;
       function applyTransform(){ lbImg.style.transform='translate('+tx+'px,'+ty+'px) scale('+scale+')'; }
-      lightbox.addEventListener('wheel', function(e){
-        e.preventDefault();
-        var d=e.deltaY>0?-0.1:0.1; scale=Math.max(1,Math.min(5,scale+d)); applyTransform();
-      }, {passive:false});
+      lightbox.addEventListener('wheel', function(e){ e.preventDefault(); var d=e.deltaY>0?-0.1:0.1; scale=Math.max(1,Math.min(5,scale+d)); applyTransform(); }, {passive:false});
       var startDist=0,startScale=1,startX=0,startY=0;
-      lightbox.addEventListener('touchstart', function(e){
-        if(e.touches.length===2){
-          startDist=Math.hypot(e.touches[0].clientX-e.touches[1].clientX, e.touches[0].clientY-e.touches[1].clientY);
-          startScale=scale;
-        }else if(e.touches.length===1){ startX=e.touches[0].clientX-tx; startY=e.touches[0].clientY-ty; }
-      }, {passive:true});
-      lightbox.addEventListener('touchmove', function(e){
-        if(e.touches.length===2){
-          var d=Math.hypot(e.touches[0].clientX-e.touches[1].clientX, e.touches[0].clientY-e.touches[1].clientY);
-          scale=Math.max(1,Math.min(5,startScale*(d/startDist))); applyTransform();
-        }else if(e.touches.length===1 && scale>1){
-          tx=e.touches[0].clientX-startX; ty=e.touches[0].clientY-startY; applyTransform();
-        }
-      }, {passive:true});
-      var lastTap=0;
-      lightbox.addEventListener('touchend', function(){
-        var now=Date.now(); if(now-lastTap<300){ scale=1; tx=0; ty=0; applyTransform(); } lastTap=now;
-      });
+      lightbox.addEventListener('touchstart', function(e){ if(e.touches.length===2){ startDist=Math.hypot(e.touches[0].clientX-e.touches[1].clientX, e.touches[0].clientY-e.touches[1].clientY); startScale=scale; } else if(e.touches.length===1){ startX=e.touches[0].clientX-tx; startY=e.touches[0].clientY-ty; } }, {passive:true});
+      lightbox.addEventListener('touchmove', function(e){ if(e.touches.length===2){ var d=Math.hypot(e.touches[0].clientX-e.touches[1].clientX, e.touches[0].clientY-e.touches[1].clientY); scale=Math.max(1,Math.min(5,startScale*(d/startDist))); applyTransform(); } else if(e.touches.length===1 && scale>1){ tx=e.touches[0].clientX-startX; ty=e.touches[0].clientY-startY; applyTransform(); } }, {passive:true});
+      var lastTap=0; lightbox.addEventListener('touchend', function(){ var now=Date.now(); if(now-lastTap<300){ scale=1; tx=0; ty=0; applyTransform(); } lastTap=now; });
 
-      /* ===== CARRITO ===== */
+      /* Carrito */
       var cartBtn=$('#cartBtn'), cartModal=$('#cart'), cClose=$('#cClose'),
           cBody=$('#cBody'), cTotal=$('#cTotal'), cClear=$('#cClear'),
           ppAmount=$('#ppAmount'), ppBusiness=$('#ppBusiness');
-      var PAYPAL_BUSINESS='tu-correo-paypal@ejemplo.com'; ppBusiness.value=PAYPAL_BUSINESS;
+      var PAYPAL_BUSINESS='tu-correo-paypal@ejemplo.com'; if(ppBusiness) ppBusiness.value=PAYPAL_BUSINESS;
 
       var STORAGE_KEY='mu_cart';
       function readCart(){ try{ return JSON.parse(localStorage.getItem(STORAGE_KEY)||'[]'); }catch(e){ return []; } }
@@ -844,20 +779,14 @@
       function openCart(){ renderCart(); cartModal.classList.add('open'); }
       function closeCart(){ cartModal.classList.remove('open'); }
       cartBtn.addEventListener('click', function(e){ e.preventDefault(); openCart(); });
-      cClose .addEventListener('click', closeCart);
+      cClose.addEventListener('click', closeCart);
       cartModal.addEventListener('click', function(e){ if(e.target===cartModal) closeCart(); });
 
       cBody.addEventListener('click', function(e){
         var del=e.target.closest('[data-del]');
-        if(del){
-          var idx=parseInt(del.dataset.del,10);
-          var items=readCart(); items.splice(idx,1);
-          writeCart(items); updateCount(); renderCart(); return;
-        }
+        if(del){ var idx=parseInt(del.dataset.del,10); var items=readCart(); items.splice(idx,1); writeCart(items); updateCount(); renderCart(); return; }
         var act=e.target.closest('button[data-act]');
-        if(act){
-          var idx=parseInt(act.dataset.idx,10);
-          var items=readCart(); if(!items[idx]) return;
+        if(act){ var idx=parseInt(act.dataset.idx,10); var items=readCart(); if(!items[idx]) return;
           if(act.dataset.act==='minus'){ items[idx].qty=Math.max(1,(items[idx].qty||1)-1); }
           if(act.dataset.act==='plus'){ items[idx].qty=(items[idx].qty||1)+1; }
           writeCart(items); updateCount(); renderCart();
@@ -865,68 +794,44 @@
       });
       cBody.addEventListener('change', function(e){
         var inp=e.target.closest('input[data-act="input"]'); if(!inp) return;
-        var idx=parseInt(inp.dataset.idx,10);
-        var items=readCart(); if(!items[idx]) return;
-        var v=Math.max(1, parseInt(inp.value,10)||1);
-        items[idx].qty=v; writeCart(items); updateCount(); renderCart();
+        var idx=parseInt(inp.dataset.idx,10); var items=readCart(); if(!items[idx]) return;
+        var v=Math.max(1, parseInt(inp.value,10)||1); items[idx].qty=v; writeCart(items); updateCount(); renderCart();
       });
       if($('#cClear')) $('#cClear').addEventListener('click', function(){ writeCart([]); updateCount(); renderCart(); });
 
-      function showToast(){
-        var t=$('#toast'); if(!t) return;
-        t.classList.add('show'); t.style.opacity='1'; t.style.transform='translateX(-50%) translateY(-6px)';
-        setTimeout(function(){ t.classList.remove('show'); t.style.opacity='0'; t.style.transform='translateX(-50%)'; }, 1400);
-      }
+      function showToast(){ var t=$('#toast'); if(!t) return; t.style.opacity='1'; t.style.transform='translateX(-50%) translateY(-6px)'; setTimeout(function(){ t.style.opacity='0'; t.style.transform='translateX(-50%)'; }, 1400); }
       $('#mAdd').addEventListener('click', function(){
         var qty=Math.max(1, parseInt($('#qInput').value,10)||1);
-        var items=readCart();
-        var name=$('#mTitle').textContent;
-        var price=parseInt(($('#mPrice').textContent||'').replace(/[^0-9]/g,''),10)||0;
-        var img=$('#mMain').src;
+        var items=readCart(); var name=$('#mTitle').textContent;
+        var price=parseInt(($('#mPrice').textContent||'').replace(/[^0-9]/g,''),10)||0; var img=$('#mMain').src;
         var found=items.find(function(it){ return it.name===name && it.img===img && it.price===price; });
         if(found){ found.qty+=qty; } else { items.push({name:name,price:price,img:img,qty:qty}); }
         writeCart(items); updateCount(); openCart(); closeModal(); showToast();
       });
 
-      /* ===== Scroll de menú ===== */
+      /* Navegación por ancla con compensación */
       $$('.menu a[href^="#"]').forEach(function(a){
-        a.addEventListener('click', function(e){
-          e.preventDefault();
-          const id=a.getAttribute('href');
-          if(id && id.length>1){ scrollToId(id); }
-        });
+        a.addEventListener('click', function(e){ e.preventDefault(); var id=a.getAttribute('href'); if(id && id.length>1){ scrollToId(id); } });
       });
 
-      /* ===== Prefetch de galerías ===== */
+      /* Prefetch de galerías */
       function prefetch(g){ g.forEach(function(src){ var i=new Image(); i.decoding='async'; i.src=src; }); }
-      (window.requestIdleCallback||setTimeout)(function(){
-        $$('#gridProds [data-gallery]').forEach(function(card){
-          try{ var g=JSON.parse(card.getAttribute('data-gallery')||'[]'); prefetch(g); }catch(e){}
-        });
-      },300);
-      $$('#gridProds [data-gallery]').forEach(function(card){
-        card.addEventListener('mouseenter', function(){
-          try{ var g=JSON.parse(card.getAttribute('data-gallery')||'[]'); prefetch(g); }catch(e){}
-        }, {passive:true});
-      });
+      (window.requestIdleCallback||setTimeout)(function(){ $$('#gridProds [data-gallery]').forEach(function(card){ try{ var g=JSON.parse(card.getAttribute('data-gallery')||'[]'); prefetch(g); }catch(e){} }); },300);
+      $$('#gridProds [data-gallery]').forEach(function(card){ card.addEventListener('mouseenter', function(){ try{ var g=JSON.parse(card.getAttribute('data-gallery')||'[]'); prefetch(g); }catch(e){} }, {passive:true}); });
 
-      /* ===== PAYPAL email ===== */
-      var ppBusiness = $('#ppBusiness'); if(ppBusiness) ppBusiness.value = 'tu-correo-paypal@ejemplo.com';
+      /* PayPal email */
+      var ppBusiness=$('#ppBusiness'); if(ppBusiness) ppBusiness.value='tu-correo-paypal@ejemplo.com';
 
-      /* ===== Enlaces legales (delegación adicional) ===== */
+      /* Delegación enlaces legales — SIEMPRE abre modal, sin navegar */
       document.addEventListener('click', function(e){
-        const a = e.target.closest('a[data-legal], a[href="#!"]');
-        if(a && (a.hasAttribute('data-legal') || a.getAttribute('href')==="#!")){
-          e.preventDefault();
-          const key = a.getAttribute('data-legal');
-          if(key && window.MU_openLegal){ window.MU_openLegal(key); }
-        }
+        var a=e.target.closest('a[data-legal]');
+        if(a){ e.preventDefault(); var key=a.getAttribute('data-legal'); if(window.MU_openLegal) MU_openLegal(key); }
       }, {passive:false});
 
-      /* INIT */
+      /* Init */
       updateHeaderUi();
       if(location.hash){ setTimeout(function(){ scrollToId(location.hash); }, 50); }
-      updateCount();
+      (function updateCountInit(){ try{ var items=JSON.parse(localStorage.getItem('mu_cart')||'[]'); var n=items.reduce((s,i)=>s+i.qty,0); $('#cartCount').textContent=n; }catch(_){ $('#cartCount').textContent='0'; } })();
     });
   </script>
 </body>
