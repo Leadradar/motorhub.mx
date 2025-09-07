@@ -67,18 +67,31 @@ document.addEventListener('DOMContentLoaded', function(){
       if (tile) applyFilter(tile.dataset.cat);
     });
     
-    const closableModals = ['#legalModal', '#modal', '#cart', '#lightbox', '#emailModal'];
-    $$('.modal, .lightbox').forEach(modalEl => {
+    // Nueva y más robusta forma de cerrar modales
+    const modalElements = $$('.modal, .lightbox');
+    const closeButtons = $$('.modal .close, .lightbox .x');
+    
+    modalElements.forEach(modalEl => {
       modalEl.addEventListener('click', e => {
-        if (e.target === modalEl || e.target.closest('.close') || e.target.closest('.x')) {
-          e.preventDefault();
+        if (e.target === modalEl) {
           modalEl.classList.remove('open');
         }
       });
     });
-    
+
+    closeButtons.forEach(btn => {
+        btn.addEventListener('click', e => {
+            const modalToClose = e.target.closest('.modal, .lightbox');
+            if (modalToClose) {
+                modalToClose.classList.remove('open');
+            }
+        });
+    });
+
     document.addEventListener('keydown', e => {
-      if(e.key === 'Escape') closableModals.forEach(sel => $(sel)?.classList.remove('open'));
+      if(e.key === 'Escape') {
+        $$('.modal.open, .lightbox.open').forEach(el => el.classList.remove('open'));
+      }
     });
     
     const yearEl = $('#year');
