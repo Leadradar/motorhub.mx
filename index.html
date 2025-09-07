@@ -92,28 +92,103 @@
         .btn{display:inline-flex;align-items:center;gap:8px;background:#fff;color:#000;border:1px solid var(--accent);border-radius:12px;padding:10px 14px;cursor:pointer;transition:background .15s,border-color .15s, box-shadow .15s}
         .btn:hover{background:var(--accent-weak);border-color:var(--accent);box-shadow:inset 0 0 0 2px var(--accent-weak)}
         .close{border:none;background:#f3f3f3;border-radius:10px;padding:8px 10px;cursor:pointer}
+
+        /* ===== Modal (mejora visual y centrado) ===== */
         .modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;padding:16px;z-index:60}
         .modal.open{display:flex}
-        .modal-card{background:#fff;border-radius:18px;max-width:1120px;width:min(96vw,1120px);max-height:92vh;display:flex;flex-direction:column;overflow:hidden;border:1px solid var(--line);margin:auto}
-        .modal-head{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid var(--line)}
+        .modal-card{
+            background:#fff;
+            border-radius:20px;
+            max-width:1100px;
+            width:min(96vw, 1000px);      /* ✅ ancho controlado y centrado */
+            margin:auto;                  /* ✅ asegura centrado */
+            max-height:92vh;
+            display:flex;
+            flex-direction:column;
+            overflow:hidden;
+            border:1px solid var(--line);
+            box-shadow:0 20px 60px rgba(0,0,0,.18); /* ✅ sombra pro */
+        }
+        .modal-head{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;border-bottom:1px solid var(--line);background:#fff}
         .modal-title{font:700 18px/1.2 Poppins,system-ui}
-        .modal-body{display:grid;gap:16px;padding:16px;overflow:auto;align-items:start}
-        @media(min-width:900px){.modal-body.prod{grid-template-columns:60% 40%}}
-        .media-wrap{position:relative}
-        .m-main{width:100%;max-height:80vh;object-fit:contain;border-radius:12px;background:#f7f7f7;cursor:zoom-in}
+        .modal-body{gap:16px;padding:16px;overflow:auto;align-items:start}
+        /* ✅ layout pro del modal de producto */
+        .modal-body.prod{
+            display:grid;
+            grid-template-columns:1fr;
+            gap:18px;
+            padding:18px;
+        }
+        @media(min-width:900px){
+            .modal-body.prod{
+                grid-template-columns:58% 42%;
+                align-items:start;
+            }
+        }
+        /* ✅ marco y fondo del bloque de imagen */
+        .media-wrap{
+            position:relative;
+            background:#fafafa;
+            border:1px solid var(--line);
+            border-radius:16px;
+            padding:10px;
+        }
+        .m-main{
+            width:100%;
+            max-height:70vh;
+            object-fit:contain;
+            border-radius:12px;
+            background:#f7f7f7;
+            cursor:zoom-in;
+        }
         .m-main.is-loading{background:linear-gradient(90deg,#f3f3f3 25%,#e9e9e9 37%,#f3f3f3 63%);background-size:400% 100%;animation:sheen 1.2s infinite}
         @keyframes sheen{0%{background-position:100% 0}100%{background-position:0 0}}
         .nav-arrow{position:absolute;top:50%;transform:translateY(-50%);background:#ffffffcc;border:1px solid var(--line);border-radius:12px;padding:8px 10px;cursor:pointer}
         .nav-arrow.prev{left:8px}
         .nav-arrow.next{right:8px}
-        .thumbs{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:8px}
-        .thumbs img{width:100%;height:84px;object-fit:cover;border-radius:10px;border:2px solid transparent;cursor:pointer;background:#fafafa}
-        .thumbs img.active{border-color:#000}
-        .detail-col{display:flex;flex-direction:column;align-items:flex-start}
-        .badge-price{display:inline-block;background:var(--accent-weak);border:1px solid var(--accent);border-radius:999px;padding:10px 14px;font:800 22px/1 Poppins,system-ui;margin:0 0 12px}
-        .features{list-style:none;padding:0;margin:0 0 16px}
+        .thumbs{
+            display:grid;
+            grid-template-columns:repeat(4,1fr);
+            gap:10px;
+            margin-top:10px;
+            justify-items:center;
+        }
+        .thumbs img{
+            width:100%;
+            height:84px;
+            object-fit:cover;
+            border-radius:12px;
+            border:2px solid transparent;
+            cursor:pointer;
+            background:#fff;
+            box-shadow:0 4px 14px rgba(0,0,0,.05);
+        }
+        .thumbs img.active{border-color:var(--accent)}
+        /* ✅ columna de detalles con marco y ritmo */
+        .detail-col{
+            display:flex;flex-direction:column;align-items:flex-start;
+            background:#fff;
+            border:1px solid var(--line);
+            border-radius:16px;
+            padding:16px;
+            gap:12px;
+        }
+        .badge-price{
+            display:inline-block;background:var(--accent-weak);
+            border:1px solid var(--accent);
+            border-radius:999px;padding:10px 14px;
+            font:800 22px/1 Poppins,system-ui;margin:0 0 6px
+        }
+        .features{list-style:none;padding:0;margin:6px 0 4px}
         .features li{position:relative;padding-left:22px;margin:8px 0}
         .features li::before{content:"";position:absolute;left:0;top:7px;width:10px;height:10px;border-radius:50%;background:var(--accent-weak);border:1px solid var(--accent)}
+        /* ✅ selector de cantidad pro (solo afecta modal) */
+        .qty{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#f6f6f6}
+        .qty button{background:none;border:none;padding:8px 12px;cursor:pointer;font-weight:700}
+        .qty button:hover{background:var(--accent-weak)}
+        .qty input{width:48px;text-align:center;border:none;padding:8px 0;background:transparent;font:inherit}
+        /* ===== /Modal ===== */
+
         .lightbox{position:fixed;inset:0;background:#000000eb;display:none;align-items:center;justify-content:center;z-index:80;touch-action:none}
         .lightbox.open{display:flex}
         .lightbox img{max-width:95vw;max-height:95vh;object-fit:contain;transform-origin:center center;transition:transform .06s linear}
@@ -160,16 +235,13 @@
         .floating-wa{position:fixed; right:16px; bottom:16px; width:64px; height:64px; display:flex; align-items:center; justify-content:center; z-index:45; cursor:pointer}
         .floating-wa img{ width:64px; height:64px; display:block }
         .trustbar { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
-        .modal-body.prod{ display: flex; flex-direction: column; gap: 20px; }
-        @media(min-width: 900px) {
-            .modal-body.prod { flex-direction: row; align-items: center; }
-        }
+        .modal-body.prod{ display: grid; } /* ya redefinido arriba para modal */
         .media-wrap { flex: 1; display: flex; flex-direction: column; }
-        .detail-col { flex: 1; align-items: center; text-align: center; }
+        .detail-col { flex: 1; align-items: flex-start; text-align: left; }
         .m-main { flex: 1; object-fit: contain; width: 100%; height: auto; }
         .thumbs { justify-content: center; }
-        .features { list-style: none; padding: 0; margin: 0 0 16px; text-align: left; }
-        .features li { position: relative; padding-left: 22px; margin: 8px 0; width: fit-content; margin-left: auto; margin-right: auto; }
+        .features { list-style: none; padding: 0; margin: 0 0 16px; }
+        .features li { position: relative; padding-left: 22px; margin: 8px 0; }
     </style>
 </head>
 <body>
@@ -469,7 +541,7 @@
         <div class="detail-col">
           <div id="mPrice" class="badge-price"></div>
           <ul id="mDesc" class="features"></ul>
-          <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:6px">
             <div class="qty" role="group" aria-label="Cantidad">
               <button type="button" id="qMinus" aria-label="Reducir cantidad">−</button>
               <input type="number" id="qInput" value="1" min="1" inputmode="numeric" />
