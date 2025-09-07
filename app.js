@@ -2,12 +2,14 @@ document.addEventListener('DOMContentLoaded', function(){
     const $ = (sel,ctx)=> (ctx||document).querySelector(sel);
     const $$= (sel,ctx)=> [].slice.call((ctx||document).querySelectorAll(sel));
 
+    // Referencias a los elementos principales del DOM
     const header = $('#siteHeader');
     const prodCards = $$('#gridProds article.prod');
     const filterPills = $$('#filters .pill');
     const grid = $('#gridProds');
     const cartBtn = $('#cartBtn');
 
+    // Referencias a los modales y elementos internos
     const modal = $('#modal'), mTitle = $('#mTitle'), mPrice = $('#mPrice'),
           mMain = $('#mMain'), mThumbs = $('#mThumbs'), mDesc = $('#mDesc'),
           mPrev = $('#mPrev'), mNext = $('#mNext'),
@@ -22,9 +24,10 @@ document.addEventListener('DOMContentLoaded', function(){
     
     const toast = $('#toast');
     
+    // Estado del producto para el modal
     let currentProduct = { images:[], index:0, name:'', priceText:'', price:0 };
 
-    /* --- Funcionalidades de UI/UX --- */
+    /* --- Funcionalidades generales de la página --- */
     function updateHeaderUi(){
       if (!header) return;
       const scrolled = window.scrollY > 8;
@@ -45,9 +48,10 @@ document.addEventListener('DOMContentLoaded', function(){
       scrollToId('#productos');
     }
 
+    // Funciones para abrir y cerrar modales
     function openModal(modalEl) { modalEl?.classList.add('open'); }
     function closeModal(modalEl) { modalEl?.classList.remove('open'); }
-
+    
     /* --- Lógica del Modal de Producto y Lightbox --- */
     function getProductData(card){
       const name = card.dataset.name;
@@ -170,17 +174,18 @@ document.addEventListener('DOMContentLoaded', function(){
         };
     });
 
-    /* --- GESTIÓN DE EVENTOS (todo en un solo bloque) --- */
+    /* --- GESTIÓN DE EVENTOS Y CÓDIGO DE INICIALIZACIÓN --- */
     
+    // Eventos de la interfaz (scroll, resize, clic en menú)
     window.addEventListener('scroll', updateHeaderUi, { passive: true });
     window.addEventListener('resize', updateHeaderUi);
-    
     $$('.menu a[href^="#"]').forEach(a => a.addEventListener('click', function(e){
         e.preventDefault();
         const id = this.getAttribute('href');
         if (id && id.length > 1) scrollToId(id);
     }));
 
+    // Eventos para filtros de productos y categorías
     const filtersContainer = $('#filters');
     if (filtersContainer) filtersContainer.addEventListener('click', e => {
       const pill = e.target.closest('.pill');
@@ -193,7 +198,7 @@ document.addEventListener('DOMContentLoaded', function(){
       if (tile) applyFilter(tile.dataset.cat);
     });
 
-    // Eventos para abrir modales
+    // Eventos para abrir y cerrar modales y lightbox
     if (grid) grid.addEventListener('click', e => {
       const card = e.target.closest('article.prod');
       if (card) openProductModal(card);
@@ -205,15 +210,19 @@ document.addEventListener('DOMContentLoaded', function(){
         openModal(cartModal);
     });
 
-    // Eventos para cerrar modales (Solución robusta)
-    $$('.modal, .lightbox').forEach(modalEl => {
-      modalEl.addEventListener('click', e => {
-        const closeBtn = e.target.closest('.close') || e.target.closest('.x');
-        if (e.target === modalEl || closeBtn) {
-            e.stopPropagation(); // Evita que el clic se propague
-            closeModal(modalEl);
+    // Delegación de eventos para cerrar modales
+    document.body.addEventListener('click', e => {
+        const modalToClose = e.target.closest('.modal') || e.target.closest('.lightbox');
+        const closeButton = e.target.closest('.close') || e.target.closest('.x');
+        
+        if (closeButton) {
+            closeButton.closest('.modal, .lightbox')?.classList.remove('open');
+            return;
         }
-      });
+
+        if (modalToClose && e.target === modalToClose) {
+            modalToClose.classList.remove('open');
+        }
     });
 
     document.addEventListener('keydown', e => {
@@ -222,7 +231,7 @@ document.addEventListener('DOMContentLoaded', function(){
       }
     });
 
-    // Eventos del modal de producto
+    // Eventos del modal de producto (dentro del modal)
     if (mThumbs) mThumbs.addEventListener('click', e => {
       const img = e.target.closest('img');
       if (img) showImageInModal(currentProduct.images.indexOf(img.getAttribute('data-src')));
@@ -232,7 +241,7 @@ document.addEventListener('DOMContentLoaded', function(){
     if (mPrev) mPrev.addEventListener('click', () => showImageInModal(currentProduct.index - 1));
     if (mNext) mNext.addEventListener('click', () => showImageInModal(currentProduct.index + 1));
     
-    // Eventos del carrito
+    // Eventos del carrito (botones de cantidad y añadir/vaciar)
     cClear?.addEventListener('click', () => { writeCart([]); updateCartCount(); renderCart(); });
     
     if(cBody){
@@ -275,11 +284,12 @@ document.addEventListener('DOMContentLoaded', function(){
       showToast('Añadido al carrito');
     });
 
-    /* --- Código de inicialización --- */
+    // Inicialización del sitio
     updateHeaderUi();
     updateCartCount();
     if(location.hash) setTimeout(() => scrollToId(location.hash), 50);
 
+    // Cargar la segunda imagen para el efecto hover
     prodCards.forEach(card => {
       let gallery = [];
       try { gallery = JSON.parse(card.dataset.gallery || '[]'); } catch(e) {}
