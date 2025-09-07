@@ -179,9 +179,14 @@
     #faq summary{cursor:pointer;font-weight:700}
     #faq .answer{margin-top:8px}
 
-    /* WhatsApp flotante */
+    /* WhatsApp flotante — redondo real */
     .floating-wa{position:fixed; right:16px; bottom:16px; width:64px; height:64px; display:flex; align-items:center; justify-content:center; z-index:45; cursor:pointer}
-    .floating-wa img{ width:64px; height:64px; display:block }
+    .floating-wa img{
+      width:64px; height:64px; display:block;
+      border-radius:50%;
+      background:#fff;           /* mismo blanco de la web */
+      box-shadow:0 8px 24px rgba(0,0,0,.12);
+    }
   </style>
 
   <!-- Datos legales + helpers -->
@@ -237,7 +242,7 @@
         <a href="#productos">Productos</a>
         <a href="#faq">Preguntas frecuentes</a>
         <a href="#contacto">Contacto</a>
-        <a href="#" id="cartBtn">Carrito (<span id="cartCount">0</span>)</a>
+        <a href="#" id="cartBtn" role="button" aria-haspopup="dialog">Carrito (<span id="cartCount">0</span>)</a>
       </nav>
     </div>
   </header>
@@ -498,25 +503,25 @@
     <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="mTitle">
       <div class="modal-head">
         <div class="modal-title" id="mTitle">Producto</div>
-        <button class="close" id="mClose" aria-label="Cerrar">✕</button>
+        <button class="close" id="mClose" type="button" aria-label="Cerrar">✕</button>
       </div>
       <div class="modal-body prod">
         <div class="media-wrap">
           <img id="mMain" class="m-main" src="" alt="" />
-          <button class="nav-arrow prev" id="mPrev" aria-label="Anterior">‹</button>
-          <button class="nav-arrow next" id="mNext" aria-label="Siguiente">›</button>
+          <button class="nav-arrow prev" id="mPrev" type="button" aria-label="Anterior">‹</button>
+          <button class="nav-arrow next" id="mNext" type="button" aria-label="Siguiente">›</button>
           <div id="mThumbs" class="thumbs"></div>
         </div>
         <div class="detail-col">
           <div id="mPrice" class="badge-price"></div>
           <ul id="mDesc" class="features"></ul>
           <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
-            <div class="qty">
-              <button type="button" id="qMinus">−</button>
-              <input type="number" id="qInput" value="1" min="1" />
-              <button type="button" id="qPlus">+</button>
+            <div class="qty" role="group" aria-label="Cantidad">
+              <button type="button" id="qMinus" aria-label="Reducir cantidad">−</button>
+              <input type="number" id="qInput" value="1" min="1" inputmode="numeric" />
+              <button type="button" id="qPlus" aria-label="Aumentar cantidad">+</button>
             </div>
-            <button class="btn" id="mAdd">Añadir al carrito</button>
+            <button class="btn" id="mAdd" type="button">Añadir al carrito</button>
           </div>
           <div class="sub" style="font-size:12px">Pago seguro con PayPal · Envío a todo México · Devoluciones 14 días</div>
         </div>
@@ -529,7 +534,7 @@
     <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="emailTitle">
       <div class="modal-head">
         <div class="modal-title" id="emailTitle">Contacto por correo</div>
-        <button class="close" id="emailClose" aria-label="Cerrar">✕</button>
+        <button class="close" id="emailClose" type="button" aria-label="Cerrar">✕</button>
       </div>
       <div class="modal-body" style="display:block">
         <p class="sub" style="text-align:center;margin:0 0 14px">Escríbenos a <strong>hola@motourbano.shop</strong></p>
@@ -543,10 +548,10 @@
 
   <!-- LIGHTBOX -->
   <div class="lightbox" id="lightbox" aria-hidden="true">
-    <button class="x" id="lbClose" aria-label="Cerrar">✕</button>
-    <button class="arrow prev" id="lbPrev" aria-label="Anterior">‹</button>
+    <button class="x" id="lbClose" type="button" aria-label="Cerrar">✕</button>
+    <button class="arrow prev" id="lbPrev" type="button" aria-label="Anterior">‹</button>
     <img id="lbImg" src="" alt="Imagen ampliada"/>
-    <button class="arrow next" id="lbNext" aria-label="Siguiente">›</button>
+    <button class="arrow next" id="lbNext" type="button" aria-label="Siguiente">›</button>
   </div>
 
   <!-- MODAL Carrito -->
@@ -554,14 +559,14 @@
     <div class="cart-card" role="dialog" aria-modal="true" aria-labelledby="cartTitle">
       <div class="cart-head">
         <strong id="cartTitle">Carrito</strong>
-        <button class="close" id="cClose" aria-label="Cerrar">✕</button>
+        <button class="close" id="cClose" type="button" aria-label="Cerrar">✕</button>
       </div>
       <div class="cart-body" id="cBody"></div>
       <div class="cart-foot">
         <strong>Total: <span id="cTotal">$0 MXN</span></strong>
         <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
           <button class="btn" id="cClear" type="button">Vaciar</button>
-          <form id="ppForm" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+          <form id="ppForm" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank" rel="noopener">
             <input type="hidden" name="cmd" value="_xclick">
             <input type="hidden" name="business" id="ppBusiness" value="">
             <input type="hidden" name="item_name" value="Pedido MotoUrbano MX">
@@ -579,7 +584,7 @@
     <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="legalTitle">
       <div class="modal-head">
         <div class="modal-title" id="legalTitle">Información legal</div>
-        <button class="close" id="legalClose" aria-label="Cerrar">✕</button>
+        <button class="close" id="legalClose" type="button" aria-label="Cerrar">✕</button>
       </div>
       <div class="modal-body" id="legalBody" style="padding:16px;display:block"></div>
     </div>
@@ -676,10 +681,11 @@
         if(mThumbs) mThumbs.innerHTML=current.images.map((src,i)=> `<img data-src="${src}" alt="Vista ${i+1} ${current.name}" loading="lazy" decoding="async" src="${src}">`).join('');
         setActiveThumb();
 
+        // Al hacer clic en thumbnail: solo cambiamos imagen (no abrimos lightbox)
         if(mThumbs) mThumbs.onclick=function(e){
           const img=e.target.closest('img'); if(!img) return;
           const idx=current.images.indexOf(img.getAttribute('data-src'));
-          if(idx>-1){ showImage(idx); openLightbox(current.images[idx], 'Vista '+(idx+1)+' '+current.name); }
+          if(idx>-1){ showImage(idx); }
         };
         if(mMain) mMain.onclick=function(){ openLightbox(mMain.src, mMain.alt); };
 
@@ -698,6 +704,7 @@
         if(qInput) qInput.value=1;
         if(modal) modal.classList.add('open');
 
+        // Prefetch silencioso
         current.images.slice(1).forEach(src=>{ const i=new Image(); i.decoding='async'; i.src=src; });
       }
 
@@ -751,11 +758,11 @@
                 <div><div style="font-weight:700">${i.name}</div><div class="sub">$${i.price} MXN c/u</div></div>
                 <div style="display:flex;align-items:center;gap:8px">
                   <div class="qtyline">
-                    <button data-act="minus" data-idx="${idx}">−</button>
+                    <button type="button" data-act="minus" data-idx="${idx}" aria-label="Quitar uno">−</button>
                     <input type="number" min="1" value="${i.qty}" data-idx="${idx}" data-act="input" />
-                    <button data-act="plus" data-idx="${idx}">+</button>
+                    <button type="button" data-act="plus" data-idx="${idx}" aria-label="Añadir uno">+</button>
                   </div>
-                  <button class="close" data-del="${idx}">Eliminar</button>
+                  <button class="close" type="button" data-del="${idx}">Eliminar</button>
                 </div>
               </div>`).join('');
           }
@@ -795,12 +802,13 @@
         writeCart(items); updateCount(); openCart(); if(modal) modal.classList.remove('open'); showToast();
       });
 
-      /* Menú con compensación */
+      /* Menú anclas con compensación */
       $$('.menu a[href^="#"]').forEach(a=>{
         a.addEventListener('click', function(e){ e.preventDefault(); const id=a.getAttribute('href'); if(id && id.length>1){ scrollToId(id); } });
       });
 
       /* Prefetch + HOVER seguro: añadimos hover-img y marcamos .ready sólo cuando cargue */
+      const grid = $('#gridProds');
       $$('#gridProds article.prod').forEach(function(card){
         let g=[]; try{ g=JSON.parse(card.getAttribute('data-gallery')||'[]'); }catch(e){ g=[]; }
         const wrap = card.querySelector('.img-wrap');
@@ -812,14 +820,13 @@
           h.alt=(card.dataset.name||'')+' vista';
           h.loading='lazy'; h.decoding='async';
           h.style.opacity='0';
-          h.addEventListener('load', ()=> { h.style.opacity='0'; card.classList.add('ready'); }); // habilita swap
+          h.addEventListener('load', ()=> { card.classList.add('ready'); }); // habilita swap SOLO cuando hay imagen
           h.src=second;
           wrap.appendChild(h);
         }
       });
 
-      /* Delegación de CLICK + listener por tarjeta para abrir modal */
-      const grid = $('#gridProds');
+      /* Delegación de CLICK para abrir modal (evita dobles listeners) */
       if(grid){
         grid.addEventListener('click', function(e){
           const card = e.target.closest('article.prod');
@@ -827,9 +834,6 @@
           openModal(card);
         });
       }
-      $$('#gridProds article.prod').forEach(card=>{
-        card.addEventListener('click', ()=> openModal(card));
-      });
 
       /* PayPal email */
       const ppBusinessEl=$('#ppBusiness'); if(ppBusinessEl) ppBusinessEl.value='tu-correo-paypal@ejemplo.com';
