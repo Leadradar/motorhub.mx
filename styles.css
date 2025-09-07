@@ -1,7 +1,7 @@
 :root{
-    --bg:#ffffff; --elev:#ffffff; --ink:#0b0b0b; --muted:#5d5d5d; --line:#e9e9e9;
-    --accent:#cf0a0a; --accent-weak:#fbecec; --shadow:0 10px 30px rgba(0,0,0,.08);
-    --header-pad-y:14px; --header-logo:84px; --header-title:22px; --header-h:220px;
+  --bg:#ffffff; --elev:#ffffff; --ink:#0b0b0b; --muted:#5d5d5d; --line:#e9e9e9;
+  --accent:#cf0a0a; --accent-weak:#fbecec; --shadow:0 10px 30px rgba(0,0,0,.08);
+  --header-pad-y:14px; --header-logo:84px; --header-title:22px; --header-h:220px;
 }
 *{box-sizing:border-box}
 html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
@@ -62,7 +62,6 @@ h2{font-size:clamp(22px,3.6vw,34px);margin:0 0 10px;text-align:center}
 #productos{padding-bottom:30px}
 #productos .filters{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:12px 0 6px}
 .pill{border:1px solid #000;background:#fff;border-radius:999px;padding:8px 12px;cursor:pointer;transition:border-color .15s, box-shadow .15s, background .15s}
-/* Estilo para los chips de productos: */
 .pill:hover,.pill.is-active{background:var(--accent-weak);border-color:var(--accent);box-shadow:inset 0 0 0 2px var(--accent-weak)}
 
 #gridProds{justify-items:center; padding:0 8px}
@@ -174,7 +173,7 @@ footer.site{margin-top:48px;border-top:1px solid var(--line);background:#fff}
     flex-wrap: wrap;
 }
 
-/* Nuevos estilos para el modal */
+/* Rediseño del modal de producto */
 .modal-body.prod{
     display: flex;
     flex-direction: column;
@@ -183,6 +182,8 @@ footer.site{margin-top:48px;border-top:1px solid var(--line);background:#fff}
 @media(min-width: 900px) {
     .modal-body.prod {
         flex-direction: row;
+        /* Alinea los elementos al centro verticalmente */
+        align-items: center; 
     }
 }
 .media-wrap {
@@ -192,6 +193,9 @@ footer.site{margin-top:48px;border-top:1px solid var(--line);background:#fff}
 }
 .detail-col {
     flex: 1;
+    /* Alinea el contenido de la columna de detalles al centro */
+    align-items: center;
+    text-align: center;
 }
 .m-main {
     flex: 1;
@@ -201,4 +205,20 @@ footer.site{margin-top:48px;border-top:1px solid var(--line);background:#fff}
 }
 .thumbs {
     justify-content: center;
+}
+.features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 16px;
+    /* Centra la lista de características */
+    text-align: left; 
+}
+.features li {
+    position: relative;
+    padding-left: 22px;
+    margin: 8px 0;
+    /* Ajusta el margen para centrar */
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
 }
