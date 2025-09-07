@@ -1,7 +1,7 @@
 :root{
-    --bg:#ffffff; --elev:#ffffff; --ink:#0b0b0b; --muted:#5d5d5d; --line:#e9e9e9;
-    --accent:#cf0a0a; --accent-weak:#fbecec; --shadow:0 10px 30px rgba(0,0,0,.08);
-    --header-pad-y:14px; --header-logo:84px; --header-title:22px; --header-h:220px;
+  --bg:#ffffff; --elev:#ffffff; --ink:#0b0b0b; --muted:#5d5d5d; --line:#e9e9e9;
+  --accent:#cf0a0a; --accent-weak:#fbecec; --shadow:0 10px 30px rgba(0,0,0,.08);
+  --header-pad-y:14px; --header-logo:84px; --header-title:22px; --header-h:220px;
 }
 *{box-sizing:border-box}
 html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
@@ -142,7 +142,8 @@ footer.site{margin-top:48px;border-top:1px solid var(--line);background:#fff}
 .copy{padding:10px 0 20px;color:#666;text-align:center}
 .footer-legal{display:flex;gap:8px;align-items:center;justify-content:center;flex-wrap:wrap}
 .footer-legal .dot{opacity:.35}
-.footer-legal a{padding:4px 6px;border-radius:8px;border:1px solid var(--accent);background:var(--accent-weak); box-shadow:inset 0 0 0 2px var(--accent-weak)}
+.footer-legal a{padding:4px 6px;border-radius:8px;transition:background .15s, border-color .15s, box-shadow .15s}
+.footer-legal a:hover{background:var(--accent-weak);border-color:var(--accent);box-shadow:inset 0 0 0 2px var(--accent-weak)}
 
 /* Contacto */
 .contact-grid{display:grid;gap:16px;grid-template-columns:1fr;max-width:900px;margin:16px auto 0}
@@ -151,6 +152,7 @@ footer.site{margin-top:48px;border-top:1px solid var(--line);background:#fff}
 .contact-item strong{display:block;font:700 18px/1.2 Poppins,system-ui;margin-bottom:8px}
 .contact-item .sub{line-height:1.6;margin-bottom:12px}
 .contact-item a.btn{display:inline-block;margin-top:2px}
+.contact-item a.btn:hover{background:var(--accent-weak);border-color:var(--accent);box-shadow:inset 0 0 0 2px var(--accent-weak)}
 .contact-item:hover{border-color:var(--accent); box-shadow:inset 0 0 0 2px var(--accent-weak)}
 
 /* FAQ */
@@ -162,3 +164,40 @@ footer.site{margin-top:48px;border-top:1px solid var(--line);background:#fff}
 /* WhatsApp flotante (restaurado como antes) */
 .floating-wa{position:fixed; right:16px; bottom:16px; width:64px; height:64px; display:flex; align-items:center; justify-content:center; z-index:45; cursor:pointer}
 .floating-wa img{ width:64px; height:64px; display:block }
+
+/* Centrar chips */
+.trustbar {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+/* Nuevos estilos para el modal */
+.modal-body.prod{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+@media(min-width: 900px) {
+    .modal-body.prod {
+        flex-direction: row;
+    }
+}
+.media-wrap {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+.detail-col {
+    flex: 1;
+}
+.m-main {
+    flex: 1;
+    object-fit: contain;
+    width: 100%;
+    height: auto;
+}
+.thumbs {
+    justify-content: center;
+}
