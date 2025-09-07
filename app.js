@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function(){
           mAdd = $('#mAdd');
     
     const cartModal = $('#cart'), cBody = $('#cBody'), cTotal = $('#cTotal'), cClear = $('#cClear'),
-          ppAmount = $('#ppAmount'), ppBusiness = $('#ppBusiness']);
+          ppAmount = $('#ppAmount'), ppBusiness = $('#ppBusiness]');
     
     const lightbox = $('#lightbox'), lbImg = $('#lbImg'), lbClose = $('#lbClose'),
           lbPrev = $('#lbPrev'), lbNext = $('#lbNext');
@@ -188,9 +188,9 @@ document.addEventListener('DOMContentLoaded', function(){
         try { gallery = JSON.parse(card.dataset.gallery || '[]'); } catch(e) {}
         const secondImageSrc = gallery[0] || null;
         if (!secondImageSrc) return;
-        const imgHover = new Image();
-        imgHover.src = secondImageSrc;
-        imgHover.onload = () => {
+        const img = new Image();
+        img.src = secondImageSrc;
+        img.onload = () => {
             const wrap = card.querySelector('.img-wrap');
             const h = document.createElement('img');
             h.className='hover-img';
@@ -206,7 +206,6 @@ document.addEventListener('DOMContentLoaded', function(){
 
     /* --- GESTIÓN DE EVENTOS Y CÓDIGO DE INICIALIZACIÓN --- */
     
-    // Eventos de la interfaz (scroll, resize, clic en menú)
     window.addEventListener('scroll', updateHeaderUi, { passive: true });
     window.addEventListener('resize', updateHeaderUi);
     $$('.menu a[href^="#"]').forEach(a => a.addEventListener('click', function(e){
@@ -215,7 +214,6 @@ document.addEventListener('DOMContentLoaded', function(){
         if (id && id.length > 1) scrollToId(id);
     }));
 
-    // Eventos para filtros de productos y categorías
     const filtersContainer = $('#filters');
     if (filtersContainer) filtersContainer.addEventListener('click', e => {
       const pill = e.target.closest('.pill');
@@ -228,7 +226,6 @@ document.addEventListener('DOMContentLoaded', function(){
       if (tile) applyFilter(tile.dataset.cat);
     });
 
-    // Eventos para abrir y cerrar modales y lightbox
     document.body.addEventListener('click', e => {
       const card = e.target.closest('article.prod');
       if (card && grid.contains(card)) {
@@ -283,7 +280,6 @@ document.addEventListener('DOMContentLoaded', function(){
       }
     });
 
-    // Eventos del modal de producto (dentro del modal)
     if (mThumbs) mThumbs.addEventListener('click', e => {
       const img = e.target.closest('img');
       if (img) showImageInModal(currentProduct.images.indexOf(img.getAttribute('data-src')));
@@ -293,7 +289,6 @@ document.addEventListener('DOMContentLoaded', function(){
     if (mPrev) mPrev.addEventListener('click', () => showImageInModal(currentProduct.index - 1));
     if (mNext) mNext.addEventListener('click', () => showImageInModal(currentProduct.index + 1));
     
-    // Eventos del carrito (botones de cantidad y añadir/vaciar)
     cClear?.addEventListener('click', () => { writeCart([]); updateCartCount(); renderCart(); });
     
     if(cBody){
@@ -336,12 +331,10 @@ document.addEventListener('DOMContentLoaded', function(){
       showToast('Añadido al carrito');
     });
 
-    // Inicialización del sitio
     updateHeaderUi();
     updateCartCount();
     if(location.hash) setTimeout(() => scrollToId(location.hash), 50);
 
-    // Cargar la segunda imagen para el efecto hover
     prodCards.forEach(card => {
       let gallery = [];
       try { gallery = JSON.parse(card.dataset.gallery || '[]'); } catch(e) {}
