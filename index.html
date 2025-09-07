@@ -32,6 +32,8 @@
         .card{background:var(--elev);border:1px solid var(--line);border-radius:18px;overflow:hidden}
         .shadow{box-shadow:var(--shadow)}
         .accent-perma{background:var(--accent-weak)!important;border-color:var(--accent)!important;box-shadow:inset 0 0 0 2px var(--accent-weak)!important}
+
+        /* Header */
         header.site{position:sticky; top:0; z-index:40; background:#fff; border-bottom:1px solid var(--line); transition:padding .18s ease, box-shadow .18s ease}
         .header-wrap{display:flex;flex-direction:column;align-items:center;gap:8px;padding:var(--header-pad-y) 0}
         .brand-stack{display:flex;flex-direction:column;align-items:center;gap:6px}
@@ -49,7 +51,11 @@
         header.site.is-scrolled .brand-stack img{height:52px}
         header.site.is-scrolled .brand-title{font-size:18px}
         header.site.is-scrolled .header-wrap{padding:8px 0}
+
+        /* Compensación header fijo */
         section{scroll-margin-top:calc(var(--header-h) + 8px); content-visibility:auto; contain-intrinsic-size:auto 600px;}
+
+        /* Hero */
         .hero{border-bottom:1px solid var(--line);background:#fff}
         .hero .wrap{display:flex;flex-direction:column;align-items:center;gap:14px;padding:36px 0}
         .hero .logo-big img{width:340px;height:auto}
@@ -61,20 +67,25 @@
         .sub{color:var(--muted);text-align:center}
         .chips-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:center;margin-top:14px}
         .chip{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);color:#333;padding:8px 12px;border-radius:12px;white-space:nowrap}
+
+        /* Categorías */
         #categorias h2,#categorias .sub{text-align:center}
         .tile{position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:#fff;cursor:pointer;transition:box-shadow .15s, border-color .15s}
         .tile img{width:100%;height:200px;object-fit:cover}
         .tile .label{position:absolute;left:50%;bottom:10px;transform:translateX(-50%);background:#000000b3;padding:8px 10px;border-radius:10px;color:#fff;font-weight:800}
         .tile:hover{border-color:var(--accent); box-shadow:inset 0 0 0 2px var(--accent-weak)}
+
+        /* Productos + filtros */
         #productos{padding-bottom:30px}
         #productos .filters{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:12px 0 6px}
         .pill{border:1px solid #000;background:#fff;border-radius:999px;padding:8px 12px;cursor:pointer;transition:border-color .15s, box-shadow .15s, background .15s}
         .pill:hover,.pill.is-active{background:var(--accent-weak);border-color:var(--accent);box-shadow:inset 0 0 0 2px var(--accent-weak)}
+
         #gridProds{justify-items:center; padding:0 8px}
         .prod{display:flex;flex-direction:column;cursor:pointer;transition:box-shadow .15s, border-color .15s; width:100%; max-width:500px; margin:0 4px; border:1px solid var(--line); border-radius:18px}
         .prod .img-wrap{position:relative; width:100%}
         .prod .img-wrap img{aspect-ratio:1/1;object-fit:cover;background:#f4f4f4; width:100%; height:auto; display:block; transition:opacity .18s ease}
-        /* 🔧 asegurar que la hover-img cubre totalmente la base */
+        /* asegurar que la hover-img cubre totalmente la base */
         .prod .img-wrap img.hover-img{position:absolute; inset:0; opacity:0; width:100%; height:100%; object-fit:cover; z-index:1}
         .prod.ready:hover .img-wrap img.hover-img,
         .prod.ready:focus-within .img-wrap img.hover-img{opacity:1}
@@ -89,9 +100,13 @@
         .stars{color:#000;font-size:13px}
         .prod:hover{border-color:var(--accent); box-shadow:inset 0 0 0 2px var(--accent-weak)}
         .hidden{display:none !important}
+
+        /* Botones */
         .btn{display:inline-flex;align-items:center;gap:8px;background:#fff;color:#000;border:1px solid var(--accent);border-radius:12px;padding:10px 14px;cursor:pointer;transition:background .15s,border-color .15s, box-shadow .15s}
         .btn:hover{background:var(--accent-weak);border-color:var(--accent);box-shadow:inset 0 0 0 2px var(--accent-weak)}
         .close{border:none;background:#f3f3f3;border-radius:10px;padding:8px 10px;cursor:pointer}
+
+        /* Modal base y producto */
         .modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;padding:16px;z-index:60}
         .modal.open{display:flex}
         .modal-card{background:#fff;border-radius:18px;max-width:1120px;width:min(96vw,1120px);max-height:92vh;display:flex;flex-direction:column;overflow:hidden;border:1px solid var(--line);margin:auto}
@@ -99,8 +114,10 @@
         .modal-title{font:700 18px/1.2 Poppins,system-ui}
         .modal-body{display:grid;gap:16px;padding:16px;overflow:auto;align-items:start}
         @media(min-width:900px){.modal-body.prod{grid-template-columns:60% 40%}}
+
+        /* === Mejora visual del modal de producto === */
         .media-wrap{position:relative}
-        .m-main{width:100%;max-height:80vh;object-fit:contain;border-radius:12px;background:#f7f7f7;cursor:zoom-in}
+        .m-main{width:100%;max-height:70vh;object-fit:contain;border-radius:12px;background:#f7f7f7;cursor:zoom-in}
         .m-main.is-loading{background:linear-gradient(90deg,#f3f3f3 25%,#e9e9e9 37%,#f3f3f3 63%);background-size:400% 100%;animation:sheen 1.2s infinite}
         @keyframes sheen{0%{background-position:100% 0}100%{background-position:0 0}}
         .nav-arrow{position:absolute;top:50%;transform:translateY(-50%);background:#ffffffcc;border:1px solid var(--line);border-radius:12px;padding:8px 10px;cursor:pointer}
@@ -109,11 +126,30 @@
         .thumbs{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:8px}
         .thumbs img{width:100%;height:84px;object-fit:cover;border-radius:10px;border:2px solid transparent;cursor:pointer;background:#fafafa}
         .thumbs img.active{border-color:#000}
-        .detail-col{display:flex;flex-direction:column;align-items:flex-start}
-        .badge-price{display:inline-block;background:var(--accent-weak);border:1px solid var(--accent);border-radius:999px;padding:10px 14px;font:800 22px/1 Poppins,system-ui;margin:0 0 12px}
-        .features{list-style:none;padding:0;margin:0 0 16px}
-        .features li{position:relative;padding-left:22px;margin:8px 0}
-        .features li::before{content:"";position:absolute;left:0;top:7px;width:10px;height:10px;border-radius:50%;background:var(--accent-weak);border:1px solid var(--accent)}
+
+        .detail-col{display:flex;flex-direction:column;align-items:stretch;gap:12px}
+        .badge-price{display:inline-block;background:var(--accent-weak);border:1px solid var(--accent);border-radius:999px;padding:10px 14px;font:800 22px/1 Poppins,system-ui;margin:0}
+        .prod-title-lg{font:700 20px/1.2 Poppins,system-ui; margin:2px 0 2px}
+        .mini-meta{color:#666; font-size:13px}
+
+        .policy-chips{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 2px}
+        .policy-chips .chip{border-color:var(--line)}
+        .pay-badge{display:inline-flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:8px 12px}
+        .pay-badge img{height:18px}
+
+        .buy-box{border:1px solid var(--line);border-radius:14px;padding:10px;box-shadow:var(--shadow);background:#fff}
+        .qty{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+        .qty button{background:#f6f6f6;border:none;padding:6px 10px;cursor:pointer}
+        .qty input{width:48px;text-align:center;border:none;padding:6px}
+        .cta-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+        .btn-primary{background:var(--accent); color:#fff; border-color:var(--accent)}
+        .btn-primary:hover{filter:brightness(.94)}
+        .btn-ghost{background:#fff; border:1px solid var(--line)}
+
+        .trust-note{font-size:12px; color:#555; display:flex; align-items:center; gap:8px}
+        .trust-dot{width:6px;height:6px;background:var(--accent);border-radius:50%}
+
+        /* Lightbox */
         .lightbox{position:fixed;inset:0;background:#000000eb;display:none;align-items:center;justify-content:center;z-index:80;touch-action:none}
         .lightbox.open{display:flex}
         .lightbox img{max-width:95vw;max-height:95vh;object-fit:contain;transform-origin:center center;transition:transform .06s linear}
@@ -121,6 +157,8 @@
         .lightbox .arrow{position:absolute;top:50%;transform:translateY(-50%);background:#ffffff22;color:#fff;border:1px solid #ffffff55;border-radius:10px;padding:10px 12px;cursor:pointer}
         .lightbox .arrow.prev{left:14px}
         .lightbox .arrow.next{right:14px}
+
+        /* Carrito */
         .cart{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;padding:16px;z-index:65}
         .cart.open{display:flex}
         .cart-card{background:#fff;border-radius:18px;max-width:760px;width:96%;max-height:92vh;display:flex;flex-direction:column;overflow:hidden;border:1px solid var(--line)}
@@ -135,6 +173,8 @@
         .cart-item .qtyline input{width:44px;text-align:center;border:none;padding:6px}
         .cart-foot{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-top:1px solid var(--line);gap:10px;flex-wrap:wrap}
         #cTotal{display:inline-block;background:var(--accent-weak);border:1px solid var(--accent);border-radius:999px;padding:6px 10px}
+
+        /* Footer */
         footer.site{margin-top:48px;border-top:1px solid var(--line);background:#fff}
         .footer-head{display:flex;flex-direction:column;align-items:center;gap:6px;padding:18px 0 6px}
         .footer-head img{height:72px;width:auto}
@@ -145,6 +185,8 @@
         .footer-legal .dot{opacity:.35}
         .footer-legal a{padding:4px 6px;border-radius:8px;transition:background .15s, border-color .15s, box-shadow .15s; border:1px solid transparent;}
         .footer-legal a:hover{background:var(--accent-weak);border-color:var(--accent);box-shadow:inset 0 0 0 2px var(--accent-weak)}
+
+        /* Contacto */
         .contact-grid{display:grid;gap:16px;grid-template-columns:1fr;max-width:900px;margin:16px auto 0}
         @media(min-width:900px){.contact-grid{grid-template-columns:repeat(3,1fr)}}
         .contact-item{border:1px solid var(--line);border-radius:16px;padding:18px 16px;text-align:center;transition:box-shadow .15s, border-color .15s}
@@ -153,23 +195,29 @@
         .contact-item a.btn{display:inline-block;margin-top:2px; border:1px solid var(--accent);}
         .contact-item a.btn:hover{background:var(--accent-weak);border-color:var(--accent);box-shadow:inset 0 0 0 2px var(--accent-weak)}
         .contact-item:hover{border-color:var(--accent); box-shadow:inset 0 0 0 2px var(--accent-weak)}
+
+        /* FAQ */
         #faq details{border:1px solid var(--line);border-radius:12px;margin:10px 0;padding:10px;background:#f6f6f6;transition:border-color .15s, box-shadow .15s}
         #faq details:hover{border-color:var(--accent); box-shadow:inset 0 0 0 2px var(--accent-weak)}
         #faq summary{cursor:pointer;font-weight:700}
         #faq .answer{margin-top:8px}
+
+        /* WhatsApp flotante */
         .floating-wa{position:fixed; right:16px; bottom:16px; width:64px; height:64px; display:flex; align-items:center; justify-content:center; z-index:45; cursor:pointer}
         .floating-wa img{ width:64px; height:64px; display:block }
+
         .trustbar { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
-        .modal-body.prod{ display: flex; flex-direction: column; gap: 20px; }
-        @media(min-width: 900px) {
-            .modal-body.prod { flex-direction: row; align-items: center; }
+
+        /* Ajustes responsivos del modal mejorado */
+        .modal-body.prod{display:flex;flex-direction:column;gap:20px}
+        @media(min-width:900px){
+          .modal-body.prod{flex-direction:row;align-items:flex-start}
+          .detail-col{position:sticky; top:12px}
         }
-        .media-wrap { flex: 1; display: flex; flex-direction: column; }
-        .detail-col { flex: 1; align-items: center; text-align: center; }
-        .m-main { flex: 1; object-fit: contain; width: 100%; height: auto; }
-        .thumbs { justify-content: center; }
-        .features { list-style: none; padding: 0; margin: 0 0 16px; text-align: left; }
-        .features li { position: relative; padding-left: 22px; margin: 8px 0; width: fit-content; margin-left: auto; margin-right: auto; }
+        .thumbs{justify-content:center}
+        .features{list-style:none;padding:0;margin:0 0 16px;text-align:left}
+        .features li{position:relative;padding-left:22px;margin:8px 0;width:fit-content;margin-left:auto;margin-right:auto}
+        .features li::before{content:"";position:absolute;left:0;top:7px;width:10px;height:10px;border-radius:50%;background:var(--accent-weak);border:1px solid var(--accent)}
     </style>
 </head>
 <body>
@@ -420,7 +468,6 @@
       <div class="contact-item">
         <strong>Devoluciones</strong>
         <div class="sub">Plazo de 14 días</div>
-        <!-- ✅ ahora carga contenido -->
         <a class="btn" href="#" onclick="return (MU_openLegal('devoluciones'), false)">Ver política</a>
       </div>
     </div>
@@ -435,7 +482,6 @@
     </div>
 
     <div class="container footer-legal" style="padding-bottom:6px">
-      <!-- ✅ todos llaman a MU_openLegal -->
       <a href="#" onclick="return (MU_openLegal('envios'), false)">Envíos</a><span class="dot">·</span>
       <a href="#" onclick="return (MU_openLegal('devoluciones'), false)">Devoluciones</a><span class="dot">·</span>
       <a href="#" onclick="return (MU_openLegal('privacidad'), false)">Privacidad</a><span class="dot">·</span>
@@ -452,7 +498,7 @@
     <img src="img/whatsapp.png" alt="WhatsApp" width="64" height="64" decoding="async" loading="lazy">
   </a>
 
-  <!-- MODAL Producto -->
+  <!-- MODAL Producto (mejorado visualmente, mismos IDs) -->
   <div class="modal" id="modal" aria-hidden="true">
     <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="mTitle">
       <div class="modal-head">
@@ -467,17 +513,36 @@
           <div id="mThumbs" class="thumbs"></div>
         </div>
         <div class="detail-col">
-          <div id="mPrice" class="badge-price"></div>
-          <ul id="mDesc" class="features"></ul>
-          <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
-            <div class="qty" role="group" aria-label="Cantidad">
-              <button type="button" id="qMinus" aria-label="Reducir cantidad">−</button>
-              <input type="number" id="qInput" value="1" min="1" inputmode="numeric" />
-              <button type="button" id="qPlus" aria-label="Aumentar cantidad">+</button>
-            </div>
-            <button class="btn" id="mAdd" type="button">Añadir al carrito</button>
+          <div class="prod-title-lg" id="mTitleDup"></div>
+          <div class="badge-price" id="mPrice"></div>
+
+          <div class="policy-chips">
+            <span class="chip">🎁 Envío gratis</span>
+            <span class="chip">🔄 14 días devolución</span>
+            <span class="chip">🛡️ 6 meses garantía</span>
+            <span class="pay-badge" title="Pago seguro con PayPal" aria-label="Pago seguro con PayPal">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal">
+              Pago seguro
+            </span>
           </div>
-          <div class="sub" style="font-size:12px">Pago seguro con PayPal · Envío a todo México · Devoluciones 14 días</div>
+
+          <ul id="mDesc" class="features"></ul>
+
+          <div class="buy-box">
+            <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+              <div class="qty" role="group" aria-label="Cantidad">
+                <button type="button" id="qMinus" aria-label="Reducir cantidad">−</button>
+                <input type="number" id="qInput" value="1" min="1" inputmode="numeric" />
+                <button type="button" id="qPlus" aria-label="Aumentar cantidad">+</button>
+              </div>
+              <button class="btn btn-primary" id="mAdd" type="button">Añadir al carrito</button>
+              <a class="btn btn-ghost" id="mWa" href="https://wa.me/520000000000" target="_blank" rel="noopener">Consultar por WhatsApp</a>
+            </div>
+            <div class="trust-note" style="margin-top:8px">
+              <span class="trust-dot"></span>
+              Pago con tarjeta a través de PayPal · Envío a todo México · Atención personalizada
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -560,14 +625,10 @@
       };
       window.MU_openLegal = function(key){
         const data=(window.MU_LEGAL||{})[key]; if(!data) return false;
-        const modal=document.getElementById('legalModal');
-        const body =document.getElementById('legalBody');
-        const title=document.getElementById('legalTitle');
+        const modal=document.getElementById('legalModal'); const body=document.getElementById('legalBody'); const title=document.getElementById('legalTitle');
         if(!modal||!body||!title) return false;
-        title.textContent=data.title;
-        body.innerHTML='<div class="sub" style="text-align:left">'+data.body+'</div>';
-        modal.classList.add('open');
-        return false;
+        title.textContent=data.title; body.innerHTML='<div class="sub" style="text-align:left">'+data.body+'</div>';
+        modal.classList.add('open'); return false;
       };
     })();
     /* ========================================= */
@@ -576,6 +637,7 @@
       const $ = (sel,ctx)=> (ctx||document).querySelector(sel);
       const $$= (sel,ctx)=> [].slice.call((ctx||document).querySelectorAll(sel));
 
+      /* Header compacto + compensación */
       const header = $('#siteHeader');
       function updateHeaderUi(){
         if(!header) return;
@@ -633,11 +695,15 @@
         let gallery=[]; try{ gallery=JSON.parse(card.getAttribute('data-gallery')||'[]'); }catch(e){ gallery=[]; }
         current={ name:card.dataset.name, priceText:card.dataset.price, price:parseInt((card.dataset.price||'').replace(/[^0-9]/g,''),10)||0, main:card.getAttribute('data-main')||'', images:[], index:0 };
         current.images=[current.main].concat(gallery.filter(Boolean));
+
+        /* set data in modal (manteniendo IDs) */
         mTitle.textContent=current.name||'Producto';
+        const dupTitle = document.getElementById('mTitleDup'); if(dupTitle) dupTitle.textContent=current.name||'Producto';
         mPrice.textContent=current.priceText||'';
         mMain.classList.remove('is-loading'); mMain.src=current.images[0]; mMain.dataset.src=current.images[0]; mMain.alt=current.name;
         mThumbs.innerHTML=current.images.map((src,i)=> `<img data-src="${src}" alt="Vista ${i+1} ${current.name}" loading="lazy" decoding="async" src="${src}" class="${i===0?'active':''}">`).join('');
         setActiveThumb();
+
         mThumbs.onclick=function(e){
           const img=e.target.closest('img'); if(!img) return;
           const idx=current.images.indexOf(img.getAttribute('data-src'));
@@ -646,14 +712,17 @@
         mMain.onclick=function(){ openLightbox(mMain.src, mMain.alt); };
         mPrev.onclick=function(){ showImage(current.index-1); };
         mNext.onclick=function(){ showImage(current.index+1); };
+
         // Swipe móvil
         let sx=0,sy=0,dx=0,dy=0;
         mMain.addEventListener('touchstart',function(ev){ if(ev.touches.length!==1)return; sx=ev.touches[0].clientX; sy=ev.touches[0].clientY; },{passive:true});
         mMain.addEventListener('touchmove',function(ev){ if(ev.touches.length!==1)return; dx=ev.touches[0].clientX-sx; dy=ev.touches[0].clientY-sy; },{passive:true});
         mMain.addEventListener('touchend',function(){ if(Math.abs(dx)>40 && Math.abs(dy)<40){ if(dx<0)showImage(current.index+1); else showImage(current.index-1);} dx=dy=0; },{passive:true});
+
         mDesc.innerHTML=bullets(card.dataset.desc||'').map(li=> '<li>'+li+'</li>').join('');
         qInput.value=1;
         modal.classList.add('open');
+
         current.images.slice(1).forEach(src=>{ const i=new Image(); i.decoding='async'; i.src=src; });
       }
       function openLightbox(src,alt){ if(!lbImg||!lightbox) return; lbImg.src=src; lbImg.alt=alt||''; lightbox.classList.add('open'); }
@@ -662,7 +731,7 @@
 
       /* Carrito */
       const cartModal=$('#cart'), cBody=$('#cBody'), cTotal=$('#cTotal'), cClear=$('#cClear'),
-            ppAmount=$('#ppAmount'), ppBusiness=$('#ppBusiness');
+            ppAmount=$('#ppAmount'), ppBusiness=$('#ppBusiness']);
       const PAYPAL_BUSINESS='tu-correo-paypal@ejemplo.com'; if(ppBusiness) ppBusiness.value=PAYPAL_BUSINESS;
 
       const STORAGE_KEY='mu_cart';
