@@ -88,8 +88,15 @@
     .prod .img-wrap{position:relative; width:100%}
     .prod .img-wrap img{aspect-ratio:1/1;object-fit:cover;background:#f4f4f4; width:100%; height:auto; display:block; transition:opacity .18s ease}
     .prod .img-wrap img.hover-img{position:absolute; inset:0; opacity:0}
-    .prod.ready:hover .img-wrap img.hover-img{opacity:1}
-    .prod.ready:hover .img-wrap img.base-img{opacity:0}
+    /* swap en hover + focus teclado */
+    .prod.ready:hover .img-wrap img.hover-img,
+    .prod.ready:focus-within .img-wrap img.hover-img{opacity:1}
+    .prod.ready:hover .img-wrap img.base-img,
+    .prod.ready:focus-within .img-wrap img.base-img{opacity:0}
+    /* swap temporal para táctil (peek) */
+    .prod.ready.peek .img-wrap img.hover-img{opacity:1}
+    .prod.ready.peek .img-wrap img.base-img{opacity:0}
+
     .prod .pad{padding:12px; text-align:center}
     .prod .title{font-weight:700;line-height:1.25;margin:0 0 6px;font-size:16px}
     .prod .meta{display:flex;justify-content:center;align-items:center; gap:10px}
@@ -785,12 +792,12 @@
         a.addEventListener('click', function(e){ e.preventDefault(); const id=a.getAttribute('href'); if(id && id.length>1){ scrollToId(id); } });
       });
 
-      /* Prefetch + HOVER seguro: crear hover-img y marcar .ready cuando la 2ª imagen haya cargado */
+      /* Prefetch + HOVER seguro: crear hover-img con la SEGUNDA foto y marcar .ready cuando cargue */
       $$('#gridProds article.prod').forEach(function(card){
         let g=[]; try{ g=JSON.parse(card.getAttribute('data-gallery')||'[]'); }catch(e){ g=[]; }
         const wrap = card.querySelector('.img-wrap');
         const base = card.querySelector('.base-img');
-        const second = (g && g[0]) ? g[0] : null;
+        const second = (g && g[0]) ? g[0] : null; // segunda foto = primera del gallery
         if(wrap && base && second){
           const h = document.createElement('img');
           h.className='hover-img';
@@ -800,6 +807,18 @@
           h.addEventListener('load', ()=> { card.classList.add('ready'); });
           h.src=second;
           wrap.appendChild(h);
+
+          // Soporte táctil: peek temporal de la segunda foto sin abrir modal
+          let peekTimer=null;
+          card.addEventListener('touchstart', () => {
+            // Evita duplicar timers
+            if (peekTimer) return;
+            card.classList.add('peek');
+            peekTimer = setTimeout(() => {
+              card.classList.remove('peek');
+              peekTimer = null;
+            }, 1200); // ~1.2s de vista previa
+          }, {passive:true});
         }
       });
 
