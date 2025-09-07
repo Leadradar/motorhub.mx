@@ -2,32 +2,23 @@ document.addEventListener('DOMContentLoaded', function(){
     const $ = (sel,ctx)=> (ctx||document).querySelector(sel);
     const $$= (sel,ctx)=> [].slice.call((ctx||document).querySelectorAll(sel));
 
-    // Referencias a los elementos principales del DOM
     const header = $('#siteHeader');
     const prodCards = $$('#gridProds article.prod');
     const filterPills = $$('#filters .pill');
     const grid = $('#gridProds');
     const cartBtn = $('#cartBtn');
-
-    // Referencias a los modales y elementos internos
     const modal = $('#modal'), mTitle = $('#mTitle'), mPrice = $('#mPrice'),
           mMain = $('#mMain'), mThumbs = $('#mThumbs'), mDesc = $('#mDesc'),
           mPrev = $('#mPrev'), mNext = $('#mNext'),
           qMinus = $('#qMinus'), qPlus = $('#qPlus'), qInput = $('#qInput'),
           mAdd = $('#mAdd');
-    
     const cartModal = $('#cart'), cBody = $('#cBody'), cTotal = $('#cTotal'), cClear = $('#cClear'),
-          ppAmount = $('#ppAmount'), ppBusiness = $('#ppBusiness]');
-    
+          ppAmount = $('#ppAmount'), ppBusiness = $('#ppBusiness']);
     const lightbox = $('#lightbox'), lbImg = $('#lbImg'), lbClose = $('#lbClose'),
           lbPrev = $('#lbPrev'), lbNext = $('#lbNext');
-    
     const toast = $('#toast');
-    
-    // Estado del producto para el modal
     let currentProduct = { images:[], index:0, name:'', priceText:'', price:0 };
 
-    /* --- Funcionalidades generales de la página --- */
     function updateHeaderUi(){
       if (!header) return;
       const scrolled = window.scrollY > 8;
@@ -51,7 +42,6 @@ document.addEventListener('DOMContentLoaded', function(){
     function openModal(modalEl) { modalEl?.classList.add('open'); }
     function closeModal(modalEl) { modalEl?.classList.remove('open'); }
     
-    /* --- Lógica de la información legal (ahora en JS) --- */
     const MU_LEGAL = {
         envios:{title:'Política de Envíos — MotoUrbano MX',body:'<p>Envíos a todo México mediante mensajería certificada. Tiempo estimado: <strong>10 a 20 días hábiles</strong> según tu zona.</p><p>Compartimos tu <strong>número de guía</strong> por correo para rastreo.</p><p>Si hay retrasos de paquetería, te acompañamos en todo momento.</p><p class="sub">Contacto: <a href="mailto:hola@motourbano.shop">hola@motourbano.shop</a></p>'},
         devoluciones:{title:'Política de Devoluciones — MotoUrbano MX',body:'<p>Tienes <strong>14 días naturales</strong> desde la entrega para solicitar devolución.</p><p>El producto debe estar <strong>sin uso</strong> y con empaques/etiquetas completos.</p><p>Escríbenos a <a href="mailto:hola@motourbano.shop">hola@motourbano.shop</a> o por WhatsApp con tu <strong>número de pedido</strong>.</p><p>Tras validar, hacemos reembolso por el mismo medio de pago.</p>'},
@@ -82,7 +72,6 @@ document.addEventListener('DOMContentLoaded', function(){
         showToast('Correo copiado');
     }
     
-    /* --- Lógica del Modal de Producto y Lightbox --- */
     function getProductData(card){
       const name = card.dataset.name;
       const priceText = card.dataset.price;
@@ -132,7 +121,6 @@ document.addEventListener('DOMContentLoaded', function(){
       lightbox.classList.add('open');
     }
 
-    /* --- Lógica del Carrito --- */
     const STORAGE_KEY = 'mu_cart';
     const readCart = () => { try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); } catch(e) { return []; } };
     const writeCart = items => localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
@@ -182,30 +170,27 @@ document.addEventListener('DOMContentLoaded', function(){
       }, 1400);
     }
 
-    /* --- Lógica de la imagen secundaria al hacer hover --- */
     prodCards.forEach(card => {
-        let gallery = [];
-        try { gallery = JSON.parse(card.dataset.gallery || '[]'); } catch(e) {}
-        const secondImageSrc = gallery[0] || null;
-        if (!secondImageSrc) return;
-        const img = new Image();
-        img.src = secondImageSrc;
-        img.onload = () => {
-            const wrap = card.querySelector('.img-wrap');
-            const h = document.createElement('img');
-            h.className='hover-img';
-            h.alt=(card.dataset.name||'')+' vista';
-            h.loading='lazy'; h.decoding='async';
-            h.src=secondImageSrc;
-            const existingHoverImg = wrap.querySelector('.hover-img');
-            if(existingHoverImg) wrap.removeChild(existingHoverImg);
-            wrap.appendChild(h);
-            card.classList.add('ready');
-        };
+      let gallery = [];
+      try { gallery = JSON.parse(card.dataset.gallery || '[]'); } catch(e) {}
+      const secondImageSrc = gallery[0] || null;
+      if (!secondImageSrc) return;
+      const img = new Image();
+      img.src = secondImageSrc;
+      img.onload = () => {
+          const wrap = card.querySelector('.img-wrap');
+          const h = document.createElement('img');
+          h.className='hover-img';
+          h.alt=(card.dataset.name||'')+' vista';
+          h.loading='lazy'; h.decoding='async';
+          h.src=secondImageSrc;
+          const existingHoverImg = wrap.querySelector('.hover-img');
+          if(existingHoverImg) wrap.removeChild(existingHoverImg);
+          wrap.appendChild(h);
+          card.classList.add('ready');
+      };
     });
 
-    /* --- GESTIÓN DE EVENTOS Y CÓDIGO DE INICIALIZACIÓN --- */
-    
     window.addEventListener('scroll', updateHeaderUi, { passive: true });
     window.addEventListener('resize', updateHeaderUi);
     $$('.menu a[href^="#"]').forEach(a => a.addEventListener('click', function(e){
