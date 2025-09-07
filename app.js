@@ -48,7 +48,6 @@ document.addEventListener('DOMContentLoaded', function(){
       scrollToId('#productos');
     }
 
-    // Funciones para abrir y cerrar modales
     function openModal(modalEl) { modalEl?.classList.add('open'); }
     function closeModal(modalEl) { modalEl?.classList.remove('open'); }
     
@@ -199,30 +198,34 @@ document.addEventListener('DOMContentLoaded', function(){
     });
 
     // Eventos para abrir y cerrar modales y lightbox
-    if (grid) grid.addEventListener('click', e => {
+    document.body.addEventListener('click', e => {
       const card = e.target.closest('article.prod');
-      if (card) openProductModal(card);
-    });
-    
-    cartBtn?.addEventListener('click', e => {
+      if (card && grid.contains(card)) {
+        openProductModal(card);
+        return;
+      }
+      
+      const cartButton = e.target.closest('#cartBtn');
+      if(cartButton) {
         e.preventDefault();
         renderCart();
         openModal(cartModal);
-    });
+        return;
+      }
 
-    // Delegación de eventos para cerrar modales
-    document.body.addEventListener('click', e => {
-        const modalToClose = e.target.closest('.modal') || e.target.closest('.lightbox');
-        const closeButton = e.target.closest('.close') || e.target.closest('.x');
-        
-        if (closeButton) {
-            closeButton.closest('.modal, .lightbox')?.classList.remove('open');
-            return;
-        }
+      const closeButton = e.target.closest('.close') || e.target.closest('.x');
+      const modalToClose = closeButton?.closest('.modal, .lightbox');
+      if(modalToClose) {
+        closeModal(modalToClose);
+        return;
+      }
 
-        if (modalToClose && e.target === modalToClose) {
-            modalToClose.classList.remove('open');
+      const openModals = $$('.modal.open, .lightbox.open');
+      openModals.forEach(modalEl => {
+        if(e.target === modalEl) {
+          closeModal(modalEl);
         }
+      });
     });
 
     document.addEventListener('keydown', e => {
