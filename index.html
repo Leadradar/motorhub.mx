@@ -1,224 +1,219 @@
 <!doctype html>
 <html lang="es-MX">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>MotoUrbano MX — Equipo y accesorios para motociclistas</title>
-    <meta name="description" content="Equipo y accesorios para motociclistas, precios claros y soporte por WhatsApp. Devoluciones en 14 días." />
-    <meta name="theme-color" content="#ffffff" />
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="MotoUrbano MX" />
-    <meta property="og:description" content="Equipo y accesorios para motociclistas." />
-    <meta property="og:image" content="https://leadradar.github.io/motorhub.mx/img/hero.jpg" />
-    <link rel="icon" href="favicon.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
-    <link rel="manifest" href="site.webmanifest" />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700;800&display=swap" rel="stylesheet">
-    <style>
-        :root{
-            --bg:#ffffff; --elev:#ffffff; --ink:#0b0b0b; --muted:#5d5d5d; --line:#e9e9e9;
-            --accent:#cf0a0a; --accent-weak:#fbecec; --shadow:0 10px 30px rgba(0,0,0,.08);
-            --header-pad-y:14px; --header-logo:84px; --header-title:22px; --header-h:220px;
-        }
-        *{box-sizing:border-box}
-        html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
-        img{display:block;max-width:100%;height:auto;-webkit-user-drag:none;user-drag:none}
-        a{color:inherit;text-decoration:none}
-        button{font:inherit}
-        .container{max-width:1200px;margin:0 auto;padding:0 28px}
-        .grid{display:grid;gap:16px}
-        @media(min-width:700px){.grid.cols-2{grid-template-columns:repeat(2,1fr)}}
-        @media(min-width:900px){.grid.cols-3{grid-template-columns:repeat(3,1fr)}.grid.cols-4{grid-template-columns:repeat(4,1fr)}.grid.cols-5{grid-template-columns:repeat(5,1fr)}}
-        .card{background:var(--elev);border:1px solid var(--line);border-radius:18px;overflow:hidden}
-        .shadow{box-shadow:var(--shadow)}
-        .accent-perma{background:var(--accent-weak)!important;border-color:var(--accent)!important;box-shadow:inset 0 0 0 2px var(--accent-weak)!important}
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MotoUrbano MX — Equipo y accesorios para motociclistas</title>
+  <meta name="description" content="Equipo y accesorios para motociclistas, precios claros y soporte por WhatsApp. Devoluciones en 14 días." />
+  <meta name="theme-color" content="#ffffff" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="MotoUrbano MX" />
+  <meta property="og:description" content="Equipo y accesorios para motociclistas." />
+  <meta property="og:image" content="https://leadradar.github.io/motorhub.mx/img/hero.jpg" />
 
-        /* Header */
-        header.site{position:sticky; top:0; z-index:40; background:#fff; border-bottom:1px solid var(--line); transition:padding .18s ease, box-shadow .18s ease}
-        .header-wrap{display:flex;flex-direction:column;align-items:center;gap:8px;padding:var(--header-pad-y) 0}
-        .brand-stack{display:flex;flex-direction:column;align-items:center;gap:6px}
-        .brand-stack img{height:var(--header-logo);width:auto;transition:height .18s ease}
-        .brand-title{font:800 var(--header-title)/1 Poppins,system-ui;text-align:center;transition:font-size .18s ease}
-        .flag-mx{margin-top:2px}
-        .flag-mx svg{width:22px;height:14px;display:block}
-        nav.menu{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:6px}
-        nav.menu a{padding:6px 10px;border-radius:10px;color:#333;font-size:14px;border:1px solid transparent;transition:background .15s, border-color .15s, box-shadow .15s}
-        nav.menu a:hover,nav.menu a.is-active{background:var(--accent-weak);border-color:var(--accent);box-shadow:inset 0 0 0 2px var(--accent-weak)}
-        nav.menu a:focus-visible{outline:2px solid var(--accent)}
-        #cartBtn{font-weight:700}
-        @media(max-width:640px){:root{ --header-pad-y:8px; --header-logo:60px; --header-title:18px;} nav.menu{gap:8px} nav.menu a{padding:5px 8px;font-size:13px}}
-        header.site.is-scrolled{ box-shadow:0 6px 18px rgba(0,0,0,.06)}
-        header.site.is-scrolled .brand-stack img{height:52px}
-        header.site.is-scrolled .brand-title{font-size:18px}
-        header.site.is-scrolled .header-wrap{padding:8px 0}
+  <link rel="icon" href="favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
+  <link rel="manifest" href="site.webmanifest" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700;800&display=swap" rel="stylesheet">
 
-        /* Compensación header fijo */
-        section{scroll-margin-top:calc(var(--header-h) + 8px); content-visibility:auto; contain-intrinsic-size:auto 600px;}
+  <style>
+    :root{
+      --bg:#ffffff; --elev:#ffffff; --ink:#0b0b0b; --muted:#5d5d5d; --line:#e9e9e9;
+      --accent:#cf0a0a; --accent-weak:#fbecec; --shadow:0 10px 30px rgba(0,0,0,.08);
+      --header-pad-y:14px; --header-logo:84px; --header-title:22px; --header-h:220px;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
+    img{display:block;max-width:100%;height:auto;-webkit-user-drag:none;user-drag:none}
+    a{color:inherit;text-decoration:none}
+    button{font:inherit}
+    .container{max-width:1200px;margin:0 auto;padding:0 28px}
+    .grid{display:grid;gap:16px}
+    @media(min-width:700px){.grid.cols-2{grid-template-columns:repeat(2,1fr)}}
+    @media(min-width:900px){.grid.cols-3{grid-template-columns:repeat(3,1fr)}.grid.cols-4{grid-template-columns:repeat(4,1fr)}.grid.cols-5{grid-template-columns:repeat(5,1fr)}}
+    .card{background:var(--elev);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+    .shadow{box-shadow:var(--shadow)}
+    .accent-perma{background:var(--accent-weak)!important;border-color:var(--accent)!important;box-shadow:inset 0 0 0 2px var(--accent-weak)!important}
 
-        /* Hero */
-        .hero{border-bottom:1px solid var(--line);background:#fff}
-        .hero .wrap{display:flex;flex-direction:column;align-items:center;gap:14px;padding:36px 0}
-        .hero .logo-big img{width:340px;height:auto}
-        @media(min-width:1100px){.hero .logo-big img{width:400px}}
-        @media(max-width:520px){.hero .logo-big img{width:220px}}
-        h1{font-family:Poppins,system-ui;font-weight:800;letter-spacing:.2px;font-size:clamp(30px,5vw,52px);line-height:1.04;margin:.05em 0 .1em;text-align:center}
-        .hero-sub{font-size:clamp(14px,2.2vw,18px);color:#333;margin:2px 0 6px;text-align:center}
-        h2{font-size:clamp(22px,3.6vw,34px);margin:0 0 10px;text-align:center}
-        .sub{color:var(--muted);text-align:center}
-        .chips-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:center;margin-top:14px}
-        .chip{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);color:#333;padding:8px 12px;border-radius:12px;white-space:nowrap}
+    /* Header */
+    header.site{position:sticky; top:0; z-index:40; background:#fff; border-bottom:1px solid var(--line); transition:padding .18s ease, box-shadow .18s ease}
+    .header-wrap{display:flex;flex-direction:column;align-items:center;gap:8px;padding:var(--header-pad-y) 0}
+    .brand-stack{display:flex;flex-direction:column;align-items:center;gap:6px}
+    .brand-stack img{height:var(--header-logo);width:auto;transition:height .18s ease}
+    .brand-title{font:800 var(--header-title)/1 Poppins,system-ui;text-align:center;transition:font-size .18s ease}
+    .flag-mx{margin-top:2px}
+    .flag-mx svg{width:22px;height:14px;display:block}
+    nav.menu{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:6px}
+    nav.menu a{padding:6px 10px;border-radius:10px;color:#333;font-size:14px;border:1px solid transparent;transition:background .15s, border-color .15s, box-shadow .15s}
+    nav.menu a:hover,nav.menu a.is-active{background:var(--accent-weak);border-color:var(--accent);box-shadow:inset 0 0 0 2px var(--accent-weak)}
+    nav.menu a:focus-visible{outline:2px solid var(--accent)}
+    #cartBtn{font-weight:700}
+    @media(max-width:640px){:root{ --header-pad-y:8px; --header-logo:60px; --header-title:18px;} nav.menu{gap:8px} nav.menu a{padding:5px 8px;font-size:13px}}
+    header.site.is-scrolled{ box-shadow:0 6px 18px rgba(0,0,0,.06)}
+    header.site.is-scrolled .brand-stack img{height:52px}
+    header.site.is-scrolled .brand-title{font-size:18px}
+    header.site.is-scrolled .header-wrap{padding:8px 0}
 
-        /* Categorías */
-        #categorias h2,#categorias .sub{text-align:center}
-        .tile{position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:#fff;cursor:pointer;transition:box-shadow .15s, border-color .15s}
-        .tile img{width:100%;height:200px;object-fit:cover}
-        .tile .label{position:absolute;left:50%;bottom:10px;transform:translateX(-50%);background:#000000b3;padding:8px 10px;border-radius:10px;color:#fff;font-weight:800}
-        .tile:hover{border-color:var(--accent); box-shadow:inset 0 0 0 2px var(--accent-weak)}
+    /* Compensación header fijo */
+    section{scroll-margin-top:calc(var(--header-h) + 8px); content-visibility:auto; contain-intrinsic-size:auto 600px;}
 
-        /* Productos + filtros */
-        #productos{padding-bottom:30px}
-        #productos .filters{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:12px 0 6px}
-        .pill{border:1px solid #000;background:#fff;border-radius:999px;padding:8px 12px;cursor:pointer;transition:border-color .15s, box-shadow .15s, background .15s}
-        .pill:hover,.pill.is-active{background:var(--accent-weak);border-color:var(--accent);box-shadow:inset 0 0 0 2px var(--accent-weak)}
+    /* Hero */
+    .hero{border-bottom:1px solid var(--line);background:#fff}
+    .hero .wrap{display:flex;flex-direction:column;align-items:center;gap:14px;padding:36px 0}
+    .hero .logo-big img{width:340px;height:auto}
+    @media(min-width:1100px){.hero .logo-big img{width:400px}}
+    @media(max-width:520px){.hero .logo-big img{width:220px}}
+    h1{font-family:Poppins,system-ui;font-weight:800;letter-spacing:.2px;font-size:clamp(30px,5vw,52px);line-height:1.04;margin:.05em 0 .1em;text-align:center}
+    .hero-sub{font-size:clamp(14px,2.2vw,18px);color:#333;margin:2px 0 6px;text-align:center}
+    h2{font-size:clamp(22px,3.6vw,34px);margin:0 0 10px;text-align:center}
+    .sub{color:var(--muted);text-align:center}
+    .chips-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:center;margin-top:14px}
+    .chip{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);color:#333;padding:8px 12px;border-radius:12px;white-space:nowrap}
 
-        #gridProds{justify-items:center; padding:0 8px}
-        .prod{display:flex;flex-direction:column;cursor:pointer;transition:box-shadow .15s, border-color .15s; width:100%; max-width:500px; margin:0 4px; border:1px solid var(--line); border-radius:18px}
-        .prod .img-wrap{position:relative; width:100%}
-        .prod .img-wrap img{aspect-ratio:1/1;object-fit:cover;background:#f4f4f4; width:100%; height:auto; display:block; transition:opacity .18s ease}
-        /* asegurar que la hover-img cubre totalmente la base */
-        .prod .img-wrap img.hover-img{position:absolute; inset:0; opacity:0; width:100%; height:100%; object-fit:cover; z-index:1}
-        .prod.ready:hover .img-wrap img.hover-img,
-        .prod.ready:focus-within .img-wrap img.hover-img{opacity:1}
-        .prod.ready:hover .img-wrap img.base-img,
-        .prod.ready:focus-within .img-wrap img.base-img{opacity:0}
-        .prod.ready.peek .img-wrap img.hover-img{opacity:1}
-        .prod.ready.peek .img-wrap img.base-img{opacity:0}
-        .prod .pad{padding:12px; text-align:center}
-        .prod .title{font-weight:700;line-height:1.25;margin:0 0 6px;font-size:16px}
-        .prod .meta{display:flex;justify-content:center;align-items:center; gap:10px}
-        .price-badge{display:inline-block;background:var(--accent-weak);border:1px solid var(--accent);border-radius:999px;padding:6px 10px;font-weight:800}
-        .stars{color:#000;font-size:13px}
-        .prod:hover{border-color:var(--accent); box-shadow:inset 0 0 0 2px var(--accent-weak)}
-        .hidden{display:none !important}
+    /* Categorías */
+    #categorias h2,#categorias .sub{text-align:center}
+    .tile{position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:#fff;cursor:pointer;transition:box-shadow .15s, border-color .15s}
+    .tile img{width:100%;height:200px;object-fit:cover}
+    .tile .label{position:absolute;left:50%;bottom:10px;transform:translateX(-50%);background:#000000b3;padding:8px 10px;border-radius:10px;color:#fff;font-weight:800}
+    .tile:hover{border-color:var(--accent); box-shadow:inset 0 0 0 2px var(--accent-weak)}
 
-        /* Botones */
-        .btn{display:inline-flex;align-items:center;gap:8px;background:#fff;color:#000;border:1px solid var(--accent);border-radius:12px;padding:10px 14px;cursor:pointer;transition:background .15s,border-color .15s, box-shadow .15s}
-        .btn:hover{background:var(--accent-weak);border-color:var(--accent);box-shadow:inset 0 0 0 2px var(--accent-weak)}
-        .close{border:none;background:#f3f3f3;border-radius:10px;padding:8px 10px;cursor:pointer}
+    /* Productos + filtros */
+    #productos{padding-bottom:30px}
+    #productos .filters{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:12px 0 6px}
+    .pill{border:1px solid #000;background:#fff;border-radius:999px;padding:8px 12px;cursor:pointer;transition:border-color .15s, box-shadow .15s, background .15s}
+    .pill:hover,.pill.is-active{background:var(--accent-weak);border-color:var(--accent);box-shadow:inset 0 0 0 2px var(--accent-weak)}
 
-        /* Modal base y producto */
-        .modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;padding:16px;z-index:60}
-        .modal.open{display:flex}
-        .modal-card{background:#fff;border-radius:18px;max-width:1120px;width:min(96vw,1120px);max-height:92vh;display:flex;flex-direction:column;overflow:hidden;border:1px solid var(--line);margin:auto}
-        .modal-head{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid var(--line)}
-        .modal-title{font:700 18px/1.2 Poppins,system-ui}
-        .modal-body{display:grid;gap:16px;padding:16px;overflow:auto;align-items:start}
-        @media(min-width:900px){.modal-body.prod{grid-template-columns:60% 40%}}
+    #gridProds{justify-items:center; padding:0 8px}
+    .prod{display:flex;flex-direction:column;cursor:pointer;transition:box-shadow .15s, border-color .15s; width:100%; max-width:500px; margin:0 4px; border:1px solid var(--line); border-radius:18px}
+    .prod .img-wrap{position:relative; width:100%}
+    .prod .img-wrap img{aspect-ratio:1/1;object-fit:cover;background:#f4f4f4; width:100%; height:auto; display:block; transition:opacity .18s ease}
+    .prod .img-wrap img.hover-img{position:absolute; inset:0; opacity:0}
+    /* SOLO si la tarjeta está lista (segunda imagen cargada) hacemos el swap */
+    .prod.ready:hover .img-wrap img.hover-img{opacity:1}
+    .prod.ready:hover .img-wrap img.base-img{opacity:0}
+    .prod .pad{padding:12px; text-align:center}
+    .prod .title{font-weight:700;line-height:1.25;margin:0 0 6px;font-size:16px}
+    .prod .meta{display:flex;justify-content:center;align-items:center; gap:10px}
+    .price-badge{display:inline-block;background:var(--accent-weak);border:1px solid var(--accent);border-radius:999px;padding:6px 10px;font-weight:800}
+    .stars{color:#000;font-size:13px}
+    .prod:hover{border-color:var(--accent); box-shadow:inset 0 0 0 2px var(--accent-weak)}
+    .hidden{display:none !important}
 
-        /* === Mejora visual del modal de producto === */
-        .media-wrap{position:relative}
-        .m-main{width:100%;max-height:70vh;object-fit:contain;border-radius:12px;background:#f7f7f7;cursor:zoom-in}
-        .m-main.is-loading{background:linear-gradient(90deg,#f3f3f3 25%,#e9e9e9 37%,#f3f3f3 63%);background-size:400% 100%;animation:sheen 1.2s infinite}
-        @keyframes sheen{0%{background-position:100% 0}100%{background-position:0 0}}
-        .nav-arrow{position:absolute;top:50%;transform:translateY(-50%);background:#ffffffcc;border:1px solid var(--line);border-radius:12px;padding:8px 10px;cursor:pointer}
-        .nav-arrow.prev{left:8px}
-        .nav-arrow.next{right:8px}
-        .thumbs{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:8px}
-        .thumbs img{width:100%;height:84px;object-fit:cover;border-radius:10px;border:2px solid transparent;cursor:pointer;background:#fafafa}
-        .thumbs img.active{border-color:#000}
+    /* Botones */
+    .btn{display:inline-flex;align-items:center;gap:8px;background:#fff;color:#000;border:1px solid var(--accent);border-radius:12px;padding:10px 14px;cursor:pointer;transition:background .15s,border-color .15s, box-shadow .15s}
+    .btn:hover{background:var(--accent-weak);border-color:var(--accent);box-shadow:inset 0 0 0 2px var(--accent-weak)}
+    .close{border:none;background:#f3f3f3;border-radius:10px;padding:8px 10px;cursor:pointer}
 
-        .detail-col{display:flex;flex-direction:column;align-items:stretch;gap:12px}
-        .badge-price{display:inline-block;background:var(--accent-weak);border:1px solid var(--accent);border-radius:999px;padding:10px 14px;font:800 22px/1 Poppins,system-ui;margin:0}
-        .prod-title-lg{font:700 20px/1.2 Poppins,system-ui; margin:2px 0 2px}
-        .mini-meta{color:#666; font-size:13px}
+    /* Modal base y producto */
+    .modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;padding:16px;z-index:60}
+    .modal.open{display:flex}
+    .modal-card{background:#fff;border-radius:18px;max-width:1120px;width:min(96vw,1120px);max-height:92vh;display:flex;flex-direction:column;overflow:hidden;border:1px solid var(--line);margin:auto}
+    .modal-head{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid var(--line)}
+    .modal-title{font:700 18px/1.2 Poppins,system-ui}
+    .modal-body{display:grid;gap:16px;padding:16px;overflow:auto;align-items:start}
+    @media(min-width:900px){.modal-body.prod{grid-template-columns:60% 40%}}
+    .media-wrap{position:relative}
+    .m-main{width:100%;max-height:80vh;object-fit:contain;border-radius:12px;background:#f7f7f7;cursor:zoom-in}
+    .m-main.is-loading{background:linear-gradient(90deg,#f3f3f3 25%,#e9e9e9 37%,#f3f3f3 63%);background-size:400% 100%;animation:sheen 1.2s infinite}
+    @keyframes sheen{0%{background-position:100% 0}100%{background-position:0 0}}
+    .nav-arrow{position:absolute;top:50%;transform:translateY(-50%);background:#ffffffcc;border:1px solid var(--line);border-radius:12px;padding:8px 10px;cursor:pointer}
+    .nav-arrow.prev{left:8px}
+    .nav-arrow.next{right:8px}
+    .thumbs{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:8px}
+    .thumbs img{width:100%;height:84px;object-fit:cover;border-radius:10px;border:2px solid transparent;cursor:pointer;background:#fafafa}
+    .thumbs img.active{border-color:#000}
+    .detail-col{display:flex;flex-direction:column;align-items:flex-start}
+    .badge-price{display:inline-block;background:var(--accent-weak);border:1px solid var(--accent);border-radius:999px;padding:10px 14px;font:800 22px/1 Poppins,system-ui;margin:0 0 12px}
+    .features{list-style:none;padding:0;margin:0 0 16px}
+    .features li{position:relative;padding-left:22px;margin:8px 0}
+    .features li::before{content:"";position:absolute;left:0;top:7px;width:10px;height:10px;border-radius:50%;background:var(--accent-weak);border:1px solid var(--accent)}
 
-        .policy-chips{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 2px}
-        .policy-chips .chip{border-color:var(--line)}
-        .pay-badge{display:inline-flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:8px 12px}
-        .pay-badge img{height:18px}
+    /* Lightbox */
+    .lightbox{position:fixed;inset:0;background:#000000eb;display:none;align-items:center;justify-content:center;z-index:80;touch-action:none}
+    .lightbox.open{display:flex}
+    .lightbox img{max-width:95vw;max-height:95vh;object-fit:contain;transform-origin:center center;transition:transform .06s linear}
+    .lightbox .x{position:absolute;top:14px;right:14px;background:#ffffff22;color:#fff;border:1px solid #ffffff55;border-radius:10px;padding:8px 10px;cursor:pointer}
+    .lightbox .arrow{position:absolute;top:50%;transform:translateY(-50%);background:#ffffff22;color:#fff;border:1px solid #ffffff55;border-radius:10px;padding:10px 12px;cursor:pointer}
+    .lightbox .arrow.prev{left:14px}
+    .lightbox .arrow.next{right:14px}
 
-        .buy-box{border:1px solid var(--line);border-radius:14px;padding:10px;box-shadow:var(--shadow);background:#fff}
-        .qty{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:10px;overflow:hidden}
-        .qty button{background:#f6f6f6;border:none;padding:6px 10px;cursor:pointer}
-        .qty input{width:48px;text-align:center;border:none;padding:6px}
-        .cta-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
-        .btn-primary{background:var(--accent); color:#fff; border-color:var(--accent)}
-        .btn-primary:hover{filter:brightness(.94)}
-        .btn-ghost{background:#fff; border:1px solid var(--line)}
+    /* Carrito */
+    .cart{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;padding:16px;z-index:65}
+    .cart.open{display:flex}
+    .cart-card{background:#fff;border-radius:18px;max-width:760px;width:96%;max-height:92vh;display:flex;flex-direction:column;overflow:hidden;border:1px solid var(--line)}
+    .cart-head{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid var(--line)}
+    .cart-head strong{font:700 18px/1.2 Poppins,system-ui}
+    .cart-body{padding:12px 16px;overflow:auto}
+    .cart-item{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;border-bottom:1px solid var(--line);padding:10px 0}
+    .cart-item img{width:60px;height:60px;object-fit:cover;border-radius:10px}
+    .cart-item .qtyline{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+    .cart-item .qtyline button{background:#f6f6f6;border:none;padding:6px 10px;cursor:pointer}
+    .cart-item .qtyline button:hover{background:var(--accent-weak);border-left:1px solid var(--accent)}
+    .cart-item .qtyline input{width:44px;text-align:center;border:none;padding:6px}
+    .cart-foot{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-top:1px solid var(--line);gap:10px;flex-wrap:wrap}
+    #cTotal{display:inline-block;background:var(--accent-weak);border:1px solid var(--accent);border-radius:999px;padding:6px 10px}
 
-        .trust-note{font-size:12px; color:#555; display:flex; align-items:center; gap:8px}
-        .trust-dot{width:6px;height:6px;background:var(--accent);border-radius:50%}
+    /* Footer */
+    footer.site{margin-top:48px;border-top:1px solid var(--line);background:#fff}
+    .footer-head{display:flex;flex-direction:column;align-items:center;gap:6px;padding:18px 0 6px}
+    .footer-head img{height:72px;width:auto}
+    .footer-name{font:800 18px/1.1 Poppins,system-ui;text-align:center}
+    .footer-tag{color:#666;text-align:center;margin-top:2px}
+    .copy{padding:10px 0 20px;color:#666;text-align:center}
+    .footer-legal{display:flex;gap:8px;align-items:center;justify-content:center;flex-wrap:wrap}
+    .footer-legal .dot{opacity:.35}
+    .footer-legal a{padding:4px 6px;border-radius:8px;border:1px solid var(--accent);background:var(--accent-weak); box-shadow:inset 0 0 0 2px var(--accent-weak)}
 
-        /* Lightbox */
-        .lightbox{position:fixed;inset:0;background:#000000eb;display:none;align-items:center;justify-content:center;z-index:80;touch-action:none}
-        .lightbox.open{display:flex}
-        .lightbox img{max-width:95vw;max-height:95vh;object-fit:contain;transform-origin:center center;transition:transform .06s linear}
-        .lightbox .x{position:absolute;top:14px;right:14px;background:#ffffff22;color:#fff;border:1px solid #ffffff55;border-radius:10px;padding:8px 10px;cursor:pointer}
-        .lightbox .arrow{position:absolute;top:50%;transform:translateY(-50%);background:#ffffff22;color:#fff;border:1px solid #ffffff55;border-radius:10px;padding:10px 12px;cursor:pointer}
-        .lightbox .arrow.prev{left:14px}
-        .lightbox .arrow.next{right:14px}
+    /* Contacto */
+    .contact-grid{display:grid;gap:16px;grid-template-columns:1fr;max-width:900px;margin:16px auto 0}
+    @media(min-width:900px){.contact-grid{grid-template-columns:repeat(3,1fr)}}
+    .contact-item{border:1px solid var(--line);border-radius:16px;padding:18px 16px;text-align:center;transition:box-shadow .15s, border-color .15s}
+    .contact-item strong{display:block;font:700 18px/1.2 Poppins,system-ui;margin-bottom:8px}
+    .contact-item .sub{line-height:1.6;margin-bottom:12px}
+    .contact-item a.btn{display:inline-block;margin-top:2px}
+    .contact-item:hover{border-color:var(--accent); box-shadow:inset 0 0 0 2px var(--accent-weak)}
 
-        /* Carrito */
-        .cart{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;padding:16px;z-index:65}
-        .cart.open{display:flex}
-        .cart-card{background:#fff;border-radius:18px;max-width:760px;width:96%;max-height:92vh;display:flex;flex-direction:column;overflow:hidden;border:1px solid var(--line)}
-        .cart-head{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid var(--line)}
-        .cart-head strong{font:700 18px/1.2 Poppins,system-ui}
-        .cart-body{padding:12px 16px;overflow:auto}
-        .cart-item{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;border-bottom:1px solid var(--line);padding:10px 0}
-        .cart-item img{width:60px;height:60px;object-fit:cover;border-radius:10px}
-        .cart-item .qtyline{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:10px;overflow:hidden}
-        .cart-item .qtyline button{background:#f6f6f6;border:none;padding:6px 10px;cursor:pointer}
-        .cart-item .qtyline button:hover{background:var(--accent-weak);border-left:1px solid var(--accent)}
-        .cart-item .qtyline input{width:44px;text-align:center;border:none;padding:6px}
-        .cart-foot{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-top:1px solid var(--line);gap:10px;flex-wrap:wrap}
-        #cTotal{display:inline-block;background:var(--accent-weak);border:1px solid var(--accent);border-radius:999px;padding:6px 10px}
+    /* FAQ */
+    #faq details{border:1px solid var(--line);border-radius:12px;margin:10px 0;padding:10px;background:#f6f6f6;transition:border-color .15s, box-shadow .15s}
+    #faq details:hover{border-color:var(--accent); box-shadow:inset 0 0 0 2px var(--accent-weak)}
+    #faq summary{cursor:pointer;font-weight:700}
+    #faq .answer{margin-top:8px}
 
-        /* Footer */
-        footer.site{margin-top:48px;border-top:1px solid var(--line);background:#fff}
-        .footer-head{display:flex;flex-direction:column;align-items:center;gap:6px;padding:18px 0 6px}
-        .footer-head img{height:72px;width:auto}
-        .footer-name{font:800 18px/1.1 Poppins,system-ui;text-align:center}
-        .footer-tag{color:#666;text-align:center;margin-top:2px}
-        .copy{padding:10px 0 20px;color:#666;text-align:center}
-        .footer-legal{display:flex;gap:8px;align-items:center;justify-content:center;flex-wrap:wrap}
-        .footer-legal .dot{opacity:.35}
-        .footer-legal a{padding:4px 6px;border-radius:8px;transition:background .15s, border-color .15s, box-shadow .15s; border:1px solid transparent;}
-        .footer-legal a:hover{background:var(--accent-weak);border-color:var(--accent);box-shadow:inset 0 0 0 2px var(--accent-weak)}
+    /* WhatsApp flotante (png sin fondo) */
+    .floating-wa{position:fixed; right:16px; bottom:16px; width:64px; height:64px; display:flex; align-items:center; justify-content:center; z-index:45; cursor:pointer}
+    .floating-wa img{ width:64px; height:64px; display:block }
+  </style>
 
-        /* Contacto */
-        .contact-grid{display:grid;gap:16px;grid-template-columns:1fr;max-width:900px;margin:16px auto 0}
-        @media(min-width:900px){.contact-grid{grid-template-columns:repeat(3,1fr)}}
-        .contact-item{border:1px solid var(--line);border-radius:16px;padding:18px 16px;text-align:center;transition:box-shadow .15s, border-color .15s}
-        .contact-item strong{display:block;font:700 18px/1.2 Poppins,system-ui;margin-bottom:8px}
-        .contact-item .sub{line-height:1.6;margin-bottom:12px}
-        .contact-item a.btn{display:inline-block;margin-top:2px; border:1px solid var(--accent);}
-        .contact-item a.btn:hover{background:var(--accent-weak);border-color:var(--accent);box-shadow:inset 0 0 0 2px var(--accent-weak)}
-        .contact-item:hover{border-color:var(--accent); box-shadow:inset 0 0 0 2px var(--accent-weak)}
-
-        /* FAQ */
-        #faq details{border:1px solid var(--line);border-radius:12px;margin:10px 0;padding:10px;background:#f6f6f6;transition:border-color .15s, box-shadow .15s}
-        #faq details:hover{border-color:var(--accent); box-shadow:inset 0 0 0 2px var(--accent-weak)}
-        #faq summary{cursor:pointer;font-weight:700}
-        #faq .answer{margin-top:8px}
-
-        /* WhatsApp flotante */
-        .floating-wa{position:fixed; right:16px; bottom:16px; width:64px; height:64px; display:flex; align-items:center; justify-content:center; z-index:45; cursor:pointer}
-        .floating-wa img{ width:64px; height:64px; display:block }
-
-        .trustbar { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
-
-        /* Ajustes responsivos del modal mejorado */
-        .modal-body.prod{display:flex;flex-direction:column;gap:20px}
-        @media(min-width:900px){
-          .modal-body.prod{flex-direction:row;align-items:flex-start}
-          .detail-col{position:sticky; top:12px}
-        }
-        .thumbs{justify-content:center}
-        .features{list-style:none;padding:0;margin:0 0 16px;text-align:left}
-        .features li{position:relative;padding-left:22px;margin:8px 0;width:fit-content;margin-left:auto;margin-right:auto}
-        .features li::before{content:"";position:absolute;left:0;top:7px;width:10px;height:10px;border-radius:50%;background:var(--accent-weak);border:1px solid var(--accent)}
-    </style>
+  <!-- Datos legales + helpers -->
+  <script>
+    (function(){
+      window.MU_LEGAL = {
+        envios:{title:'Política de Envíos — MotoUrbano MX',body:'<p>Envíos a todo México mediante mensajería certificada. Tiempo estimado: <strong>10 a 20 días hábiles</strong> según tu zona.</p><p>Compartimos tu <strong>número de guía</strong> por correo para rastreo.</p><p>Si hay retrasos de paquetería, te acompañamos en todo momento.</p><p class="sub">Contacto: <a href="mailto:hola@motourbano.shop">hola@motourbano.shop</a></p>'},
+        devoluciones:{title:'Política de Devoluciones — MotoUrbano MX',body:'<p>Tienes <strong>14 días naturales</strong> desde la entrega para solicitar devolución.</p><p>El producto debe estar <strong>sin uso</strong> y con empaques/etiquetas completos.</p><p>Escríbenos a <a href="mailto:hola@motourbano.shop">hola@motourbano.shop</a> o por WhatsApp con tu <strong>número de pedido</strong>.</p><p>Tras validar, hacemos reembolso por el mismo medio de pago.</p>'},
+        privacidad:{title:'Aviso de Privacidad — MotoUrbano MX',body:'<p>Usamos tus datos para <strong>gestión de pedidos</strong>, atención y comunicaciones.</p><p>Compartimos lo mínimo con terceros (paquetería, pagos) o por obligación legal.</p><p>Derechos ARCO: <a href="mailto:hola@motourbano.shop">hola@motourbano.shop</a>.</p>'},
+        terminos:{title:'Términos y Condiciones — MotoUrbano MX',body:'<p>El uso del sitio implica aceptación de estos términos. Precios y disponibilidad pueden cambiar.</p><p>Imágenes ilustrativas. Si hay error o falta de inventario, se puede cancelar con reembolso íntegro.</p><p>Dudas: <a href="mailto:hola@motourbano.shop">hola@motourbano.shop</a>.</p>'}
+      };
+      window.MU_openLegal = function(key){
+        const data=(window.MU_LEGAL||{})[key]; if(!data) return false;
+        const legalModal=document.getElementById('legalModal'); const body=document.getElementById('legalBody'); const title=document.getElementById('legalTitle');
+        if(!legalModal||!body||!title) return false;
+        title.textContent=data.title; body.innerHTML='<div class="sub" style="text-align:left">'+data.body+'</div>';
+        legalModal.classList.add('open'); return false;
+      };
+      window.MU_openMailModal = function(){
+        const emailModal=document.getElementById('emailModal');
+        if(emailModal){ emailModal.classList.add('open'); }
+        return false;
+      };
+      window.MU_copyEmail = function(){
+        const email='hola@motourbano.shop';
+        navigator.clipboard?.writeText(email);
+        const t=document.getElementById('toast');
+        if(t){ t.textContent='Correo copiado'; t.style.opacity='1'; t.style.transform='translateX(-50%) translateY(-6px)'; setTimeout(()=>{ t.style.opacity='0'; t.style.transform='translateX(-50%)'; t.textContent='Añadido al carrito'; }, 1200); }
+        return false;
+      };
+    })();
+  </script>
 </head>
 <body>
   <!-- HEADER -->
@@ -458,7 +453,7 @@
       <div class="contact-item">
         <strong>Email</strong>
         <div class="sub">hola@motourbano.shop</div>
-        <a class="btn" href="#" onclick="return (document.getElementById('emailModal').classList.add('open'), false)">Enviar correo</a>
+        <a class="btn" href="#" onclick="return MU_openMailModal()">Enviar correo</a>
       </div>
       <div class="contact-item">
         <strong>WhatsApp</strong>
@@ -468,7 +463,7 @@
       <div class="contact-item">
         <strong>Devoluciones</strong>
         <div class="sub">Plazo de 14 días</div>
-        <a class="btn" href="#" onclick="return (MU_openLegal('devoluciones'), false)">Ver política</a>
+        <a class="btn" href="#" onclick="return MU_openLegal('devoluciones')">Ver política</a>
       </div>
     </div>
   </section>
@@ -482,10 +477,10 @@
     </div>
 
     <div class="container footer-legal" style="padding-bottom:6px">
-      <a href="#" onclick="return (MU_openLegal('envios'), false)">Envíos</a><span class="dot">·</span>
-      <a href="#" onclick="return (MU_openLegal('devoluciones'), false)">Devoluciones</a><span class="dot">·</span>
-      <a href="#" onclick="return (MU_openLegal('privacidad'), false)">Privacidad</a><span class="dot">·</span>
-      <a href="#" onclick="return (MU_openLegal('terminos'), false)">Términos</a>
+      <a href="#" onclick="return MU_openLegal('envios')">Envíos</a><span class="dot">·</span>
+      <a href="#" onclick="return MU_openLegal('devoluciones')">Devoluciones</a><span class="dot">·</span>
+      <a href="#" onclick="return MU_openLegal('privacidad')">Privacidad</a><span class="dot">·</span>
+      <a href="#" onclick="return MU_openLegal('terminos')">Términos</a>
     </div>
 
     <div class="container copy">
@@ -498,51 +493,32 @@
     <img src="img/whatsapp.png" alt="WhatsApp" width="64" height="64" decoding="async" loading="lazy">
   </a>
 
-  <!-- MODAL Producto (mejorado visualmente, mismos IDs) -->
+  <!-- MODAL Producto -->
   <div class="modal" id="modal" aria-hidden="true">
     <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="mTitle">
       <div class="modal-head">
         <div class="modal-title" id="mTitle">Producto</div>
-        <button class="close" id="mClose" type="button" aria-label="Cerrar" onclick="this.closest('.modal').classList.remove('open')">✕</button>
+        <button class="close" id="mClose" aria-label="Cerrar">✕</button>
       </div>
       <div class="modal-body prod">
         <div class="media-wrap">
           <img id="mMain" class="m-main" src="" alt="" />
-          <button class="nav-arrow prev" id="mPrev" type="button" aria-label="Anterior">‹</button>
-          <button class="nav-arrow next" id="mNext" type="button" aria-label="Siguiente">›</button>
+          <button class="nav-arrow prev" id="mPrev" aria-label="Anterior">‹</button>
+          <button class="nav-arrow next" id="mNext" aria-label="Siguiente">›</button>
           <div id="mThumbs" class="thumbs"></div>
         </div>
         <div class="detail-col">
-          <div class="prod-title-lg" id="mTitleDup"></div>
-          <div class="badge-price" id="mPrice"></div>
-
-          <div class="policy-chips">
-            <span class="chip">🎁 Envío gratis</span>
-            <span class="chip">🔄 14 días devolución</span>
-            <span class="chip">🛡️ 6 meses garantía</span>
-            <span class="pay-badge" title="Pago seguro con PayPal" aria-label="Pago seguro con PayPal">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal">
-              Pago seguro
-            </span>
-          </div>
-
+          <div id="mPrice" class="badge-price"></div>
           <ul id="mDesc" class="features"></ul>
-
-          <div class="buy-box">
-            <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
-              <div class="qty" role="group" aria-label="Cantidad">
-                <button type="button" id="qMinus" aria-label="Reducir cantidad">−</button>
-                <input type="number" id="qInput" value="1" min="1" inputmode="numeric" />
-                <button type="button" id="qPlus" aria-label="Aumentar cantidad">+</button>
-              </div>
-              <button class="btn btn-primary" id="mAdd" type="button">Añadir al carrito</button>
-              <a class="btn btn-ghost" id="mWa" href="https://wa.me/520000000000" target="_blank" rel="noopener">Consultar por WhatsApp</a>
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+            <div class="qty">
+              <button type="button" id="qMinus">−</button>
+              <input type="number" id="qInput" value="1" min="1" />
+              <button type="button" id="qPlus">+</button>
             </div>
-            <div class="trust-note" style="margin-top:8px">
-              <span class="trust-dot"></span>
-              Pago con tarjeta a través de PayPal · Envío a todo México · Atención personalizada
-            </div>
+            <button class="btn" id="mAdd">Añadir al carrito</button>
           </div>
+          <div class="sub" style="font-size:12px">Pago seguro con PayPal · Envío a todo México · Devoluciones 14 días</div>
         </div>
       </div>
     </div>
@@ -553,39 +529,39 @@
     <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="emailTitle">
       <div class="modal-head">
         <div class="modal-title" id="emailTitle">Contacto por correo</div>
-        <button class="close" id="emailClose" type="button" aria-label="Cerrar" onclick="this.closest('.modal').classList.remove('open')">✕</button>
+        <button class="close" id="emailClose" aria-label="Cerrar">✕</button>
       </div>
       <div class="modal-body" style="display:block">
         <p class="sub" style="text-align:center;margin:0 0 14px">Escríbenos a <strong>hola@motourbano.shop</strong></p>
         <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
           <a class="btn" href="mailto:hola@motourbano.shop?subject=Consulta%20MotoUrbano%20MX" onclick="event.stopPropagation()">Abrir cliente de correo</a>
-          <button class="btn" onclick="navigator.clipboard?.writeText('hola@motourbano.shop')">Copiar correo</button>
+          <button class="btn" onclick="return MU_copyEmail()">Copiar correo</button>
         </div>
       </div>
     </div>
   </div>
 
   <!-- LIGHTBOX -->
-  <div class="lightbox" id="lightbox" aria-hidden="true" onclick="if(event.target===this) this.classList.remove('open')">
-    <button class="x" id="lbClose" type="button" aria-label="Cerrar" onclick="this.closest('.lightbox').classList.remove('open')">✕</button>
-    <button class="arrow prev" id="lbPrev" type="button" aria-label="Anterior">‹</button>
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <button class="x" id="lbClose" aria-label="Cerrar">✕</button>
+    <button class="arrow prev" id="lbPrev" aria-label="Anterior">‹</button>
     <img id="lbImg" src="" alt="Imagen ampliada"/>
-    <button class="arrow next" id="lbNext" type="button" aria-label="Siguiente">›</button>
+    <button class="arrow next" id="lbNext" aria-label="Siguiente">›</button>
   </div>
 
   <!-- MODAL Carrito -->
-  <div class="cart" id="cart" aria-hidden="true" onclick="if(event.target===this) this.classList.remove('open')">
+  <div class="cart" id="cart" aria-hidden="true">
     <div class="cart-card" role="dialog" aria-modal="true" aria-labelledby="cartTitle">
       <div class="cart-head">
         <strong id="cartTitle">Carrito</strong>
-        <button class="close" id="cClose" type="button" aria-label="Cerrar" onclick="this.closest('.cart').classList.remove('open')">✕</button>
+        <button class="close" id="cClose" aria-label="Cerrar">✕</button>
       </div>
       <div class="cart-body" id="cBody"></div>
       <div class="cart-foot">
         <strong>Total: <span id="cTotal">$0 MXN</span></strong>
         <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
           <button class="btn" id="cClear" type="button">Vaciar</button>
-          <form id="ppForm" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank" rel="noopener">
+          <form id="ppForm" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
             <input type="hidden" name="cmd" value="_xclick">
             <input type="hidden" name="business" id="ppBusiness" value="">
             <input type="hidden" name="item_name" value="Pedido MotoUrbano MX">
@@ -599,11 +575,11 @@
   </div>
 
   <!-- MODAL Legal -->
-  <div class="modal" id="legalModal" aria-hidden="true" onclick="if(event.target===this) this.classList.remove('open')">
+  <div class="modal" id="legalModal" aria-hidden="true">
     <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="legalTitle">
       <div class="modal-head">
         <div class="modal-title" id="legalTitle">Información legal</div>
-        <button class="close" id="legalClose" type="button" aria-label="Cerrar" onclick="this.closest('.modal').classList.remove('open')">✕</button>
+        <button class="close" id="legalClose" aria-label="Cerrar">✕</button>
       </div>
       <div class="modal-body" id="legalBody" style="padding:16px;display:block"></div>
     </div>
@@ -615,24 +591,6 @@
   </div>
 
   <script>
-    /* ========= Bloque LEGAL (global) ========= */
-    (function(){
-      window.MU_LEGAL = {
-        envios:{title:'Política de Envíos — MotoUrbano MX',body:'<p>Envíos a todo México mediante mensajería certificada. Tiempo estimado: <strong>10 a 20 días hábiles</strong> según tu zona.</p><p>Compartimos tu <strong>número de guía</strong> por correo para rastreo.</p><p>Si hay retrasos de paquetería, te acompañamos en todo momento.</p><p class="sub">Contacto: <a href="mailto:hola@motourbano.shop">hola@motourbano.shop</a></p>'},
-        devoluciones:{title:'Política de Devoluciones — MotoUrbano MX',body:'<p>Tienes <strong>14 días naturales</strong> desde la entrega para solicitar devolución.</p><p>El producto debe estar <strong>sin uso</strong> y con empaques/etiquetas completos.</p><p>Escríbenos a <a href="mailto:hola@motourbano.shop">hola@motourbano.shop</a> o por WhatsApp con tu <strong>número de pedido</strong>.</p><p>Tras validar, hacemos reembolso por el mismo medio de pago.</p>'},
-        privacidad:{title:'Aviso de Privacidad — MotoUrbano MX',body:'<p>Usamos tus datos para <strong>gestión de pedidos</strong>, atención y comunicaciones.</p><p>Compartimos lo mínimo con terceros (paquetería, pagos) o por obligación legal.</p><p>Derechos ARCO: <a href="mailto:hola@motourbano.shop">hola@motourbano.shop</a>.</p>'},
-        terminos:{title:'Términos y Condiciones — MotoUrbano MX',body:'<p>El uso del sitio implica aceptación de estos términos. Precios y disponibilidad pueden cambiar.</p><p>Imágenes ilustrativas. Si hay error o falta de inventario, se puede cancelar con reembolso íntegro.</p><p>Dudas: <a href="mailto:hola@motourbano.shop">hola@motourbano.shop</a>.</p>'}
-      };
-      window.MU_openLegal = function(key){
-        const data=(window.MU_LEGAL||{})[key]; if(!data) return false;
-        const modal=document.getElementById('legalModal'); const body=document.getElementById('legalBody'); const title=document.getElementById('legalTitle');
-        if(!modal||!body||!title) return false;
-        title.textContent=data.title; body.innerHTML='<div class="sub" style="text-align:left">'+data.body+'</div>';
-        modal.classList.add('open'); return false;
-      };
-    })();
-    /* ========================================= */
-
     document.addEventListener('DOMContentLoaded', function(){
       const $ = (sel,ctx)=> (ctx||document).querySelector(sel);
       const $$= (sel,ctx)=> [].slice.call((ctx||document).querySelectorAll(sel));
@@ -646,42 +604,59 @@
         const h=header.getBoundingClientRect().height;
         document.documentElement.style.setProperty('--header-h', h+'px');
       }
+      updateHeaderUi(); window.addEventListener('scroll', updateHeaderUi, {passive:true}); window.addEventListener('resize', updateHeaderUi);
+
       function scrollToId(id){
         const el=document.querySelector(id); if(!el||!header) return;
         const headerH=header.getBoundingClientRect().height;
         const y=el.getBoundingClientRect().top + window.pageYOffset - headerH - 6;
         window.scrollTo({top:y,behavior:'smooth'});
       }
+
       const y=$('#year'); if(y) y.textContent=new Date().getFullYear();
 
       /* Filtros */
       const filterPills=$$('#filters .pill');
-      const prodCards=$$('#gridProds article.prod');
+      const prodCards=$$('#gridProds [data-cat]');
       function applyFilter(cat){
         filterPills.forEach(p=> p.classList.toggle('is-active', p.dataset.cat===cat));
         prodCards.forEach(card=> card.classList.toggle('hidden', !(cat==='all'||card.dataset.cat===cat)));
         scrollToId('#productos');
       }
-      const filtersContainer = $('#filters');
-      filtersContainer?.addEventListener('click', e => {
-        const pill = e.target.closest('.pill');
-        if (pill) applyFilter(pill.dataset.cat);
-      });
+      filterPills.forEach(p=> p.addEventListener('click', ()=> applyFilter(p.dataset.cat)));
       $$('.js-cat').forEach(tile=> tile.addEventListener('click', ()=> applyFilter(tile.dataset.cat)));
 
+      /* ---- MODALES cerrar/abrir ---- */
+      function attachClosable(modalSel, closeSel){
+        const m=$(modalSel); if(!m) return;
+        const c=$(closeSel); if(c) c.addEventListener('click', ()=> m.classList.remove('open'));
+        m.addEventListener('click', (e)=>{ if(e.target===m) m.classList.remove('open'); });
+      }
+      attachClosable('#legalModal','#legalClose');
+      attachClosable('#modal','#mClose');
+      attachClosable('#cart','#cClose');
+      attachClosable('#emailModal','#emailClose');
+
+      document.addEventListener('keydown', function(e){
+        if(e.key!=='Escape') return;
+        ['#legalModal','#modal','#cart','#lightbox','#emailModal'].forEach(sel=>{
+          const el=$(sel); if(el && el.classList.contains('open')) el.classList.remove('open');
+        });
+      });
+
       /* ===== Modal producto ===== */
-      const modal=$('#modal'), mTitle=$('#mTitle'), mPrice=$('#mPrice'),
+      const prodModal=$('#modal'), mTitle=$('#mTitle'), mPrice=$('#mPrice'),
             mMain=$('#mMain'), mThumbs=$('#mThumbs'),
             mPrev=$('#mPrev'), mNext=$('#mNext'),
             qMinus=$('#qMinus'), qPlus=$('#qPlus'), qInput=$('#qInput'),
             mAdd=$('#mAdd'), mDesc=$('#mDesc');
 
-      const lightbox=$('#lightbox'), lbImg=$('#lbImg'), lbPrev=$('#lbPrev'), lbNext=$('#lbNext');
+      const lightbox=$('#lightbox'), lbImg=$('#lbImg'), lbClose=$('#lbClose'), lbPrev=$('#lbPrev'), lbNext=$('#lbNext');
 
-      const toast=$('#toast'); let current={images:[],index:0,name:'',priceText:'',price:0, main:''};
+      const toast=$('#toast'); let current={images:[],index:0,name:'',priceText:'',price:0};
 
       function bullets(text){ return (text||'').split('·').map(s=>s.trim()).filter(Boolean); }
-      function setActiveThumb(){ $$('#mThumbs img').forEach(t=> t.classList.toggle('active', t.getAttribute('data-src')===mMain.dataset.src)); }
+      function setActiveThumb(){ $$('#mThumbs img').forEach(t=> t.classList.toggle('active', t.dataset.src===mMain.dataset.src)); }
       function showImage(idx){
         if(!current.images.length) return;
         current.index=(idx+current.images.length)%current.images.length;
@@ -695,42 +670,65 @@
         let gallery=[]; try{ gallery=JSON.parse(card.getAttribute('data-gallery')||'[]'); }catch(e){ gallery=[]; }
         current={ name:card.dataset.name, priceText:card.dataset.price, price:parseInt((card.dataset.price||'').replace(/[^0-9]/g,''),10)||0, main:card.getAttribute('data-main')||'', images:[], index:0 };
         current.images=[current.main].concat(gallery.filter(Boolean));
-
-        /* set data in modal (manteniendo IDs) */
-        mTitle.textContent=current.name||'Producto';
-        const dupTitle = document.getElementById('mTitleDup'); if(dupTitle) dupTitle.textContent=current.name||'Producto';
-        mPrice.textContent=current.priceText||'';
-        mMain.classList.remove('is-loading'); mMain.src=current.images[0]; mMain.dataset.src=current.images[0]; mMain.alt=current.name;
-        mThumbs.innerHTML=current.images.map((src,i)=> `<img data-src="${src}" alt="Vista ${i+1} ${current.name}" loading="lazy" decoding="async" src="${src}" class="${i===0?'active':''}">`).join('');
+        if(mTitle) mTitle.textContent=current.name||'Producto';
+        if(mPrice) mPrice.textContent=current.priceText||'';
+        if(mMain){ mMain.classList.remove('is-loading'); mMain.src=current.images[0]; mMain.dataset.src=current.images[0]; mMain.alt=current.name; }
+        if(mThumbs) mThumbs.innerHTML=current.images.map((src,i)=> `<img data-src="${src}" alt="Vista ${i+1} ${current.name}" loading="lazy" decoding="async" src="${src}">`).join('');
         setActiveThumb();
 
-        mThumbs.onclick=function(e){
+        if(mThumbs) mThumbs.onclick=function(e){
           const img=e.target.closest('img'); if(!img) return;
           const idx=current.images.indexOf(img.getAttribute('data-src'));
           if(idx>-1){ showImage(idx); }
         };
-        mMain.onclick=function(){ openLightbox(mMain.src, mMain.alt); };
-        mPrev.onclick=function(){ showImage(current.index-1); };
-        mNext.onclick=function(){ showImage(current.index+1); };
+        if(mMain) mMain.onclick=function(){ openLightbox(mMain.src, mMain.alt); };
+
+        if(mPrev) mPrev.onclick=function(){ showImage(current.index-1); };
+        if(mNext) mNext.onclick=function(){ showImage(current.index+1); };
 
         // Swipe móvil
         let sx=0,sy=0,dx=0,dy=0;
-        mMain.addEventListener('touchstart',function(ev){ if(ev.touches.length!==1)return; sx=ev.touches[0].clientX; sy=ev.touches[0].clientY; },{passive:true});
-        mMain.addEventListener('touchmove',function(ev){ if(ev.touches.length!==1)return; dx=ev.touches[0].clientX-sx; dy=ev.touches[0].clientY-sy; },{passive:true});
-        mMain.addEventListener('touchend',function(){ if(Math.abs(dx)>40 && Math.abs(dy)<40){ if(dx<0)showImage(current.index+1); else showImage(current.index-1);} dx=dy=0; },{passive:true});
+        if(mMain){
+          mMain.addEventListener('touchstart',function(ev){ if(ev.touches.length!==1)return; sx=ev.touches[0].clientX; sy=ev.touches[0].clientY; },{passive:true});
+          mMain.addEventListener('touchmove',function(ev){ if(ev.touches.length!==1)return; dx=ev.touches[0].clientX-sx; dy=ev.touches[0].clientY-sy; },{passive:true});
+          mMain.addEventListener('touchend',function(){ if(Math.abs(dx)>40 && Math.abs(dy)<40){ if(dx<0)showImage(current.index+1); else showImage(current.index-1);} dx=dy=0; },{passive:true});
+        }
 
-        mDesc.innerHTML=bullets(card.dataset.desc||'').map(li=> '<li>'+li+'</li>').join('');
-        qInput.value=1;
-        modal.classList.add('open');
+        if(mDesc) mDesc.innerHTML=bullets(card.dataset.desc||'').map(li=> '<li>'+li+'</li>').join('');
+        if(qInput) qInput.value=1;
+        if(prodModal) prodModal.classList.add('open');
 
         current.images.slice(1).forEach(src=>{ const i=new Image(); i.decoding='async'; i.src=src; });
       }
+
+      /* Lightbox */
       function openLightbox(src,alt){ if(!lbImg||!lightbox) return; lbImg.src=src; lbImg.alt=alt||''; lightbox.classList.add('open'); }
-      lbPrev?.addEventListener('click', () => { showImage(current.index-1); lbImg.src=current.images[current.index]; });
-      lbNext?.addEventListener('click', () => { showImage(current.index+1); lbImg.src=current.images[current.index]; });
+      function closeLightbox(){ if(lightbox) lightbox.classList.remove('open'); }
+      if(lbClose) lbClose.addEventListener('click', closeLightbox);
+      if(lbPrev)  lbPrev .addEventListener('click', function(){ showImage(current.index-1); lbImg.src=current.images[current.index]; });
+      if(lbNext)  lbNext .addEventListener('click', function(){ showImage(current.index+1); lbImg.src=current.images[current.index]; });
+      if(lightbox) lightbox.addEventListener('click', function(e){ if(e.target===lightbox) closeLightbox(); });
+
+      let scale=1, tx=0, ty=0;
+      function applyTransform(){ if(lbImg) lbImg.style.transform='translate('+tx+'px,'+ty+'px) scale('+scale+')'; }
+      if(lightbox) lightbox.addEventListener('wheel', function(e){ e.preventDefault(); const d=e.deltaY>0?-0.1:0.1; scale=Math.max(1,Math.min(5,scale+d)); applyTransform(); }, {passive:false});
+      let startDist=0,startScale=1,startX=0,startY=0;
+      if(lightbox) lightbox.addEventListener('touchstart', function(e){
+        if(e.touches.length===2){ startDist=Math.hypot(e.touches[0].clientX-e.touches[1].clientX, e.touches[0].clientY-e.touches[1].clientY); startScale=scale; }
+        else if(e.touches.length===1){ startX=e.touches[0].clientX-tx; startY=e.touches[0].clientY-ty; }
+      }, {passive:true});
+      if(lightbox) lightbox.addEventListener('touchmove', function(e){
+        if(e.touches.length===2){
+          const d=Math.hypot(e.touches[0].clientX-e.touches[1].clientX, e.touches[0].clientY-e.touches[1].clientY);
+          scale=Math.max(1,Math.min(5,startScale*(d/startDist))); applyTransform();
+        }else if(e.touches.length===1 && scale>1){
+          tx=e.touches[0].clientX-startX; ty=e.touches[0].clientY-startY; applyTransform();
+        }
+      }, {passive:true});
+      let lastTap=0; if(lightbox) lightbox.addEventListener('touchend', function(){ const now=Date.now(); if(now-lastTap<300){ scale=1; tx=0; ty=0; applyTransform(); } lastTap=now; });
 
       /* Carrito */
-      const cartModal=$('#cart'), cBody=$('#cBody'), cTotal=$('#cTotal'), cClear=$('#cClear'),
+      const cartBtn=$('#cartBtn'), cartModal=$('#cart'), cBody=$('#cBody'), cTotal=$('#cTotal'), cClear=$('#cClear'),
             ppAmount=$('#ppAmount'), ppBusiness=$('#ppBusiness']);
       const PAYPAL_BUSINESS='tu-correo-paypal@ejemplo.com'; if(ppBusiness) ppBusiness.value=PAYPAL_BUSINESS;
 
@@ -752,11 +750,11 @@
                 <div><div style="font-weight:700">${i.name}</div><div class="sub">$${i.price} MXN c/u</div></div>
                 <div style="display:flex;align-items:center;gap:8px">
                   <div class="qtyline">
-                    <button type="button" data-act="minus" data-idx="${idx}" aria-label="Quitar uno">−</button>
+                    <button data-act="minus" data-idx="${idx}">−</button>
                     <input type="number" min="1" value="${i.qty}" data-idx="${idx}" data-act="input" />
-                    <button type="button" data-act="plus" data-idx="${idx}" aria-label="Añadir uno">+</button>
+                    <button data-act="plus" data-idx="${idx}">+</button>
                   </div>
-                  <button class="close" type="button" data-del="${idx}">Eliminar</button>
+                  <button class="close" data-del="${idx}">Eliminar</button>
                 </div>
               </div>`).join('');
           }
@@ -765,14 +763,11 @@
         if(cTotal) cTotal.textContent='$'+total+' MXN';
         if(ppAmount) ppAmount.value=Number(total).toFixed(2);
       }
+      function openCart(){ renderCart(); if(cartModal) cartModal.classList.add('open'); }
+      function closeCart(){ if(cartModal) cartModal.classList.remove('open'); }
+      if(cartBtn) cartBtn.addEventListener('click', function(e){ e.preventDefault(); openCart(); });
 
-      document.body.addEventListener('click', function(e){
-        const card = e.target.closest('article.prod');
-        if (card && $('#gridProds').contains(card)) { openProductModal(card); return; }
-        if (e.target.closest('#cartBtn')) { e.preventDefault(); renderCart(); cartModal.classList.add('open'); return; }
-      });
-
-      cBody?.addEventListener('click', function(e){
+      if(cBody) cBody.addEventListener('click', function(e){
         const del=e.target.closest('[data-del]');
         if(del){ const idx=parseInt(del.dataset.del,10); const items=readCart(); items.splice(idx,1); writeCart(items); updateCount(); renderCart(); return; }
         const act=e.target.closest('button[data-act]');
@@ -782,43 +777,61 @@
           writeCart(items); updateCount(); renderCart();
         }
       });
-      cBody?.addEventListener('change', function(e){
+      if(cBody) cBody.addEventListener('change', function(e){
         const inp=e.target.closest('input[data-act="input"]'); if(!inp) return;
         const idx=parseInt(inp.dataset.idx,10); const items=readCart(); if(!items[idx]) return;
         const v=Math.max(1, parseInt(inp.value,10)||1); items[idx].qty=v; writeCart(items); updateCount(); renderCart();
       });
-      $('#cClear')?.addEventListener('click', function(){ writeCart([]); updateCount(); renderCart(); });
+      if(cClear) cClear.addEventListener('click', function(){ writeCart([]); updateCount(); renderCart(); });
 
       function showToast(txt){ const t=$('#toast'); if(!t) return; if(txt) t.textContent=txt; t.style.opacity='1'; t.style.transform='translateX(-50%) translateY(-6px)'; setTimeout(()=>{ t.style.opacity='0'; t.style.transform='translateX(-50%)'; t.textContent='Añadido al carrito'; }, 1400); }
-      $('#mAdd')?.addEventListener('click', function(){
-        const qty=Math.max(1, parseInt($('#qInput').value,10)||1);
-        const items=readCart(); const name=$('#mTitle').textContent;
-        const price=parseInt(($('#mPrice').textContent||'').replace(/[^0-9]/g,''),10)||0; const img=$('#mMain').src;
+      if(mAdd) mAdd.addEventListener('click', function(){
+        const qty=Math.max(1, parseInt(qInput.value,10)||1);
+        const items=readCart(); const name=mTitle.textContent;
+        const price=parseInt((mPrice.textContent||'').replace(/[^0-9]/g,''),10)||0; const img=mMain.src;
         const found=items.find(it=> it.name===name && it.img===img && it.price===price);
         if(found){ found.qty+=qty; } else { items.push({name,price,img,qty}); }
-        writeCart(items); updateCount(); renderCart(); document.getElementById('modal').classList.remove('open'); showToast();
+        writeCart(items); updateCount(); openCart(); if(prodModal) prodModal.classList.remove('open'); showToast();
       });
 
-      /* HOVER/SWAP: crear hover-img con la SEGUNDA foto */
+      /* Menú con compensación */
+      $$('.menu a[href^="#"]').forEach(a=>{
+        a.addEventListener('click', function(e){ e.preventDefault(); const id=a.getAttribute('href'); if(id && id.length>1){ scrollToId(id); } });
+      });
+
+      /* Prefetch + HOVER seguro: añadimos hover-img y marcamos .ready sólo cuando cargue */
       $$('#gridProds article.prod').forEach(function(card){
         let g=[]; try{ g=JSON.parse(card.getAttribute('data-gallery')||'[]'); }catch(e){ g=[]; }
         const wrap = card.querySelector('.img-wrap');
         const base = card.querySelector('.base-img');
-        const second = (g && g[0]) ? g[0] : null;
-        if(wrap && base && second){
+        const second = (g && g[0]) ? g[0] : (base ? base.getAttribute('src') : null);
+        if(wrap && second){
           const h = document.createElement('img');
           h.className='hover-img';
           h.alt=(card.dataset.name||'')+' vista';
           h.loading='lazy'; h.decoding='async';
-          h.addEventListener('load', ()=> { card.classList.add('ready'); });
+          h.style.opacity='0';
+          h.addEventListener('load', ()=> { h.style.opacity='0'; card.classList.add('ready'); }); // habilita swap
           h.src=second;
           wrap.appendChild(h);
         }
       });
 
+      /* Delegación de CLICK para abrir modal de producto */
+      const grid = $('#gridProds');
+      if(grid){
+        grid.addEventListener('click', function(e){
+          const card = e.target.closest('article.prod');
+          if(!card || !grid.contains(card)) return;
+          openProductModal(card);
+        });
+      }
+
+      /* PayPal email */
+      const ppBusinessEl=$('#ppBusiness'); if(ppBusinessEl) ppBusinessEl.value='tu-correo-paypal@ejemplo.com';
+
+      /* Init */
       updateHeaderUi();
-      window.addEventListener('scroll', updateHeaderUi, {passive:true});
-      window.addEventListener('resize', updateHeaderUi);
       if(location.hash){ setTimeout(()=>{ scrollToId(location.hash); }, 50); }
       try{
         const items=JSON.parse(localStorage.getItem('mu_cart')||'[]');
