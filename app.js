@@ -1,24 +1,33 @@
 document.addEventListener('DOMContentLoaded', function(){
-    const $ = (sel,ctx)=> (ctx||document).querySelector(sel);
-    const $$= (sel,ctx)=> [].slice.call((ctx||document).querySelectorAll(sel));
+    const $ = (sel, ctx) => (ctx || document).querySelector(sel);
+    const $$ = (sel, ctx) => [].slice.call((ctx || document).querySelectorAll(sel));
 
+    // Referencias a los elementos principales del DOM
     const header = $('#siteHeader');
     const prodCards = $$('#gridProds article.prod');
     const filterPills = $$('#filters .pill');
     const grid = $('#gridProds');
     const cartBtn = $('#cartBtn');
+
+    // Referencias a los modales y elementos internos
     const modal = $('#modal'), mTitle = $('#mTitle'), mPrice = $('#mPrice'),
           mMain = $('#mMain'), mThumbs = $('#mThumbs'), mDesc = $('#mDesc'),
           mPrev = $('#mPrev'), mNext = $('#mNext'),
           qMinus = $('#qMinus'), qPlus = $('#qPlus'), qInput = $('#qInput'),
           mAdd = $('#mAdd');
+    
     const cartModal = $('#cart'), cBody = $('#cBody'), cTotal = $('#cTotal'), cClear = $('#cClear'),
-          ppAmount = $('#ppAmount'), ppBusiness = $('#ppBusiness']);
+          ppAmount = $('#ppAmount'), ppBusiness = $('#ppBusiness]');
+    
     const lightbox = $('#lightbox'), lbImg = $('#lbImg'), lbClose = $('#lbClose'),
           lbPrev = $('#lbPrev'), lbNext = $('#lbNext');
+    
     const toast = $('#toast');
+    
+    // Estado del producto para el modal
     let currentProduct = { images:[], index:0, name:'', priceText:'', price:0 };
 
+    /* --- Funcionalidades generales de la página --- */
     function updateHeaderUi(){
       if (!header) return;
       const scrolled = window.scrollY > 8;
@@ -240,13 +249,13 @@ document.addEventListener('DOMContentLoaded', function(){
         }
       });
       
-      const legalLink = e.target.closest('[data-legal]');
+      const legalLink = e.target.closest('[data-legal-key]');
       if(legalLink) {
           e.preventDefault();
-          MU_openLegal(legalLink.dataset.legal);
+          MU_openLegal(legalLink.dataset.legalKey);
       }
       
-      const emailLink = e.target.closest('[data-modal-target="emailModal"]');
+      const emailLink = e.target.closest('[data-action="open-email-modal"]');
       if(emailLink) {
           e.preventDefault();
           MU_openMailModal();
