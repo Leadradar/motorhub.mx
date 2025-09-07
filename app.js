@@ -1,37 +1,26 @@
 document.addEventListener('DOMContentLoaded', function(){
-    // Helper para seleccionar elementos del DOM
     const $ = (sel,ctx)=> (ctx||document).querySelector(sel);
     const $$= (sel,ctx)=> [].slice.call((ctx||document).querySelectorAll(sel));
 
     /* --- Referencias de elementos del DOM --- */
-    // Almacenamos los elementos en variables para no tener que buscarlos cada vez
     const header = $('#siteHeader');
     const prodCards = $$('#gridProds article.prod');
     const filterPills = $$('#filters .pill');
     const grid = $('#gridProds');
     const cartBtn = $('#cartBtn');
-
-    // Modales y lightbox
     const modal = $('#modal'), mTitle = $('#mTitle'), mPrice = $('#mPrice'),
           mMain = $('#mMain'), mThumbs = $('#mThumbs'), mDesc = $('#mDesc'),
           mPrev = $('#mPrev'), mNext = $('#mNext'),
           qMinus = $('#qMinus'), qPlus = $('#qPlus'), qInput = $('#qInput'),
           mAdd = $('#mAdd');
-
     const cartModal = $('#cart'), cBody = $('#cBody'), cTotal = $('#cTotal'), cClear = $('#cClear'),
-          ppAmount = $('#ppAmount'), ppBusiness = $('#ppBusiness');
-
+          ppAmount = $('#ppAmount'), ppBusiness = $('#ppBusiness']);
     const lightbox = $('#lightbox'), lbImg = $('#lbImg'), lbClose = $('#lbClose'),
           lbPrev = $('#lbPrev'), lbNext = $('#lbNext');
-
     const toast = $('#toast');
-
-    // Estado global de la galería de imágenes del modal
     let current = { images:[], index:0, name:'', priceText:'', price:0 };
 
     /* --- Funcionalidades de UI/UX --- */
-
-    // Controla el header al hacer scroll
     function updateHeaderUi(){
       if (!header) return;
       const scrolled = window.scrollY > 8;
@@ -43,7 +32,6 @@ document.addEventListener('DOMContentLoaded', function(){
     window.addEventListener('scroll', updateHeaderUi, { passive: true });
     window.addEventListener('resize', updateHeaderUi);
 
-    // Desplazamiento suave a secciones de la página
     function scrollToId(id){
       const el = $(id);
       if(!el || !header) return;
@@ -61,7 +49,6 @@ document.addEventListener('DOMContentLoaded', function(){
         });
     });
 
-    // Filtros de productos y categorías
     function applyFilter(cat){
       filterPills.forEach(p => p.classList.toggle('is-active', p.dataset.cat === cat));
       prodCards.forEach(card => card.classList.toggle('hidden', !(cat === 'all' || card.dataset.cat === cat)));
@@ -70,7 +57,6 @@ document.addEventListener('DOMContentLoaded', function(){
     filterPills.forEach(p => p.addEventListener('click', () => applyFilter(p.dataset.cat)));
     $$('.js-cat').forEach(tile => tile.addEventListener('click', () => applyFilter(tile.dataset.cat)));
 
-    // Cierra modales con Esc o clic fuera
     const closableModals = ['#legalModal', '#modal', '#cart', '#lightbox', '#emailModal'];
     function attachClosable(modalSel, closeSel){
       const modalEl = $(modalSel);
@@ -92,7 +78,6 @@ document.addEventListener('DOMContentLoaded', function(){
       }
     });
 
-    // Muestra el año actual en el footer
     const yearEl = $('#year');
     if (yearEl) yearEl.textContent = new Date().getFullYear();
 
@@ -123,7 +108,6 @@ document.addEventListener('DOMContentLoaded', function(){
         mMain.src = nextSrc;
         mMain.alt = current.name;
         mMain.classList.remove('is-loading');
-        // Actualiza las miniaturas
         $$('#mThumbs img').forEach(t => t.classList.toggle('active', t.src === nextSrc));
       };
     }
@@ -141,7 +125,6 @@ document.addEventListener('DOMContentLoaded', function(){
       mDesc.innerHTML = current.desc.map(li => `<li>${li}</li>`).join('');
       qInput.value = 1;
 
-      // Eventos del modal del producto
       mThumbs.onclick = (e) => {
         const img = e.target.closest('img');
         if (!img) return;
@@ -152,7 +135,6 @@ document.addEventListener('DOMContentLoaded', function(){
       mPrev.onclick = () => showImage(current.index - 1);
       mNext.onclick = () => showImage(current.index + 1);
 
-      // Swipe móvil
       let startX = 0, deltaX = 0;
       mMain.addEventListener('touchstart', (e) => {
         if (e.touches.length !== 1) return;
@@ -170,14 +152,12 @@ document.addEventListener('DOMContentLoaded', function(){
       }, { passive: true });
 
       modal.classList.add('open');
-      // Prefetch de imágenes para carga rápida en el modal
       current.images.slice(1).forEach(src => {
         const img = new Image();
         img.src = src;
       });
     }
 
-    // Delegación de eventos para abrir el modal
     if (grid) {
       grid.addEventListener('click', function(e) {
         const card = e.target.closest('article.prod');
@@ -200,13 +180,11 @@ document.addEventListener('DOMContentLoaded', function(){
       lightbox.classList.add('open');
     }
     
-    // Eventos del lightbox
     if(lbClose) lbClose.addEventListener('click', () => lightbox.classList.remove('open'));
     if(lbPrev) lbPrev.addEventListener('click', () => { showImage(current.index - 1); openLightbox(mMain.src, mMain.alt); });
     if(lbNext) lbNext.addEventListener('click', () => { showImage(current.index + 1); openLightbox(mMain.src, mMain.alt); });
     if(lightbox) lightbox.addEventListener('click', (e) => { if(e.target === lightbox) lightbox.classList.remove('open'); });
 
-    // Zoom con rueda del ratón
     if(lightbox) lightbox.addEventListener('wheel', (e) => {
       e.preventDefault();
       const delta = e.deltaY > 0 ? -0.1 : 0.1;
@@ -214,7 +192,6 @@ document.addEventListener('DOMContentLoaded', function(){
       applyTransform();
     }, { passive: false });
 
-    // Gestos táctiles de zoom y pan
     let startDist = 0, startScale = 1, startX = 0, startY = 0;
     if(lightbox) {
       lightbox.addEventListener('touchstart', (e) => {
@@ -242,7 +219,7 @@ document.addEventListener('DOMContentLoaded', function(){
       let lastTap = 0;
       lightbox.addEventListener('touchend', () => {
         const now = Date.now();
-        if (now - lastTap < 300) { // Doble tap
+        if (now - lastTap < 300) {
           scale = 1; tx = 0; ty = 0;
           applyTransform();
         }
@@ -292,7 +269,6 @@ document.addEventListener('DOMContentLoaded', function(){
       if(ppBusiness) ppBusiness.value = 'tu-correo-paypal@ejemplo.com';
     }
 
-    // Eventos del carrito
     cartBtn?.addEventListener('click', (e) => { e.preventDefault(); renderCart(); cartModal?.classList.add('open'); });
     cClear?.addEventListener('click', () => { writeCart([]); updateCartCount(); renderCart(); });
     
@@ -300,11 +276,9 @@ document.addEventListener('DOMContentLoaded', function(){
         cBody.addEventListener('click', (e) => {
             const btn = e.target.closest('button[data-act], button[data-del]');
             if (!btn) return;
-            
             const idx = parseInt(btn.dataset.idx || btn.dataset.del, 10);
             const items = readCart();
             if (!items[idx]) return;
-
             if (btn.dataset.act === 'minus') {
                 items[idx].qty = Math.max(1, items[idx].qty - 1);
             } else if (btn.dataset.act === 'plus') {
@@ -316,7 +290,6 @@ document.addEventListener('DOMContentLoaded', function(){
             updateCartCount();
             renderCart();
         });
-
         cBody.addEventListener('change', (e) => {
             const input = e.target.closest('input[data-act="input"]');
             if (!input) return;
@@ -330,13 +303,11 @@ document.addEventListener('DOMContentLoaded', function(){
         });
     }
 
-    // Añadir al carrito desde el modal de producto
     if (mAdd) {
       mAdd.addEventListener('click', function() {
         const qty = Math.max(1, parseInt(qInput.value, 10) || 1);
         const items = readCart();
         const found = items.find(it => it.name === current.name);
-        
         if (found) {
           found.qty += qty;
         } else {
@@ -350,7 +321,6 @@ document.addEventListener('DOMContentLoaded', function(){
       });
     }
 
-    // Toast (notificación)
     function showToast(txt){
       if(!toast) return;
       if(txt) toast.textContent = txt;
@@ -362,39 +332,35 @@ document.addEventListener('DOMContentLoaded', function(){
       }, 1400);
     }
     
-    // Inicialización del conteo del carrito
     updateCartCount();
 
-    /* --- Lógica de la imagen secundaria al hacer hover (Prefetch) --- */
-    // Esta función se asegura de que la segunda imagen del producto se precargue en silencio
-    // para que el efecto de hover sea instantáneo y sin "pantallas blancas".
-
+    /* --- Lógica de la imagen secundaria al hacer hover --- */
     prodCards.forEach(card => {
         let gallery = [];
         try { gallery = JSON.parse(card.dataset.gallery || '[]'); } catch(e) {}
         const wrap = card.querySelector('.img-wrap');
+        // Usamos la primera imagen de la galería para el hover
         const secondImageSrc = gallery[0] || null;
 
-        if (wrap && secondImageSrc) {
-            const imgHover = document.createElement('img');
-            imgHover.className = 'hover-img';
-            imgHover.alt = `${card.dataset.name || ''} vista`;
-            imgHover.loading = 'lazy';
-            imgHover.decoding = 'async';
-            imgHover.style.opacity = '0';
-            imgHover.src = secondImageSrc;
-            
-            imgHover.onload = () => {
-                // Una vez que la imagen ha cargado, añade la clase 'ready' para el efecto de hover
-                card.classList.add('ready');
-            };
-            
-            // Añade la imagen "fantasma" al DOM para que empiece a cargar
-            wrap.appendChild(imgHover);
-        }
+        // Si no hay una segunda imagen, no hacemos nada
+        if (!wrap || !secondImageSrc) return;
+
+        // Creamos un nuevo elemento de imagen para la segunda vista
+        const imgHover = document.createElement('img');
+        imgHover.className = 'hover-img';
+        imgHover.alt = `${card.dataset.name || ''} vista`;
+        imgHover.loading = 'lazy';
+        imgHover.decoding = 'async';
+        imgHover.src = secondImageSrc;
+        
+        imgHover.onload = () => {
+            // Solo añadimos la clase 'ready' si la imagen se cargó correctamente
+            card.classList.add('ready');
+        };
+        
+        // Añade la imagen "fantasma" al DOM para que empiece a cargar
+        wrap.appendChild(imgHover);
     });
 
-    /* --- Final de la inicialización --- */
-    // Scroll a la sección si la URL tiene un hash (#)
     if(location.hash){ setTimeout(() => scrollToId(location.hash), 50); }
 });
