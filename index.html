@@ -74,9 +74,14 @@
         .prod{display:flex;flex-direction:column;cursor:pointer;transition:box-shadow .15s, border-color .15s; width:100%; max-width:500px; margin:0 4px; border:1px solid var(--line); border-radius:18px}
         .prod .img-wrap{position:relative; width:100%}
         .prod .img-wrap img{aspect-ratio:1/1;object-fit:cover;background:#f4f4f4; width:100%; height:auto; display:block; transition:opacity .18s ease}
-        .prod .img-wrap img.hover-img{position:absolute; inset:0; opacity:0}
-        .prod.ready:hover .img-wrap img.hover-img{opacity:1}
-        .prod.ready:hover .img-wrap img.base-img{opacity:0}
+        /* 🔧 asegurar que la hover-img cubre totalmente la base */
+        .prod .img-wrap img.hover-img{position:absolute; inset:0; opacity:0; width:100%; height:100%; object-fit:cover; z-index:1}
+        .prod.ready:hover .img-wrap img.hover-img,
+        .prod.ready:focus-within .img-wrap img.hover-img{opacity:1}
+        .prod.ready:hover .img-wrap img.base-img,
+        .prod.ready:focus-within .img-wrap img.base-img{opacity:0}
+        .prod.ready.peek .img-wrap img.hover-img{opacity:1}
+        .prod.ready.peek .img-wrap img.base-img{opacity:0}
         .prod .pad{padding:12px; text-align:center}
         .prod .title{font-weight:700;line-height:1.25;margin:0 0 6px;font-size:16px}
         .prod .meta{display:flex;justify-content:center;align-items:center; gap:10px}
@@ -154,363 +159,604 @@
         #faq .answer{margin-top:8px}
         .floating-wa{position:fixed; right:16px; bottom:16px; width:64px; height:64px; display:flex; align-items:center; justify-content:center; z-index:45; cursor:pointer}
         .floating-wa img{ width:64px; height:64px; display:block }
-        .trustbar {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-        .modal-body.prod{
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
+        .trustbar { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+        .modal-body.prod{ display: flex; flex-direction: column; gap: 20px; }
         @media(min-width: 900px) {
-            .modal-body.prod {
-                flex-direction: row;
-                align-items: center; 
-            }
+            .modal-body.prod { flex-direction: row; align-items: center; }
         }
-        .media-wrap {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-        .detail-col {
-            flex: 1;
-            align-items: center;
-            text-align: center;
-        }
-        .m-main {
-            flex: 1;
-            object-fit: contain;
-            width: 100%;
-            height: auto;
-        }
-        .thumbs {
-            justify-content: center;
-        }
-        .features {
-            list-style: none;
-            padding: 0;
-            margin: 0 0 16px;
-            text-align: left; 
-        }
-        .features li {
-            position: relative;
-            padding-left: 22px;
-            margin: 8px 0;
-            width: fit-content;
-            margin-left: auto;
-            margin-right: auto;
-        }
+        .media-wrap { flex: 1; display: flex; flex-direction: column; }
+        .detail-col { flex: 1; align-items: center; text-align: center; }
+        .m-main { flex: 1; object-fit: contain; width: 100%; height: auto; }
+        .thumbs { justify-content: center; }
+        .features { list-style: none; padding: 0; margin: 0 0 16px; text-align: left; }
+        .features li { position: relative; padding-left: 22px; margin: 8px 0; width: fit-content; margin-left: auto; margin-right: auto; }
     </style>
-    <script>
-        document.addEventListener('DOMContentLoaded', function(){
-            const $ = (sel,ctx)=> (ctx||document).querySelector(sel);
-            const $$= (sel,ctx)=> [].slice.call((ctx||document).querySelectorAll(sel));
-            const header = $('#siteHeader');
-            const prodCards = $$('#gridProds article.prod');
-            const filterPills = $$('#filters .pill');
-            const grid = $('#gridProds');
-            const cartBtn = $('#cartBtn');
-            const modal = $('#modal'), mTitle = $('#mTitle'), mPrice = $('#mPrice'),
-                  mMain = $('#mMain'), mThumbs = $('#mThumbs'), mDesc = $('#mDesc'),
-                  mPrev = $('#mPrev'), mNext = $('#mNext'),
-                  qMinus = $('#qMinus'), qPlus = $('#qPlus'), qInput = $('#qInput'),
-                  mAdd = $('#mAdd');
-            const cartModal = $('#cart'), cBody = $('#cBody'), cTotal = $('#cTotal'), cClear = $('#cClear'),
-                  ppAmount = $('#ppAmount'), ppBusiness = $('#ppBusiness]');
-            const lightbox = $('#lightbox'), lbImg = $('#lbImg'), lbClose = $('#lbClose'),
-                  lbPrev = $('#lbPrev'), lbNext = $('#lbNext');
-            const toast = $('#toast');
-            let currentProduct = { images:[], index:0, name:'', priceText:'', price:0 };
-            function updateHeaderUi(){
-              if (!header) return;
-              const scrolled = window.scrollY > 8;
-              header.classList.toggle('is-scrolled', scrolled);
-              document.documentElement.style.setProperty('--header-h', header.getBoundingClientRect().height + 'px');
-            }
-            function scrollToId(id){
-              const el = $(id);
-              if(!el || !header) return;
-              const headerH = header.getBoundingClientRect().height;
-              window.scrollTo({ top: el.getBoundingClientRect().top + window.pageYOffset - headerH - 6, behavior: 'smooth' });
-            }
-            function applyFilter(cat){
-              filterPills.forEach(p => p.classList.toggle('is-active', p.dataset.cat === cat));
-              prodCards.forEach(card => card.classList.toggle('hidden', !(cat === 'all' || card.dataset.cat === cat)));
-              scrollToId('#productos');
-            }
-            function openModal(modalEl) { modalEl?.classList.add('open'); }
-            function closeModal(modalEl) { modalEl?.classList.remove('open'); }
-            const MU_LEGAL = {
-                envios:{title:'Política de Envíos — MotoUrbano MX',body:'<p>Envíos a todo México mediante mensajería certificada. Tiempo estimado: <strong>10 a 20 días hábiles</strong> según tu zona.</p><p>Compartimos tu <strong>número de guía</strong> por correo para rastreo.</p><p>Si hay retrasos de paquetería, te acompañamos en todo momento.</p><p class="sub">Contacto: <a href="mailto:hola@motourbano.shop">hola@motourbano.shop</a></p>'},
-                devoluciones:{title:'Política de Devoluciones — MotoUrbano MX',body:'<p>Tienes <strong>14 días naturales</strong> desde la entrega para solicitar devolución.</p><p>El producto debe estar <strong>sin uso</strong> y con empaques/etiquetas completos.</p><p>Escríbenos a <a href="mailto:hola@motourbano.shop">hola@motourbano.shop</a> o por WhatsApp con tu <strong>número de pedido</strong>.</p><p>Tras validar, hacemos reembolso por el mismo medio de pago.</p>'},
-                privacidad:{title:'Aviso de Privacidad — MotoUrbano MX',body:'<p>Usamos tus datos para <strong>gestión de pedidos</strong>, atención y comunicaciones.</p><p>Compartimos lo mínimo con terceros (paquetería, pagos) o por obligación legal.</p><p>Derechos ARCO: <a href="mailto:hola@motourbano.shop">hola@motourbano.shop</a>.</p>'},
-                terminos:{title:'Términos y Condiciones — MotoUrbano MX',body:'<p>El uso del sitio implica aceptación de estos términos. Precios y disponibilidad pueden cambiar.</p><p>Imágenes ilustrativas. Si hay error o falta de inventario, se puede cancelar con reembolso íntegro.</p><p>Dudas: <a href="mailto:hola@motourbano.shop">hola@motourbano.shop</a>.</p>'}
-            };
-            function MU_openLegal(key){
-                const data = MU_LEGAL[key];
-                if(!data) return;
-                const modal = document.getElementById('legalModal');
-                const body = document.getElementById('legalBody');
-                const title = document.getElementById('legalTitle');
-                if(!modal || !body || !title) return;
-                title.textContent = data.title;
-                body.innerHTML = `<div class="sub" style="text-align:left">${data.body}</div>`;
-                modal.classList.add('open');
-            }
-            function MU_openMailModal(){
-                const modal = document.getElementById('emailModal');
-                if(modal) modal.classList.add('open');
-            }
-            function MU_copyEmail(){
-                const email = 'hola@motourbano.shop';
-                navigator.clipboard?.writeText(email);
-                showToast('Correo copiado');
-            }
-            function getProductData(card){
-              const name = card.dataset.name;
-              const priceText = card.dataset.price;
-              const price = parseInt((priceText || '').replace(/[^0-9]/g, ''), 10) || 0;
-              const mainImage = card.dataset.main || '';
-              let gallery = [];
-              try { gallery = JSON.parse(card.dataset.gallery || '[]'); } catch(e) {}
-              const images = [mainImage].concat(gallery.filter(Boolean));
-              const desc = (card.dataset.desc || '').split('·').map(s => s.trim()).filter(Boolean);
-              return { name, priceText, price, mainImage, images, desc };
-            }
-            function showImageInModal(idx){
-              if (!currentProduct.images.length) return;
-              currentProduct.index = (idx + currentProduct.images.length) % currentProduct.images.length;
-              const nextSrc = currentProduct.images[currentProduct.index];
-              mMain.classList.add('is-loading');
-              const img = new Image();
-              img.src = nextSrc;
-              img.onload = () => {
-                mMain.src = nextSrc;
-                mMain.alt = currentProduct.name;
-                mMain.classList.remove('is-loading');
-                $$('#mThumbs img').forEach(t => t.classList.toggle('active', t.src === nextSrc));
-              };
-            }
-            function openProductModal(card){
-              currentProduct = getProductData(card);
-              mTitle.textContent = currentProduct.name || 'Producto';
-              mPrice.textContent = currentProduct.priceText || '';
-              mMain.src = currentProduct.mainImage;
-              mMain.alt = currentProduct.name;
-              mThumbs.innerHTML = currentProduct.images.map((src, i) =>
-                `<img data-src="${src}" alt="Vista ${i + 1} de ${currentProduct.name}" loading="lazy" src="${src}" class="${i === 0 ? 'active' : ''}">`
-              ).join('');
-              mDesc.innerHTML = currentProduct.desc.map(li => `<li>${li}</li>`).join('');
-              qInput.value = 1;
-              openModal(modal);
-              currentProduct.images.slice(1).forEach(src => { const img = new Image(); img.src = src; });
-            }
-            function openLightbox(src, alt){
-              if (!lbImg || !lightbox) return;
-              lbImg.src = src; lbImg.alt = alt || '';
-              lightbox.classList.add('open');
-            }
-            const STORAGE_KEY = 'mu_cart';
-            const readCart = () => { try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); } catch(e) { return []; } };
-            const writeCart = items => localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
-            const cartSum = items => items.reduce((s, i) => s + i.price * i.qty, 0);
-            function updateCartCount(){
-              const count = readCart().reduce((s, i) => s + i.qty, 0);
-              $('#cartCount').textContent = count;
-            }
-            function renderCart(){
-              const items = readCart();
-              const emptyCartHTML = '<p class="sub">Tu carrito está vacío.</p>';
-              if(cBody){
-                cBody.innerHTML = items.length === 0
-                  ? emptyCartHTML
-                  : items.map((i, idx) => `
-                      <div class="cart-item">
-                        <img src="${i.img}" alt="${i.name}" loading="lazy" decoding="async">
-                        <div><div style="font-weight:700">${i.name}</div><div class="sub">$${i.price} MXN c/u</div></div>
-                        <div style="display:flex;align-items:center;gap:8px">
-                          <div class="qtyline">
-                            <button type="button" data-act="minus" data-idx="${idx}" aria-label="Quitar uno">−</button>
-                            <input type="number" min="1" value="${i.qty}" data-idx="${idx}" data-act="input" />
-                            <button type="button" data-act="plus" data-idx="${idx}" aria-label="Añadir uno">+</button>
-                          </div>
-                          <button class="close" type="button" data-del="${idx}">Eliminar</button>
-                        </div>
-                      </div>`
-                  ).join('');
-              }
-              const total = cartSum(items);
-              if(cTotal) cTotal.textContent = `$${total} MXN`;
-              if(ppAmount) ppAmount.value = Number(total).toFixed(2);
-              if(ppBusiness) ppBusiness.value = 'tu-correo-paypal@ejemplo.com';
-            }
-            function showToast(txt){
-              if(!toast) return;
-              if(txt) toast.textContent = txt;
-              toast.style.opacity = '1';
-              toast.style.transform = 'translateX(-50%) translateY(-6px)';
-              setTimeout(()=>{
-                toast.style.opacity = '0';
-                toast.style.transform = 'translateX(-50%)';
-              }, 1400);
-            }
-            prodCards.forEach(card => {
-              let gallery = [];
-              try { gallery = JSON.parse(card.dataset.gallery || '[]'); } catch(e) {}
-              const secondImageSrc = gallery[0] || null;
-              if (!secondImageSrc) return;
-              const img = new Image();
-              img.src = secondImageSrc;
-              img.onload = () => {
-                  const wrap = card.querySelector('.img-wrap');
-                  const h = document.createElement('img');
-                  h.className='hover-img';
-                  h.alt=(card.dataset.name||'')+' vista';
-                  h.loading='lazy'; h.decoding='async';
-                  h.src=secondImageSrc;
-                  const existingHoverImg = wrap.querySelector('.hover-img');
-                  if(existingHoverImg) wrap.removeChild(existingHoverImg);
-                  wrap.appendChild(h);
-                  card.classList.add('ready');
-              };
-            });
-            window.addEventListener('scroll', updateHeaderUi, { passive: true });
-            window.addEventListener('resize', updateHeaderUi);
-            $$('.menu a[href^="#"]').forEach(a => a.addEventListener('click', function(e){
-                e.preventDefault();
-                const id = this.getAttribute('href');
-                if (id && id.length > 1) scrollToId(id);
-            }));
-            const filtersContainer = $('#filters');
-            if (filtersContainer) filtersContainer.addEventListener('click', e => {
-              const pill = e.target.closest('.pill');
-              if (pill) applyFilter(pill.dataset.cat);
-            });
-            const categoriesContainer = $('.grid.cols-2.cols-5');
-            if (categoriesContainer) categoriesContainer.addEventListener('click', e => {
-              const tile = e.target.closest('.js-cat');
-              if (tile) applyFilter(tile.dataset.cat);
-            });
-            document.body.addEventListener('click', e => {
-              const card = e.target.closest('article.prod');
-              if (card && grid.contains(card)) {
-                openProductModal(card);
-                return;
-              }
-              const cartButton = e.target.closest('#cartBtn');
-              if(cartButton) {
-                e.preventDefault();
-                renderCart();
-                openModal(cartModal);
-                return;
-              }
-              const closeButton = e.target.closest('.close') || e.target.closest('.x');
-              const modalToClose = closeButton?.closest('.modal, .lightbox');
-              if(modalToClose) {
-                closeModal(modalToClose);
-                return;
-              }
-              const openModals = $$('.modal.open, .lightbox.open');
-              openModals.forEach(modalEl => {
-                if(e.target === modalEl) {
-                  closeModal(modalEl);
-                }
-              });
-              const legalLink = e.target.closest('[data-legal-key]');
-              if(legalLink) {
-                  e.preventDefault();
-                  MU_openLegal(legalLink.dataset.legalKey);
-              }
-              const emailLink = e.target.closest('[data-action="open-email-modal"]');
-              if(emailLink) {
-                  e.preventDefault();
-                  MU_openMailModal();
-              }
-              const copyEmailBtn = e.target.closest('[data-action="copy-email"]');
-              if(copyEmailBtn) {
-                  e.preventDefault();
-                  MU_copyEmail();
-              }
-            });
-            document.addEventListener('keydown', e => {
-              if(e.key === 'Escape') {
-                $$('.modal.open, .lightbox.open').forEach(el => closeModal(el));
-              }
-            });
-            if (mThumbs) mThumbs.addEventListener('click', e => {
-              const img = e.target.closest('img');
-              if (img) showImageInModal(currentProduct.images.indexOf(img.getAttribute('data-src')));
-            });
-            if (mMain) mMain.addEventListener('click', () => openLightbox(mMain.src, mMain.alt));
-            if (mPrev) mPrev.addEventListener('click', () => showImageInModal(currentProduct.index - 1));
-            if (mNext) mMain.addEventListener('click', () => showImageInModal(currentProduct.index + 1));
-            cClear?.addEventListener('click', () => { writeCart([]); updateCartCount(); renderCart(); });
-            if(cBody){
-                cBody.addEventListener('click', e => {
-                    const btn = e.target.closest('button[data-act], button[data-del]');
-                    if (!btn) return;
-                    const idx = parseInt(btn.dataset.idx || btn.dataset.del, 10);
-                    const items = readCart();
-                    if (!items[idx]) return;
-                    if (btn.dataset.act === 'minus') items[idx].qty = Math.max(1, items[idx].qty - 1);
-                    else if (btn.dataset.act === 'plus') items[idx].qty = items[idx].qty + 1;
-                    else if (btn.dataset.del) items.splice(idx, 1);
-                    writeCart(items);
-                    updateCartCount();
-                    renderCart();
-                });
-                cBody.addEventListener('change', e => {
-                    const input = e.target.closest('input[data-act="input"]');
-                    if (!input) return;
-                    const idx = parseInt(input.dataset.idx, 10);
-                    const items = readCart();
-                    if (!items[idx]) return;
-                    items[idx].qty = Math.max(1, parseInt(input.value, 10) || 1);
-                    writeCart(items);
-                    updateCartCount();
-                    renderCart();
-                });
-            }
-            if (mAdd) mAdd.addEventListener('click', () => {
-              const qty = Math.max(1, parseInt(qInput.value, 10) || 1);
-              const items = readCart();
-              const found = items.find(it => it.name === currentProduct.name);
-              if (found) found.qty += qty;
-              else items.push({ name: currentProduct.name, price: currentProduct.price, img: currentProduct.mainImage, qty });
-              writeCart(items);
-              updateCartCount();
-              renderCart();
-              closeModal(modal);
-              showToast('Añadido al carrito');
-            });
-            updateHeaderUi();
-            updateCartCount();
-            if(location.hash) setTimeout(() => scrollToId(location.hash), 50);
-            prodCards.forEach(card => {
-              let gallery = [];
-              try { gallery = JSON.parse(card.dataset.gallery || '[]'); } catch(e) {}
-              const secondImageSrc = gallery[0] || null;
-              if (!secondImageSrc) return;
-              const img = new Image();
-              img.src = secondImageSrc;
-              img.onload = () => {
-                  const wrap = card.querySelector('.img-wrap');
-                  const h = document.createElement('img');
-                  h.className='hover-img';
-                  h.alt=(card.dataset.name||'')+' vista';
-                  h.loading='lazy'; h.decoding='async';
-                  h.src=secondImageSrc;
-                  const existingHoverImg = wrap.querySelector('.hover-img');
-                  if(existingHoverImg) wrap.removeChild(existingHoverImg);
-                  wrap.appendChild(h);
-                  card.classList.add('ready');
-              };
-            });
-        });
-    </script>
+</head>
+<body>
+  <!-- HEADER -->
+  <header class="site" id="siteHeader">
+    <div class="container header-wrap">
+      <div class="brand-stack">
+        <img src="img/logo.png" alt="Logo MotoUrbano" fetchpriority="high"/>
+        <div class="brand-title">MotoUrbano MX</div>
+        <div class="flag-mx" aria-label="México">
+          <svg viewBox="0 0 16 10" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Bandera de México">
+            <rect width="16" height="10" fill="#fff"/>
+            <rect width="5.333" height="10" x="0" y="0" fill="#006847"/>
+            <rect width="5.333" height="10" x="10.667" y="0" fill="#ce1126"/>
+            <circle cx="8" cy="5" r="1.2" fill="#a67c00"/>
+          </svg>
+        </div>
+      </div>
+      <nav class="menu" aria-label="Principal">
+        <a href="#inicio">Inicio</a>
+        <a href="#categorias">Categorías</a>
+        <a href="#productos">Productos</a>
+        <a href="#faq">Preguntas frecuentes</a>
+        <a href="#contacto">Contacto</a>
+        <a href="#" id="cartBtn">Carrito (<span id="cartCount">0</span>)</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section id="inicio" class="hero">
+    <div class="container wrap">
+      <div class="logo-big">
+        <img src="img/logo.png" alt="Logo MotoUrbano" decoding="async" fetchpriority="high"/>
+      </div>
+      <h1>Equipo y accesorios para motociclistas</h1>
+      <p class="hero-sub">Pagos seguros y precios claros.</p>
+
+      <div class="chips-row" aria-label="Sellos de confianza">
+        <span class="chip">💳 Pago fácil y seguro</span>
+        <span class="chip">🇲🇽 Envío a todo el país</span>
+        <span class="chip">🔄 Devolución en 14 días</span>
+        <span class="chip">🎁 Envío gratis</span>
+      </div>
+
+      <div class="paypal-row" style="display:flex;justify-content:center;margin-top:12px">
+        <span class="pp-badge" title="Pago seguro con PayPal" aria-label="Pago seguro con PayPal" style="display:inline-flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:10px 16px">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal" loading="lazy" decoding="async" style="height:22px;display:block"/>
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CATEGORÍAS -->
+  <section id="categorias" class="container" style="padding:26px 0">
+    <h2>Categorías</h2>
+    <p class="sub">Encuentra rápido lo que necesitas para el día a día.</p>
+
+    <div class="grid cols-2 cols-5">
+      <div class="tile shadow js-cat" data-cat="soportes" title="Soportes de móvil">
+        <img src="img/cat-soportes.jpg" alt="Soportes de móvil" loading="lazy" decoding="async"/><span class="label">Soportes</span>
+      </div>
+      <div class="tile shadow js-cat" data-cat="guantes" title="Guantes">
+        <img src="img/cat-guantes.jpg" alt="Guantes" loading="lazy" decoding="async"/><span class="label">Guantes</span>
+      </div>
+      <div class="tile shadow js-cat" data-cat="chalecos" title="Chalecos reflectantes">
+        <img src="img/cat-chalecos.jpg" alt="Chalecos" loading="lazy" decoding="async"/><span class="label">Chalecos</span>
+      </div>
+      <div class="tile shadow js-cat" data-cat="bolsas" title="Bolsas">
+        <img src="img/cat-bolsas.jpg" alt="Bolsas" loading="lazy" decoding="async"/><span class="label">Bolsas</span>
+      </div>
+      <div class="tile shadow js-cat" data-cat="rinoneras" title="Riñoneras">
+        <img src="img/cat-rinoneras.jpg" alt="Riñoneras" loading="lazy" decoding="async"/><span class="label">Riñoneras</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST BAR -->
+  <section class="container" style="padding:6px 0 16px">
+    <div class="card shadow" style="padding:12px">
+      <div class="trustbar">
+        <span class="chip">🔒 Pago 100% seguro</span>
+        <span class="chip">🧭 Rastreo con número de guía</span>
+        <span class="chip">💬 Atención por WhatsApp</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTOS -->
+  <section id="productos" class="container">
+    <h2>Productos</h2>
+    <p class="sub">Selección pensada para la ciudad.</p>
+
+    <div class="filters" id="filters">
+      <button class="pill accent-perma is-active" data-cat="all" type="button">Todos</button>
+      <button class="pill accent-perma" data-cat="soportes" type="button">Soportes</button>
+      <button class="pill accent-perma" data-cat="guantes" type="button">Guantes</button>
+      <button class="pill accent-perma" data-cat="chalecos" type="button">Chalecos</button>
+      <button class="pill accent-perma" data-cat="bolsas" type="button">Bolsas</button>
+      <button class="pill accent-perma" data-cat="rinoneras" type="button">Riñoneras</button>
+    </div>
+
+    <div class="grid cols-2 cols-4" id="gridProds" style="margin-top:12px">
+      <!-- Soporte -->
+      <article class="card prod shadow"
+        data-cat="soportes"
+        data-name="Soporte manillar antivibración"
+        data-price="$499 MXN"
+        data-desc="Sujeción firme · Absorción de vibraciones · Compatible con la mayoría de manillares"
+        data-main="img/cat-soportes.jpg"
+        data-gallery='["img/soporte-antivibracion-01.jpg","img/soporte-antivibracion-02.jpg","img/soporte-antivibracion-03.jpg","img/soporte-antivibracion-04.jpg"]'>
+        <div class="img-wrap">
+          <img class="base-img" src="img/cat-soportes.jpg" alt="Soporte manillar antivibración" decoding="async" loading="lazy"/>
+        </div>
+        <div class="pad">
+          <div class="title">Soporte manillar antivibración</div>
+          <div class="meta">
+            <span class="price-badge">$499 MXN</span>
+            <span class="stars">★★★★★ <span style="opacity:.7">(demo)</span></span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Guantes -->
+      <article class="card prod shadow"
+        data-cat="guantes"
+        data-name="Guantes impermeables táctiles"
+        data-price="$649 MXN"
+        data-desc="Impermeables · Dedos táctiles · Refuerzos en palma"
+        data-main="img/cat-guantes.jpg"
+        data-gallery='["img/guantes-urbanos-verano-01.jpg","img/guantes-urbanos-verano-02.jpg"]'>
+        <div class="img-wrap">
+          <img class="base-img" src="img/cat-guantes.jpg" alt="Guantes impermeables táctiles" decoding="async" loading="lazy"/>
+        </div>
+        <div class="pad">
+          <div class="title">Guantes impermeables táctiles</div>
+          <div class="meta">
+            <span class="price-badge">$649 MXN</span>
+            <span class="stars">★★★★★ <span style="opacity:.7">(demo)</span></span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Chaleco -->
+      <article class="card prod shadow"
+        data-cat="chalecos"
+        data-name="Chaleco reflectante"
+        data-price="$299 MXN"
+        data-desc="Alta visibilidad · Ajuste sencillo · Ligero"
+        data-main="img/cat-chalecos.jpg"
+        data-gallery='["img/chaleco-fosforito-01.jpg","img/chaleco-fosforito-02.jpg"]'>
+        <div class="img-wrap">
+          <img class="base-img" src="img/cat-chalecos.jpg" alt="Chaleco reflectante" decoding="async" loading="lazy"/>
+        </div>
+        <div class="pad">
+          <div class="title">Chaleco reflectante</div>
+          <div class="meta">
+            <span class="price-badge">$299 MXN</span>
+            <span class="stars">★★★★★ <span style="opacity:.7">(demo)</span></span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Riñonera -->
+      <article class="card prod shadow"
+        data-cat="rinoneras"
+        data-name="Riñonera impermeable"
+        data-price="$549 MXN"
+        data-desc="Impermeable · Cierre seguro · Bolsillos internos"
+        data-main="img/cat-rinoneras.jpg"
+        data-gallery='["img/rinonera-impermeable-01.jpg","img/rinonera-impermeable-02.jpg","img/rinonera-impermeable-03.jpg","img/rinonera-impermeable-04.jpg","img/rinonera-impermeable-05.jpg"]'>
+        <div class="img-wrap">
+          <img class="base-img" src="img/cat-rinoneras.jpg" alt="Riñonera impermeable" decoding="async" loading="lazy"/>
+        </div>
+        <div class="pad">
+          <div class="title">Riñonera impermeable</div>
+          <div class="meta">
+            <span class="price-badge">$549 MXN</span>
+            <span class="stars">★★★★★ <span style="opacity:.7">(demo)</span></span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Bolsa trasera -->
+      <article class="card prod shadow"
+        data-cat="bolsas"
+        data-name="Bolsa trasera impermeable"
+        data-price="$799 MXN"
+        data-desc="Montaje rápido · Resistente al agua · Capacidad ampliable"
+        data-main="img/cat-bolsas.jpg"
+        data-gallery='["img/bolsa-trasera-impermeable-01.jpg","img/bolsa-trasera-impermeable-02.jpg"]'>
+        <div class="img-wrap">
+          <img class="base-img" src="img/cat-bolsas.jpg" alt="Bolsa trasera impermeable" decoding="async" loading="lazy"/>
+        </div>
+        <div class="pad">
+          <div class="title">Bolsa trasera impermeable</div>
+          <div class="meta">
+            <span class="price-badge">$799 MXN</span>
+            <span class="stars">★★★★★ <span style="opacity:.7">(demo)</span></span>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="container" style="padding:26px 0 10px">
+    <h2>Preguntas frecuentes</h2>
+    <div class="card shadow" style="padding:12px">
+      <details>
+        <summary>¿Cuánto tarda el envío?</summary>
+        <div class="sub answer">Entre 10 y 20 días hábiles según la zona. Te compartimos la guía para darle rastreo.</div>
+      </details>
+      <details>
+        <summary>¿Cómo funcionan las devoluciones?</summary>
+        <div class="sub answer">Tienes 14 días desde la entrega. Escríbenos por WhatsApp con tu número de pedido y te guiamos.</div>
+      </details>
+      <details>
+        <summary>¿Qué métodos de pago aceptan?</summary>
+        <div class="sub answer">PayPal y tarjetas bancarias. Pronto añadiremos más opciones.</div>
+      </details>
+      <details>
+        <summary>¿Puedo pedir factura?</summary>
+        <div class="sub answer">Sí. Envíanos tus datos fiscales a <strong>hola@motourbano.shop</strong> junto con el número de pedido.</div>
+      </details>
+      <details>
+        <summary>¿Los productos tienen garantía?</summary>
+        <div class="sub answer">Sí, garantía de 6 meses por defectos de fábrica.</div>
+      </details>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section id="contacto" class="container" style="padding:10px 0 36px">
+    <h2>Contacto</h2>
+    <p class="sub">¿Tienes dudas? Escríbenos y con gusto te ayudamos.</p>
+    <div class="contact-grid">
+      <div class="contact-item">
+        <strong>Email</strong>
+        <div class="sub">hola@motourbano.shop</div>
+        <a class="btn" href="#" onclick="return (document.getElementById('emailModal').classList.add('open'), false)">Enviar correo</a>
+      </div>
+      <div class="contact-item">
+        <strong>WhatsApp</strong>
+        <div class="sub">Lun a Vie · 10:00–18:00</div>
+        <a class="btn" href="https://wa.me/520000000000" target="_blank" rel="noopener">Abrir WhatsApp</a>
+      </div>
+      <div class="contact-item">
+        <strong>Devoluciones</strong>
+        <div class="sub">Plazo de 14 días</div>
+        <!-- ✅ ahora carga contenido -->
+        <a class="btn" href="#" onclick="return (MU_openLegal('devoluciones'), false)">Ver política</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site">
+    <div class="container footer-head">
+      <img src="img/logo.png" alt="MotoUrbano" loading="lazy" decoding="async"/>
+      <div class="footer-name">MotoUrbano MX</div>
+      <div class="footer-tag">Accesorios urbanos, prácticos y fiables. Envío a todo México.</div>
+    </div>
+
+    <div class="container footer-legal" style="padding-bottom:6px">
+      <!-- ✅ todos llaman a MU_openLegal -->
+      <a href="#" onclick="return (MU_openLegal('envios'), false)">Envíos</a><span class="dot">·</span>
+      <a href="#" onclick="return (MU_openLegal('devoluciones'), false)">Devoluciones</a><span class="dot">·</span>
+      <a href="#" onclick="return (MU_openLegal('privacidad'), false)">Privacidad</a><span class="dot">·</span>
+      <a href="#" onclick="return (MU_openLegal('terminos'), false)">Términos</a>
+    </div>
+
+    <div class="container copy">
+      <small>© <span id="year"></span> MotoUrbano MX — Hecho con pasión por el motociclismo.</small>
+    </div>
+  </footer>
+
+  <!-- WhatsApp flotante -->
+  <a class="floating-wa" href="https://wa.me/520000000000" target="_blank" rel="noopener" aria-label="WhatsApp">
+    <img src="img/whatsapp.png" alt="WhatsApp" width="64" height="64" decoding="async" loading="lazy">
+  </a>
+
+  <!-- MODAL Producto -->
+  <div class="modal" id="modal" aria-hidden="true">
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="mTitle">
+      <div class="modal-head">
+        <div class="modal-title" id="mTitle">Producto</div>
+        <button class="close" id="mClose" type="button" aria-label="Cerrar" onclick="this.closest('.modal').classList.remove('open')">✕</button>
+      </div>
+      <div class="modal-body prod">
+        <div class="media-wrap">
+          <img id="mMain" class="m-main" src="" alt="" />
+          <button class="nav-arrow prev" id="mPrev" type="button" aria-label="Anterior">‹</button>
+          <button class="nav-arrow next" id="mNext" type="button" aria-label="Siguiente">›</button>
+          <div id="mThumbs" class="thumbs"></div>
+        </div>
+        <div class="detail-col">
+          <div id="mPrice" class="badge-price"></div>
+          <ul id="mDesc" class="features"></ul>
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+            <div class="qty" role="group" aria-label="Cantidad">
+              <button type="button" id="qMinus" aria-label="Reducir cantidad">−</button>
+              <input type="number" id="qInput" value="1" min="1" inputmode="numeric" />
+              <button type="button" id="qPlus" aria-label="Aumentar cantidad">+</button>
+            </div>
+            <button class="btn" id="mAdd" type="button">Añadir al carrito</button>
+          </div>
+          <div class="sub" style="font-size:12px">Pago seguro con PayPal · Envío a todo México · Devoluciones 14 días</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL Email -->
+  <div class="modal" id="emailModal" aria-hidden="true">
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="emailTitle">
+      <div class="modal-head">
+        <div class="modal-title" id="emailTitle">Contacto por correo</div>
+        <button class="close" id="emailClose" type="button" aria-label="Cerrar" onclick="this.closest('.modal').classList.remove('open')">✕</button>
+      </div>
+      <div class="modal-body" style="display:block">
+        <p class="sub" style="text-align:center;margin:0 0 14px">Escríbenos a <strong>hola@motourbano.shop</strong></p>
+        <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+          <a class="btn" href="mailto:hola@motourbano.shop?subject=Consulta%20MotoUrbano%20MX" onclick="event.stopPropagation()">Abrir cliente de correo</a>
+          <button class="btn" onclick="navigator.clipboard?.writeText('hola@motourbano.shop')">Copiar correo</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox" aria-hidden="true" onclick="if(event.target===this) this.classList.remove('open')">
+    <button class="x" id="lbClose" type="button" aria-label="Cerrar" onclick="this.closest('.lightbox').classList.remove('open')">✕</button>
+    <button class="arrow prev" id="lbPrev" type="button" aria-label="Anterior">‹</button>
+    <img id="lbImg" src="" alt="Imagen ampliada"/>
+    <button class="arrow next" id="lbNext" type="button" aria-label="Siguiente">›</button>
+  </div>
+
+  <!-- MODAL Carrito -->
+  <div class="cart" id="cart" aria-hidden="true" onclick="if(event.target===this) this.classList.remove('open')">
+    <div class="cart-card" role="dialog" aria-modal="true" aria-labelledby="cartTitle">
+      <div class="cart-head">
+        <strong id="cartTitle">Carrito</strong>
+        <button class="close" id="cClose" type="button" aria-label="Cerrar" onclick="this.closest('.cart').classList.remove('open')">✕</button>
+      </div>
+      <div class="cart-body" id="cBody"></div>
+      <div class="cart-foot">
+        <strong>Total: <span id="cTotal">$0 MXN</span></strong>
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+          <button class="btn" id="cClear" type="button">Vaciar</button>
+          <form id="ppForm" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank" rel="noopener">
+            <input type="hidden" name="cmd" value="_xclick">
+            <input type="hidden" name="business" id="ppBusiness" value="">
+            <input type="hidden" name="item_name" value="Pedido MotoUrbano MX">
+            <input type="hidden" name="amount" id="ppAmount" value="0.00">
+            <input type="hidden" name="currency_code" value="MXN">
+            <button type="submit" class="btn">Pagar con PayPal / Tarjeta</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL Legal -->
+  <div class="modal" id="legalModal" aria-hidden="true" onclick="if(event.target===this) this.classList.remove('open')">
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="legalTitle">
+      <div class="modal-head">
+        <div class="modal-title" id="legalTitle">Información legal</div>
+        <button class="close" id="legalClose" type="button" aria-label="Cerrar" onclick="this.closest('.modal').classList.remove('open')">✕</button>
+      </div>
+      <div class="modal-body" id="legalBody" style="padding:16px;display:block"></div>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast" style="position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#111;color:#fff;padding:10px 14px;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.2);opacity:0;pointer-events:none;transition:opacity .25s, transform .25s;z-index:90">
+    Añadido al carrito
+  </div>
+
+  <script>
+    /* ========= Bloque LEGAL (global) ========= */
+    (function(){
+      window.MU_LEGAL = {
+        envios:{title:'Política de Envíos — MotoUrbano MX',body:'<p>Envíos a todo México mediante mensajería certificada. Tiempo estimado: <strong>10 a 20 días hábiles</strong> según tu zona.</p><p>Compartimos tu <strong>número de guía</strong> por correo para rastreo.</p><p>Si hay retrasos de paquetería, te acompañamos en todo momento.</p><p class="sub">Contacto: <a href="mailto:hola@motourbano.shop">hola@motourbano.shop</a></p>'},
+        devoluciones:{title:'Política de Devoluciones — MotoUrbano MX',body:'<p>Tienes <strong>14 días naturales</strong> desde la entrega para solicitar devolución.</p><p>El producto debe estar <strong>sin uso</strong> y con empaques/etiquetas completos.</p><p>Escríbenos a <a href="mailto:hola@motourbano.shop">hola@motourbano.shop</a> o por WhatsApp con tu <strong>número de pedido</strong>.</p><p>Tras validar, hacemos reembolso por el mismo medio de pago.</p>'},
+        privacidad:{title:'Aviso de Privacidad — MotoUrbano MX',body:'<p>Usamos tus datos para <strong>gestión de pedidos</strong>, atención y comunicaciones.</p><p>Compartimos lo mínimo con terceros (paquetería, pagos) o por obligación legal.</p><p>Derechos ARCO: <a href="mailto:hola@motourbano.shop">hola@motourbano.shop</a>.</p>'},
+        terminos:{title:'Términos y Condiciones — MotoUrbano MX',body:'<p>El uso del sitio implica aceptación de estos términos. Precios y disponibilidad pueden cambiar.</p><p>Imágenes ilustrativas. Si hay error o falta de inventario, se puede cancelar con reembolso íntegro.</p><p>Dudas: <a href="mailto:hola@motourbano.shop">hola@motourbano.shop</a>.</p>'}
+      };
+      window.MU_openLegal = function(key){
+        const data=(window.MU_LEGAL||{})[key]; if(!data) return false;
+        const modal=document.getElementById('legalModal');
+        const body =document.getElementById('legalBody');
+        const title=document.getElementById('legalTitle');
+        if(!modal||!body||!title) return false;
+        title.textContent=data.title;
+        body.innerHTML='<div class="sub" style="text-align:left">'+data.body+'</div>';
+        modal.classList.add('open');
+        return false;
+      };
+    })();
+    /* ========================================= */
+
+    document.addEventListener('DOMContentLoaded', function(){
+      const $ = (sel,ctx)=> (ctx||document).querySelector(sel);
+      const $$= (sel,ctx)=> [].slice.call((ctx||document).querySelectorAll(sel));
+
+      const header = $('#siteHeader');
+      function updateHeaderUi(){
+        if(!header) return;
+        const sc=window.scrollY||window.pageYOffset;
+        header.classList.toggle('is-scrolled', sc>8);
+        const h=header.getBoundingClientRect().height;
+        document.documentElement.style.setProperty('--header-h', h+'px');
+      }
+      function scrollToId(id){
+        const el=document.querySelector(id); if(!el||!header) return;
+        const headerH=header.getBoundingClientRect().height;
+        const y=el.getBoundingClientRect().top + window.pageYOffset - headerH - 6;
+        window.scrollTo({top:y,behavior:'smooth'});
+      }
+      const y=$('#year'); if(y) y.textContent=new Date().getFullYear();
+
+      /* Filtros */
+      const filterPills=$$('#filters .pill');
+      const prodCards=$$('#gridProds article.prod');
+      function applyFilter(cat){
+        filterPills.forEach(p=> p.classList.toggle('is-active', p.dataset.cat===cat));
+        prodCards.forEach(card=> card.classList.toggle('hidden', !(cat==='all'||card.dataset.cat===cat)));
+        scrollToId('#productos');
+      }
+      const filtersContainer = $('#filters');
+      filtersContainer?.addEventListener('click', e => {
+        const pill = e.target.closest('.pill');
+        if (pill) applyFilter(pill.dataset.cat);
+      });
+      $$('.js-cat').forEach(tile=> tile.addEventListener('click', ()=> applyFilter(tile.dataset.cat)));
+
+      /* ===== Modal producto ===== */
+      const modal=$('#modal'), mTitle=$('#mTitle'), mPrice=$('#mPrice'),
+            mMain=$('#mMain'), mThumbs=$('#mThumbs'),
+            mPrev=$('#mPrev'), mNext=$('#mNext'),
+            qMinus=$('#qMinus'), qPlus=$('#qPlus'), qInput=$('#qInput'),
+            mAdd=$('#mAdd'), mDesc=$('#mDesc');
+
+      const lightbox=$('#lightbox'), lbImg=$('#lbImg'), lbPrev=$('#lbPrev'), lbNext=$('#lbNext');
+
+      const toast=$('#toast'); let current={images:[],index:0,name:'',priceText:'',price:0, main:''};
+
+      function bullets(text){ return (text||'').split('·').map(s=>s.trim()).filter(Boolean); }
+      function setActiveThumb(){ $$('#mThumbs img').forEach(t=> t.classList.toggle('active', t.getAttribute('data-src')===mMain.dataset.src)); }
+      function showImage(idx){
+        if(!current.images.length) return;
+        current.index=(idx+current.images.length)%current.images.length;
+        const nextSrc=current.images[current.index];
+        mMain.classList.add('is-loading');
+        const im=new Image(); im.decoding='async';
+        im.onload=function(){ mMain.src=nextSrc; mMain.dataset.src=nextSrc; mMain.alt=current.name; mMain.classList.remove('is-loading'); setActiveThumb(); };
+        im.src=nextSrc;
+      }
+      function openProductModal(card){
+        let gallery=[]; try{ gallery=JSON.parse(card.getAttribute('data-gallery')||'[]'); }catch(e){ gallery=[]; }
+        current={ name:card.dataset.name, priceText:card.dataset.price, price:parseInt((card.dataset.price||'').replace(/[^0-9]/g,''),10)||0, main:card.getAttribute('data-main')||'', images:[], index:0 };
+        current.images=[current.main].concat(gallery.filter(Boolean));
+        mTitle.textContent=current.name||'Producto';
+        mPrice.textContent=current.priceText||'';
+        mMain.classList.remove('is-loading'); mMain.src=current.images[0]; mMain.dataset.src=current.images[0]; mMain.alt=current.name;
+        mThumbs.innerHTML=current.images.map((src,i)=> `<img data-src="${src}" alt="Vista ${i+1} ${current.name}" loading="lazy" decoding="async" src="${src}" class="${i===0?'active':''}">`).join('');
+        setActiveThumb();
+        mThumbs.onclick=function(e){
+          const img=e.target.closest('img'); if(!img) return;
+          const idx=current.images.indexOf(img.getAttribute('data-src'));
+          if(idx>-1){ showImage(idx); }
+        };
+        mMain.onclick=function(){ openLightbox(mMain.src, mMain.alt); };
+        mPrev.onclick=function(){ showImage(current.index-1); };
+        mNext.onclick=function(){ showImage(current.index+1); };
+        // Swipe móvil
+        let sx=0,sy=0,dx=0,dy=0;
+        mMain.addEventListener('touchstart',function(ev){ if(ev.touches.length!==1)return; sx=ev.touches[0].clientX; sy=ev.touches[0].clientY; },{passive:true});
+        mMain.addEventListener('touchmove',function(ev){ if(ev.touches.length!==1)return; dx=ev.touches[0].clientX-sx; dy=ev.touches[0].clientY-sy; },{passive:true});
+        mMain.addEventListener('touchend',function(){ if(Math.abs(dx)>40 && Math.abs(dy)<40){ if(dx<0)showImage(current.index+1); else showImage(current.index-1);} dx=dy=0; },{passive:true});
+        mDesc.innerHTML=bullets(card.dataset.desc||'').map(li=> '<li>'+li+'</li>').join('');
+        qInput.value=1;
+        modal.classList.add('open');
+        current.images.slice(1).forEach(src=>{ const i=new Image(); i.decoding='async'; i.src=src; });
+      }
+      function openLightbox(src,alt){ if(!lbImg||!lightbox) return; lbImg.src=src; lbImg.alt=alt||''; lightbox.classList.add('open'); }
+      lbPrev?.addEventListener('click', () => { showImage(current.index-1); lbImg.src=current.images[current.index]; });
+      lbNext?.addEventListener('click', () => { showImage(current.index+1); lbImg.src=current.images[current.index]; });
+
+      /* Carrito */
+      const cartModal=$('#cart'), cBody=$('#cBody'), cTotal=$('#cTotal'), cClear=$('#cClear'),
+            ppAmount=$('#ppAmount'), ppBusiness=$('#ppBusiness');
+      const PAYPAL_BUSINESS='tu-correo-paypal@ejemplo.com'; if(ppBusiness) ppBusiness.value=PAYPAL_BUSINESS;
+
+      const STORAGE_KEY='mu_cart';
+      const readCart =()=>{ try{ return JSON.parse(localStorage.getItem(STORAGE_KEY)||'[]'); }catch(e){ return []; } };
+      const writeCart=(items)=> localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+      const cartSum =(items)=> items.reduce((s,i)=> s+i.price*i.qty,0);
+      function updateCount(){ const items=readCart(); const n=items.reduce((s,i)=>s+i.qty,0); const cc=$('#cartCount'); if(cc) cc.textContent=n; }
+
+      function renderCart(){
+        const items=readCart();
+        if(cBody){
+          if(items.length===0){
+            cBody.innerHTML='<p class="sub">Tu carrito está vacío.</p>';
+          }else{
+            cBody.innerHTML=items.map((i,idx)=>`
+              <div class="cart-item">
+                <img src="${i.img}" alt="${i.name}" loading="lazy" decoding="async">
+                <div><div style="font-weight:700">${i.name}</div><div class="sub">$${i.price} MXN c/u</div></div>
+                <div style="display:flex;align-items:center;gap:8px">
+                  <div class="qtyline">
+                    <button type="button" data-act="minus" data-idx="${idx}" aria-label="Quitar uno">−</button>
+                    <input type="number" min="1" value="${i.qty}" data-idx="${idx}" data-act="input" />
+                    <button type="button" data-act="plus" data-idx="${idx}" aria-label="Añadir uno">+</button>
+                  </div>
+                  <button class="close" type="button" data-del="${idx}">Eliminar</button>
+                </div>
+              </div>`).join('');
+          }
+        }
+        const total=cartSum(items);
+        if(cTotal) cTotal.textContent='$'+total+' MXN';
+        if(ppAmount) ppAmount.value=Number(total).toFixed(2);
+      }
+
+      document.body.addEventListener('click', function(e){
+        const card = e.target.closest('article.prod');
+        if (card && $('#gridProds').contains(card)) { openProductModal(card); return; }
+        if (e.target.closest('#cartBtn')) { e.preventDefault(); renderCart(); cartModal.classList.add('open'); return; }
+      });
+
+      cBody?.addEventListener('click', function(e){
+        const del=e.target.closest('[data-del]');
+        if(del){ const idx=parseInt(del.dataset.del,10); const items=readCart(); items.splice(idx,1); writeCart(items); updateCount(); renderCart(); return; }
+        const act=e.target.closest('button[data-act]');
+        if(act){ const idx=parseInt(act.dataset.idx,10); const items=readCart(); if(!items[idx]) return;
+          if(act.dataset.act==='minus'){ items[idx].qty=Math.max(1,(items[idx].qty||1)-1); }
+          if(act.dataset.act==='plus'){ items[idx].qty=(items[idx].qty||1)+1; }
+          writeCart(items); updateCount(); renderCart();
+        }
+      });
+      cBody?.addEventListener('change', function(e){
+        const inp=e.target.closest('input[data-act="input"]'); if(!inp) return;
+        const idx=parseInt(inp.dataset.idx,10); const items=readCart(); if(!items[idx]) return;
+        const v=Math.max(1, parseInt(inp.value,10)||1); items[idx].qty=v; writeCart(items); updateCount(); renderCart();
+      });
+      $('#cClear')?.addEventListener('click', function(){ writeCart([]); updateCount(); renderCart(); });
+
+      function showToast(txt){ const t=$('#toast'); if(!t) return; if(txt) t.textContent=txt; t.style.opacity='1'; t.style.transform='translateX(-50%) translateY(-6px)'; setTimeout(()=>{ t.style.opacity='0'; t.style.transform='translateX(-50%)'; t.textContent='Añadido al carrito'; }, 1400); }
+      $('#mAdd')?.addEventListener('click', function(){
+        const qty=Math.max(1, parseInt($('#qInput').value,10)||1);
+        const items=readCart(); const name=$('#mTitle').textContent;
+        const price=parseInt(($('#mPrice').textContent||'').replace(/[^0-9]/g,''),10)||0; const img=$('#mMain').src;
+        const found=items.find(it=> it.name===name && it.img===img && it.price===price);
+        if(found){ found.qty+=qty; } else { items.push({name,price,img,qty}); }
+        writeCart(items); updateCount(); renderCart(); document.getElementById('modal').classList.remove('open'); showToast();
+      });
+
+      /* HOVER/SWAP: crear hover-img con la SEGUNDA foto */
+      $$('#gridProds article.prod').forEach(function(card){
+        let g=[]; try{ g=JSON.parse(card.getAttribute('data-gallery')||'[]'); }catch(e){ g=[]; }
+        const wrap = card.querySelector('.img-wrap');
+        const base = card.querySelector('.base-img');
+        const second = (g && g[0]) ? g[0] : null;
+        if(wrap && base && second){
+          const h = document.createElement('img');
+          h.className='hover-img';
+          h.alt=(card.dataset.name||'')+' vista';
+          h.loading='lazy'; h.decoding='async';
+          h.addEventListener('load', ()=> { card.classList.add('ready'); });
+          h.src=second;
+          wrap.appendChild(h);
+        }
+      });
+
+      updateHeaderUi();
+      window.addEventListener('scroll', updateHeaderUi, {passive:true});
+      window.addEventListener('resize', updateHeaderUi);
+      if(location.hash){ setTimeout(()=>{ scrollToId(location.hash); }, 50); }
+      try{
+        const items=JSON.parse(localStorage.getItem('mu_cart')||'[]');
+        const n=items.reduce((s,i)=>s+i.qty,0);
+        const cc=$('#cartCount'); if(cc) cc.textContent=n;
+      }catch(_){ const cc=$('#cartCount'); if(cc) cc.textContent='0'; }
+    });
+  </script>
 </body>
 </html>
