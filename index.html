@@ -74,7 +74,7 @@
         .prod{display:flex;flex-direction:column;cursor:pointer;transition:box-shadow .15s, border-color .15s; width:100%; max-width:500px; margin:0 4px; border:1px solid var(--line); border-radius:18px}
         .prod .img-wrap{position:relative; width:100%}
         .prod .img-wrap img{aspect-ratio:1/1;object-fit:cover;background:#f4f4f4; width:100%; height:auto; display:block; transition:opacity .18s ease}
-        /* 🔧 FIX: asegurar que la hover-img cubre totalmente la base */
+        /* 🔧 asegurar que la hover-img cubre totalmente la base */
         .prod .img-wrap img.hover-img{position:absolute; inset:0; opacity:0; width:100%; height:100%; object-fit:cover; z-index:1}
         .prod.ready:hover .img-wrap img.hover-img,
         .prod.ready:focus-within .img-wrap img.hover-img{opacity:1}
@@ -159,56 +159,17 @@
         #faq .answer{margin-top:8px}
         .floating-wa{position:fixed; right:16px; bottom:16px; width:64px; height:64px; display:flex; align-items:center; justify-content:center; z-index:45; cursor:pointer}
         .floating-wa img{ width:64px; height:64px; display:block }
-        .trustbar {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-        .modal-body.prod{
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
+        .trustbar { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+        .modal-body.prod{ display: flex; flex-direction: column; gap: 20px; }
         @media(min-width: 900px) {
-            .modal-body.prod {
-                flex-direction: row;
-                align-items: center; 
-            }
+            .modal-body.prod { flex-direction: row; align-items: center; }
         }
-        .media-wrap {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-        .detail-col {
-            flex: 1;
-            align-items: center;
-            text-align: center;
-        }
-        .m-main {
-            flex: 1;
-            object-fit: contain;
-            width: 100%;
-            height: auto;
-        }
-        .thumbs {
-            justify-content: center;
-        }
-        .features {
-            list-style: none;
-            padding: 0;
-            margin: 0 0 16px;
-            text-align: left; 
-        }
-        .features li {
-            position: relative;
-            padding-left: 22px;
-            margin: 8px 0;
-            width: fit-content;
-            margin-left: auto;
-            margin-right: auto;
-        }
+        .media-wrap { flex: 1; display: flex; flex-direction: column; }
+        .detail-col { flex: 1; align-items: center; text-align: center; }
+        .m-main { flex: 1; object-fit: contain; width: 100%; height: auto; }
+        .thumbs { justify-content: center; }
+        .features { list-style: none; padding: 0; margin: 0 0 16px; text-align: left; }
+        .features li { position: relative; padding-left: 22px; margin: 8px 0; width: fit-content; margin-left: auto; margin-right: auto; }
     </style>
 </head>
 <body>
@@ -459,7 +420,8 @@
       <div class="contact-item">
         <strong>Devoluciones</strong>
         <div class="sub">Plazo de 14 días</div>
-        <a class="btn" href="#" onclick="return (document.getElementById('legalModal').classList.add('open'), false)">Ver política</a>
+        <!-- ✅ ahora carga contenido -->
+        <a class="btn" href="#" onclick="return (MU_openLegal('devoluciones'), false)">Ver política</a>
       </div>
     </div>
   </section>
@@ -473,10 +435,11 @@
     </div>
 
     <div class="container footer-legal" style="padding-bottom:6px">
-      <a href="#" onclick="return (document.getElementById('legalModal').classList.add('open'), false)">Envíos</a><span class="dot">·</span>
-      <a href="#" onclick="return (document.getElementById('legalModal').classList.add('open'), false)">Devoluciones</a><span class="dot">·</span>
-      <a href="#" onclick="return (document.getElementById('legalModal').classList.add('open'), false)">Privacidad</a><span class="dot">·</span>
-      <a href="#" onclick="return (document.getElementById('legalModal').classList.add('open'), false)">Términos</a>
+      <!-- ✅ todos llaman a MU_openLegal -->
+      <a href="#" onclick="return (MU_openLegal('envios'), false)">Envíos</a><span class="dot">·</span>
+      <a href="#" onclick="return (MU_openLegal('devoluciones'), false)">Devoluciones</a><span class="dot">·</span>
+      <a href="#" onclick="return (MU_openLegal('privacidad'), false)">Privacidad</a><span class="dot">·</span>
+      <a href="#" onclick="return (MU_openLegal('terminos'), false)">Términos</a>
     </div>
 
     <div class="container copy">
@@ -587,6 +550,28 @@
   </div>
 
   <script>
+    /* ========= Bloque LEGAL (global) ========= */
+    (function(){
+      window.MU_LEGAL = {
+        envios:{title:'Política de Envíos — MotoUrbano MX',body:'<p>Envíos a todo México mediante mensajería certificada. Tiempo estimado: <strong>10 a 20 días hábiles</strong> según tu zona.</p><p>Compartimos tu <strong>número de guía</strong> por correo para rastreo.</p><p>Si hay retrasos de paquetería, te acompañamos en todo momento.</p><p class="sub">Contacto: <a href="mailto:hola@motourbano.shop">hola@motourbano.shop</a></p>'},
+        devoluciones:{title:'Política de Devoluciones — MotoUrbano MX',body:'<p>Tienes <strong>14 días naturales</strong> desde la entrega para solicitar devolución.</p><p>El producto debe estar <strong>sin uso</strong> y con empaques/etiquetas completos.</p><p>Escríbenos a <a href="mailto:hola@motourbano.shop">hola@motourbano.shop</a> o por WhatsApp con tu <strong>número de pedido</strong>.</p><p>Tras validar, hacemos reembolso por el mismo medio de pago.</p>'},
+        privacidad:{title:'Aviso de Privacidad — MotoUrbano MX',body:'<p>Usamos tus datos para <strong>gestión de pedidos</strong>, atención y comunicaciones.</p><p>Compartimos lo mínimo con terceros (paquetería, pagos) o por obligación legal.</p><p>Derechos ARCO: <a href="mailto:hola@motourbano.shop">hola@motourbano.shop</a>.</p>'},
+        terminos:{title:'Términos y Condiciones — MotoUrbano MX',body:'<p>El uso del sitio implica aceptación de estos términos. Precios y disponibilidad pueden cambiar.</p><p>Imágenes ilustrativas. Si hay error o falta de inventario, se puede cancelar con reembolso íntegro.</p><p>Dudas: <a href="mailto:hola@motourbano.shop">hola@motourbano.shop</a>.</p>'}
+      };
+      window.MU_openLegal = function(key){
+        const data=(window.MU_LEGAL||{})[key]; if(!data) return false;
+        const modal=document.getElementById('legalModal');
+        const body =document.getElementById('legalBody');
+        const title=document.getElementById('legalTitle');
+        if(!modal||!body||!title) return false;
+        title.textContent=data.title;
+        body.innerHTML='<div class="sub" style="text-align:left">'+data.body+'</div>';
+        modal.classList.add('open');
+        return false;
+      };
+    })();
+    /* ========================================= */
+
     document.addEventListener('DOMContentLoaded', function(){
       const $ = (sel,ctx)=> (ctx||document).querySelector(sel);
       const $$= (sel,ctx)=> [].slice.call((ctx||document).querySelectorAll(sel));
@@ -745,7 +730,7 @@
         writeCart(items); updateCount(); renderCart(); document.getElementById('modal').classList.remove('open'); showToast();
       });
 
-      /* HOVER/SWAP: crear hover-img con la SEGUNDA foto (primera del gallery) y marcar .ready al cargar */
+      /* HOVER/SWAP: crear hover-img con la SEGUNDA foto */
       $$('#gridProds article.prod').forEach(function(card){
         let g=[]; try{ g=JSON.parse(card.getAttribute('data-gallery')||'[]'); }catch(e){ g=[]; }
         const wrap = card.querySelector('.img-wrap');
