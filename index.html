@@ -17,36 +17,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700;800&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="styles.css" />
-
-    <script>
-    (function(){
-      window.MU_LEGAL = {
-        envios:{title:'Política de Envíos — MotoUrbano MX',body:'<p>Envíos a todo México mediante mensajería certificada. Tiempo estimado: <strong>10 a 20 días hábiles</strong> según tu zona.</p><p>Compartimos tu <strong>número de guía</strong> por correo para rastreo.</p><p>Si hay retrasos de paquetería, te acompañamos en todo momento.</p><p class="sub">Contacto: <a href="mailto:hola@motourbano.shop">hola@motourbano.shop</a></p>'},
-        devoluciones:{title:'Política de Devoluciones — MotoUrbano MX',body:'<p>Tienes <strong>14 días naturales</strong> desde la entrega para solicitar devolución.</p><p>El producto debe estar <strong>sin uso</strong> y con empaques/etiquetas completos.</p><p>Escríbenos a <a href="mailto:hola@motourbano.shop">hola@motourbano.shop</a> o por WhatsApp con tu <strong>número de pedido</strong>.</p><p>Tras validar, hacemos reembolso por el mismo medio de pago.</p>'},
-        privacidad:{title:'Aviso de Privacidad — MotoUrbano MX',body:'<p>Usamos tus datos para <strong>gestión de pedidos</strong>, atención y comunicaciones.</p><p>Compartimos lo mínimo con terceros (paquetería, pagos) o por obligación legal.</p><p>Derechos ARCO: <a href="mailto:hola@motourbano.shop">hola@motourbano.shop</a>.</p>'},
-        terminos:{title:'Términos y Condiciones — MotoUrbano MX',body:'<p>El uso del sitio implica aceptación de estos términos. Precios y disponibilidad pueden cambiar.</p><p>Imágenes ilustrativas. Si hay error o falta de inventario, se puede cancelar con reembolso íntegro.</p><p>Dudas: <a href="mailto:hola@motourbano.shop">hola@motourbano.shop</a>.</p>'}
-      };
-      window.MU_openLegal = function(key){
-        const data=(window.MU_LEGAL||{})[key]; if(!data) return false;
-        const modal=document.getElementById('legalModal'); const body=document.getElementById('legalBody'); const title=document.getElementById('legalTitle');
-        if(!modal||!body||!title) return false;
-        title.textContent=data.title; body.innerHTML='<div class="sub" style="text-align:left">'+data.body+'</div>';
-        modal.classList.add('open'); return false;
-      };
-      window.MU_openMailModal = function(){
-        const modal=document.getElementById('emailModal');
-        if(modal){ modal.classList.add('open'); }
-        return false;
-      };
-      window.MU_copyEmail = function(){
-        const email='hola@motourbano.shop';
-        navigator.clipboard?.writeText(email);
-        const t=document.getElementById('toast');
-        if(t){ t.textContent='Correo copiado'; t.style.opacity='1'; t.style.transform='translateX(-50%) translateY(-6px)'; setTimeout(()=>{ t.style.opacity='0'; t.style.transform='translateX(-50%)'; t.textContent='Añadido al carrito'; }, 1200); }
-        return false;
-      };
-    })();
-    </script>
 </head>
 <body>
     <header class="site" id="siteHeader">
@@ -274,7 +244,7 @@
             <div class="contact-item">
                 <strong>Email</strong>
                 <div class="sub">hola@motourbano.shop</div>
-                <a class="btn" href="#" onclick="return MU_openMailModal()">Enviar correo</a>
+                <a class="btn" href="#" data-modal-target="emailModal">Enviar correo</a>
             </div>
             <div class="contact-item">
                 <strong>WhatsApp</strong>
@@ -284,7 +254,7 @@
             <div class="contact-item">
                 <strong>Devoluciones</strong>
                 <div class="sub">Plazo de 14 días</div>
-                <a class="btn" href="#" onclick="return MU_openLegal('devoluciones')">Ver política</a>
+                <a class="btn" href="#" data-legal="devoluciones">Ver política</a>
             </div>
         </div>
     </section>
@@ -297,10 +267,10 @@
         </div>
 
         <div class="container footer-legal" style="padding-bottom:6px">
-            <a href="#" onclick="return MU_openLegal('envios')">Envíos</a><span class="dot">·</span>
-            <a href="#" onclick="return MU_openLegal('devoluciones')">Devoluciones</a><span class="dot">·</span>
-            <a href="#" onclick="return MU_openLegal('privacidad')">Privacidad</a><span class="dot">·</span>
-            <a href="#" onclick="return MU_openLegal('terminos')">Términos</a>
+            <a href="#" data-legal="envios">Envíos</a><span class="dot">·</span>
+            <a href="#" data-legal="devoluciones">Devoluciones</a><span class="dot">·</span>
+            <a href="#" data-legal="privacidad">Privacidad</a><span class="dot">·</span>
+            <a href="#" data-legal="terminos">Términos</a>
         </div>
 
         <div class="container copy">
@@ -351,8 +321,8 @@
             <div class="modal-body" style="display:block">
                 <p class="sub" style="text-align:center;margin:0 0 14px">Escríbenos a <strong>hola@motourbano.shop</strong></p>
                 <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
-                    <a class="btn" href="mailto:hola@motourbano.shop?subject=Consulta%20MotoUrbano%20MX" onclick="event.stopPropagation()">Abrir cliente de correo</a>
-                    <button class="btn" onclick="return MU_copyEmail()">Copiar correo</button>
+                    <a class="btn" href="mailto:hola@motourbano.shop?subject=Consulta%20MotoUrbano%20MX">Abrir cliente de correo</a>
+                    <button class="btn" data-action="copy-email">Copiar correo</button>
                 </div>
             </div>
         </div>
