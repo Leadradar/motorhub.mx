@@ -88,7 +88,6 @@
     .prod .img-wrap{position:relative; width:100%}
     .prod .img-wrap img{aspect-ratio:1/1;object-fit:cover;background:#f4f4f4; width:100%; height:auto; display:block; transition:opacity .18s ease}
     .prod .img-wrap img.hover-img{position:absolute; inset:0; opacity:0}
-    /* SOLO si la tarjeta está lista (segunda imagen cargada) hacemos el swap */
     .prod.ready:hover .img-wrap img.hover-img{opacity:1}
     .prod.ready:hover .img-wrap img.base-img{opacity:0}
     .prod .pad{padding:12px; text-align:center}
@@ -179,14 +178,9 @@
     #faq summary{cursor:pointer;font-weight:700}
     #faq .answer{margin-top:8px}
 
-    /* WhatsApp flotante — redondo real */
+    /* WhatsApp flotante (restaurado como antes) */
     .floating-wa{position:fixed; right:16px; bottom:16px; width:64px; height:64px; display:flex; align-items:center; justify-content:center; z-index:45; cursor:pointer}
-    .floating-wa img{
-      width:64px; height:64px; display:block;
-      border-radius:50%;
-      background:#fff;           /* mismo blanco de la web */
-      box-shadow:0 8px 24px rgba(0,0,0,.12);
-    }
+    .floating-wa img{ width:64px; height:64px; display:block }
   </style>
 
   <!-- Datos legales + helpers -->
@@ -493,7 +487,7 @@
     </div>
   </footer>
 
-  <!-- WhatsApp flotante -->
+  <!-- WhatsApp flotante (restaurado) -->
   <a class="floating-wa" href="https://wa.me/520000000000" target="_blank" rel="noopener" aria-label="WhatsApp">
     <img src="img/whatsapp.png" alt="WhatsApp" width="64" height="64" decoding="async" loading="lazy">
   </a>
@@ -681,7 +675,6 @@
         if(mThumbs) mThumbs.innerHTML=current.images.map((src,i)=> `<img data-src="${src}" alt="Vista ${i+1} ${current.name}" loading="lazy" decoding="async" src="${src}">`).join('');
         setActiveThumb();
 
-        // Al hacer clic en thumbnail: solo cambiamos imagen (no abrimos lightbox)
         if(mThumbs) mThumbs.onclick=function(e){
           const img=e.target.closest('img'); if(!img) return;
           const idx=current.images.indexOf(img.getAttribute('data-src'));
@@ -705,7 +698,7 @@
         if(modal) modal.classList.add('open');
 
         // Prefetch silencioso
-        current.images.slice(1).forEach(src=>{ const i=new Image(); i.decoding='async'; i.src=src; });
+        current.images.slice(1).forEach(src=>{ const i=new Image(); i.decoding='async'; i.onload=()=>{ /* no-op */ }; i.src=src; });
       }
 
       /* Lightbox */
@@ -807,26 +800,26 @@
         a.addEventListener('click', function(e){ e.preventDefault(); const id=a.getAttribute('href'); if(id && id.length>1){ scrollToId(id); } });
       });
 
-      /* Prefetch + HOVER seguro: añadimos hover-img y marcamos .ready sólo cuando cargue */
+      /* Prefetch + HOVER seguro: crear hover-img y marcar .ready cuando la 2ª imagen haya cargado */
       const grid = $('#gridProds');
       $$('#gridProds article.prod').forEach(function(card){
         let g=[]; try{ g=JSON.parse(card.getAttribute('data-gallery')||'[]'); }catch(e){ g=[]; }
         const wrap = card.querySelector('.img-wrap');
         const base = card.querySelector('.base-img');
-        const second = (g && g[0]) ? g[0] : (base ? base.getAttribute('src') : null);
-        if(wrap && second){
+        const second = (g && g[0]) ? g[0] : null;
+        if(wrap && base && second){
           const h = document.createElement('img');
           h.className='hover-img';
           h.alt=(card.dataset.name||'')+' vista';
           h.loading='lazy'; h.decoding='async';
           h.style.opacity='0';
-          h.addEventListener('load', ()=> { card.classList.add('ready'); }); // habilita swap SOLO cuando hay imagen
+          h.addEventListener('load', ()=> { card.classList.add('ready'); });
           h.src=second;
           wrap.appendChild(h);
         }
       });
 
-      /* Delegación de CLICK para abrir modal (evita dobles listeners) */
+      /* Delegación de CLICK para abrir modal */
       if(grid){
         grid.addEventListener('click', function(e){
           const card = e.target.closest('article.prod');
