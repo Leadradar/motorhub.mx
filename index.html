@@ -92,72 +92,28 @@
         .btn{display:inline-flex;align-items:center;gap:8px;background:#fff;color:#000;border:1px solid var(--accent);border-radius:12px;padding:10px 14px;cursor:pointer;transition:background .15s,border-color .15s, box-shadow .15s}
         .btn:hover{background:var(--accent-weak);border-color:var(--accent);box-shadow:inset 0 0 0 2px var(--accent-weak)}
         .close{border:none;background:#f3f3f3;border-radius:10px;padding:8px 10px;cursor:pointer}
-
-        /* ========= MODAL (mejora visual y centrado) ========= */
-        .modal{position:fixed;inset:0;background:rgba(0,0,0,.55);display:none;align-items:center;justify-content:center;padding:24px;z-index:60;backdrop-filter:saturate(120%) blur(2px)}
+        .modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;padding:16px;z-index:60}
         .modal.open{display:flex}
-        .modal-card{
-            background:#fff;
-            border-radius:20px;
-            width:min(94vw,1040px);
-            max-height:92vh;
-            margin:auto;                 /* asegura centrado absoluto */
-            display:flex;flex-direction:column;overflow:hidden;
-            border:1px solid var(--line);
-            box-shadow:0 24px 60px rgba(0,0,0,.18), 0 8px 24px rgba(0,0,0,.12);
-        }
-        .modal-head{
-            display:flex;justify-content:space-between;align-items:center;
-            padding:14px 18px;border-bottom:1px solid var(--line);
-            background:linear-gradient(#fff, #fcfcfc);
-        }
-        .modal-title{font:800 18px/1.2 Poppins,system-ui}
-        .modal-body{display:grid;gap:18px;padding:18px;overflow:auto;align-items:start}
-        /* Layout más pro para productos */
-        .modal-body.prod{
-            grid-template-columns:1fr;
-            max-width:100%;
-            margin:0 auto;
-        }
-        @media(min-width:900px){
-            .modal-body.prod{
-                grid-template-columns:58% 42%;
-                gap:22px;
-                padding:22px;
-            }
-        }
-        .media-wrap{position:relative; border:1px solid var(--line); border-radius:14px; padding:10px; background:#fafafa}
-        .m-main{
-            width:100%; max-height:64vh; object-fit:contain; border-radius:10px;
-            background:#f6f6f6; cursor:zoom-in; box-shadow:inset 0 0 0 1px #eee;
-        }
+        .modal-card{background:#fff;border-radius:18px;max-width:1120px;width:min(96vw,1120px);max-height:92vh;display:flex;flex-direction:column;overflow:hidden;border:1px solid var(--line);margin:auto}
+        .modal-head{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid var(--line)}
+        .modal-title{font:700 18px/1.2 Poppins,system-ui}
+        .modal-body{display:grid;gap:16px;padding:16px;overflow:auto;align-items:start}
+        @media(min-width:900px){.modal-body.prod{grid-template-columns:60% 40%}}
+        .media-wrap{position:relative}
+        .m-main{width:100%;max-height:80vh;object-fit:contain;border-radius:12px;background:#f7f7f7;cursor:zoom-in}
         .m-main.is-loading{background:linear-gradient(90deg,#f3f3f3 25%,#e9e9e9 37%,#f3f3f3 63%);background-size:400% 100%;animation:sheen 1.2s infinite}
         @keyframes sheen{0%{background-position:100% 0}100%{background-position:0 0}}
         .nav-arrow{position:absolute;top:50%;transform:translateY(-50%);background:#ffffffcc;border:1px solid var(--line);border-radius:12px;padding:8px 10px;cursor:pointer}
-        .nav-arrow.prev{left:12px}
-        .nav-arrow.next{right:12px}
-        .thumbs{
-            display:grid; grid-template-columns:repeat(5,1fr); gap:10px; margin-top:10px
-        }
-        .thumbs img{
-            width:100%; height:84px; object-fit:cover; border-radius:10px; border:2px solid transparent; cursor:pointer; background:#fff; box-shadow:0 2px 8px rgba(0,0,0,.05)
-        }
-        .thumbs img:hover{border-color:#ddd}
+        .nav-arrow.prev{left:8px}
+        .nav-arrow.next{right:8px}
+        .thumbs{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:8px}
+        .thumbs img{width:100%;height:84px;object-fit:cover;border-radius:10px;border:2px solid transparent;cursor:pointer;background:#fafafa}
         .thumbs img.active{border-color:#000}
-        .detail-col{
-            display:flex; flex-direction:column; align-items:flex-start; gap:12px;
-            border:1px solid var(--line); border-radius:14px; padding:16px; background:#fff
-        }
-        @media(min-width:900px){ .detail-col{ position:sticky; top:8px } }
-        .badge-price{
-            display:inline-block;background:var(--accent-weak);border:1px solid var(--accent);
-            border-radius:12px;padding:10px 14px;font:800 22px/1 Poppins,system-ui;margin:0 0 6px
-        }
-        .features{list-style:none;padding:0;margin:6px 0 10px}
+        .detail-col{display:flex;flex-direction:column;align-items:flex-start}
+        .badge-price{display:inline-block;background:var(--accent-weak);border:1px solid var(--accent);border-radius:999px;padding:10px 14px;font:800 22px/1 Poppins,system-ui;margin:0 0 12px}
+        .features{list-style:none;padding:0;margin:0 0 16px}
         .features li{position:relative;padding-left:22px;margin:8px 0}
         .features li::before{content:"";position:absolute;left:0;top:7px;width:10px;height:10px;border-radius:50%;background:var(--accent-weak);border:1px solid var(--accent)}
-        /* ========= /MODAL ========= */
-
         .lightbox{position:fixed;inset:0;background:#000000eb;display:none;align-items:center;justify-content:center;z-index:80;touch-action:none}
         .lightbox.open{display:flex}
         .lightbox img{max-width:95vw;max-height:95vh;object-fit:contain;transform-origin:center center;transition:transform .06s linear}
@@ -204,18 +160,16 @@
         .floating-wa{position:fixed; right:16px; bottom:16px; width:64px; height:64px; display:flex; align-items:center; justify-content:center; z-index:45; cursor:pointer}
         .floating-wa img{ width:64px; height:64px; display:block }
         .trustbar { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
-        /* (mantengo tu bloque original de modal-body.prod y columnas para no romper nada)
-           Nota: ya está sobreescrito arriba con el layout mejorado y centrado */
         .modal-body.prod{ display: flex; flex-direction: column; gap: 20px; }
         @media(min-width: 900px) {
-            .modal-body.prod { flex-direction: row; align-items: flex-start; }
+            .modal-body.prod { flex-direction: row; align-items: center; }
         }
         .media-wrap { flex: 1; display: flex; flex-direction: column; }
-        .detail-col { flex: 1; align-items: flex-start; text-align: left; }
+        .detail-col { flex: 1; align-items: center; text-align: center; }
         .m-main { flex: 1; object-fit: contain; width: 100%; height: auto; }
         .thumbs { justify-content: center; }
         .features { list-style: none; padding: 0; margin: 0 0 16px; text-align: left; }
-        .features li { position: relative; padding-left: 22px; margin: 8px 0; width: auto; margin-left: 0; margin-right: 0; }
+        .features li { position: relative; padding-left: 22px; margin: 8px 0; width: fit-content; margin-left: auto; margin-right: auto; }
     </style>
 </head>
 <body>
@@ -323,7 +277,7 @@
       <article class="card prod shadow"
         data-cat="soportes"
         data-name="Soporte manillar antivibración"
-        data-price="$499 MXN"
+        data-price="$629 MXN"
         data-desc="Sujeción firme · Absorción de vibraciones · Compatible con la mayoría de manillares"
         data-main="img/cat-soportes.jpg"
         data-gallery='["img/soporte-antivibracion-01.jpg","img/soporte-antivibracion-02.jpg","img/soporte-antivibracion-03.jpg","img/soporte-antivibracion-04.jpg"]'>
@@ -333,7 +287,7 @@
         <div class="pad">
           <div class="title">Soporte manillar antivibración</div>
           <div class="meta">
-            <span class="price-badge">$499 MXN</span>
+            <span class="price-badge">$629 MXN</span>
             <span class="stars">★★★★★ <span style="opacity:.7">(demo)</span></span>
           </div>
         </div>
@@ -343,7 +297,7 @@
       <article class="card prod shadow"
         data-cat="guantes"
         data-name="Guantes impermeables táctiles"
-        data-price="$649 MXN"
+        data-price="$599 MXN"
         data-desc="Impermeables · Dedos táctiles · Refuerzos en palma"
         data-main="img/cat-guantes.jpg"
         data-gallery='["img/guantes-urbanos-verano-01.jpg","img/guantes-urbanos-verano-02.jpg"]'>
@@ -353,7 +307,7 @@
         <div class="pad">
           <div class="title">Guantes impermeables táctiles</div>
           <div class="meta">
-            <span class="price-badge">$649 MXN</span>
+            <span class="price-badge">$599 MXN</span>
             <span class="stars">★★★★★ <span style="opacity:.7">(demo)</span></span>
           </div>
         </div>
@@ -363,7 +317,7 @@
       <article class="card prod shadow"
         data-cat="chalecos"
         data-name="Chaleco reflectante"
-        data-price="$299 MXN"
+        data-price="$249 MXN"
         data-desc="Alta visibilidad · Ajuste sencillo · Ligero"
         data-main="img/cat-chalecos.jpg"
         data-gallery='["img/chaleco-fosforito-01.jpg","img/chaleco-fosforito-02.jpg"]'>
@@ -373,7 +327,7 @@
         <div class="pad">
           <div class="title">Chaleco reflectante</div>
           <div class="meta">
-            <span class="price-badge">$299 MXN</span>
+            <span class="price-badge">$249 MXN</span>
             <span class="stars">★★★★★ <span style="opacity:.7">(demo)</span></span>
           </div>
         </div>
@@ -383,7 +337,7 @@
       <article class="card prod shadow"
         data-cat="rinoneras"
         data-name="Riñonera impermeable"
-        data-price="$549 MXN"
+        data-price="$499 MXN"
         data-desc="Impermeable · Cierre seguro · Bolsillos internos"
         data-main="img/cat-rinoneras.jpg"
         data-gallery='["img/rinonera-impermeable-01.jpg","img/rinonera-impermeable-02.jpg","img/rinonera-impermeable-03.jpg","img/rinonera-impermeable-04.jpg","img/rinonera-impermeable-05.jpg"]'>
@@ -393,7 +347,7 @@
         <div class="pad">
           <div class="title">Riñonera impermeable</div>
           <div class="meta">
-            <span class="price-badge">$549 MXN</span>
+            <span class="price-badge">$499 MXN</span>
             <span class="stars">★★★★★ <span style="opacity:.7">(demo)</span></span>
           </div>
         </div>
@@ -403,7 +357,7 @@
       <article class="card prod shadow"
         data-cat="bolsas"
         data-name="Bolsa trasera impermeable"
-        data-price="$799 MXN"
+        data-price="$749 MXN"
         data-desc="Montaje rápido · Resistente al agua · Capacidad ampliable"
         data-main="img/cat-bolsas.jpg"
         data-gallery='["img/bolsa-trasera-impermeable-01.jpg","img/bolsa-trasera-impermeable-02.jpg"]'>
@@ -413,7 +367,7 @@
         <div class="pad">
           <div class="title">Bolsa trasera impermeable</div>
           <div class="meta">
-            <span class="price-badge">$799 MXN</span>
+            <span class="price-badge">$749 MXN</span>
             <span class="stars">★★★★★ <span style="opacity:.7">(demo)</span></span>
           </div>
         </div>
@@ -515,11 +469,11 @@
         <div class="detail-col">
           <div id="mPrice" class="badge-price"></div>
           <ul id="mDesc" class="features"></ul>
-          <div style="display:flex;align-items:center;gap:12px;margin-bottom:6px">
-            <div class="qty" role="group" aria-label="Cantidad" style="display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#f6f6f6">
-              <button type="button" id="qMinus" aria-label="Reducir cantidad" style="background:none;border:none;padding:8px 12px;cursor:pointer;font-weight:700">−</button>
-              <input type="number" id="qInput" value="1" min="1" inputmode="numeric" style="width:44px;text-align:center;border:none;padding:8px 0;background:transparent;font:inherit" />
-              <button type="button" id="qPlus" aria-label="Aumentar cantidad" style="background:none;border:none;padding:8px 12px;cursor:pointer;font-weight:700">+</button>
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+            <div class="qty" role="group" aria-label="Cantidad">
+              <button type="button" id="qMinus" aria-label="Reducir cantidad">−</button>
+              <input type="number" id="qInput" value="1" min="1" inputmode="numeric" />
+              <button type="button" id="qPlus" aria-label="Aumentar cantidad">+</button>
             </div>
             <button class="btn" id="mAdd" type="button">Añadir al carrito</button>
           </div>
