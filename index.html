@@ -32,6 +32,8 @@
         .card{background:var(--elev);border:1px solid var(--line);border-radius:18px;overflow:hidden}
         .shadow{box-shadow:var(--shadow)}
         .accent-perma{background:var(--accent-weak)!important;border-color:var(--accent)!important;box-shadow:inset 0 0 0 2px var(--accent-weak)!important}
+
+        /* Header */
         header.site{position:sticky; top:0; z-index:40; background:#fff; border-bottom:1px solid var(--line); transition:padding .18s ease, box-shadow .18s ease}
         .header-wrap{display:flex;flex-direction:column;align-items:center;gap:8px;padding:var(--header-pad-y) 0}
         .brand-stack{display:flex;flex-direction:column;align-items:center;gap:6px}
@@ -49,7 +51,10 @@
         header.site.is-scrolled .brand-stack img{height:52px}
         header.site.is-scrolled .brand-title{font-size:18px}
         header.site.is-scrolled .header-wrap{padding:8px 0}
+
         section{scroll-margin-top:calc(var(--header-h) + 8px); content-visibility:auto; contain-intrinsic-size:auto 600px;}
+
+        /* Hero */
         .hero{border-bottom:1px solid var(--line);background:#fff}
         .hero .wrap{display:flex;flex-direction:column;align-items:center;gap:14px;padding:36px 0}
         .hero .logo-big img{width:340px;height:auto}
@@ -61,11 +66,15 @@
         .sub{color:var(--muted);text-align:center}
         .chips-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:center;margin-top:14px}
         .chip{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);color:#333;padding:8px 12px;border-radius:12px;white-space:nowrap}
+
+        /* Categorías */
         #categorias h2,#categorias .sub{text-align:center}
         .tile{position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:#fff;cursor:pointer;transition:box-shadow .15s, border-color .15s}
         .tile img{width:100%;height:200px;object-fit:cover}
         .tile .label{position:absolute;left:50%;bottom:10px;transform:translateX(-50%);background:#000000b3;padding:8px 10px;border-radius:10px;color:#fff;font-weight:800}
         .tile:hover{border-color:var(--accent); box-shadow:inset 0 0 0 2px var(--accent-weak)}
+
+        /* Productos */
         #productos{padding-bottom:30px}
         #productos .filters{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:12px 0 6px}
         .pill{border:1px solid #000;background:#fff;border-radius:999px;padding:8px 12px;cursor:pointer;transition:border-color .15s, box-shadow .15s, background .15s}
@@ -74,7 +83,7 @@
         .prod{display:flex;flex-direction:column;cursor:pointer;transition:box-shadow .15s, border-color .15s; width:100%; max-width:500px; margin:0 4px; border:1px solid var(--line); border-radius:18px}
         .prod .img-wrap{position:relative; width:100%}
         .prod .img-wrap img{aspect-ratio:1/1;object-fit:cover;background:#f4f4f4; width:100%; height:auto; display:block; transition:opacity .18s ease}
-        /* 🔧 asegurar que la hover-img cubre totalmente la base */
+        /* hover swap */
         .prod .img-wrap img.hover-img{position:absolute; inset:0; opacity:0; width:100%; height:100%; object-fit:cover; z-index:1}
         .prod.ready:hover .img-wrap img.hover-img,
         .prod.ready:focus-within .img-wrap img.hover-img{opacity:1}
@@ -89,10 +98,13 @@
         .stars{color:#000;font-size:13px}
         .prod:hover{border-color:var(--accent); box-shadow:inset 0 0 0 2px var(--accent-weak)}
         .hidden{display:none !important}
+
+        /* Botones */
         .btn{display:inline-flex;align-items:center;gap:8px;background:#fff;color:#000;border:1px solid var(--accent);border-radius:12px;padding:10px 14px;cursor:pointer;transition:background .15s,border-color .15s, box-shadow .15s}
         .btn:hover{background:var(--accent-weak);border-color:var(--accent);box-shadow:inset 0 0 0 2px var(--accent-weak)}
         .close{border:none;background:#f3f3f3;border-radius:10px;padding:8px 10px;cursor:pointer}
 
+        /* Modal (base) */
         .modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;padding:16px;z-index:60}
         .modal.open{display:flex}
         .modal-card{background:#fff;border-radius:18px;max-width:1120px;width:min(96vw,1120px);max-height:92vh;display:flex;flex-direction:column;overflow:hidden;border:1px solid var(--line);margin:auto}
@@ -115,6 +127,8 @@
         .features{list-style:none;padding:0;margin:0 0 16px}
         .features li{position:relative;padding-left:22px;margin:8px 0}
         .features li::before{content:"";position:absolute;left:0;top:7px;width:10px;height:10px;border-radius:50%;background:var(--accent-weak);border:1px solid var(--accent)}
+
+        /* Lightbox */
         .lightbox{position:fixed;inset:0;background:#000000eb;display:none;align-items:center;justify-content:center;z-index:80;touch-action:none}
         .lightbox.open{display:flex}
         .lightbox img{max-width:95vw;max-height:95vh;object-fit:contain;transform-origin:center center;transition:transform .06s linear}
@@ -122,6 +136,8 @@
         .lightbox .arrow{position:absolute;top:50%;transform:translateY(-50%);background:#ffffff22;color:#fff;border:1px solid #ffffff55;border-radius:10px;padding:10px 12px;cursor:pointer}
         .lightbox .arrow.prev{left:14px}
         .lightbox .arrow.next{right:14px}
+
+        /* Cart */
         .cart{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;padding:16px;z-index:65}
         .cart.open{display:flex}
         .cart-card{background:#fff;border-radius:18px;max-width:760px;width:96%;max-height:92vh;display:flex;flex-direction:column;overflow:hidden;border:1px solid var(--line)}
@@ -136,6 +152,8 @@
         .cart-item .qtyline input{width:44px;text-align:center;border:none;padding:6px}
         .cart-foot{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-top:1px solid var(--line);gap:10px;flex-wrap:wrap}
         #cTotal{display:inline-block;background:var(--accent-weak);border:1px solid var(--accent);border-radius:999px;padding:6px 10px}
+
+        /* Footer */
         footer.site{margin-top:48px;border-top:1px solid var(--line);background:#fff}
         .footer-head{display:flex;flex-direction:column;align-items:center;gap:6px;padding:18px 0 6px}
         .footer-head img{height:72px;width:auto}
@@ -146,6 +164,8 @@
         .footer-legal .dot{opacity:.35}
         .footer-legal a{padding:4px 6px;border-radius:8px;transition:background .15s, border-color .15s, box-shadow .15s; border:1px solid transparent;}
         .footer-legal a:hover{background:var(--accent-weak);border-color:var(--accent);box-shadow:inset 0 0 0 2px var(--accent-weak)}
+
+        /* Contacto */
         .contact-grid{display:grid;gap:16px;grid-template-columns:1fr;max-width:900px;margin:16px auto 0}
         @media(min-width:900px){.contact-grid{grid-template-columns:repeat(3,1fr)}}
         .contact-item{border:1px solid var(--line);border-radius:16px;padding:18px 16px;text-align:center;transition:box-shadow .15s, border-color .15s}
@@ -154,38 +174,45 @@
         .contact-item a.btn{display:inline-block;margin-top:2px; border:1px solid var(--accent);}
         .contact-item a.btn:hover{background:var(--accent-weak);border-color:var(--accent);box-shadow:inset 0 0 0 2px var(--accent-weak)}
         .contact-item:hover{border-color:var(--accent); box-shadow:inset 0 0 0 2px var(--accent-weak)}
+
+        /* FAQ */
         #faq details{border:1px solid var(--line);border-radius:12px;margin:10px 0;padding:10px;background:#f6f6f6;transition:border-color .15s, box-shadow .15s}
         #faq details:hover{border-color:var(--accent); box-shadow:inset 0 0 0 2px var(--accent-weak)}
         #faq summary{cursor:pointer;font-weight:700}
         #faq .answer{margin-top:8px}
+
+        /* WhatsApp flotante */
         .floating-wa{position:fixed; right:16px; bottom:16px; width:64px; height:64px; display:flex; align-items:center; justify-content:center; z-index:45; cursor:pointer}
         .floating-wa img{ width:64px; height:64px; display:block }
-        .trustbar { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
-        .modal-body.prod{ display: flex; flex-direction: column; gap: 20px; }
-        @media(min-width: 900px) {
-            .modal-body.prod { flex-direction: row; align-items: center; }
-        }
-        .media-wrap { flex: 1; display: flex; flex-direction: column; }
-        .detail-col { flex: 1; align-items: center; text-align: center; }
-        .m-main { flex: 1; object-fit: contain; width: 100%; height: auto; }
-        .thumbs { justify-content: center; }
-        .features { list-style: none; padding: 0; margin: 0 0 16px; text-align: left; }
-        .features li { position: relative; padding-left: 22px; margin: 8px 0; width: fit-content; margin-left: auto; margin-right: auto; }
 
-        /* === 🔒 OVERRIDES FINALES: centrar modal de producto (sin tocar HTML/JS) === */
+        /* ======= 🔒 OVERRIDES FINALES PARA EL MODAL DE PRODUCTO ======= */
         .modal.open{align-items:center!important;justify-content:center!important;}
-        .modal-card{
-          width:clamp(320px,92vw,1080px)!important;
-          margin-inline:auto!important;
+        .modal .modal-card{
+          width:clamp(320px,92vw,1100px)!important;
+          margin:0 auto!important;
           box-shadow:var(--shadow)!important;
           border:1px solid var(--line)!important;
         }
-        .modal-body{padding:16px!important;}
-        /* Si el contenido interno se comprimía hacia un lado, centramos los hijos: */
-        .modal-body.prod{justify-content:center!important;justify-items:center!important;}
-        @media(min-width:900px){
-          .modal-body.prod{justify-items:stretch!important;align-items:center!important;}
+        .modal .modal-card .modal-body{padding:20px!important;}
+
+        /* Forzamos 58%/42% con columnas expansibles */
+        .modal .modal-card .modal-body.prod{
+          display:grid!important;
+          grid-template-columns:minmax(0,58%) minmax(0,42%)!important;
+          align-items:center!important;
+          justify-items:center!important;
+          gap:24px!important;
         }
+        @media(max-width:899px){
+          .modal .modal-card .modal-body.prod{
+            grid-template-columns:1fr!important;
+            justify-items:center!important;
+          }
+        }
+        /* Asegurar que bloques ocupan su columna completamente */
+        .modal .modal-card .media-wrap,
+        .modal .modal-card .detail-col{width:100%!important;max-width:100%!important}
+        .modal .modal-card .thumbs{justify-content:center!important}
     </style>
 </head>
 <body>
@@ -436,7 +463,6 @@
       <div class="contact-item">
         <strong>Devoluciones</strong>
         <div class="sub">Plazo de 14 días</div>
-        <!-- ✅ ahora carga contenido -->
         <a class="btn" href="#" onclick="return (MU_openLegal('devoluciones'), false)">Ver política</a>
       </div>
     </div>
@@ -451,7 +477,6 @@
     </div>
 
     <div class="container footer-legal" style="padding-bottom:6px">
-      <!-- ✅ todos llaman a MU_openLegal -->
       <a href="#" onclick="return (MU_openLegal('envios'), false)">Envíos</a><span class="dot">·</span>
       <a href="#" onclick="return (MU_openLegal('devoluciones'), false)">Devoluciones</a><span class="dot">·</span>
       <a href="#" onclick="return (MU_openLegal('privacidad'), false)">Privacidad</a><span class="dot">·</span>
@@ -678,7 +703,7 @@
 
       /* Carrito */
       const cartModal=$('#cart'), cBody=$('#cBody'), cTotal=$('#cTotal'), cClear=$('#cClear'),
-            ppAmount=$('#ppAmount'), ppBusiness=$('#ppBusiness');
+            ppAmount=$('#ppAmount'), ppBusiness=$('#ppBusiness']);
       const PAYPAL_BUSINESS='tu-correo-paypal@ejemplo.com'; if(ppBusiness) ppBusiness.value=PAYPAL_BUSINESS;
 
       const STORAGE_KEY='mu_cart';
@@ -746,7 +771,7 @@
         writeCart(items); updateCount(); renderCart(); document.getElementById('modal').classList.remove('open'); showToast();
       });
 
-      /* HOVER/SWAP: crear hover-img con la SEGUNDA foto */
+      /* Hover swap (segunda foto) */
       $$('#gridProds article.prod').forEach(function(card){
         let g=[]; try{ g=JSON.parse(card.getAttribute('data-gallery')||'[]'); }catch(e){ g=[]; }
         const wrap = card.querySelector('.img-wrap');
