@@ -182,7 +182,6 @@ footer.site{margin-top:48px;border-top:1px solid var(--line);background:#fff}
 @media(min-width: 900px) {
     .modal-body.prod {
         flex-direction: row;
-        /* Alinea los elementos al centro verticalmente */
         align-items: center; 
     }
 }
@@ -193,7 +192,6 @@ footer.site{margin-top:48px;border-top:1px solid var(--line);background:#fff}
 }
 .detail-col {
     flex: 1;
-    /* Alinea el contenido de la columna de detalles al centro */
     align-items: center;
     text-align: center;
 }
@@ -210,14 +208,12 @@ footer.site{margin-top:48px;border-top:1px solid var(--line);background:#fff}
     list-style: none;
     padding: 0;
     margin: 0 0 16px;
-    /* Centra la lista de características */
     text-align: left; 
 }
 .features li {
     position: relative;
     padding-left: 22px;
     margin: 8px 0;
-    /* Ajusta el margen para centrar */
     width: fit-content;
     margin-left: auto;
     margin-right: auto;
