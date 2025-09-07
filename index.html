@@ -183,50 +183,56 @@
         .features { list-style: none; padding: 0; margin: 0 0 16px; text-align: left; }
         .features li { position: relative; padding-left: 22px; margin: 8px 0; width: fit-content; margin-left: auto; margin-right: auto; }
 
-        /* ======= 🔧 MEJORAS DE MODAL DE PRODUCTO (override final, sin romper nada) ======= */
-        /* Centrado del modal cuando está abierto */
+        /* ======= 🔧 OVERRIDES MÍNIMOS PARA CENTRAR EL MODAL DE PRODUCTO ======= */
+        /* 1) Asegurar centrado del overlay cuando está abierto */
         .modal.open{
             align-items:center;
             justify-content:center;
         }
-        /* Card más pro y dimensionado fluido */
+        /* 2) La tarjeta del modal siempre centrada y con ancho fluido */
         .modal-card{
             width:clamp(320px, 92vw, 1080px);
-            margin:auto;
-            box-shadow:0 20px 50px rgba(0,0,0,.18);
-            border:1px solid rgba(0,0,0,.08);
+            margin-inline:auto; /* centra horizontalmente */
         }
-        /* Mantener padding consistente (ya existía) */
-
-        /* Usar GRID 1col móvil / 58-42 desktop para .modal-body.prod */
+        /* 3) Centrar el contenido interno en grid; estirar en desktop */
         .modal-body.prod{
-            display:grid !important;            /* anula el flex anterior de forma segura */
+            display:grid !important;
             grid-template-columns:1fr;
             gap:20px;
+            justify-content:center;   /* centra la rejilla si sobra espacio */
+            justify-items:center;     /* centra los hijos */
             align-items:start;
         }
         @media(min-width:900px){
             .modal-body.prod{
                 grid-template-columns:58% 42%;
-                align-items:center;             /* centra verticalmente el contenido en desktop */
+                justify-items:stretch; /* en desktop, que cada columna ocupe su pista */
+                align-items:center;
             }
         }
-        /* Media & detail columnas pulidas */
-        .media-wrap{
-            gap:10px;
+        /* 4) Columnas con ancho máximo cómodo, centradas en móvil */
+        .media-wrap, .detail-col{
+            width:100%;
+            max-width:640px;
+            margin-inline:auto;
         }
-        .detail-col{
-            gap:12px;
-            align-items:flex-start;             /* texto/cta alineados a la izquierda en desktop */
-            text-align:left;
+        @media(min-width:900px){
+            .media-wrap, .detail-col{ max-width:none; }
+            .detail-col{ text-align:left; align-items:flex-start; }
         }
-        @media(max-width:899.98px){
-            .detail-col{
-                align-items:center;             /* centrado en móvil */
-                text-align:center;
+        /* 5) Full-bleed opcional en móvil (ocupa de lado a lado con look app) */
+        @media(max-width:640px){
+            .modal{ padding:0; }
+            .modal-card{
+                width:100vw;
+                max-width:none;
+                height:100vh;
+                max-height:none;
+                border-radius:0;
             }
+            .modal-body{ padding:16px; }
         }
-        /* Thumbs más limpios y accesibles */
+        /* 6) Thumbs más claras y accesibles (sin tocar HTML/JS) */
         .thumbs{
             grid-auto-rows:84px;
         }
