@@ -2,7 +2,6 @@ document.addEventListener('DOMContentLoaded', function(){
     const $ = (sel,ctx)=> (ctx||document).querySelector(sel);
     const $$= (sel,ctx)=> [].slice.call((ctx||document).querySelectorAll(sel));
 
-    // Almacenamos las referencias de los elementos del DOM una sola vez para eficiencia
     const header = $('#siteHeader');
     const prodCards = $$('#gridProds article.prod');
     const filterPills = $$('#filters .pill');
@@ -16,17 +15,16 @@ document.addEventListener('DOMContentLoaded', function(){
           mAdd = $('#mAdd');
     
     const cartModal = $('#cart'), cBody = $('#cBody'), cTotal = $('#cTotal'), cClear = $('#cClear'),
-          ppAmount = $('#ppAmount'), ppBusiness = $('#ppBusiness');
+          ppAmount = $('#ppAmount'), ppBusiness = $('#ppBusiness']);
     
     const lightbox = $('#lightbox'), lbImg = $('#lbImg'), lbClose = $('#lbClose'),
           lbPrev = $('#lbPrev'), lbNext = $('#lbNext');
     
     const toast = $('#toast');
     
-    // El estado actual del producto en el modal
     let currentProduct = { images:[], index:0, name:'', priceText:'', price:0 };
 
-    /* --- Funcionalidades de la interfaz de usuario --- */
+    /* --- Funcionalidades de UI/UX --- */
     function updateHeaderUi(){
       if (!header) return;
       const scrolled = window.scrollY > 8;
@@ -47,7 +45,6 @@ document.addEventListener('DOMContentLoaded', function(){
       scrollToId('#productos');
     }
 
-    // Funciones para abrir y cerrar modales (simplificadas)
     function openModal(modalEl) { modalEl?.classList.add('open'); }
     function closeModal(modalEl) { modalEl?.classList.remove('open'); }
 
@@ -155,12 +152,12 @@ document.addEventListener('DOMContentLoaded', function(){
     prodCards.forEach(card => {
         let gallery = [];
         try { gallery = JSON.parse(card.dataset.gallery || '[]'); } catch(e) {}
-        const wrap = card.querySelector('.img-wrap');
         const secondImageSrc = gallery[0] || null;
-        if (!wrap || !secondImageSrc) return;
+        if (!secondImageSrc) return;
         const imgHover = new Image();
         imgHover.src = secondImageSrc;
         imgHover.onload = () => {
+            const wrap = card.querySelector('.img-wrap');
             const h = document.createElement('img');
             h.className='hover-img';
             h.alt=(card.dataset.name||'')+' vista';
@@ -175,16 +172,15 @@ document.addEventListener('DOMContentLoaded', function(){
 
     /* --- GESTIÓN DE EVENTOS (todo en un solo bloque) --- */
     
-    // Eventos de la interfaz (scroll, resize, clic en menú)
     window.addEventListener('scroll', updateHeaderUi, { passive: true });
     window.addEventListener('resize', updateHeaderUi);
+    
     $$('.menu a[href^="#"]').forEach(a => a.addEventListener('click', function(e){
         e.preventDefault();
         const id = this.getAttribute('href');
         if (id && id.length > 1) scrollToId(id);
     }));
 
-    // Eventos para filtros de productos y categorías
     const filtersContainer = $('#filters');
     if (filtersContainer) filtersContainer.addEventListener('click', e => {
       const pill = e.target.closest('.pill');
@@ -197,31 +193,32 @@ document.addEventListener('DOMContentLoaded', function(){
       if (tile) applyFilter(tile.dataset.cat);
     });
 
-    // Eventos para abrir y cerrar modales y lightbox
+    // Eventos para abrir modales
     if (grid) grid.addEventListener('click', e => {
       const card = e.target.closest('article.prod');
       if (card) openProductModal(card);
     });
-
-    modal.addEventListener('click', e => {
-      if (e.target === modal || e.target.closest('#mClose')) {
-        closeModal(modal);
-      }
-    });
-
-    lightbox.addEventListener('click', e => {
-      if (e.target === lightbox || e.target.closest('#lbClose')) {
-        closeModal(lightbox);
-      }
-    });
     
+    cartBtn?.addEventListener('click', e => {
+        e.preventDefault();
+        renderCart();
+        openModal(cartModal);
+    });
+
+    // Eventos para cerrar modales (Solución robusta)
+    $$('.modal, .lightbox').forEach(modalEl => {
+      modalEl.addEventListener('click', e => {
+        const closeBtn = e.target.closest('.close') || e.target.closest('.x');
+        if (e.target === modalEl || closeBtn) {
+            e.stopPropagation(); // Evita que el clic se propague
+            closeModal(modalEl);
+        }
+      });
+    });
+
     document.addEventListener('keydown', e => {
       if(e.key === 'Escape') {
-        closeModal(modal);
-        closeModal(lightbox);
-        closeModal(cartModal);
-        closeModal($('#legalModal'));
-        closeModal($('#emailModal'));
+        $$('.modal.open, .lightbox.open').forEach(el => closeModal(el));
       }
     });
 
@@ -236,7 +233,6 @@ document.addEventListener('DOMContentLoaded', function(){
     if (mNext) mNext.addEventListener('click', () => showImageInModal(currentProduct.index + 1));
     
     // Eventos del carrito
-    cartBtn?.addEventListener('click', e => { e.preventDefault(); renderCart(); openModal(cartModal); });
     cClear?.addEventListener('click', () => { writeCart([]); updateCartCount(); renderCart(); });
     
     if(cBody){
@@ -284,7 +280,6 @@ document.addEventListener('DOMContentLoaded', function(){
     updateCartCount();
     if(location.hash) setTimeout(() => scrollToId(location.hash), 50);
 
-    // Cargar la segunda imagen para el efecto hover
     prodCards.forEach(card => {
       let gallery = [];
       try { gallery = JSON.parse(card.dataset.gallery || '[]'); } catch(e) {}
@@ -299,6 +294,8 @@ document.addEventListener('DOMContentLoaded', function(){
           h.alt=(card.dataset.name||'')+' vista';
           h.loading='lazy'; h.decoding='async';
           h.src=secondImageSrc;
+          const existingHoverImg = wrap.querySelector('.hover-img');
+          if(existingHoverImg) wrap.removeChild(existingHoverImg);
           wrap.appendChild(h);
           card.classList.add('ready');
       };
