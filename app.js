@@ -8,19 +8,27 @@ document.addEventListener('DOMContentLoaded', function(){
     const filterPills = $$('#filters .pill');
     const grid = $('#gridProds');
     const cartBtn = $('#cartBtn');
+
+    // Modales y lightbox
     const modal = $('#modal'), mTitle = $('#mTitle'), mPrice = $('#mPrice'),
           mMain = $('#mMain'), mThumbs = $('#mThumbs'), mDesc = $('#mDesc'),
           mPrev = $('#mPrev'), mNext = $('#mNext'),
           qMinus = $('#qMinus'), qPlus = $('#qPlus'), qInput = $('#qInput'),
           mAdd = $('#mAdd');
+
     const cartModal = $('#cart'), cBody = $('#cBody'), cTotal = $('#cTotal'), cClear = $('#cClear'),
           ppAmount = $('#ppAmount'), ppBusiness = $('#ppBusiness']);
+
     const lightbox = $('#lightbox'), lbImg = $('#lbImg'), lbClose = $('#lbClose'),
           lbPrev = $('#lbPrev'), lbNext = $('#lbNext');
+
     const toast = $('#toast');
+
+    // Estado global de la galería de imágenes del modal
     let current = { images:[], index:0, name:'', priceText:'', price:0 };
 
     /* --- Funcionalidades de UI/UX --- */
+
     function updateHeaderUi(){
       if (!header) return;
       const scrolled = window.scrollY > 8;
@@ -39,6 +47,7 @@ document.addEventListener('DOMContentLoaded', function(){
       const y = el.getBoundingClientRect().top + window.pageYOffset - headerH - 6;
       window.scrollTo({ top: y, behavior: 'smooth' });
     }
+
     $$('.menu a[href^="#"]').forEach(a => {
         a.addEventListener('click', function(e){
             e.preventDefault();
@@ -54,8 +63,28 @@ document.addEventListener('DOMContentLoaded', function(){
       prodCards.forEach(card => card.classList.toggle('hidden', !(cat === 'all' || card.dataset.cat === cat)));
       scrollToId('#productos');
     }
-    filterPills.forEach(p => p.addEventListener('click', () => applyFilter(p.dataset.cat)));
-    $$('.js-cat').forEach(tile => tile.addEventListener('click', () => applyFilter(tile.dataset.cat)));
+    
+    // Delegación de eventos para filtros de productos
+    const filtersContainer = $('#filters');
+    if (filtersContainer) {
+      filtersContainer.addEventListener('click', (e) => {
+        const pill = e.target.closest('.pill');
+        if (pill) {
+          applyFilter(pill.dataset.cat);
+        }
+      });
+    }
+
+    // Delegación de eventos para las tiles de categorías
+    const categoriesContainer = $('.grid.cols-2.cols-5');
+    if (categoriesContainer) {
+      categoriesContainer.addEventListener('click', (e) => {
+        const tile = e.target.closest('.js-cat');
+        if (tile) {
+          applyFilter(tile.dataset.cat);
+        }
+      });
+    }
 
     const closableModals = ['#legalModal', '#modal', '#cart', '#lightbox', '#emailModal'];
     function attachClosable(modalSel, closeSel){
@@ -92,7 +121,6 @@ document.addEventListener('DOMContentLoaded', function(){
       try { gallery = JSON.parse(card.dataset.gallery || '[]'); } catch(e) {}
       const images = [mainImage].concat(gallery.filter(Boolean));
       const desc = (card.dataset.desc || '').split('·').map(s => s.trim()).filter(Boolean);
-      
       return { name, priceText, price, mainImage, images, desc };
     }
 
@@ -100,7 +128,6 @@ document.addEventListener('DOMContentLoaded', function(){
       if (!current.images.length) return;
       current.index = (idx + current.images.length) % current.images.length;
       const nextSrc = current.images[current.index];
-      
       mMain.classList.add('is-loading');
       const img = new Image();
       img.src = nextSrc;
@@ -114,7 +141,6 @@ document.addEventListener('DOMContentLoaded', function(){
 
     function openProductModal(card){
       current = getProductData(card);
-
       mTitle.textContent = current.name || 'Producto';
       mPrice.textContent = current.priceText || '';
       mMain.src = current.mainImage;
@@ -124,13 +150,6 @@ document.addEventListener('DOMContentLoaded', function(){
       ).join('');
       mDesc.innerHTML = current.desc.map(li => `<li>${li}</li>`).join('');
       qInput.value = 1;
-
-      mThumbs.onclick = (e) => {
-        const img = e.target.closest('img');
-        if (!img) return;
-        const idx = current.images.indexOf(img.getAttribute('data-src'));
-        if (idx > -1) showImage(idx);
-      };
       mMain.onclick = () => openLightbox(mMain.src, mMain.alt);
       mPrev.onclick = () => showImage(current.index - 1);
       mNext.onclick = () => showImage(current.index + 1);
@@ -150,7 +169,6 @@ document.addEventListener('DOMContentLoaded', function(){
         }
         deltaX = 0;
       }, { passive: true });
-
       modal.classList.add('open');
       current.images.slice(1).forEach(src => {
         const img = new Image();
@@ -203,7 +221,6 @@ document.addEventListener('DOMContentLoaded', function(){
           startY = e.touches[0].clientY - ty;
         }
       }, { passive: true });
-
       lightbox.addEventListener('touchmove', (e) => {
         if(e.touches.length === 2){
           const dist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
@@ -262,7 +279,6 @@ document.addEventListener('DOMContentLoaded', function(){
               </div>`
           ).join('');
       }
-
       const total = cartSum(items);
       if(cTotal) cTotal.textContent = `$${total} MXN`;
       if(ppAmount) ppAmount.value = Number(total).toFixed(2);
@@ -339,27 +355,23 @@ document.addEventListener('DOMContentLoaded', function(){
         let gallery = [];
         try { gallery = JSON.parse(card.dataset.gallery || '[]'); } catch(e) {}
         const wrap = card.querySelector('.img-wrap');
-        // Usamos la primera imagen de la galería para el hover
         const secondImageSrc = gallery[0] || null;
-
-        // Si no hay una segunda imagen, no hacemos nada
         if (!wrap || !secondImageSrc) return;
-
-        // Creamos un nuevo elemento de imagen para la segunda vista
-        const imgHover = document.createElement('img');
-        imgHover.className = 'hover-img';
-        imgHover.alt = `${card.dataset.name || ''} vista`;
-        imgHover.loading = 'lazy';
-        imgHover.decoding = 'async';
+        const imgHover = new Image();
         imgHover.src = secondImageSrc;
-        
         imgHover.onload = () => {
-            // Solo añadimos la clase 'ready' si la imagen se cargó correctamente
+            const existingImg = wrap.querySelector('.hover-img');
+            if (existingImg) {
+                wrap.removeChild(existingImg);
+            }
+            const h = document.createElement('img');
+            h.className='hover-img';
+            h.alt=(card.dataset.name||'')+' vista';
+            h.loading='lazy'; h.decoding='async';
+            h.src=secondImageSrc;
+            wrap.appendChild(h);
             card.classList.add('ready');
         };
-        
-        // Añade la imagen "fantasma" al DOM para que empiece a cargar
-        wrap.appendChild(imgHover);
     });
 
     if(location.hash){ setTimeout(() => scrollToId(location.hash), 50); }
